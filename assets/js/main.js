@@ -1,28 +1,18 @@
-
-
-
 $(document).ready(function() {
-
     $('html').addClass('js-enabled');
-
     setup_nivo_lightbox();
     setup_dense();
 
     $(window).load(function() {
         $(".js-preloader").fadeOut(800, function() {
             $(".js-main-container").fadeIn(800);
-
             setup_scrollreveal();
             setup_progress_bar_animation();
         });
     });
-
 });
 
-
-
-function setup_progress_bar_animation()
-{
+function setup_progress_bar_animation() {
     var $animation_elements = $("[class*='a-']");
     var $window = $(window);
 
@@ -37,46 +27,30 @@ function setup_progress_bar_animation()
             var element_top_position = $element.offset().top;
             var element_bottom_position = (element_top_position + element_height);
 
-            // Check to see if this current container is within viewport
             if ((element_bottom_position >= window_top_position) &&
                 (element_top_position <= window_bottom_position)) {
                 $element.addClass('in-view');
 
-                // Animate progress bar
                 if ($element.hasClass('a-progress-bar')) {
                     $element.css('width', $element.attr('data-percent') + '%');
                 }
-
             }
-            //else {
-            //    $element.removeClass('in-view');
-            //}
         });
     });
 
     $window.trigger('scroll');
-
 }
 
-
-
-function setup_dense()
-{
+function setup_dense() {
     if($.isFunction($.fn.dense)) {
-
         $('img').dense({
             'glue': '@'
         });
-
     }
 }
 
-
-
-function setup_scrollreveal()
-{
+function setup_scrollreveal() {
     if(typeof ScrollReveal !== 'undefined' && $.isFunction(ScrollReveal)) {
-
         window.sr = ScrollReveal();
 
         var default_config = {
@@ -86,10 +60,12 @@ function setup_scrollreveal()
             scale: 1,
             mobile: false
         };
+
         var header_config = $.extend(false, default_config, {
             duration: 1200,
             delay: 700
         });
+
         var footer_config = $.extend(false, default_config, {
             duration: 1500,
             distance: 0,
@@ -100,17 +76,11 @@ function setup_scrollreveal()
 
         sr.reveal('.a-header', header_config, default_delay);
         sr.reveal('.a-footer', footer_config, default_delay);
-
     }
-
 }
 
-
-
-function setup_nivo_lightbox()
-{
-    if($.isFunction($.fn.nivoLightbox))
-    {
+function setup_nivo_lightbox() {
+    if($.isFunction($.fn.nivoLightbox)) {
         var $selector = $('.js-lightbox');
 
         // Hide all titles to prevent tooltip from showing
@@ -129,23 +99,20 @@ function setup_nivo_lightbox()
         });
 
         $selector.nivoLightbox({
-            effect: 'fade',                               // The effect to use when showing the lightbox
-            theme: 'default',                             // The lightbox theme to use
-            keyboardNav: true,                            // Enable/Disable keyboard navigation (left/right/escape)
-            clickOverlayToClose: true,                    // If false clicking the "close" button will be the only way to close the lightbox
-            onInit: function(){},                         // Callback when lightbox has loaded
-            beforeShowLightbox: function(){},             // Callback before the lightbox is shown
-            afterShowLightbox: function(lightbox){},      // Callback after the lightbox is shown
-            beforeHideLightbox: function(){},             // Callback before the lightbox is hidden
-            //afterHideLightbox: function(){},              // Callback after the lightbox is hidden
-            onPrev: function(element){},                  // Callback when the lightbox gallery goes to previous item
-            onNext: function(element){},                  // Callback when the lightbox gallery goes to next item
+            effect: 'fade',
+            theme: 'default',
+            keyboardNav: true,
+            clickOverlayToClose: true,
+            onInit: function(){},
+            beforeShowLightbox: function(){},
+            afterShowLightbox: function(lightbox){},
+            beforeHideLightbox: function(){},
+            onPrev: function(element){},
+            onNext: function(element){},
             afterHideLightbox: function() {
-                // Remove title to prevent tooltip from showing
                 $selector.attr('title', '');
             },
-            errorMessage: 'The requested content cannot be loaded. Please try again later.' // Error message when content can't be loaded
+            errorMessage: 'The requested content cannot be loaded. Please try again later.'
         });
-
     }
 }

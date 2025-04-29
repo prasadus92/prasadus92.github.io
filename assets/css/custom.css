@@ -4,7 +4,34 @@
  * Here you can add your custom CSS code.
  */
 
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+
 /* Custom styles for Prasad's portfolio */
+
+/* Font families */
+:root {
+    /* System font stacks for better performance and fallback */
+    --font-heading: 'Quicksand', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+}
+
+/* Apply fonts with fallbacks */
+body {
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4, h5, h6,
+.t-title__first-word, .t-title__second-word,
+.o-section__heading {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
 
 /* Smooth transitions */
 .c-brand__title, .c-brand__sub-title, .c-social-button {
@@ -78,7 +105,7 @@
 }
 
 .c-experience__item h5 {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     margin: 0.5rem 0;
 }
 
@@ -141,17 +168,18 @@
 /* Improved typography */
 .t-title__first-word, .t-title__second-word {
     letter-spacing: -0.5px;
+    font-weight: 600;
 }
 
 @media screen and (max-width: 768px) {
     .t-title__first-word, .t-title__second-word {
-        font-size: 1.8rem;
+        font-size: 2rem;
     }
 }
 
 @media screen and (max-width: 480px) {
     .t-title__first-word, .t-title__second-word {
-        font-size: 1.6rem;
+        font-size: 1.8rem;
     }
 }
 
@@ -175,13 +203,13 @@
 
 @media screen and (max-width: 768px) {
     .t-sub-title {
-        font-size: 1.2rem;
+        font-size: 1.4rem;
     }
 }
 
 @media screen and (max-width: 480px) {
     .t-sub-title {
-        font-size: 1.1rem;
+        font-size: 1.3rem;
     }
 }
 
@@ -219,28 +247,28 @@
 /* Typography responsive adjustments */
 @media screen and (max-width: 768px) {
     .o-section__heading {
-        font-size: 1.6rem;
+        font-size: 1.8rem;
     }
     
     .c-experience__item h4 {
-        font-size: 1.3rem;
+        font-size: 1.5rem;
     }
     
     .c-experience__item h5 {
-        font-size: 1rem;
+        font-size: 1.2rem;
     }
 }
 
 @media screen and (max-width: 480px) {
     .o-section__heading {
-        font-size: 1.4rem;
+        font-size: 1.6rem;
     }
     
     .c-experience__item h4 {
-        font-size: 1.2rem;
+        font-size: 1.4rem;
     }
     
     .c-experience__item h5 {
-        font-size: 0.95rem;
+        font-size: 1.1rem;
     }
 }

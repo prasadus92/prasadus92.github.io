@@ -3,7 +3,7 @@ name: Deploy to S3 and Invalidate CloudFront
 on:
   push:
     branches:
-      - master  # Changed from main to master
+      - master
 
 jobs:
   deploy:
@@ -11,6 +11,18 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build website
+        run: npm run build
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -21,26 +33,7 @@ jobs:
 
       - name: Deploy to S3
         run: |
-          echo "Listing files to be uploaded..."
-          aws s3 sync . s3://prasad.tech --delete \
-            --exclude ".git/*" \
-            --exclude ".github/*" \
-            --exclude ".gitignore" \
-            --exclude "README.md" \
-            --exclude ".DS_Store" \
-            --exclude "*.md" \
-            --exclude "*.log" \
-            --dryrun
-          
-          echo "Uploading files to S3..."
-          aws s3 sync . s3://prasad.tech --delete \
-            --exclude ".git/*" \
-            --exclude ".github/*" \
-            --exclude ".gitignore" \
-            --exclude "README.md" \
-            --exclude ".DS_Store" \
-            --exclude "*.md" \
-            --exclude "*.log"
+          aws s3 sync dist/ s3://prasad.tech --delete
 
       - name: Invalidate CloudFront cache and wait for completion
         run: |
