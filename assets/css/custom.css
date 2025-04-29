@@ -3,3 +3,244 @@
  *
  * Here you can add your custom CSS code.
  */
+
+/* Custom styles for Prasad's portfolio */
+
+/* Smooth transitions */
+.c-brand__title, .c-brand__sub-title, .c-social-button {
+    transition: all 0.3s ease;
+}
+
+/* Profile image */
+.c-avatar__img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid rgba(255,255,255,0.1);
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 1200px) {
+    .c-avatar__img {
+        width: 180px;
+        height: 180px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .c-avatar__img {
+        width: 160px;
+        height: 160px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .c-avatar__img {
+        width: 140px;
+        height: 140px;
+    }
+}
+
+/* Header avatar container */
+.c-header__avatar {
+    padding: 1.5rem 0;
+}
+
+.c-avatar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Section padding */
+.o-section__content {
+    padding: 2rem 3rem;
+}
+
+@media screen and (max-width: 768px) {
+    .o-section__content {
+        padding: 1.5rem 2rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .o-section__content {
+        padding: 1rem 1.5rem;
+    }
+}
+
+/* Experience section */
+.c-experience__item {
+    margin-bottom: 2rem;
+}
+
+.c-experience__item h5 {
+    font-size: 1.1rem;
+    margin: 0.5rem 0;
+}
+
+.c-experience__item h5 a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.c-experience__item h5 a:hover {
+    color: #00ff00;
+}
+
+/* Social buttons */
+.c-social-buttons {
+    display: flex;
+    gap: 1rem;
+    margin: 1.5rem 0;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.c-social-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+    color: inherit;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.c-social-button:hover {
+    transform: translateY(-2px);
+    background: rgba(255,255,255,0.2);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* Modern card styling */
+.o-section {
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+    margin-bottom: 2rem;
+}
+
+@media screen and (max-width: 768px) {
+    .o-section {
+        margin-bottom: 1.5rem;
+    }
+}
+
+.o-section:hover {
+    transform: translateY(-2px);
+}
+
+/* Improved typography */
+.t-title__first-word, .t-title__second-word {
+    letter-spacing: -0.5px;
+}
+
+@media screen and (max-width: 768px) {
+    .t-title__first-word, .t-title__second-word {
+        font-size: 1.8rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .t-title__first-word, .t-title__second-word {
+        font-size: 1.6rem;
+    }
+}
+
+/* Better spacing */
+.o-section__header {
+    margin-bottom: 2rem;
+}
+
+@media screen and (max-width: 768px) {
+    .o-section__header {
+        margin-bottom: 1.5rem;
+    }
+}
+
+/* Improved readability */
+.t-sub-title {
+    font-weight: 300;
+    letter-spacing: 0.5px;
+    line-height: 1.6;
+}
+
+@media screen and (max-width: 768px) {
+    .t-sub-title {
+        font-size: 1.2rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .t-sub-title {
+        font-size: 1.1rem;
+    }
+}
+
+/* Contact section improvements */
+.c-header__contact {
+    margin-top: 2rem;
+}
+
+.c-header__contact-divider {
+    margin: 2rem 0;
+    opacity: 0.2;
+}
+
+/* Grid improvements for mobile */
+@media screen and (max-width: 480px) {
+    .o-grid__col-sm-6 {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    
+    .o-content__body {
+        text-align: left;
+    }
+}
+
+/* Footer social buttons */
+.c-footer__social-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin: 1.5rem 0;
+    flex-wrap: wrap;
+}
+
+/* Typography responsive adjustments */
+@media screen and (max-width: 768px) {
+    .o-section__heading {
+        font-size: 1.6rem;
+    }
+    
+    .c-experience__item h4 {
+        font-size: 1.3rem;
+    }
+    
+    .c-experience__item h5 {
+        font-size: 1rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .o-section__heading {
+        font-size: 1.4rem;
+    }
+    
+    .c-experience__item h4 {
+        font-size: 1.2rem;
+    }
+    
+    .c-experience__item h5 {
+        font-size: 0.95rem;
+    }
+}
