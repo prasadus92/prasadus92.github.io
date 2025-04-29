@@ -21,7 +21,14 @@ jobs:
 
       - name: Deploy to S3
         run: |
-          aws s3 sync . s3://prasad.tech --delete --exclude ".git/*" --exclude ".github/*"
+          aws s3 sync . s3://prasad.tech --delete \
+            --exclude ".git/*" \
+            --exclude ".github/*" \
+            --exclude ".gitignore" \
+            --exclude "README.md" \
+            --exclude ".DS_Store" \
+            --exclude "*.md" \
+            --exclude "*.log"
 
       - name: Invalidate CloudFront cache and wait for completion
         run: |
