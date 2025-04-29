@@ -6,12 +6,36 @@
 
         <title>Prasad Subrahmanya - Entrepreneur & Technology Leader</title>
 
-        <meta name="description" content="Prasad Subrahmanya is a technology entrepreneur and leader, currently building Luminik and SnowOptix. Expert in data observability, event marketing, and product development." />
+        <meta name="description" content="Building Luminik — turning $100K+ event spends into pipeline. Earlier: led 2 ventures at Bain (0 → $3.6M ARR), bootstrapped SnowOptix (now used by McKinsey), raised $2.7M seed for Mainteny in Europe." />
 
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta http-equiv="x-ua-compatible" content="ie=edge" />
         <meta name="keywords" content="prasad subrahmanya, entrepreneur, technology leader, data observability, event marketing, product development, snowoptix, luminik, bain & company, technology consulting" />
+
+        <!-- OpenGraph Meta Tags -->
+        <meta property="og:title" content="Prasad Subrahmanya - Entrepreneur & Technology Leader" />
+        <meta property="og:description" content="Building Luminik — turning $100K+ event spends into pipeline. Earlier: led 2 ventures at Bain (0 → $3.6M ARR), bootstrapped SnowOptix (now used by McKinsey), raised $2.7M seed for Mainteny in Europe." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://prasad.tech" />
+        <meta property="og:image" content="https://prasad.tech/assets/images/header/prasad.jpeg" />
+        <meta property="og:image:alt" content="Prasad Subrahmanya" />
+        <meta property="og:site_name" content="Prasad Subrahmanya" />
+        <meta property="og:locale" content="en_US" />
+
+        <!-- Twitter Card Meta Tags -->
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Prasad Subrahmanya - Entrepreneur & Technology Leader" />
+        <meta name="twitter:description" content="Building Luminik — turning $100K+ event spends into pipeline. Earlier: led 2 ventures at Bain (0 → $3.6M ARR), bootstrapped SnowOptix (now used by McKinsey), raised $2.7M seed for Mainteny in Europe." />
+        <meta name="twitter:image" content="https://prasad.tech/assets/images/header/prasad.jpeg" />
+        <meta name="twitter:image:alt" content="Prasad Subrahmanya" />
+
+        <!-- Favicons -->
+        <link rel="icon" type="image/x-icon" href="assets/favicon/favicon.ico">
+        <link rel="icon" type="image/png" sizes="96x96" href="assets/favicon/favicon-96x96.png">
+        <link rel="icon" type="image/svg+xml" href="assets/favicon/favicon.svg">
+        <link rel="apple-touch-icon" href="assets/favicon/apple-touch-icon.png">
+        <link rel="manifest" href="assets/favicon/site.webmanifest">
 
         <!-- Google Font: Lato -->
         <link href='https://fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic&subset=latin,latin-ext' rel='stylesheet' type='text/css' />
@@ -38,7 +62,7 @@
         <link rel="stylesheet" href="assets/css/main.css" />
         
         <!-- Themes -->
-        <link rel="stylesheet" href="assets/css/themes.dark.css" />
+        <link rel="stylesheet" href="assets/css/themes.dark.css" id="theme-style" />
         
         <!-- Custom CSS -->
         <link rel="stylesheet" href="assets/css/custom.css">
@@ -67,8 +91,6 @@
         </div>
 
         <div class="c-main-container  js-main-container">
-
-
 
             <!-- ################################ -->
             <!-- ############ HEADER ############ -->
@@ -121,6 +143,11 @@
                                             </div><!-- /c-brand -->
                                         </div><!-- /c-header__brand -->
 
+                                        <div class="c-header__theme-toggle">
+                                            <button id="theme-toggle" class="c-theme-toggle t-theme-toggle">
+                                                <i class="fas fa-moon"></i>
+                                            </button>
+                                        </div>
 
                                         <ul class="c-header__social-buttons  c-social-buttons">
                                             <li class="a-header">
@@ -168,14 +195,14 @@
                                             <div class="o-grid__col-md-3  o-grid__col-sm-6">
                                                 <div class="a-header  o-content">
                                                     <div class="o-content__body">
-                                                        <a href="#" target="_self" class="t-link-container">
-                                                            <h4>Web</h4>
-                                                            <p>
+                                                        <h4>Web</h4>
+                                                        <p>
+                                                            <a href="#" target="_self" class="t-link-container">
                                                                 <span class="t-link-container__item--blended">
                                                                     prasad.tech
                                                                 </span>
-                                                            </p>
-                                                        </a><!-- /o-link-container -->
+                                                            </a>
+                                                        </p>
                                                     </div>
                                                 </div><!-- /o-content -->
                                             </div><!-- /o-grid__col -->
@@ -183,14 +210,14 @@
                                             <div class="o-grid__col-md-3  o-grid__col-sm-6">
                                                 <div class="a-header  o-content">
                                                     <div class="o-content__body">
-                                                        <a href="mailto:prasadus92@gmail.com" target="_blank" class="t-link-container">
-                                                            <h4>Email</h4>
-                                                            <p>
+                                                        <h4>Email</h4>
+                                                        <p>
+                                                            <a href="mailto:prasadus92@gmail.com" target="_blank" class="t-link-container">
                                                                 <span class="t-link-container__item--blended">
                                                                     prasadus92@gmail.com
                                                                 </span>
-                                                            </p>
-                                                        </a><!-- /o-link-container -->
+                                                            </a>
+                                                        </p>
                                                     </div>
                                                 </div><!-- /o-content -->
                                             </div><!-- /o-grid__col -->
@@ -207,8 +234,6 @@
 
                 </div><!-- /c-header -->
             </section><!-- /o-section -->
-
-
 
             <!-- ################################ -->
             <!-- ############ INTRO ############# -->
@@ -252,8 +277,6 @@
 
             </section><!-- /o-section -->
 
-
-
             <!-- ################################ -->
             <!-- ########## EXPERIENCE ########## -->
             <!-- ################################ -->
@@ -272,7 +295,7 @@
                                     Experience
                                 </h2>
                                 <div class="o-content__body  o-section__description">
-                                    Yes. I&#39;ve been around.
+                                    Yes. I've been around.
                                 </div>
                             </div>
                         </header><!-- /o-section__header -->
@@ -288,13 +311,13 @@
                                                     <div class="c-experience__item">
                                                         <h4>Founder & CEO</h4>
                                                         <h5><a href="https://www.luminik.io" target="_blank">Luminik</a></h5>
-                                                        <p class="c-experience__date">2024 - Present</p>
+                                                        <p class="c-experience__date">Oct 2024 - Present</p>
                                                         <p>Building an AI co-pilot that automates the manual work in event marketing - from lead capture to follow-ups. Started after discovering how event marketing teams struggle with disconnected tools and manual processes, despite events being 30% of marketing budgets.</p>
                                                     </div>
                                                     <div class="c-experience__item">
                                                         <h4>Founder</h4>
                                                         <h5><a href="https://www.snowoptix.com" target="_blank">SnowOptix</a></h5>
-                                                        <p class="c-experience__date">2023 - Present</p>
+                                                        <p class="c-experience__date">Jan 2024 - Present</p>
                                                         <p>A side project that helps data teams optimize their Snowflake costs. While building this, conversations with GTM leaders led to discovering the bigger opportunity in event marketing, which became Luminik.</p>
                                                     </div>
                                                 </div>
@@ -309,14 +332,14 @@
                                                     <div class="c-experience__item">
                                                         <h4>Venture CTO</h4>
                                                         <h5><a href="https://www.bain.com" target="_blank">Bain & Company</a></h5>
-                                                        <p class="c-experience__date">2021 - 2023</p>
+                                                        <p class="c-experience__date">Nov 2022 - Dec 2023</p>
                                                         <p>Built and scaled Aura, a PE due diligence SaaS platform, from concept to $3.6M ARR in 18 months. Led product development, technical architecture, and engineering team while working closely with PE firms to solve their due diligence challenges.</p>
                                                     </div>
                                                     <div class="c-experience__item">
                                                         <h4>Co-founder & CTO</h4>
                                                         <h5><a href="https://www.mainteny.com" target="_blank">Mainteny</a></h5>
-                                                        <p class="c-experience__date">2020 - 2021</p>
-                                                        <p>Led the company to $2.7M seed building a CRM for maintenance companies. Led engineering, product development, and business operations. Built and launched the MVP in 3 months, scaling the team to 12 engineers and designers. Led customer discovery and GTM strategy, driving early traction.</p>
+                                                        <p class="c-experience__date">Aug 2020 - Oct 2022</p>
+                                                        <p>Led Mainteny to a $2.7M seed round while building a CRM for maintenance companies in Europe. Built and launched the MVP solo in 3 months. Led engineering, product, and ops; scaled the team to 12. Drove customer discovery and GTM, securing early traction.</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -330,8 +353,6 @@
                 </div><!-- /o-container -->
 
             </section><!-- /o-section -->
-
-
 
             <!-- ################################ -->
             <!-- ########## EXPERTISE ########### -->
@@ -433,8 +454,6 @@
 
             </section><!-- /o-section -->
 
-
-
             <!-- ################################ -->
             <!-- ########### EDUCATION ########## -->
             <!-- ################################ -->
@@ -453,7 +472,7 @@
                                     Education
                                 </h2>
                                 <div class="o-content__body  o-section__description">
-                                    Something that&#39;s fundamental, isn&#39;t it?
+                                    Something that's fundamental, isn't it?
                                 </div>
                             </div>
                         </header><!-- /o-section__header -->
@@ -484,7 +503,7 @@
                                                 </div>
                                                 <div class="o-grid__col-md-7">
                                                     <p>
-                                                        Studied history, fundamentals of Computer Science, observing it&#39;s close association with the subject that I always loved - Mathematics; learnt how to translate ideas & solutions to problems into Computer Programs.
+                                                        Studied history, fundamentals of Computer Science, observing it's close association with the subject that I always loved - Mathematics; learnt how to translate ideas & solutions to problems into Computer Programs.
                                                     </p>
                                                 </div>
                                             </div><!-- /o-grid -->
@@ -500,8 +519,6 @@
                 </div><!-- /o-container -->
 
             </section><!-- /o-section -->
-
-
 
             <!-- ################################ -->
             <!-- ############ HEADER ############ -->
@@ -537,7 +554,7 @@
                                             <div class="o-content__body">
                                                 <h3>All Star Q1 - 2015</h3>
                                                 <p>
-                                                    Received the BlueJeans Network&#39;s quarterly "All Star" award for delivering the Business value on time, making the customer happy.
+                                                    Received the BlueJeans Network's quarterly "All Star" award for delivering the Business value on time, making the customer happy.
                                                 </p>
                                             </div>
                                         </div>
@@ -552,8 +569,6 @@
                 </div><!-- /o-container -->
 
             </section><!-- /o-section -->
-
-
 
             <!-- ################################ -->
             <!-- ############ FOOTER ############ -->
@@ -608,14 +623,14 @@
                                     <div class="o-grid__col-md-3  o-grid__col-sm-6">
                                         <div class="o-content">
                                             <div class="o-content__body">
-                                                <a href="#" target="_self" class="t-link-container">
-                                                    <h4>Web</h4>
-                                                    <p>
+                                                <h4>Web</h4>
+                                                <p>
+                                                    <a href="#" target="_self" class="t-link-container">
                                                         <span class="t-link-container__item--blended">
                                                             prasad.tech
                                                         </span>
-                                                    </p>
-                                                </a><!-- /o-link-container -->
+                                                    </a>
+                                                </p>
                                             </div>
                                         </div><!-- /o-content -->
                                     </div><!-- /o-grid__col -->
@@ -623,14 +638,14 @@
                                     <div class="o-grid__col-md-3  o-grid__col-sm-6">
                                         <div class="o-content">
                                             <div class="o-content__body">
-                                                <a href="mailto:prasadus92@gmail.com" target="_blank" class="t-link-container">
-                                                    <h4>Email</h4>
-                                                    <p>
+                                                <h4>Email</h4>
+                                                <p>
+                                                    <a href="mailto:prasadus92@gmail.com" target="_blank" class="t-link-container">
                                                         <span class="t-link-container__item--blended">
                                                             prasadus92@gmail.com
                                                         </span>
-                                                    </p>
-                                                </a><!-- /o-link-container -->
+                                                    </a>
+                                                </p>
                                             </div>
                                         </div><!-- /o-content -->
                                     </div><!-- /o-grid__col -->
@@ -686,8 +701,6 @@
                 </div><!-- /o-container -->
 
             </section><!-- /o-section -->
-
-
 
         </div><!-- /c-main-container -->
 

@@ -308,3 +308,75 @@ body, p, .t-sub-title {
         font-size: 0.95rem;
     }
 }
+
+/* Theme Toggle Button */
+.c-theme-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.c-theme-toggle:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.c-theme-toggle i {
+    font-size: 1.2rem;
+    color: #e0a80d;
+}
+
+/* Light Theme Specific Styles */
+body.light-theme {
+    background: #ffffff;
+    color: #333333;
+}
+
+body.light-theme .t-section__header {
+    background: #f5f5f5;
+}
+
+body.light-theme .t-section__content {
+    background: #ffffff;
+}
+
+body.light-theme .t-title__first-word {
+    color: #333333;
+}
+
+body.light-theme .t-title__second-word {
+    color: #e0a80d;
+}
+
+body.light-theme .t-sub-title {
+    color: #666666;
+}
+
+body.light-theme .t-social-button {
+    background: #f5f5f5;
+    border-color: #e0e0e0;
+}
+
+body.light-theme .t-social-button .fas,
+body.light-theme .t-social-button .far,
+body.light-theme .t-social-button .fal,
+body.light-theme .t-social-button .fab {
+    color: #666666;
+}
+
+body.light-theme .t-social-button:hover {
+    background: #e0e0e0;
+}
+
+body.light-theme .t-social-button:hover .fas,
+body.light-theme .t-social-button:hover .far,
+body.light-theme .t-social-button:hover .fal,
+body.light-theme .t-social-button:hover .fab {
+    color: #e0a80d;
+}
+
+.c-work__description {
+  font-size: 1rem;
+}

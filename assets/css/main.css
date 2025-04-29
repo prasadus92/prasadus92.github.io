@@ -12,6 +12,10 @@ html {
   /* 2 */
   -webkit-text-size-adjust: 100%;
   /* 2 */
+  font-size: 16px;
+  min-height: 100%;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
 }
 
 /**
@@ -487,7 +491,7 @@ pre,
 }
 
 html {
-  font-size: 14px;
+  font-size: 16px;
   min-height: 100%;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
@@ -2125,11 +2129,11 @@ img[height] {
 .c-work__timeframe,
 .c-work__location {
   opacity: .6;
-  font-size: 0.7rem;
+  font-size: 1rem;
 }
 
 .c-work__title {
-  font-size: 0.8rem;
+  font-size: 1rem;
 }
 
 .c-social-button {
@@ -2137,7 +2141,7 @@ img[height] {
   text-align: center;
   width: 33px;
   height: 33px;
-  font-size: .8rem !important;
+  font-size: 1rem !important;
   line-height: 2.7 !important;
   border-radius: 2px;
   border: 2px solid;

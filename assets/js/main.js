@@ -1,12 +1,10 @@
-
-
-
 $(document).ready(function() {
 
     $('html').addClass('js-enabled');
 
     setup_nivo_lightbox();
     setup_dense();
+    setup_theme_toggle();
 
     $(window).load(function() {
         $(".js-preloader").fadeOut(800, function() {
@@ -148,4 +146,37 @@ function setup_nivo_lightbox()
         });
 
     }
+}
+
+function setup_theme_toggle() {
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeStyle = document.getElementById('theme-style');
+    const icon = themeToggle.querySelector('i');
+    
+    // Check for saved theme preference
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light') {
+        document.body.classList.add('light-theme');
+        themeStyle.href = 'assets/css/themes.light.css';
+        icon.classList.remove('fa-moon');
+        icon.classList.add('fa-sun');
+    }
+    
+    themeToggle.addEventListener('click', () => {
+        const isDark = !document.body.classList.contains('light-theme');
+        
+        if (isDark) {
+            document.body.classList.add('light-theme');
+            themeStyle.href = 'assets/css/themes.light.css';
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+            localStorage.setItem('theme', 'light');
+        } else {
+            document.body.classList.remove('light-theme');
+            themeStyle.href = 'assets/css/themes.dark.css';
+            icon.classList.remove('fa-sun');
+            icon.classList.add('fa-moon');
+            localStorage.setItem('theme', 'dark');
+        }
+    });
 }
