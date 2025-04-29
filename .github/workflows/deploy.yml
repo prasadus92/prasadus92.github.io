@@ -21,6 +21,18 @@ jobs:
 
       - name: Deploy to S3
         run: |
+          echo "Listing files to be uploaded..."
+          aws s3 sync . s3://prasad.tech --delete \
+            --exclude ".git/*" \
+            --exclude ".github/*" \
+            --exclude ".gitignore" \
+            --exclude "README.md" \
+            --exclude ".DS_Store" \
+            --exclude "*.md" \
+            --exclude "*.log" \
+            --dryrun
+          
+          echo "Uploading files to S3..."
           aws s3 sync . s3://prasad.tech --delete \
             --exclude ".git/*" \
             --exclude ".github/*" \
