@@ -1,0 +1,79 @@
+:root {
+    --primary-color: #2d2e32;
+    --secondary-color: #64f4ac;
+    --text-color: #555;
+    --background-color: #fff;
+    --card-background: #f9f9f9;
+    --border-color: #e1e1e1;
+    --hover-color: #f0f0f0;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+.navbar {
+    background-color: var(--background-color);
+    box-shadow: 0 2px 10px var(--shadow-color);
+}
+
+.navbar-brand {
+    color: var(--primary-color);
+}
+
+.nav-link {
+    color: var(--primary-color);
+}
+
+.nav-link:hover {
+    color: var(--secondary-color);
+}
+
+.card {
+    background-color: var(--card-background);
+    border: 1px solid var(--border-color);
+}
+
+.card:hover {
+    background-color: var(--hover-color);
+}
+
+.btn-primary {
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+    color: var(--primary-color);
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: var(--background-color);
+}
+
+.social-links a {
+    color: var(--primary-color);
+}
+
+.social-links a:hover {
+    color: var(--secondary-color);
+}
+
+#theme-toggle {
+    color: var(--primary-color);
+}
+
+#theme-toggle:hover {
+    color: var(--secondary-color);
+}
+
+.t-title__first-word {
+    text-transform: uppercase;
+    font-weight: 300;
+}
+
+.t-title__second-word {
+    text-transform: uppercase;
+    font-weight: 700;
+} 
