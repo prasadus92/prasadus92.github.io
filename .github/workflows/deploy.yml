@@ -1,0 +1,34 @@
+name: Deploy to S3 and Invalidate CloudFront
+
+on:
+  push:
+    branches:
+      - main  # or your default branch name
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: Deploy to S3
+        run: |
+          aws s3 sync . s3://prasad.tech --delete --exclude ".git/*" --exclude ".github/*"
+
+      - name: Invalidate CloudFront cache and wait for completion
+        run: |
+          # Create invalidation and capture the invalidation ID
+          INVALIDATION_ID=$(aws cloudfront create-invalidation --distribution-id E19DCJ4ZMA93Y6 --paths "/*" --query 'Invalidation.Id' --output text)
+          
+          # Wait for invalidation to complete
+          echo "Waiting for CloudFront invalidation $INVALIDATION_ID to complete..."
+          aws cloudfront wait invalidation-completed --distribution-id E19DCJ4ZMA93Y6 --id $INVALIDATION_ID
+          echo "CloudFront invalidation completed successfully!" 
