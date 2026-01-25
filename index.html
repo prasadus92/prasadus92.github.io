@@ -46,6 +46,9 @@
     <link rel="stylesheet" href="assets/css/modern.css">
 </head>
 <body>
+    <!-- Skip to content for accessibility -->
+    <a href="#about" class="skip-link">Skip to main content</a>
+
     <!-- Preloader -->
     <div class="preloader" id="preloader">
         <div class="preloader-spinner"></div>
@@ -135,6 +138,12 @@
                         <img src="assets/images/header/prasad.jpeg" alt="Prasad Subrahmanya">
                     </div>
                 </div>
+            </div>
+
+            <!-- Scroll indicator -->
+            <div class="scroll-indicator reveal reveal-delay-4">
+                <span>Scroll</span>
+                <i class="fas fa-chevron-down"></i>
             </div>
         </div>
     </section>
@@ -539,13 +548,23 @@
 
         navToggle.addEventListener('click', () => {
             navLinks.classList.toggle('active');
+            navToggle.classList.toggle('active');
         });
 
         // Close mobile nav when clicking a link
         navLinks.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => {
                 navLinks.classList.remove('active');
+                navToggle.classList.remove('active');
             });
+        });
+
+        // Close mobile nav when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!nav.contains(e.target) && navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+                navToggle.classList.remove('active');
+            }
         });
 
         // Smooth Scroll for Anchor Links
@@ -580,17 +599,64 @@
         window.addEventListener('scroll', revealOnScroll);
         window.addEventListener('load', revealOnScroll);
 
-        // Parallax Effect for Background Orbs
-        document.addEventListener('mousemove', (e) => {
-            const orbs = document.querySelectorAll('.bg-gradient-orb');
-            const x = e.clientX / window.innerWidth;
-            const y = e.clientY / window.innerHeight;
+        // Parallax Effect for Background Orbs (optimized with RAF)
+        let mouseX = 0, mouseY = 0;
+        let currentX = 0, currentY = 0;
+        let rafId = null;
 
-            orbs.forEach((orb, index) => {
-                const speed = (index + 1) * 10;
-                orb.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
-            });
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX / window.innerWidth;
+            mouseY = e.clientY / window.innerHeight;
+
+            if (!rafId) {
+                rafId = requestAnimationFrame(updateParallax);
+            }
         });
+
+        function updateParallax() {
+            // Smooth lerp for fluid motion
+            currentX += (mouseX - currentX) * 0.1;
+            currentY += (mouseY - currentY) * 0.1;
+
+            const orbs = document.querySelectorAll('.bg-gradient-orb');
+            orbs.forEach((orb, index) => {
+                const speed = (index + 1) * 15;
+                orb.style.transform = `translate(${currentX * speed}px, ${currentY * speed}px)`;
+            });
+
+            // Continue animation if mouse is still moving
+            if (Math.abs(mouseX - currentX) > 0.001 || Math.abs(mouseY - currentY) > 0.001) {
+                rafId = requestAnimationFrame(updateParallax);
+            } else {
+                rafId = null;
+            }
+        }
+
+        // Active navigation link tracking
+        const sections = document.querySelectorAll('section[id]');
+        const navLinksAll = document.querySelectorAll('.nav-links a[href^="#"]');
+
+        function updateActiveNav() {
+            const scrollPos = window.scrollY + 100;
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                const sectionId = section.getAttribute('id');
+
+                if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+                    navLinksAll.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${sectionId}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateActiveNav);
+        window.addEventListener('load', updateActiveNav);
     </script>
 </body>
 </html>

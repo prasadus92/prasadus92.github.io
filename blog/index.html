@@ -36,6 +36,9 @@
     <link rel="stylesheet" href="../assets/css/modern.css">
 </head>
 <body>
+    <!-- Skip to content for accessibility -->
+    <a href="#blog-content" class="skip-link">Skip to main content</a>
+
     <!-- Preloader -->
     <div class="preloader" id="preloader">
         <div class="preloader-spinner"></div>
@@ -88,7 +91,7 @@
     </section>
 
     <!-- Blog Posts -->
-    <section class="section" style="padding-top: 0;">
+    <section class="section" id="blog-content" style="padding-top: 0;">
         <div class="container">
             <div class="blog-grid">
                 <!-- Post 1 -->
@@ -252,12 +255,22 @@
 
         navToggle.addEventListener('click', () => {
             navLinks.classList.toggle('active');
+            navToggle.classList.toggle('active');
         });
 
         navLinks.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => {
                 navLinks.classList.remove('active');
+                navToggle.classList.remove('active');
             });
+        });
+
+        // Close mobile nav when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!nav.contains(e.target) && navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+                navToggle.classList.remove('active');
+            }
         });
 
         // Scroll Reveal Animation
