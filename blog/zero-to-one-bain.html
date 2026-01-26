@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Building a $3.6M ARR Product Inside a Consulting Firm - Prasad Subrahmanya</title>
+
+    <meta name="description" content="Lessons from building Aura at Bain & Company - the unique challenges and advantages of venture building inside a large organization." />
+    <meta name="keywords" content="venture building, consulting, Bain, corporate startup, product development, SaaS, entrepreneurship" />
+    <meta name="author" content="Prasad Subrahmanya" />
+
+    <!-- OpenGraph Meta Tags -->
+    <meta property="og:title" content="Building a $3.6M ARR Product Inside a Consulting Firm" />
+    <meta property="og:description" content="Lessons from building Aura at Bain & Company - the unique challenges and advantages of venture building inside a large organization." />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://prasad.tech/blog/zero-to-one-bain.html" />
+    <meta property="og:image" content="https://prasad.tech/assets/images/header/prasad.jpeg" />
+    <meta property="article:author" content="Prasad Subrahmanya" />
+    <meta property="article:published_time" content="2025-01-26" />
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="../assets/favicon/favicon.ico">
+    <link rel="icon" type="image/png" sizes="96x96" href="../assets/favicon/favicon-96x96.png">
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon/favicon.svg">
+    <link rel="apple-touch-icon" href="../assets/favicon/apple-touch-icon.png">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="../assets/plugins/font-awesome/css/fontawesome.min.css" />
+    <link rel="stylesheet" href="../assets/plugins/font-awesome/css/brands.min.css" />
+    <link rel="stylesheet" href="../assets/plugins/font-awesome/css/solid.min.css" />
+    <link rel="stylesheet" href="../assets/plugins/font-awesome/css/regular.min.css" />
+
+    <!-- Modern CSS -->
+    <link rel="stylesheet" href="../assets/css/modern.css">
+</head>
+<body>
+    <!-- Preloader -->
+    <div class="preloader" id="preloader">
+        <div class="preloader-spinner"></div>
+    </div>
+
+    <!-- Animated Background -->
+    <div class="bg-animated">
+        <div class="bg-gradient-orb"></div>
+        <div class="bg-gradient-orb"></div>
+        <div class="bg-gradient-orb"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="nav" id="nav">
+        <div class="container">
+            <div class="nav-content">
+                <a href="../" class="nav-logo">PS</a>
+
+                <ul class="nav-links" id="nav-links">
+                    <li><a href="../#about">About</a></li>
+                    <li><a href="../#experience">Experience</a></li>
+                    <li><a href="../#expertise">Expertise</a></li>
+                    <li><a href="./">Blog</a></li>
+                    <li><a href="../#contact">Contact</a></li>
+                </ul>
+
+                <div class="nav-actions">
+                    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                        <i class="fas fa-moon" id="theme-icon"></i>
+                    </button>
+                    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Post Hero -->
+    <section class="post-hero">
+        <div class="container">
+            <div class="post-meta reveal">
+                <span><i class="far fa-calendar"></i> January 2025</span>
+                <span><i class="far fa-clock"></i> 15 min read</span>
+                <span class="blog-category" style="background: var(--glass-bg); padding: 4px 12px; border-radius: 100px;">Startup Journey</span>
+            </div>
+            <h1 class="reveal reveal-delay-1">Building a $3.6M ARR Product Inside a Consulting Firm</h1>
+            <p class="section-description reveal reveal-delay-2" style="max-width: 700px; margin: 24px auto 0;">
+                Lessons from building Aura at Bain & Company - the unique challenges and advantages of venture building inside a large organization.
+            </p>
+        </div>
+    </section>
+
+    <!-- Post Content -->
+    <article class="post-content">
+        <p class="reveal">
+            When people hear I built a product from zero to $3.6M ARR inside Bain & Company, they usually have one of two reactions.
+        </p>
+
+        <p class="reveal">
+            The startup crowd says: "How did you move fast inside a big consulting firm? Didn't bureaucracy kill you?"
+        </p>
+
+        <p class="reveal">
+            The corporate crowd says: "How did you convince leadership to fund something so risky? Consulting firms hate uncertainty."
+        </p>
+
+        <p class="reveal">
+            Both questions miss the point. Building inside a large organization isn't better or worse than building a traditional startup. It's different. And understanding those differences—really understanding them—determines whether you succeed or fail.
+        </p>
+
+        <h2 class="reveal">The Context: Why Consulting Firms Build Products</h2>
+
+        <p class="reveal">
+            First, some background. Consulting firms have been building products for years, though they don't always talk about it. The logic is simple: consulting revenue is linear (more hours = more revenue), while product revenue can be exponential (build once, sell many times).
+        </p>
+
+        <p class="reveal">
+            But there's a deeper reason. Consulting firms have something startups would kill for: <strong>unfettered access to decision-makers at the world's largest companies</strong>. They spend millions of hours per year understanding customer problems at the highest levels. That's the world's most expensive market research program.
+        </p>
+
+        <p class="reveal">
+            The challenge is translating that insight into products. Most consulting firms fail at this, for reasons I'll explain. But when it works, it works spectacularly well.
+        </p>
+
+        <h2 class="reveal">How Aura Started</h2>
+
+        <p class="reveal">
+            Aura was a PE due diligence platform. The origin story is simple: Bain does hundreds of due diligence projects for private equity firms every year. Each project involves collecting massive amounts of data, running analyses, and producing reports under extreme time pressure.
+        </p>
+
+        <p class="reveal">
+            The existing process was... let's call it artisanal. Consultants would manually gather data from dozens of sources. They'd build one-off spreadsheets. They'd spend nights reformatting slides. Each project reinvented the wheel.
+        </p>
+
+        <p class="reveal">
+            The insight was obvious: Why not build a platform that systematizes this? Automate data collection. Standardize analyses. Make the repeatable parts instant so consultants can focus on the parts that actually require thinking.
+        </p>
+
+        <p class="reveal">
+            That's easy to say. Making it happen inside a consulting firm is hard for reasons that aren't obvious from the outside.
+        </p>
+
+        <h2 class="reveal">The Advantages No One Talks About</h2>
+
+        <p class="reveal">
+            Let me start with what made this easier than a traditional startup:
+        </p>
+
+        <h3 class="reveal">1. Distribution Before Product</h3>
+
+        <p class="reveal">
+            In a startup, you build the product first, then figure out how to reach customers. At Bain, we had the opposite problem. We had hundreds of partners with existing client relationships. Our "go-to-market" was: walk down the hall.
+        </p>
+
+        <p class="reveal">
+            This sounds trivial. It's not. Most startups die from lack of distribution, not lack of product. Having distribution locked in from day one let us focus almost entirely on building the right thing.
+        </p>
+
+        <h3 class="reveal">2. Customer Development on Steroids</h3>
+
+        <p class="reveal">
+            When you're building a B2B product, the hardest part is getting time with decision-makers. They're busy. They don't take cold calls. They definitely don't want to be guinea pigs for your MVP.
+        </p>
+
+        <p class="reveal">
+            At Bain, I had unlimited access to partners who ran PE due diligence. These are people who live the problem every day, who understand the nuances that would take a startup years to discover. Getting an hour of their time was as simple as booking a meeting.
+        </p>
+
+        <p class="reveal">
+            More importantly, I could watch them work. I could sit in on actual due diligence projects and see where the pain points really were—not where people said they were.
+        </p>
+
+        <h3 class="reveal">3. Funding Without Fundraising</h3>
+
+        <p class="reveal">
+            We never did a Series A. We never pitched VCs. The company funded the development, and in return, owned the IP. For someone who'd rather build than pitch, this was ideal.
+        </p>
+
+        <p class="reveal">
+            There's a real cost to fundraising that founders don't talk about enough. It's not just time—though it can easily consume 6 months. It's the mental overhead. You're constantly thinking about your next round, your runway, your valuation. That energy isn't going into the product.
+        </p>
+
+        <p class="reveal">
+            Building inside Bain meant I could focus on one thing: making the product better. Revenue targets existed, but they were collaborative goals, not existential threats.
+        </p>
+
+        <h3 class="reveal">4. Trust By Association</h3>
+
+        <p class="reveal">
+            When a random startup approaches a PE firm with a new due diligence tool, they face a wall of skepticism. Due diligence is sensitive. Data is confidential. Why would anyone trust an unknown entity?
+        </p>
+
+        <p class="reveal">
+            When Bain approaches the same firm with the same tool, the conversation is entirely different. The trust is inherited. The relationships are already there. The brand does the heavy lifting that would otherwise take years of credibility-building.
+        </p>
+
+        <h2 class="reveal">The Disadvantages Everyone Underestimates</h2>
+
+        <p class="reveal">
+            Now here's what made it harder:
+        </p>
+
+        <h3 class="reveal">1. Organizational Immune System</h3>
+
+        <p class="reveal">
+            Large organizations have evolved sophisticated mechanisms for rejecting new things. This isn't malice—it's self-preservation. Most new initiatives fail, and successful companies have learned to be skeptical of shiny objects.
+        </p>
+
+        <p class="reveal">
+            The challenge is that the same immune system that protects against bad ideas also attacks good ones. You spend enormous energy just creating space to exist. Every meeting requires explaining why this matters. Every resource request requires justification.
+        </p>
+
+        <p class="reveal">
+            In a startup, everyone is rowing in the same direction by definition. In a large org, alignment is a constant battle.
+        </p>
+
+        <h3 class="reveal">2. Conflicting Incentives</h3>
+
+        <p class="reveal">
+            Consulting firms make money by selling partner time. A product that automates work is, in some sense, competing with the core business. This creates weird dynamics.
+        </p>
+
+        <p class="reveal">
+            Partners who championed Aura genuinely believed in it. But they also had billable targets. When choosing between staffing a project with consultants (which generates revenue) or using Aura (which requires investment), the short-term math often favored the former.
+        </p>
+
+        <p class="reveal">
+            We had to structure the economics so using Aura was clearly better for partners, not just for the firm. That took a lot of iteration.
+        </p>
+
+        <h3 class="reveal">3. Speed Limits</h3>
+
+        <p class="reveal">
+            Startups move fast because they have nothing to lose. They can ship broken code, pivot weekly, and apologize later. The cost of failure is low because no one knows who they are.
+        </p>
+
+        <p class="reveal">
+            Building inside Bain meant building with the Bain brand. If Aura failed badly in front of a client, that reflected on the firm. This created a natural conservatism that was sometimes appropriate and sometimes suffocating.
+        </p>
+
+        <p class="reveal">
+            We learned to distinguish between "risks that could embarrass the firm" (must avoid) and "risks that are normal product development" (must accept). But this distinction wasn't always obvious, and defaulting to caution was always the safer career move.
+        </p>
+
+        <h3 class="reveal">4. Talent Constraints</h3>
+
+        <p class="reveal">
+            Consulting firms are optimized for hiring consultants. They know how to find, recruit, and develop people who are good at consulting. They're less optimized for hiring engineers, designers, and product managers.
+        </p>
+
+        <p class="reveal">
+            We needed to build a team with startup DNA inside an organization with consulting DNA. This meant competing for talent against actual startups—who could offer equity, flexibility, and culture that matched what these candidates wanted.
+        </p>
+
+        <p class="reveal">
+            The people we did attract were exceptional. But it was always harder than it needed to be.
+        </p>
+
+        <h2 class="reveal">What Actually Made It Work</h2>
+
+        <p class="reveal">
+            Looking back, a few things were decisive:
+        </p>
+
+        <h3 class="reveal">Executive Air Cover</h3>
+
+        <p class="reveal">
+            We had senior partners who believed in the vision and protected us from organizational gravity. When committees wanted to add "oversight," they pushed back. When budgets were scrutinized, they advocated.
+        </p>
+
+        <p class="reveal">
+            This wasn't about politics—it was about giving us the space to actually build. Without that cover, we would have spent all our energy on internal survival instead of product development.
+        </p>
+
+        <h3 class="reveal">Revenue Focus From Day One</h3>
+
+        <p class="reveal">
+            Many corporate venture projects fail because they're treated as R&D experiments. They get funded for "innovation" rather than revenue, which sounds nice but usually means no one cares if they succeed.
+        </p>
+
+        <p class="reveal">
+            Aura was structured as a business from the start. We had revenue targets. We measured ARR. We tracked unit economics. This gave us credibility internally and forced us to build something people would actually pay for.
+        </p>
+
+        <h3 class="reveal">Borrowed Conviction</h3>
+
+        <p class="reveal">
+            In the early days, before we had traction, we needed believers. The consultants who used early versions and gave feedback. The partners who introduced us to clients. The skeptics who asked hard questions and made the product better.
+        </p>
+
+        <p class="reveal">
+            These people lent us their conviction when we didn't have enough of our own. And their credibility within the organization opened doors that would have been closed to outsiders.
+        </p>
+
+        <h2 class="reveal">The 18-Month Timeline</h2>
+
+        <p class="reveal">
+            People are often surprised that we went from zero to $3.6M ARR in 18 months. Here's roughly how it happened:
+        </p>
+
+        <div class="glass-card reveal" style="padding: 24px; margin: 24px 0;">
+            <p style="color: var(--color-text-secondary); margin-bottom: 16px;"><strong>Months 1-3:</strong> Discovery. Interviewed 30+ partners and managers. Shadowed actual due diligence projects. Mapped the workflow in excruciating detail. No code written.</p>
+            <p style="color: var(--color-text-secondary); margin-bottom: 16px;"><strong>Months 4-6:</strong> MVP. Built the smallest thing that could be useful. Focused on data collection automation—the most painful, least interesting part of the work. Deployed on 3 real projects.</p>
+            <p style="color: var(--color-text-secondary); margin-bottom: 16px;"><strong>Months 7-12:</strong> Iteration. Expanded functionality based on real usage. Added analysis modules. Improved the reporting layer. Grew to 15 projects per month.</p>
+            <p style="color: var(--color-text-secondary); margin-bottom: 0;"><strong>Months 13-18:</strong> Scale. Standardized the platform. Built self-service capabilities. Expanded to multiple PE clients. Hit $3.6M ARR run rate.</p>
+        </div>
+
+        <p class="reveal">
+            The key insight is that we never had a "big launch." We grew organically, one project at a time, with each success creating demand for the next.
+        </p>
+
+        <h2 class="reveal">Lessons for Both Worlds</h2>
+
+        <p class="reveal">
+            For people considering building inside large organizations:
+        </p>
+
+        <ul class="reveal">
+            <li><strong>Choose the right problem.</strong> Not every problem is suited to corporate venture building. Look for problems where the organization's existing assets (distribution, trust, customer access) create genuine advantages.</li>
+            <li><strong>Get air cover early.</strong> Find executives who believe in the mission and will protect you from organizational antibodies. Without this, you're fighting with one hand tied behind your back.</li>
+            <li><strong>Make revenue real.</strong> Corporate ventures die when they're treated as innovation theater. Structure your initiative so success is measured the same way as any other business.</li>
+            <li><strong>Move faster than feels comfortable.</strong> The organizational default is caution. You'll need to constantly push for speed while being respectful of real constraints.</li>
+        </ul>
+
+        <p class="reveal">
+            For people building traditional startups who might be competing against corporate ventures:
+        </p>
+
+        <ul class="reveal">
+            <li><strong>Speed is your advantage.</strong> You can move faster than any corporate competitor. Use it ruthlessly.</li>
+            <li><strong>Focus beats resources.</strong> Corporate ventures are always fighting for attention internally. You have the luxury of caring about only one thing.</li>
+            <li><strong>Distribution can be built.</strong> Their existing relationships seem insurmountable, but markets expand. New buyers emerge. Your job is to find them before the big players notice.</li>
+        </ul>
+
+        <h2 class="reveal">The Honest Conclusion</h2>
+
+        <p class="reveal">
+            Building Aura inside Bain was one of the most educational experiences of my career. I learned things about product development, organizational dynamics, and enterprise sales that would have taken much longer to learn elsewhere.
+        </p>
+
+        <p class="reveal">
+            Would I do it again? That depends on the problem. For something like due diligence software—where distribution and trust are everything—the corporate setting made sense. For something requiring rapid iteration and pivoting, I'd choose the startup path.
+        </p>
+
+        <p class="reveal">
+            The real lesson is that there's no universally right answer. The question isn't "startup or corporate?" It's "what does this specific problem require, and which setting gives me the best chance of solving it?"
+        </p>
+
+        <p class="reveal">
+            That's a harder question to answer. But it's the right one to ask.
+        </p>
+
+        <div class="section-divider reveal"></div>
+
+        <p class="reveal" style="font-style: italic; color: var(--color-text-tertiary);">
+            I'm now building Luminik as an independent startup. The problems are different, but many lessons from Bain still apply. If you're navigating similar decisions about where to build, feel free to reach out. Happy to share more specific experiences.
+        </p>
+
+        <!-- Author Info -->
+        <div class="glass-card reveal" style="padding: 32px; margin-top: 48px; display: flex; gap: 24px; align-items: center; flex-wrap: wrap;">
+            <img src="../assets/images/header/prasad.jpeg" alt="Prasad Subrahmanya" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover;">
+            <div style="flex: 1; min-width: 200px;">
+                <h4 style="margin-bottom: 8px;">Prasad Subrahmanya</h4>
+                <p style="color: var(--color-text-secondary); margin-bottom: 8px; font-size: 0.9rem;">
+                    Founder & CEO at Luminik. Previously Venture CTO at Bain & Company where I built Aura from $0 to $3.6M ARR. Before that, Co-founder & CTO at Mainteny ($2.7M seed).
+                </p>
+                <div style="display: flex; gap: 12px;">
+                    <a href="https://linkedin.com/in/prasadus" target="_blank" style="color: var(--color-text-tertiary);"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://github.com/prasadus92" target="_blank" style="color: var(--color-text-tertiary);"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Back to Blog -->
+        <div class="reveal" style="margin-top: 48px; text-align: center;">
+            <a href="./" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i>
+                Back to Blog
+            </a>
+        </div>
+    </article>
+
+    <!-- Footer -->
+    <footer class="footer" style="margin-top: 80px;">
+        <div class="container">
+            <div class="footer-content">
+                <p class="footer-text">
+                    &copy; 2025 Prasad Subrahmanya. Built with passion in Oslo, Norway.
+                </p>
+                <div class="footer-links">
+                    <a href="mailto:prasadus92@gmail.com">Email</a>
+                    <a href="https://linkedin.com/in/prasadus" target="_blank">LinkedIn</a>
+                    <a href="https://github.com/prasadus92" target="_blank">GitHub</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Preloader
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('preloader').classList.add('hidden');
+            }, 500);
+        });
+
+        // Theme Toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        const html = document.documentElement;
+
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        html.setAttribute('data-theme', savedTheme);
+        updateThemeIcon(savedTheme);
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        });
+
+        function updateThemeIcon(theme) {
+            themeIcon.className = theme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+        }
+
+        // Navigation Scroll Effect
+        const nav = document.getElementById('nav');
+        nav.classList.add('scrolled');
+
+        // Mobile Navigation Toggle
+        const navToggle = document.getElementById('nav-toggle');
+        const navLinks = document.getElementById('nav-links');
+
+        navToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            navToggle.classList.toggle('active');
+        });
+
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                navToggle.classList.remove('active');
+            });
+        });
+
+        // Scroll Reveal Animation
+        const revealElements = document.querySelectorAll('.reveal');
+
+        const revealOnScroll = () => {
+            const windowHeight = window.innerHeight;
+            revealElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const revealPoint = 150;
+                if (elementTop < windowHeight - revealPoint) {
+                    element.classList.add('active');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', revealOnScroll);
+        window.addEventListener('load', revealOnScroll);
+
+        // Parallax Effect for Background Orbs
+        document.addEventListener('mousemove', (e) => {
+            const orbs = document.querySelectorAll('.bg-gradient-orb');
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            orbs.forEach((orb, index) => {
+                const speed = (index + 1) * 10;
+                orb.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
+            });
+        });
+    </script>
+</body>
+</html>
