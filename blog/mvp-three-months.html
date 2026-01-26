@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>From Idea to MVP in 3 Months: A Solo Founder's Playbook - Prasad Subrahmanya</title>
+
+    <meta name="description" content="How I built Mainteny's MVP solo in 3 months before raising a $2.7M seed round. A practical guide to scoping, building, and launching as a solo founder." />
+    <meta name="keywords" content="MVP, startup, solo founder, entrepreneurship, Spring Boot, Kubernetes, product development, seed funding" />
+    <meta name="author" content="Prasad Subrahmanya" />
+
+    <!-- OpenGraph Meta Tags -->
+    <meta property="og:title" content="From Idea to MVP in 3 Months: A Solo Founder's Playbook" />
+    <meta property="og:description" content="How I built Mainteny's MVP solo in 3 months before raising a $2.7M seed round. A practical guide to scoping, building, and launching as a solo founder." />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://prasad.tech/blog/mvp-three-months.html" />
+    <meta property="og:image" content="https://prasad.tech/assets/images/header/prasad.jpeg" />
+    <meta property="article:author" content="Prasad Subrahmanya" />
+    <meta property="article:published_time" content="2025-01-26" />
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="../assets/favicon/favicon.ico">
+    <link rel="icon" type="image/png" sizes="96x96" href="../assets/favicon/favicon-96x96.png">
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon/favicon.svg">
+    <link rel="apple-touch-icon" href="../assets/favicon/apple-touch-icon.png">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="../assets/plugins/font-awesome/css/fontawesome.min.css" />
+    <link rel="stylesheet" href="../assets/plugins/font-awesome/css/brands.min.css" />
+    <link rel="stylesheet" href="../assets/plugins/font-awesome/css/solid.min.css" />
+    <link rel="stylesheet" href="../assets/plugins/font-awesome/css/regular.min.css" />
+
+    <!-- Modern CSS -->
+    <link rel="stylesheet" href="../assets/css/modern.css">
+</head>
+<body>
+    <!-- Preloader -->
+    <div class="preloader" id="preloader">
+        <div class="preloader-spinner"></div>
+    </div>
+
+    <!-- Animated Background -->
+    <div class="bg-animated">
+        <div class="bg-gradient-orb"></div>
+        <div class="bg-gradient-orb"></div>
+        <div class="bg-gradient-orb"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="nav" id="nav">
+        <div class="container">
+            <div class="nav-content">
+                <a href="../" class="nav-logo">PS</a>
+
+                <ul class="nav-links" id="nav-links">
+                    <li><a href="../#about">About</a></li>
+                    <li><a href="../#experience">Experience</a></li>
+                    <li><a href="../#expertise">Expertise</a></li>
+                    <li><a href="./">Blog</a></li>
+                    <li><a href="../#contact">Contact</a></li>
+                </ul>
+
+                <div class="nav-actions">
+                    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                        <i class="fas fa-moon" id="theme-icon"></i>
+                    </button>
+                    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Post Hero -->
+    <section class="post-hero">
+        <div class="container">
+            <div class="post-meta reveal">
+                <span><i class="far fa-calendar"></i> January 2025</span>
+                <span><i class="far fa-clock"></i> 11 min read</span>
+                <span class="blog-category" style="background: var(--glass-bg); padding: 4px 12px; border-radius: 100px;">Startup</span>
+            </div>
+            <h1 class="reveal reveal-delay-1">From Idea to MVP in 3 Months: A Solo Founder's Playbook</h1>
+            <p class="section-description reveal reveal-delay-2" style="max-width: 700px; margin: 24px auto 0;">
+                How I built Mainteny's MVP solo in 3 months before raising a $2.7M seed round. The decisions, trade-offs, and lessons that made it possible.
+            </p>
+        </div>
+    </section>
+
+    <!-- Post Content -->
+    <article class="post-content">
+        <p class="reveal">
+            In early 2021, I quit my job to build a CRM for maintenance companies in Europe. Three months later, I had a working product, paying customers, and the conviction to raise a $2.7M seed round.
+        </p>
+
+        <p class="reveal">
+            This isn't a story about working 16-hour days or some superhuman productivity hack. It's about making ruthless decisions about what matters and what doesn't when you're building alone.
+        </p>
+
+        <p class="reveal">
+            Most founders overcomplicate MVPs. They build for six months, twelve months, sometimes longer. They hire engineers before they have customers. They optimize for scale before they have traction.
+        </p>
+
+        <p class="reveal">
+            I took the opposite approach. Here's exactly how it worked.
+        </p>
+
+        <h2 class="reveal">Why Build Solo?</h2>
+
+        <p class="reveal">
+            The conventional wisdom says you need a co-founder. VCs prefer teams. The workload is brutal. You need someone to argue with.
+        </p>
+
+        <p class="reveal">
+            All true. And yet.
+        </p>
+
+        <p class="reveal">
+            Building solo has one massive advantage that nobody talks about: speed of decision-making. When you're alone, there are no debates about architecture. No alignment meetings. No convincing someone that your approach is right.
+        </p>
+
+        <p class="reveal">
+            You decide, you build, you ship. The feedback loop is instantaneous.
+        </p>
+
+        <p class="reveal">
+            For an MVP—where the goal is learning, not scaling—this matters more than anything else. Every hour spent in discussion is an hour not spent shipping. Every compromise to accommodate a co-founder's preference is a potential delay.
+        </p>
+
+        <blockquote class="reveal">
+            "Speed is the ultimate weapon in business. All else being equal, the fastest company wins."
+        </blockquote>
+
+        <p class="reveal">
+            I'm not saying solo founding is better. It's not. But for the MVP phase specifically, the coordination overhead of a team can actually slow you down. I've seen two-person teams take twice as long to ship half as much, simply because they spent so much time synchronizing.
+        </p>
+
+        <p class="reveal">
+            The time for co-founders is after you've proven the concept works. After you know what you're building and why. In the beginning, when everything is uncertain, having one brain making all the calls is an advantage.
+        </p>
+
+        <h2 class="reveal">Scoping Ruthlessly: The Art of Strategic Omission</h2>
+
+        <p class="reveal">
+            Here's the hardest skill in building an MVP: deciding what not to build.
+        </p>
+
+        <p class="reveal">
+            Mainteny was a CRM for maintenance companies—HVAC technicians, plumbers, electricians. These businesses have complex needs: scheduling, dispatching, inventory management, invoicing, customer communication, reporting.
+        </p>
+
+        <p class="reveal">
+            A "complete" solution would take years to build. I had three months.
+        </p>
+
+        <p class="reveal">
+            So I asked one question obsessively: <strong>What is the one thing that, if it works, proves the business is viable?</strong>
+        </p>
+
+        <p class="reveal">
+            For Mainteny, the answer was scheduling and job management. If maintenance companies would pay for a better way to manage their daily jobs—assigning technicians, tracking progress, capturing job details—everything else could come later.
+        </p>
+
+        <p class="reveal">
+            Everything else got cut. No inventory management. No invoicing integration. No mobile app (initially). No fancy reporting. No user permissions beyond basic admin/technician roles.
+        </p>
+
+        <div class="glass-card reveal" style="padding: 24px; margin: 24px 0;">
+            <h4 style="margin-bottom: 16px; color: var(--color-text-primary);">The MVP Scoping Framework</h4>
+            <ul style="color: var(--color-text-secondary); list-style: none; padding: 0; margin: 0;">
+                <li style="margin-bottom: 12px;"><strong>Must have:</strong> The core value proposition. Without this, the product has no reason to exist.</li>
+                <li style="margin-bottom: 12px;"><strong>Should have:</strong> Features that make the core significantly better. Build these in month 2-3 if time permits.</li>
+                <li style="margin-bottom: 12px;"><strong>Could have:</strong> Nice additions that don't affect the core hypothesis. Don't touch these.</li>
+                <li><strong>Won't have:</strong> Everything else. Write them down so you stop thinking about them.</li>
+            </ul>
+        </div>
+
+        <p class="reveal">
+            The "won't have" list is the most important document you'll create. It's not a backlog—it's a commitment to yourself that you won't get distracted.
+        </p>
+
+        <p class="reveal">
+            My won't-have list for Mainteny had over 40 items. Every time a potential customer mentioned a feature, I added it to the list instead of the roadmap. This let me acknowledge their need without committing to build it.
+        </p>
+
+        <p class="reveal">
+            Counterintuitively, customers respected this. They'd rather have a focused tool that does one thing well than a bloated mess that does everything poorly.
+        </p>
+
+        <h2 class="reveal">Time Management: The Solo Founder's Calendar</h2>
+
+        <p class="reveal">
+            When you're the only person building, every hour is a trade-off. An hour spent on sales is an hour not spent coding. An hour fixing a bug is an hour not spent talking to customers.
+        </p>
+
+        <p class="reveal">
+            I tried every productivity system imaginable. What actually worked was dead simple: fixed blocks for fixed activities.
+        </p>
+
+        <div class="glass-card reveal" style="padding: 24px; margin: 24px 0;">
+            <h4 style="margin-bottom: 16px; color: var(--color-text-primary);">The Weekly Structure That Worked</h4>
+            <ul style="color: var(--color-text-secondary); list-style: none; padding: 0; margin: 0;">
+                <li style="margin-bottom: 8px;"><strong>Monday-Thursday, 6am-12pm:</strong> Deep coding. No meetings, no email, no Slack.</li>
+                <li style="margin-bottom: 8px;"><strong>Monday-Thursday, 1pm-5pm:</strong> Customer calls, sales, support, admin.</li>
+                <li style="margin-bottom: 8px;"><strong>Friday morning:</strong> Planning and reviewing the week.</li>
+                <li><strong>Friday afternoon:</strong> Buffer for anything that slipped.</li>
+            </ul>
+        </div>
+
+        <p class="reveal">
+            The morning coding block was sacred. I treated it like a meeting with the most important person in the company—because it was. If a customer wanted to talk at 9am, I'd offer 2pm instead. No exceptions.
+        </p>
+
+        <p class="reveal">
+            This structure meant I got roughly 24 hours of focused coding per week. Over three months, that's about 300 hours. Enough to build an MVP if you're not wasting time on the wrong things.
+        </p>
+
+        <p class="reveal">
+            The afternoon block was for everything else. I batched all calls into this window. Customers learned that I was available 1-5pm and planned accordingly. This constraint actually made me more responsive, not less—they knew exactly when they could reach me.
+        </p>
+
+        <h2 class="reveal">What to Build First (And What to Skip)</h2>
+
+        <p class="reveal">
+            The sequencing of what you build matters as much as what you build. Get it wrong and you'll spend weeks on infrastructure before you have anything to show customers.
+        </p>
+
+        <p class="reveal">
+            Here's the order I followed:
+        </p>
+
+        <h3 class="reveal">Week 1-2: The Core Loop</h3>
+
+        <p class="reveal">
+            The first thing I built was the core user journey: create a job, assign it to a technician, mark it complete. No login system (I hardcoded a test user). No database migrations (I reset the database constantly). No error handling beyond basic try-catch.
+        </p>
+
+        <p class="reveal">
+            By the end of week 2, I could demo the core flow to customers. It was ugly and broken in dozens of ways, but it showed the idea clearly enough to get feedback.
+        </p>
+
+        <h3 class="reveal">Week 3-4: Just Enough Authentication</h3>
+
+        <p class="reveal">
+            Only after validating the core loop did I add user accounts. I used Spring Security with the simplest possible configuration—username/password, no OAuth, no social login, no password reset (I'd manually reset passwords via database).
+        </p>
+
+        <p class="reveal">
+            This is where most developers over-engineer. They spend weeks building a perfect auth system before the product even exists. Don't. Build the minimum that lets multiple users access the system. Everything else can wait.
+        </p>
+
+        <h3 class="reveal">Week 5-8: The Feature Set</h3>
+
+        <p class="reveal">
+            With the foundation in place, I built out the must-have features: customer management, technician management, job scheduling with a calendar view, basic status workflows, and simple reporting.
+        </p>
+
+        <p class="reveal">
+            Each feature followed the same pattern: build the simplest version that solves the problem, ship it, get feedback, iterate only if necessary.
+        </p>
+
+        <h3 class="reveal">Week 9-10: Polish and Infrastructure</h3>
+
+        <p class="reveal">
+            Only in the final weeks did I invest in infrastructure: proper deployment pipeline, monitoring, backups, and the things needed to run in production reliably.
+        </p>
+
+        <p class="reveal">
+            This ordering is important. If I'd started with infrastructure, I'd have a beautiful deployment pipeline and no product. By leaving it until the end, I ensured I was only building infrastructure for something that actually worked.
+        </p>
+
+        <h3 class="reveal">What I Deliberately Skipped</h3>
+
+        <ul class="reveal">
+            <li><strong>Unit tests:</strong> Yes, this is heresy. But for an MVP where code will be rewritten anyway, extensive testing is premature optimization.</li>
+            <li><strong>Documentation:</strong> I was the only developer. I'd document when there was someone else to read it.</li>
+            <li><strong>Performance optimization:</strong> With a handful of users, performance doesn't matter. Optimize later.</li>
+            <li><strong>Mobile responsiveness:</strong> The desktop version came first. Mobile could wait.</li>
+            <li><strong>Internationalization:</strong> We launched in one market with one language.</li>
+        </ul>
+
+        <p class="reveal">
+            Each of these is important eventually. None of them matter for proving the initial hypothesis.
+        </p>
+
+        <h2 class="reveal">Tech Stack Decisions: Boring is Beautiful</h2>
+
+        <p class="reveal">
+            When you're building alone, the temptation to try new technologies is strong. Don't. This is not the time to learn Rust or experiment with a new database.
+        </p>
+
+        <p class="reveal">
+            I chose the most boring stack I knew well: Spring Boot for the backend, PostgreSQL for the database, and vanilla JavaScript with some jQuery for the frontend (yes, really).
+        </p>
+
+        <p class="reveal">
+            Why Spring Boot? Because I'd used it for years and could write it in my sleep. I knew exactly how long features would take. I knew where the pitfalls were. I could debug issues in minutes instead of hours.
+        </p>
+
+        <div class="glass-card reveal" style="padding: 24px; margin: 24px 0;">
+            <h4 style="margin-bottom: 16px; color: var(--color-text-primary);">The MVP Tech Stack</h4>
+            <ul style="color: var(--color-text-secondary); list-style: none; padding: 0; margin: 0;">
+                <li style="margin-bottom: 8px;"><strong>Backend:</strong> Spring Boot 2.x with Spring Data JPA</li>
+                <li style="margin-bottom: 8px;"><strong>Database:</strong> PostgreSQL (managed)</li>
+                <li style="margin-bottom: 8px;"><strong>Frontend:</strong> Server-rendered templates + JavaScript</li>
+                <li style="margin-bottom: 8px;"><strong>Hosting:</strong> Kubernetes on Google Cloud</li>
+                <li><strong>CI/CD:</strong> GitHub Actions with simple deployment scripts</li>
+            </ul>
+        </div>
+
+        <p class="reveal">
+            Some founders questioned the Kubernetes choice—isn't it overkill for an MVP? Maybe. But I'd deployed dozens of applications to Kubernetes before. I could set up a cluster and deploy an app faster than I could configure a traditional VM setup.
+        </p>
+
+        <p class="reveal">
+            That's the key insight: <strong>choose technologies based on your speed with them, not their theoretical fit.</strong> A technology you know deeply beats a technology that's "better" but unfamiliar.
+        </p>
+
+        <p class="reveal">
+            The frontend is where I compromised the most. A React or Vue app would have been more modern, but server-rendered templates with JavaScript sprinkled in let me move faster. When you're the only developer, having one codebase instead of two is a massive simplification.
+        </p>
+
+        <h2 class="reveal">Getting Customers While Building</h2>
+
+        <p class="reveal">
+            The biggest mistake technical founders make is building in isolation. They spend months coding before talking to customers, then discover they've built the wrong thing.
+        </p>
+
+        <p class="reveal">
+            I started selling in week 3, before the product could really be used.
+        </p>
+
+        <p class="reveal">
+            Here's how: I reached out to maintenance companies with a simple pitch—"I'm building a tool specifically for businesses like yours. Can I show you what I'm working on and get your feedback?"
+        </p>
+
+        <p class="reveal">
+            Nobody says no to this. You're not selling; you're asking for help. People love giving advice.
+        </p>
+
+        <p class="reveal">
+            These conversations did three things:
+        </p>
+
+        <ul class="reveal">
+            <li><strong>Validated the problem:</strong> Were these businesses actually struggling with the pain I was solving?</li>
+            <li><strong>Shaped the product:</strong> What features did they actually need versus what I assumed they needed?</li>
+            <li><strong>Created a pipeline:</strong> Some of these early conversations converted to paying customers.</li>
+        </ul>
+
+        <p class="reveal">
+            By the time the MVP was ready, I had a list of 15 companies waiting to try it. Three became paying customers in the first month.
+        </p>
+
+        <p class="reveal">
+            The trick was being honest about the product's state. I told prospects exactly what worked and what didn't. I promised to fix things quickly when they broke. I gave them my personal phone number for support.
+        </p>
+
+        <p class="reveal">
+            Early customers don't expect perfection. They expect to be heard. If you can demonstrate that their feedback directly shapes the product, they'll tolerate rough edges.
+        </p>
+
+        <h2 class="reveal">The Fundraising Inflection Point</h2>
+
+        <p class="reveal">
+            With three paying customers and a working MVP, I had what I needed to raise: proof that the market existed, proof I could build, and proof that customers would pay.
+        </p>
+
+        <p class="reveal">
+            The seed round came together quickly after that. Investors could see a product, talk to real customers, and evaluate actual usage data. This is infinitely more compelling than a pitch deck alone.
+        </p>
+
+        <p class="reveal">
+            The $2.7M gave us runway to build the team, expand the product, and grow the customer base. But none of it would have happened without those three months of focused solo building.
+        </p>
+
+        <h2 class="reveal">What I'd Do Differently</h2>
+
+        <p class="reveal">
+            Looking back, some things worked well. Others I'd change.
+        </p>
+
+        <h3 class="reveal">Keep: Aggressive Scoping</h3>
+
+        <p class="reveal">
+            Cutting features ruthlessly was the right call. Every feature I didn't build was time I could spend on the core product or talking to customers.
+        </p>
+
+        <h3 class="reveal">Keep: Fixed Schedule</h3>
+
+        <p class="reveal">
+            The morning coding blocks were essential. Without protected time for deep work, I'd have been constantly context-switching.
+        </p>
+
+        <h3 class="reveal">Change: Start Customer Conversations Earlier</h3>
+
+        <p class="reveal">
+            I waited until week 3 to start talking to customers. In retrospect, I should have started in week 1, before writing any code. The conversations would have shaped even the initial architecture.
+        </p>
+
+        <h3 class="reveal">Change: Build Analytics From Day One</h3>
+
+        <p class="reveal">
+            I added usage tracking late and regretted it. Understanding how customers actually used the product would have helped prioritize features better.
+        </p>
+
+        <h3 class="reveal">Change: More Aggressive on Pricing</h3>
+
+        <p class="reveal">
+            I underpriced initially because I lacked confidence. Customers who would have paid more were happy to pay less. This left money on the table and made the unit economics look worse than they should have.
+        </p>
+
+        <h3 class="reveal">Change: Better Error Handling</h3>
+
+        <p class="reveal">
+            Skipping comprehensive error handling saved time initially but cost more later. Some balance between "perfect error handling" and "no error handling" would have been smarter.
+        </p>
+
+        <h2 class="reveal">The Solo Founder Advantage</h2>
+
+        <p class="reveal">
+            Building an MVP solo isn't about being a hero or proving you don't need help. It's about moving fast during the phase where speed matters most.
+        </p>
+
+        <p class="reveal">
+            Once you've validated the concept, build the team. Once you have product-market fit, scale the organization. But in those early uncertain months, when you're searching for what works, there's something to be said for being able to pivot instantly, ship daily, and iterate without coordination overhead.
+        </p>
+
+        <p class="reveal">
+            Three months. One person. One product. Three customers. That's all it took to prove the idea was worth pursuing.
+        </p>
+
+        <p class="reveal">
+            The rest is execution.
+        </p>
+
+        <div class="section-divider reveal"></div>
+
+        <div class="glass-card reveal" style="padding: 24px; margin: 24px 0;">
+            <h4 style="margin-bottom: 16px; color: var(--color-text-primary);">TL;DR: The Solo MVP Playbook</h4>
+            <ol style="color: var(--color-text-secondary); padding-left: 20px; margin: 0;">
+                <li style="margin-bottom: 8px;">Build solo for speed, not ego. Add co-founders after validation.</li>
+                <li style="margin-bottom: 8px;">Scope ruthlessly. One core value proposition, nothing else.</li>
+                <li style="margin-bottom: 8px;">Protect your coding time. Fixed blocks, no exceptions.</li>
+                <li style="margin-bottom: 8px;">Build the core loop first, infrastructure last.</li>
+                <li style="margin-bottom: 8px;">Use boring technology you know well.</li>
+                <li style="margin-bottom: 8px;">Start customer conversations before you start coding.</li>
+                <li>Ship fast, iterate faster, perfect later.</li>
+            </ol>
+        </div>
+
+        <p class="reveal" style="font-style: italic; color: var(--color-text-tertiary);">
+            Have questions about building your MVP or navigating the early startup journey? Feel free to reach out—I'm always happy to chat with founders who are in the trenches.
+        </p>
+
+        <!-- Author Info -->
+        <div class="glass-card reveal" style="padding: 32px; margin-top: 48px; display: flex; gap: 24px; align-items: center; flex-wrap: wrap;">
+            <img src="../assets/images/header/prasad.jpeg" alt="Prasad Subrahmanya" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover;">
+            <div style="flex: 1; min-width: 200px;">
+                <h4 style="margin-bottom: 8px;">Prasad Subrahmanya</h4>
+                <p style="color: var(--color-text-secondary); margin-bottom: 8px; font-size: 0.9rem;">
+                    Founder & CEO at Luminik. Previously built Aura at Bain ($3.6M ARR) and led Mainteny ($2.7M seed). Building AI-powered tools for B2B teams.
+                </p>
+                <div style="display: flex; gap: 12px;">
+                    <a href="https://linkedin.com/in/prasadus" target="_blank" style="color: var(--color-text-tertiary);"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://github.com/prasadus92" target="_blank" style="color: var(--color-text-tertiary);"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Back to Blog -->
+        <div class="reveal" style="margin-top: 48px; text-align: center;">
+            <a href="./" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i>
+                Back to Blog
+            </a>
+        </div>
+    </article>
+
+    <!-- Footer -->
+    <footer class="footer" style="margin-top: 80px;">
+        <div class="container">
+            <div class="footer-content">
+                <p class="footer-text">
+                    &copy; 2025 Prasad Subrahmanya. Built with passion in Oslo, Norway.
+                </p>
+                <div class="footer-links">
+                    <a href="mailto:prasadus92@gmail.com">Email</a>
+                    <a href="https://linkedin.com/in/prasadus" target="_blank">LinkedIn</a>
+                    <a href="https://github.com/prasadus92" target="_blank">GitHub</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Preloader
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('preloader').classList.add('hidden');
+            }, 500);
+        });
+
+        // Theme Toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        const html = document.documentElement;
+
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        html.setAttribute('data-theme', savedTheme);
+        updateThemeIcon(savedTheme);
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        });
+
+        function updateThemeIcon(theme) {
+            themeIcon.className = theme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+        }
+
+        // Navigation Scroll Effect
+        const nav = document.getElementById('nav');
+        nav.classList.add('scrolled');
+
+        // Mobile Navigation Toggle
+        const navToggle = document.getElementById('nav-toggle');
+        const navLinks = document.getElementById('nav-links');
+
+        navToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            navToggle.classList.toggle('active');
+        });
+
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                navToggle.classList.remove('active');
+            });
+        });
+
+        // Scroll Reveal Animation
+        const revealElements = document.querySelectorAll('.reveal');
+
+        const revealOnScroll = () => {
+            const windowHeight = window.innerHeight;
+            revealElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const revealPoint = 150;
+                if (elementTop < windowHeight - revealPoint) {
+                    element.classList.add('active');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', revealOnScroll);
+        window.addEventListener('load', revealOnScroll);
+
+        // Parallax Effect for Background Orbs
+        document.addEventListener('mousemove', (e) => {
+            const orbs = document.querySelectorAll('.bg-gradient-orb');
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            orbs.forEach((orb, index) => {
+                const speed = (index + 1) * 10;
+                orb.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
+            });
+        });
+    </script>
+</body>
+</html>
