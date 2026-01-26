@@ -31,10 +31,19 @@
     <link rel="apple-touch-icon" href="assets/favicon/apple-touch-icon.png">
     <link rel="manifest" href="assets/favicon/site.webmanifest">
 
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XG5LVE538S"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XG5LVE538S');
+    </script>
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="assets/plugins/font-awesome/css/fontawesome.min.css" />
@@ -112,8 +121,9 @@
                             <i class="fab fa-linkedin-in"></i>
                             LinkedIn
                         </a>
-                        <a href="https://github.com/prasadus92" target="_blank" class="btn btn-secondary btn-icon">
+                        <a href="https://github.com/prasadus92" target="_blank" class="btn btn-secondary">
                             <i class="fab fa-github"></i>
+                            GitHub
                         </a>
                     </div>
 
@@ -313,27 +323,27 @@
 
             <div class="skills-grid">
                 <div class="glass-card skill-card reveal reveal-delay-1">
-                    <div class="skill-icon"><i class="fab fa-python"></i></div>
-                    <h4>Python</h4>
-                    <p>FastAPI, LangChain, Data pipelines</p>
+                    <div class="skill-icon"><i class="fas fa-robot"></i></div>
+                    <h4>AI & LLMs</h4>
+                    <p>RAG, Agents, LangChain, Langfuse, OpenAI, Anthropic</p>
                 </div>
 
                 <div class="glass-card skill-card reveal reveal-delay-2">
-                    <div class="skill-icon"><i class="fab fa-js-square"></i></div>
-                    <h4>JavaScript/TypeScript</h4>
-                    <p>Next.js, React, Node.js</p>
+                    <div class="skill-icon"><i class="fab fa-python"></i></div>
+                    <h4>Python</h4>
+                    <p>FastAPI, Temporal, Celery, Data pipelines</p>
                 </div>
 
                 <div class="glass-card skill-card reveal reveal-delay-3">
-                    <div class="skill-icon"><i class="fab fa-aws"></i></div>
-                    <h4>AWS</h4>
-                    <p>Lambda, ECS, RDS, S3</p>
+                    <div class="skill-icon"><i class="fab fa-js-square"></i></div>
+                    <h4>TypeScript</h4>
+                    <p>Next.js, React, Node.js, Prisma</p>
                 </div>
 
                 <div class="glass-card skill-card reveal reveal-delay-4">
-                    <div class="skill-icon"><i class="fas fa-brain"></i></div>
-                    <h4>AI/ML</h4>
-                    <p>LLMs, OpenAI, Embeddings</p>
+                    <div class="skill-icon"><i class="fab fa-aws"></i></div>
+                    <h4>Cloud & Infra</h4>
+                    <p>AWS, Vercel, Docker, Kubernetes, Terraform</p>
                 </div>
             </div>
         </div>
@@ -375,40 +385,47 @@
             </div>
 
             <div class="blog-grid">
-                <a href="blog/" class="glass-card blog-card reveal reveal-delay-1">
+                <a href="blog/event-marketing-roi.html" class="glass-card blog-card reveal reveal-delay-1">
                     <div class="blog-content">
                         <span class="blog-category">Event Marketing</span>
                         <h4 class="blog-title">Why B2B Event Marketing ROI is Broken (And How AI Can Fix It)</h4>
                         <p class="blog-excerpt">Companies spend 20-30% of marketing budget on events but can't prove the ROI. Here's the systematic approach to change that.</p>
                         <div class="blog-meta">
-                            <span><i class="far fa-calendar"></i> Coming Soon</span>
-                            <span><i class="far fa-clock"></i> 8 min read</span>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="blog/" class="glass-card blog-card reveal reveal-delay-2">
-                    <div class="blog-content">
-                        <span class="blog-category">Startup Journey</span>
-                        <h4 class="blog-title">Building a $3.6M ARR Product Inside a Consulting Firm</h4>
-                        <p class="blog-excerpt">Lessons from building Aura at Bain & Company - the unique challenges and advantages of venture building inside a large organization.</p>
-                        <div class="blog-meta">
-                            <span><i class="far fa-calendar"></i> Coming Soon</span>
+                            <span><i class="far fa-calendar"></i> Jan 2025</span>
                             <span><i class="far fa-clock"></i> 12 min read</span>
                         </div>
                     </div>
                 </a>
 
-                <a href="blog/" class="glass-card blog-card reveal reveal-delay-3">
+                <a href="blog/zero-to-one-bain.html" class="glass-card blog-card reveal reveal-delay-2">
+                    <div class="blog-content">
+                        <span class="blog-category">Startup Journey</span>
+                        <h4 class="blog-title">Building a $3.6M ARR Product Inside a Consulting Firm</h4>
+                        <p class="blog-excerpt">Lessons from building Aura at Bain & Company - the unique challenges and advantages of venture building inside a large organization.</p>
+                        <div class="blog-meta">
+                            <span><i class="far fa-calendar"></i> Jan 2025</span>
+                            <span><i class="far fa-clock"></i> 15 min read</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="blog/mvp-three-months.html" class="glass-card blog-card reveal reveal-delay-3">
                     <div class="blog-content">
                         <span class="blog-category">Product Development</span>
                         <h4 class="blog-title">From Idea to MVP in 3 Months: A Solo Founder's Playbook</h4>
                         <p class="blog-excerpt">How I built and launched Mainteny's MVP by myself, and what I'd do differently next time.</p>
                         <div class="blog-meta">
-                            <span><i class="far fa-calendar"></i> Coming Soon</span>
-                            <span><i class="far fa-clock"></i> 10 min read</span>
+                            <span><i class="far fa-calendar"></i> Jan 2025</span>
+                            <span><i class="far fa-clock"></i> 11 min read</span>
                         </div>
                     </div>
+                </a>
+            </div>
+
+            <div class="reveal" style="text-align: center; margin-top: 48px;">
+                <a href="blog/" class="btn btn-secondary">
+                    View All Articles
+                    <i class="fas fa-arrow-right"></i>
                 </a>
             </div>
         </div>
@@ -459,9 +476,7 @@
                         <h4 style="margin-bottom: 24px;">Currently Building</h4>
                         <a href="https://www.luminik.io" target="_blank" style="display: block; margin-bottom: 24px;">
                             <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 16px;">
-                                <div style="width: 48px; height: 48px; background: linear-gradient(135deg, var(--color-accent-primary), var(--color-accent-secondary)); border-radius: 12px; display: flex; align-items: center; justify-content: center;">
-                                    <i class="fas fa-bolt" style="font-size: 1.25rem; color: var(--color-bg-primary);"></i>
-                                </div>
+                                <img src="assets/images/logos/luminik.svg" alt="Luminik" style="width: 48px; height: 48px; border-radius: 12px;">
                                 <div>
                                     <h5 style="margin-bottom: 4px; color: var(--color-text-primary);">Luminik</h5>
                                     <p style="margin: 0; font-size: 0.875rem; color: var(--color-text-tertiary);">AI Co-pilot for Event Marketing</p>
@@ -486,7 +501,7 @@
         <div class="container">
             <div class="footer-content">
                 <p class="footer-text">
-                    &copy; 2025 Prasad Subrahmanya. Built with passion in Oslo, Norway.
+                    &copy; <span id="current-year"></span> Prasad Subrahmanya. Built with passion in Oslo, Norway.
                 </p>
                 <div class="footer-links">
                     <a href="mailto:prasadus92@gmail.com">Email</a>
@@ -506,15 +521,35 @@
             }, 500);
         });
 
+        // Dynamic copyright year
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
         // Theme Toggle
         const themeToggle = document.getElementById('theme-toggle');
         const themeIcon = document.getElementById('theme-icon');
         const html = document.documentElement;
 
-        // Check for saved theme preference or default to dark
-        const savedTheme = localStorage.getItem('theme') || 'dark';
+        // Check for saved theme preference, then system preference, then default to dark
+        const getInitialTheme = () => {
+            const saved = localStorage.getItem('theme');
+            if (saved) return saved;
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+                return 'light';
+            }
+            return 'dark';
+        };
+        const savedTheme = getInitialTheme();
         html.setAttribute('data-theme', savedTheme);
         updateThemeIcon(savedTheme);
+
+        // Listen for system theme changes
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+            if (!localStorage.getItem('theme')) {
+                const newTheme = e.matches ? 'dark' : 'light';
+                html.setAttribute('data-theme', newTheme);
+                updateThemeIcon(newTheme);
+            }
+        });
 
         themeToggle.addEventListener('click', () => {
             const currentTheme = html.getAttribute('data-theme');

@@ -35,7 +35,7 @@
 
   /* Typography */
   --font-display: 'Space Grotesk', sans-serif;
-  --font-body: 'Inter', sans-serif;
+  --font-body: 'Quicksand', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 
   /* Sizing */
@@ -237,7 +237,7 @@ a:hover {
 }
 
 .glass-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-4px) scale(1.02);
   box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4);
 }
 
@@ -736,16 +736,16 @@ a:hover {
 
 .expertise-number {
   font-family: var(--font-display);
-  font-size: 3rem;
+  font-size: 4rem;
   font-weight: 700;
   background: linear-gradient(135deg, var(--color-accent-primary), var(--color-accent-secondary));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  opacity: 0.2;
+  opacity: 0.15;
   position: absolute;
-  top: 12px;
-  left: 20px;
+  top: -8px;
+  right: 16px;
   line-height: 1;
   pointer-events: none;
   z-index: 0;
@@ -1115,9 +1115,9 @@ a:hover {
   }
 
   .expertise-number {
-    font-size: 2.5rem;
-    top: 8px;
-    left: 16px;
+    font-size: 3rem;
+    top: -4px;
+    right: 12px;
   }
 
   .blog-grid {
