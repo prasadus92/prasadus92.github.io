@@ -874,12 +874,14 @@ a:hover {
   text-transform: uppercase;
   letter-spacing: 1px;
   margin-bottom: 12px;
+  transition: color var(--transition-normal);
 }
 
 .blog-title {
   font-size: 1.25rem;
   margin-bottom: 12px;
   line-height: 1.4;
+  transition: color var(--transition-normal);
 }
 
 .blog-excerpt {
