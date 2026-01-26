@@ -98,7 +98,7 @@
                         Available for consulting
                     </div>
                     <h1 class="hero-title reveal reveal-delay-1">
-                        Hi, I'm <span class="gradient-text">Prasad Subrahmanya</span>
+                        Hi, I'm <span class="gradient-text gradient-text-animated">Prasad Subrahmanya</span>
                     </h1>
                     <p class="hero-description reveal reveal-delay-2">
                         Founder & CEO at <strong>Luminik</strong> - building an AI co-pilot that helps event marketing teams turn expensive conferences into predictable pipeline. Previously built products from 0 to multi-million ARR at Bain & Company.
@@ -451,9 +451,6 @@
                         <a href="https://github.com/prasadus92" target="_blank" class="social-link glass-card" aria-label="GitHub">
                             <i class="fab fa-github"></i>
                         </a>
-                        <a href="https://twitter.com/prasadus92" target="_blank" class="social-link glass-card" aria-label="Twitter">
-                            <i class="fab fa-twitter"></i>
-                        </a>
                     </div>
                 </div>
 
@@ -657,6 +654,66 @@
 
         window.addEventListener('scroll', updateActiveNav);
         window.addEventListener('load', updateActiveNav);
+
+        // 3D Tilt effect on glass cards
+        const tiltCards = document.querySelectorAll('.glass-card');
+
+        tiltCards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+
+                const rotateX = (y - centerY) / 20;
+                const rotateY = (centerX - x) / 20;
+
+                // Update CSS custom properties for glow effect
+                card.style.setProperty('--mouse-x', `${(x / rect.width) * 100}%`);
+                card.style.setProperty('--mouse-y', `${(y / rect.height) * 100}%`);
+
+                // Apply subtle 3D rotation (only on desktop)
+                if (window.innerWidth > 768) {
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX * 0.5}deg) rotateY(${rotateY * 0.5}deg) translateZ(10px)`;
+                }
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = '';
+            });
+        });
+
+        // Animate stats numbers on scroll
+        const statNumbers = document.querySelectorAll('.stat-number');
+        let statsAnimated = false;
+
+        function animateStats() {
+            if (statsAnimated) return;
+
+            const statsSection = document.querySelector('.hero-stats');
+            if (!statsSection) return;
+
+            const rect = statsSection.getBoundingClientRect();
+            if (rect.top < window.innerHeight && rect.bottom > 0) {
+                statsAnimated = true;
+                statNumbers.forEach((num, index) => {
+                    setTimeout(() => {
+                        num.classList.add('counting');
+                        setTimeout(() => num.classList.remove('counting'), 300);
+                    }, index * 150);
+                });
+            }
+        }
+
+        window.addEventListener('scroll', animateStats);
+        animateStats();
+
+        // Add ripple effect to buttons
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.classList.add('btn-ripple');
+        });
     </script>
 </body>
 </html>
