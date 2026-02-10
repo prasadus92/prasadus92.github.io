@@ -49,9 +49,17 @@ Prasad Subrahmanya is a technical founder with 12+ years of experience building 
 - Venture building inside large organizations
 - Seed fundraising and investor relations
 
+## Current Venture: Luminik
+
+[Luminik](https://www.luminik.io) is an AI co-pilot for B2B event marketing teams. It helps companies prove ROI from trade shows, conferences, and field events by automating lead capture, follow-up sequencing, and attribution tracking.
+
+The problem: Companies spend 20-30% of their marketing budget on events but struggle to prove the return. Event leads often get lost in spreadsheets, follow-ups happen too late, and attribution to closed deals is nearly impossible.
+
+Luminik solves this by embedding with event teams as an AI-powered assistant that handles the operational work while providing clear visibility into what's working.
+
 ## Professional Experience
 
-- **Luminik** (Oct 2024 - Present): Founder & CEO - AI co-pilot for event marketing
+- **[Luminik](https://www.luminik.io)** (Oct 2024 - Present): Founder & CEO - AI co-pilot for event marketing
 - **SnowOptix** (Jan 2024 - Present): Founder - Snowflake cost optimization tool
 - **Bain & Company** (2022 - 2024): Venture CTO - Built Aura PE due diligence platform
 - **Mainteny** (2021 - 2022): CTO & Co-founder - CRM for maintenance companies
