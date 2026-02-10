@@ -1,0 +1,80 @@
+# Prasad Subrahmanya - Personal Portfolio & Blog
+
+> Personal website and blog of Prasad Subrahmanya, founder and software engineer based in Oslo, Norway.
+
+## About
+
+Prasad Subrahmanya is a technical founder with 12+ years of experience building software products. Currently Founder & CEO at Luminik, an AI co-pilot for event marketing teams. Previously built Aura at Bain & Company ($3.6M ARR) and led Mainteny to a $2.7M seed round.
+
+## Site Structure
+
+- Homepage: https://prasad.tech/
+- Blog: https://prasad.tech/blog/
+- Contact: https://prasad.tech/#contact
+
+## Blog Articles
+
+### Engineering
+- [What It Actually Costs to Build a Serious Product Alone in 2026](https://prasad.tech/blog/building-alone-in-2026.html) - The real cost structure of solo product development with AI tools
+
+### Founder Journey
+- [Selling Before Building: How I Got to Revenue Without Writing Code](https://prasad.tech/blog/selling-before-building.html) - Getting to revenue before writing code at Luminik
+
+### Event Marketing
+- [Why B2B Event Marketing ROI is Broken (And How AI Can Fix It)](https://prasad.tech/blog/event-marketing-roi.html) - Systematic approach to proving event ROI
+
+### Side Projects
+- [Side Projects That Lead to Unexpected Discoveries](https://prasad.tech/blog/snowflake-cost-optimization.html) - How SnowOptix led to Luminik
+
+### Sales
+- [Technical Founders Can Sell: Here's How](https://prasad.tech/blog/technical-founder-sales.html) - Using technical knowledge as a sales superpower
+
+### Startup Journey
+- [Building a $3.6M ARR Product Inside a Consulting Firm](https://prasad.tech/blog/zero-to-one-bain.html) - Lessons from building Aura at Bain & Company
+
+### Fundraising
+- [The Seed Fundraising Playbook](https://prasad.tech/blog/raising-seed-round.html) - What works when raising your first round
+
+### Product Development
+- [From Idea to MVP in 3 Months as the Only Developer](https://prasad.tech/blog/mvp-three-months.html) - Building Mainteny's MVP as sole technical person
+
+## Topics Covered
+
+- Startup founding and entrepreneurship
+- Technical leadership and engineering
+- Product development and MVP building
+- B2B sales for technical founders
+- AI-assisted development and tooling
+- Event marketing and GTM strategy
+- Venture building inside large organizations
+- Seed fundraising and investor relations
+
+## Current Venture: Luminik
+
+[Luminik](https://www.luminik.io) is an AI co-pilot for B2B event marketing teams. It helps companies prove ROI from trade shows, conferences, and field events by automating lead capture, follow-up sequencing, and attribution tracking.
+
+The problem: Companies spend 20-30% of their marketing budget on events but struggle to prove the return. Event leads often get lost in spreadsheets, follow-ups happen too late, and attribution to closed deals is nearly impossible.
+
+Luminik solves this by embedding with event teams as an AI-powered assistant that handles the operational work while providing clear visibility into what's working.
+
+## Professional Experience
+
+- **[Luminik](https://www.luminik.io)** (Oct 2024 - Present): Founder & CEO - AI co-pilot for event marketing
+- **SnowOptix** (Jan 2024 - Present): Founder - Snowflake cost optimization tool
+- **Bain & Company** (2022 - 2024): Venture CTO - Built Aura PE due diligence platform
+- **Mainteny** (2021 - 2022): CTO & Co-founder - CRM for maintenance companies
+
+## Contact
+
+- Email: prasadus92@gmail.com
+- LinkedIn: https://linkedin.com/in/prasadus
+- GitHub: https://github.com/prasadus92
+
+## Technical Stack
+
+The blog covers technical topics including:
+- Backend: Spring Boot, Quarkus, Python, FastAPI
+- Frontend: React, Next.js
+- Infrastructure: AWS, Kubernetes, ECS
+- Data: Snowflake, PostgreSQL
+- AI/ML: LLMs, Claude, GPT, Cursor, Claude Code
