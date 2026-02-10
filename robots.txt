@@ -1,0 +1,10 @@
+# robots.txt for prasad.tech
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://prasad.tech/sitemap.xml
+
+# LLMs.txt for AI crawlers
+# See: https://prasad.tech/llms.txt
