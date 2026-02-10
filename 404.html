@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Page Not Found | Prasad Subrahmanya</title>
+
+    <meta name="description" content="This page doesn't exist. But hey, at least you found me!" />
+    <meta name="robots" content="noindex, follow" />
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="assets/favicon/favicon.ico">
+    <link rel="icon" type="image/png" sizes="96x96" href="assets/favicon/favicon-96x96.png">
+    <link rel="icon" type="image/svg+xml" href="assets/favicon/favicon.svg">
+    <link rel="apple-touch-icon" href="assets/favicon/apple-touch-icon.png">
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XG5LVE538S"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XG5LVE538S');
+    </script>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="assets/plugins/font-awesome/css/fontawesome.min.css" />
+    <link rel="stylesheet" href="assets/plugins/font-awesome/css/solid.min.css" />
+
+    <!-- Modern CSS -->
+    <link rel="stylesheet" href="assets/css/modern.css">
+
+    <style>
+        .error-page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .error-container {
+            text-align: center;
+            max-width: 600px;
+        }
+
+        .error-code {
+            font-size: clamp(6rem, 20vw, 12rem);
+            font-weight: 700;
+            line-height: 1;
+            background: linear-gradient(135deg, var(--color-accent-primary), var(--color-accent-secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            animation: glitch 3s infinite;
+        }
+
+        @keyframes glitch {
+            0%, 90%, 100% { transform: translate(0); }
+            92% { transform: translate(-2px, 2px); }
+            94% { transform: translate(2px, -2px); }
+            96% { transform: translate(-2px, -2px); }
+            98% { transform: translate(2px, 2px); }
+        }
+
+        .error-title {
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            font-weight: 600;
+            color: var(--color-text-primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .error-message {
+            font-size: 1.1rem;
+            color: var(--color-text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        .error-message code {
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--glass-bg);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+
+        .error-suggestions {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+
+        .error-suggestions h3 {
+            font-size: 1rem;
+            color: var(--color-text-primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .error-suggestions ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .error-suggestions li {
+            padding: 0.5rem 0;
+            color: var(--color-text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .error-suggestions li i {
+            color: var(--color-accent-primary);
+            width: 16px;
+        }
+
+        .error-suggestions a {
+            color: var(--color-accent-primary);
+            text-decoration: none;
+            transition: color var(--transition-normal);
+        }
+
+        .error-suggestions a:hover {
+            color: var(--color-accent-secondary);
+        }
+
+        .error-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .error-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.875rem 1.75rem;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all var(--transition-normal);
+        }
+
+        .error-btn-primary {
+            background: linear-gradient(135deg, var(--color-accent-primary), var(--color-accent-secondary));
+            color: white;
+        }
+
+        .error-btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+        }
+
+        .error-btn-secondary {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            color: var(--color-text-primary);
+        }
+
+        .error-btn-secondary:hover {
+            background: var(--glass-bg-hover);
+            transform: translateY(-2px);
+        }
+
+        .error-footer {
+            margin-top: 3rem;
+            font-size: 0.875rem;
+            color: var(--color-text-tertiary);
+        }
+
+        .error-footer code {
+            font-family: 'JetBrains Mono', monospace;
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="bg-animated">
+        <div class="bg-gradient-orb"></div>
+        <div class="bg-gradient-orb"></div>
+        <div class="bg-gradient-orb"></div>
+    </div>
+
+    <main class="error-page">
+        <div class="error-container">
+            <div class="error-code">404</div>
+
+            <h1 class="error-title">Well, this is awkward.</h1>
+
+            <p class="error-message">
+                You've found a page that doesn't exist. I've shipped MVPs faster than I've
+                fixed broken links, so this is probably my fault.
+                Let's get you somewhere useful.
+            </p>
+
+            <div class="error-suggestions">
+                <h3><i class="fas fa-lightbulb"></i> Maybe you were looking for:</h3>
+                <ul>
+                    <li><i class="fas fa-home"></i> <a href="/">Homepage</a> - The main event</li>
+                    <li><i class="fas fa-newspaper"></i> <a href="/blog/">Blog</a> - Where I write about building things</li>
+                    <li><i class="fas fa-rocket"></i> <a href="https://www.luminik.io" target="_blank">Luminik</a> - My current startup</li>
+                    <li><i class="fas fa-envelope"></i> <a href="/#contact">Contact</a> - Let's chat</li>
+                </ul>
+            </div>
+
+            <div class="error-actions">
+                <a href="/" class="error-btn error-btn-primary">
+                    <i class="fas fa-arrow-left"></i>
+                    Back to Home
+                </a>
+                <a href="/blog/" class="error-btn error-btn-secondary">
+                    <i class="fas fa-book-open"></i>
+                    Read the Blog
+                </a>
+            </div>
+
+            <p class="error-footer">
+                <code>Error: ENOENT - Page not found at requested path</code>
+            </p>
+        </div>
+    </main>
+
+    <script>
+        // Theme detection
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+        const html = document.documentElement;
+
+        function setTheme(isDark) {
+            html.setAttribute('data-theme', isDark ? 'dark' : 'light');
+        }
+
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            setTheme(savedTheme === 'dark');
+        } else {
+            setTheme(prefersDark.matches);
+        }
+
+        prefersDark.addEventListener('change', (e) => {
+            if (!localStorage.getItem('theme')) {
+                setTheme(e.matches);
+            }
+        });
+    </script>
+</body>
+</html>
