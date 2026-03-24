@@ -22,7 +22,7 @@ Prasad Subrahmanya is a technical founder with 12+ years of experience building 
 - [Selling Before Building: How I Got to Revenue Without Writing Code](https://prasad.tech/blog/selling-before-building.html) - Getting to revenue before writing code at Luminik
 
 ### Event Marketing
-- [Why B2B Event Marketing ROI is Broken (And How AI Can Fix It)](https://prasad.tech/blog/event-marketing-roi.html) - Systematic approach to proving event ROI
+- [Why B2B Event Marketing ROI is Broken](https://prasad.tech/blog/event-marketing-roi.html) - Systematic approach to proving event ROI
 
 ### Side Projects
 - [Side Projects That Lead to Unexpected Discoveries](https://prasad.tech/blog/snowflake-cost-optimization.html) - How SnowOptix led to Luminik
