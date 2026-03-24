@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XG5LVE538S"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XG5LVE538S');
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What gstack Gets Right (And What It Misses When You're Actually Shipping Product) - Prasad Subrahmanya</title>
+
+    <meta name="description" content="Garry Tan's gstack validates the role-based agent pattern. But when you're shipping real product solo, the hard part is everything outside the framework's scope." />
+    <meta name="keywords" content="gstack, garry tan, claude code, AI development, solo founder, skills files, specs driven development, agent workflow" />
+    <meta name="author" content="Prasad Subrahmanya" />
+
+    <!-- OpenGraph Meta Tags -->
+    <meta property="og:title" content="What gstack Gets Right (And What It Misses When You're Actually Shipping Product)" />
+    <meta property="og:description" content="Garry Tan's gstack validates the role-based agent pattern. But when you're shipping real product solo, the hard part is everything outside the framework's scope." />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://prasad.tech/blog/gstack-solo-builder.html" />
+    <meta property="og:image" content="https://prasad.tech/assets/images/header/prasad.jpeg" />
+    <meta property="article:author" content="Prasad Subrahmanya" />
+    <meta property="article:published_time" content="2026-03-24" />
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="../assets/favicon/favicon.ico">
+    <link rel="icon" type="image/png" sizes="96x96" href="../assets/favicon/favicon-96x96.png">
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon/favicon.svg">
+    <link rel="apple-touch-icon" href="../assets/favicon/apple-touch-icon.png">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="../assets/plugins/font-awesome/css/fontawesome.min.css" />
+    <link rel="stylesheet" href="../assets/plugins/font-awesome/css/brands.min.css" />
+    <link rel="stylesheet" href="../assets/plugins/font-awesome/css/solid.min.css" />
+    <link rel="stylesheet" href="../assets/plugins/font-awesome/css/regular.min.css" />
+
+    <!-- Modern CSS -->
+    <link rel="stylesheet" href="../assets/css/modern.css">
+</head>
+<body>
+    <!-- Preloader -->
+    <div class="preloader" id="preloader">
+        <div class="preloader-spinner"></div>
+    </div>
+
+    <!-- Animated Background -->
+    <div class="bg-animated">
+        <div class="bg-gradient-orb"></div>
+        <div class="bg-gradient-orb"></div>
+        <div class="bg-gradient-orb"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="nav" id="nav">
+        <div class="container">
+            <div class="nav-content">
+                <a href="../" class="nav-logo">PS</a>
+
+                <ul class="nav-links" id="nav-links">
+                    <li><a href="../#about">About</a></li>
+                    <li><a href="../#experience">Experience</a></li>
+                    <li><a href="../#expertise">Expertise</a></li>
+                    <li><a href="./">Blog</a></li>
+                    <li><a href="../#contact">Contact</a></li>
+                </ul>
+
+                <div class="nav-actions">
+                    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                        <i class="fas fa-moon" id="theme-icon"></i>
+                    </button>
+                    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Post Hero -->
+    <section class="post-hero">
+        <div class="container">
+            <div class="post-meta reveal">
+                <span><i class="far fa-calendar"></i> March 2026</span>
+                <span><i class="far fa-clock"></i> 14 min read</span>
+                <span class="blog-category" style="background: var(--glass-bg); padding: 4px 12px; border-radius: 100px;">Engineering</span>
+            </div>
+            <h1 class="reveal reveal-delay-1">What gstack Gets Right (And What It Misses When You're Actually Shipping Product)</h1>
+            <p class="section-description reveal reveal-delay-2" style="max-width: 700px; margin: 24px auto 0;">
+                Garry Tan's gstack validates the role-based agent pattern. But when you're shipping real product solo, the hard part is everything outside the framework's scope.
+            </p>
+        </div>
+    </section>
+
+    <!-- Post Content -->
+    <article class="post-content">
+        <p class="reveal">
+            Garry Tan open-sourced gstack on March 12. Over 40,000 GitHub stars in under two weeks. TechCrunch coverage. The usual cycle: excitement, backlash, hot takes about whether it's just "a bunch of prompts."
+        </p>
+
+        <p class="reveal">
+            I've been running a similar workflow since mid-2025&mdash;skills files, role-based agent behavior, specs-driven development&mdash;while shipping a real product to a paying client. Not as a side project. As the entire business.
+        </p>
+
+        <p class="reveal">
+            gstack validates the pattern. It also reveals what gets lost when the conversation stays at the framework level and never touches production.
+        </p>
+
+        <h2 class="reveal">The Core Insight Is Correct</h2>
+
+        <p class="reveal">
+            The idea behind gstack is sound: when you give an AI agent a single generic role, output quality degrades. When you assign it a specific persona with constrained responsibilities&mdash;a reviewer who only reviews, a planner who only plans&mdash;the output improves dramatically.
+        </p>
+
+        <p class="reveal">
+            This maps to how real engineering organizations work. Different cognitive gears for different phases. A QA engineer thinks differently from a product lead. A release manager applies different judgment than a developer writing feature code. gstack codifies that separation into slash commands.
+        </p>
+
+        <p class="reveal">
+            I arrived at the same conclusion independently, through a different path. Not by thinking about organizational structure, but by watching agents produce code that compiled, passed basic checks, and felt subtly wrong everywhere. The patterns drifted. The naming was inconsistent. The architecture choices were locally reasonable and globally incoherent.
+        </p>
+
+        <p class="reveal">
+            Skills files were the fix. Detailed instruction sets&mdash;design patterns, Quarkus conventions, React component standards, error handling rules, module boundary definitions&mdash;loaded at the start of every session. The output went from "plausible code for a generic project" to "recognizably my codebase."
+        </p>
+
+        <p class="reveal">
+            The underlying principle is the same as gstack's: constrain the agent's operating context, and it performs better. We just implemented it differently.
+        </p>
+
+        <h2 class="reveal">Where gstack Stops</h2>
+
+        <p class="reveal">
+            gstack is a development process tool. It covers the lifecycle from ideation through deployment: think, plan, build, review, test, ship, reflect. Within that scope, it's well-designed. The <code>/plan-ceo-review</code> skill that asks "what's the 10-star product hiding inside this request" is a genuinely useful forcing function.
+        </p>
+
+        <p class="reveal">
+            But when you're a solo founder shipping product, the engineering workflow is maybe 40% of what agents need to do for you. The other 60% is domain-specific work that no generic framework can anticipate.
+        </p>
+
+        <p class="reveal">
+            Here's what I mean concretely.
+        </p>
+
+        <h3 class="reveal">Domain Context Is the Harder Encoding Problem</h3>
+
+        <p class="reveal">
+            My skills files don't just encode engineering patterns. They encode business logic.
+        </p>
+
+        <p class="reveal">
+            When I'm running event marketing campaigns for a client, agents need to understand ICP definitions&mdash;what makes a company a priority target versus a secondary one. They need to know how outreach sequences work across persona segments. They need to understand CRM field mappings, lead scoring logic, and attribution models.
+        </p>
+
+        <p class="reveal">
+            None of this is engineering knowledge. It's domain knowledge. And it changes constantly&mdash;new events, new target lists, shifting priorities from the client.
+        </p>
+
+        <p class="reveal">
+            gstack's <code>/plan-ceo-review</code> can ask good product questions. But it can't ask "does this outreach sequence match the methodology we agreed on" or "is this lead classification consistent with the ICP criteria we defined for this specific event." That judgment has to come from somewhere, and for me it comes from skills files and specs that encode business decisions, not just engineering conventions.
+        </p>
+
+        <p class="reveal">
+            The encoding labor for domain context is harder than encoding engineering patterns. Engineering conventions are relatively stable&mdash;your error handling patterns don't change week to week. Domain context shifts with every new client conversation, every new event, every updated target list. Keeping those instructions current is a significant, ongoing cost that gstack's model doesn't account for.
+        </p>
+
+        <h3 class="reveal">Specs Are the Missing Coordination Layer</h3>
+
+        <p class="reveal">
+            gstack assumes you know what to build. Its process starts at "think about the product" and moves through implementation. What it doesn't address is the living document problem&mdash;how do you maintain a single source of truth that agents can reference across sessions, across days, across weeks?
+        </p>
+
+        <p class="reveal">
+            I use a specs repo. Not a task board. Not Jira. The specs repo contains detailed business requirements broken into workflows, specific tasks with implementation details, data model specifications, integration contracts, UI/UX requirements, and testing criteria.
+        </p>
+
+        <p class="reveal">
+            After every PR merge, specs get updated. This is non-negotiable. The moment specs drift from the codebase, agents start making decisions based on outdated assumptions. You don't notice it immediately. Features still ship. Then something breaks in an unexpected place because the agent was building against a version of the system that no longer exists.
+        </p>
+
+        <p class="reveal">
+            gstack's skills are stateless. Each slash command runs in its own context. That's fine for a single feature cycle. It's insufficient for a product that's been under continuous development for months, where decisions made in November constrain what's possible in March, and agents need to understand that history.
+        </p>
+
+        <h3 class="reveal">Parallel Agents Need Isolation, Not Roles</h3>
+
+        <p class="reveal">
+            gstack's model is sequential. Think, plan, build, review, test, ship. One agent, switching roles.
+        </p>
+
+        <p class="reveal">
+            My workflow runs multiple agents in parallel. Cursor building a frontend feature while Claude Code refactors a backend module. Overnight agents tasked across separate repos&mdash;one running test suites, another cleaning up integrations, a third handling a data migration&mdash;each producing a discrete PR by morning.
+        </p>
+
+        <p class="reveal">
+            The key constraint isn't roles. It's isolation. If two agents touch overlapping parts of the codebase, you wake up to merge conflicts and divergent assumptions. The work has to be cleanly separated: different branches, different modules, different repos.
+        </p>
+
+        <p class="reveal">
+            This is an orchestration problem, not a persona problem. gstack doesn't address it because gstack is designed for one person doing one thing at a time. When you need to compress a week of team output into two days of solo work, parallel execution is where the real leverage is.
+        </p>
+
+        <h3 class="reveal">The 10,000 Lines Per Week Metric Is Misleading</h3>
+
+        <p class="reveal">
+            Garry Tan reported averaging 10,000 lines of code and 100 pull requests per week over a 50-day period. The README makes even bigger claims&mdash;10,000 to 20,000 lines per day, 600,000+ lines in 60 days. This generated both excitement and skepticism.
+        </p>
+
+        <p class="reveal">
+            I won't question his numbers. I will say that lines of code is the wrong metric for product development.
+        </p>
+
+        <p class="reveal">
+            When I'm building Luminik, the most valuable days are often the ones with the fewest lines committed. Days spent rewriting specs after a client conversation reveals a wrong assumption. Days spent deleting code because a simpler architecture emerged. Days spent manually testing every UI flow because agents consistently miss edge cases in multi-step interactions.
+        </p>
+
+        <p class="reveal">
+            The work that matters most&mdash;deciding what to build, maintaining system coherence, encoding domain judgment, verifying quality&mdash;doesn't show up in LOC counters or PR counts. Optimizing for code output volume risks optimizing for the wrong thing.
+        </p>
+
+        <h2 class="reveal">What Actually Matters for Solo Builders</h2>
+
+        <p class="reveal">
+            If you're building alone with AI agents, here's what I'd focus on instead of choosing between gstack and alternatives:
+        </p>
+
+        <div class="glass-card reveal" style="padding: 24px; margin: 24px 0;">
+            <h4 style="margin-bottom: 16px; color: var(--color-text-primary);">Encode your judgment, not just engineering patterns.</h4>
+            <p style="color: var(--color-text-secondary); margin: 0;">Skills files should capture how you think about your specific domain, not just how you want code structured. The business logic, the customer context, the decision frameworks&mdash;these are what make agent output actually useful versus generically correct.</p>
+        </div>
+
+        <div class="glass-card reveal" style="padding: 24px; margin: 24px 0;">
+            <h4 style="margin-bottom: 16px; color: var(--color-text-primary);">Maintain a living coordination layer.</h4>
+            <p style="color: var(--color-text-secondary); margin: 0;">Call it specs, call it a design doc repo, call it whatever. The point is that agents need access to the current state of the entire system's intent, not just the code. Without it, every session starts from scratch.</p>
+        </div>
+
+        <div class="glass-card reveal" style="padding: 24px; margin: 24px 0;">
+            <h4 style="margin-bottom: 16px; color: var(--color-text-primary);">Design for parallel execution.</h4>
+            <p style="color: var(--color-text-secondary); margin: 0;">The biggest leverage in solo development isn't making one agent faster&mdash;it's running multiple agents simultaneously on cleanly separated work. This requires thinking about your codebase in terms of independent modules with clear boundaries.</p>
+        </div>
+
+        <div class="glass-card reveal" style="padding: 24px; margin: 24px 0;">
+            <h4 style="margin-bottom: 16px; color: var(--color-text-primary);">Measure outcomes, not output.</h4>
+            <p style="color: var(--color-text-secondary); margin: 0;">The question isn't how many lines you shipped. It's whether the product works, whether customers use it, and whether the system stays coherent as it grows.</p>
+        </div>
+
+        <p class="reveal">
+            gstack is a useful contribution. It's well-packaged, it's open source, and it validates a pattern that works. But frameworks optimize for the framework's scope. The actual challenge of building product alone is everything outside that scope&mdash;the domain knowledge, the coordination, the judgment calls that no slash command can make for you.
+        </p>
+
+        <p class="reveal">
+            That's where the real work is. And it's the part nobody's figured out how to automate yet.
+        </p>
+
+        <div class="section-divider reveal"></div>
+
+        <p class="reveal" style="font-style: italic; color: var(--color-text-tertiary);">
+            If you're building alone with agents and figuring out your own version of this workflow, I'd like to hear what's working. The tools change fast, but the underlying patterns&mdash;encoding judgment, maintaining specs, parallel agent workflows&mdash;seem durable. Reach out on LinkedIn.
+        </p>
+
+        <!-- Author Info -->
+        <div class="glass-card reveal" style="padding: 32px; margin-top: 48px; display: flex; gap: 24px; align-items: center; flex-wrap: wrap;">
+            <img src="../assets/images/header/prasad.jpeg" alt="Prasad Subrahmanya" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover;">
+            <div style="flex: 1; min-width: 200px;">
+                <h4 style="margin-bottom: 8px;">Prasad Subrahmanya</h4>
+                <p style="color: var(--color-text-secondary); margin-bottom: 8px; font-size: 0.9rem;">
+                    Founder & CEO at Luminik. Previously built Aura at Bain ($3.6M ARR) and led Mainteny ($2.7M seed). Building an AI co-pilot for event marketing teams.
+                </p>
+                <div style="display: flex; gap: 12px;">
+                    <a href="https://linkedin.com/in/prasadus" target="_blank" style="color: var(--color-text-tertiary);"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://github.com/prasadus92" target="_blank" style="color: var(--color-text-tertiary);"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Back to Blog -->
+        <div class="reveal" style="margin-top: 48px; text-align: center;">
+            <a href="./" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i>
+                Back to Blog
+            </a>
+        </div>
+    </article>
+
+    <!-- Footer -->
+    <footer class="footer" style="margin-top: 80px;">
+        <div class="container">
+            <div class="footer-content">
+                <p class="footer-text">
+                    &copy; <span id="current-year"></span> Prasad Subrahmanya. Built with passion in Oslo, Norway.
+                </p>
+                <div class="footer-links">
+                    <a href="mailto:prasadus92@gmail.com">Email</a>
+                    <a href="https://linkedin.com/in/prasadus" target="_blank">LinkedIn</a>
+                    <a href="https://github.com/prasadus92" target="_blank">GitHub</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Preloader
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('preloader').classList.add('hidden');
+            }, 500);
+        });
+
+        // Theme Toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        const html = document.documentElement;
+
+        // Dynamic copyright year
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // Check for saved theme preference, then system preference, then default to dark
+        const getInitialTheme = () => {
+            const saved = localStorage.getItem('theme');
+            if (saved) return saved;
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+                return 'light';
+            }
+            return 'dark';
+        };
+        const savedTheme = getInitialTheme();
+        html.setAttribute('data-theme', savedTheme);
+        updateThemeIcon(savedTheme);
+
+        // Listen for system theme changes
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+            if (!localStorage.getItem('theme')) {
+                const newTheme = e.matches ? 'dark' : 'light';
+                html.setAttribute('data-theme', newTheme);
+                updateThemeIcon(newTheme);
+            }
+        });
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        });
+
+        function updateThemeIcon(theme) {
+            themeIcon.className = theme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+        }
+
+        // Navigation Scroll Effect
+        const nav = document.getElementById('nav');
+        nav.classList.add('scrolled');
+
+        // Mobile Navigation Toggle
+        const navToggle = document.getElementById('nav-toggle');
+        const navLinks = document.getElementById('nav-links');
+
+        navToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            navToggle.classList.toggle('active');
+        });
+
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                navToggle.classList.remove('active');
+            });
+        });
+
+        // Scroll Reveal Animation
+        const revealElements = document.querySelectorAll('.reveal');
+
+        const revealOnScroll = () => {
+            const windowHeight = window.innerHeight;
+            revealElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const revealPoint = 150;
+                if (elementTop < windowHeight - revealPoint) {
+                    element.classList.add('active');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', revealOnScroll);
+        window.addEventListener('load', revealOnScroll);
+
+        // Parallax Effect for Background Orbs
+        document.addEventListener('mousemove', (e) => {
+            const orbs = document.querySelectorAll('.bg-gradient-orb');
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            orbs.forEach((orb, index) => {
+                const speed = (index + 1) * 10;
+                orb.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
+            });
+        });
+    </script>
+</body>
+</html>

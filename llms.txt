@@ -15,6 +15,7 @@ Prasad Subrahmanya is a technical founder with 12+ years of experience building 
 ## Blog Articles
 
 ### Engineering
+- [What gstack Gets Right (And What It Misses When You're Actually Shipping Product)](https://prasad.tech/blog/gstack-solo-builder.html) - Garry Tan's gstack validates the role-based agent pattern, but the hard part is everything outside the framework's scope
 - [What It Actually Costs to Build a Serious Product Alone in 2026](https://prasad.tech/blog/building-alone-in-2026.html) - The real cost structure of solo product development with AI tools
 
 ### Founder Journey
