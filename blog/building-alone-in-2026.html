@@ -98,7 +98,7 @@
             </div>
             <h1 class="reveal reveal-delay-1">What It Actually Costs to Build a Serious Product Alone in 2026</h1>
             <p class="section-description reveal reveal-delay-2" style="max-width: 700px; margin: 24px auto 0;">
-                The real cost structure of solo product development has changed. Here's what it looks like from the inside—tools, workflows, and what actually matters.
+                The real cost structure of solo product development has changed. Here's what it looks like from the inside.
             </p>
         </div>
     </section>
@@ -106,7 +106,7 @@
     <!-- Post Content -->
     <article class="post-content">
         <p class="reveal">
-            I started my career at BlueJeans in 2014. The team had backend engineers, frontend engineers, dedicated QA, people handling deployments and infrastructure. Even for a focused product, you needed bodies—because the work demanded coordination at every step.
+            I started my career at BlueJeans in 2014. The team had backend engineers, frontend engineers, dedicated QA, people handling deployments and infrastructure. Even for a focused product, you needed bodies. The work demanded coordination at every step.
         </p>
 
         <p class="reveal">
@@ -114,7 +114,7 @@
         </p>
 
         <p class="reveal">
-            The work moved through people. Requirements got clarified in hallway conversations. Design patterns got transmitted through code reviews and whiteboard sessions. When something broke, you'd walk over to someone's desk. When something was ambiguous, you'd hash it out in a meeting. A lot of what made teams effective was implicit—never documented, never versioned, just carried in people's heads and habits.
+            The work moved through people. Requirements got clarified in hallway conversations. Design patterns got transmitted through code reviews and whiteboard sessions. When something broke, you'd walk over to someone's desk. When something was ambiguous, you'd hash it out in a meeting. A lot of what made teams effective was implicit. Never documented, never versioned, just carried in people's heads and habits.
         </p>
 
         <p class="reveal">
@@ -154,11 +154,11 @@
         </p>
 
         <p class="reveal">
-            <strong>Cursor</strong> handles active feature development—new flows, UI work, wiring things together. This is where I spend most of my coding hours. It's fast for focused, contextual work within a specific part of the codebase.
+            <strong>Cursor</strong> handles active feature development: new flows, UI work, wiring things together. This is where I spend most of my coding hours. It's fast for focused, contextual work within a specific part of the codebase.
         </p>
 
         <p class="reveal">
-            <strong>Claude Code</strong> handles large refactors where I need the agent to hold broader context and use tools more aggressively—file system access, terminal commands, multi-file changes that ripple across the codebase. I've found it more reliable than Cursor for structural changes that touch many files.
+            <strong>Claude Code</strong> handles large refactors where I need the agent to hold broader context and use tools more aggressively: file system access, terminal commands, multi-file changes that ripple across the codebase. I've found it more reliable than Cursor for structural changes that touch many files.
         </p>
 
         <p class="reveal">
@@ -166,7 +166,7 @@
         </p>
 
         <p class="reveal">
-            <strong>Codex and CodeRabbit</strong> sit as automated reviewers on every pull request. CodeRabbit catches issues I wouldn't think to check when I'm tired—security-adjacent concerns, scope mismatches, documentation drift. Codex provides a second automated perspective. Between the two, most PRs get substantive review before I look at them.
+            <strong>Codex and CodeRabbit</strong> sit as automated reviewers on every pull request. CodeRabbit catches issues I wouldn't think to check when I'm tired: security-adjacent concerns, scope mismatches, documentation drift. Codex provides a second automated perspective. Between the two, most PRs get substantive review before I look at them.
         </p>
 
         <p class="reveal">
@@ -188,7 +188,7 @@
         </p>
 
         <p class="reveal">
-            <strong>Live Debugging:</strong> Yesterday, I hit a staging issue. Cursor checked my ECS task logs via AWS CLI access, found the failing code path, looked at my Flyway migration files, and pointed to the exact error. End-to-end debugging across infrastructure, migration files, and application code—in one session, without switching tools.
+            <strong>Live Debugging:</strong> Yesterday, I hit a staging issue. Cursor checked my ECS task logs via AWS CLI access, found the failing code path, looked at my Flyway migration files, and pointed to the exact error. End-to-end debugging across infrastructure, migration files, and application code. One session, no tool switching.
         </p>
 
         <p class="reveal">
@@ -206,7 +206,7 @@
         </p>
 
         <p class="reveal">
-            I've built skills files—detailed instruction sets tuned specifically for my codebase and my preferences:
+            I've built skills files. Detailed instruction sets tuned specifically for my codebase and my preferences:
         </p>
 
         <ul class="reveal">
@@ -229,7 +229,7 @@
         </p>
 
         <p class="reveal">
-            With well-maintained skills files, the output is recognizably "my" codebase. The agent makes choices I would make—because I've told it how I think about these decisions.
+            With well-maintained skills files, the output is recognizably "my" codebase. The agent makes choices I would make, because I've told it how I think about these decisions.
         </p>
 
         <p class="reveal">
@@ -241,13 +241,13 @@
         </p>
 
         <blockquote class="reveal">
-            That encoding work—capturing decisions, conventions, patterns, preferences in a format agents can consume—is a genuinely new category of engineering labor. It didn't exist in 2014 because it wasn't needed. Now it's foundational.
+            That encoding work (capturing decisions, conventions, patterns, preferences in a format agents can consume) is a genuinely new category of engineering labor. It didn't exist in 2014 because it wasn't needed. Now it's foundational.
         </blockquote>
 
         <h2 class="reveal">Workspace Architecture: Single Project, Multiple Repos</h2>
 
         <p class="reveal">
-            All my repos—backend, frontend, mobile, integrations, and specs—live in a single project workspace. Separate repos, shared context.
+            All my repos (backend, frontend, mobile, integrations, and specs) live in a single project workspace. Separate repos, shared context.
         </p>
 
         <p class="reveal">
@@ -259,7 +259,7 @@
         </p>
 
         <p class="reveal">
-            The new failure mode: everything is visible, so drift shows up immediately. An inconsistency between backend and frontend that might have lived undetected for a sprint in a team environment surfaces the moment context is loaded. That's a good kind of discomfort—it forces resolution early.
+            The new failure mode: everything is visible, so drift shows up immediately. An inconsistency between backend and frontend that might have lived undetected for a sprint in a team environment surfaces the moment context is loaded. That's a good kind of discomfort. It forces resolution early.
         </p>
 
         <h2 class="reveal">Specs Driven Development: The Most Important Repo</h2>
@@ -308,7 +308,7 @@
         <h2 class="reveal">Overnight Agents and Mobile Steering</h2>
 
         <p class="reveal">
-            Before bed, I task agents via cloud environments—individual repos for tests, refactoring, cleanup—so there's a PR waiting for review in the morning.
+            Before bed, I task agents via cloud environments (individual repos for tests, refactoring, cleanup) so there's a PR waiting for review in the morning.
         </p>
 
         <p class="reveal">
@@ -374,7 +374,7 @@
         </p>
 
         <p class="reveal">
-            The mechanical parts compressed dramatically. Boilerplate generation, API integration scaffolding, data seeding, documentation lookup, test writing, security scanning—all of these are faster by an order of magnitude.
+            The mechanical parts compressed dramatically. Boilerplate generation, API integration scaffolding, data seeding, documentation lookup, test writing, security scanning. All of these are faster by an order of magnitude.
         </p>
 
         <p class="reveal">
@@ -471,7 +471,7 @@
         <div class="section-divider reveal"></div>
 
         <p class="reveal" style="font-style: italic; color: var(--color-text-tertiary);">
-            If you're building alone or thinking about it, I'm happy to share more details about any part of this setup. The tools change fast, but the underlying patterns—encoding judgment, maintaining specs, parallel agent workflows—seem durable. Reach out on LinkedIn.
+            If you're building alone or thinking about it, I'm happy to share more details about any part of this setup. The tools change fast, but the underlying patterns seem durable: encoding judgment, maintaining specs, running parallel agent workflows. Reach out on LinkedIn.
         </p>
 
         <!-- Author Info -->
