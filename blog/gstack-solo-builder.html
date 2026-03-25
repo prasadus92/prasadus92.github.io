@@ -12,15 +12,15 @@
       gtag('config', 'G-XG5LVE538S');
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>What gstack Gets Right (And What It Misses When You're Actually Shipping Product) - Prasad Subrahmanya</title>
+    <title>gstack, CLAUDE.md, and the Work That Frameworks Don't Cover - Prasad Subrahmanya</title>
 
-    <meta name="description" content="Garry Tan's gstack validates the role-based agent pattern. But when you're shipping real product solo, the hard part is everything outside the framework's scope." />
-    <meta name="keywords" content="gstack, garry tan, claude code, AI development, solo founder, skills files, specs driven development, agent workflow" />
+    <meta name="description" content="I've been running a workflow similar to gstack since mid-2025. Role-based agents, CLAUDE.md files, specs-driven development. Here's what I've learned about what works and what's still unsolved." />
+    <meta name="keywords" content="gstack, claude code, CLAUDE.md, AI development, solo founder, specs driven development, agent workflow" />
     <meta name="author" content="Prasad Subrahmanya" />
 
     <!-- OpenGraph Meta Tags -->
-    <meta property="og:title" content="What gstack Gets Right (And What It Misses When You're Actually Shipping Product)" />
-    <meta property="og:description" content="Garry Tan's gstack validates the role-based agent pattern. But when you're shipping real product solo, the hard part is everything outside the framework's scope." />
+    <meta property="og:title" content="gstack, CLAUDE.md, and the Work That Frameworks Don't Cover" />
+    <meta property="og:description" content="I've been running a workflow similar to gstack since mid-2025. Role-based agents, CLAUDE.md files, specs-driven development. Here's what I've learned about what works and what's still unsolved." />
     <meta property="og:type" content="article" />
     <meta property="og:url" content="https://prasad.tech/blog/gstack-solo-builder.html" />
     <meta property="og:image" content="https://prasad.tech/assets/images/header/prasad.jpeg" />
@@ -96,9 +96,9 @@
                 <span><i class="far fa-clock"></i> 14 min read</span>
                 <span class="blog-category" style="background: var(--glass-bg); padding: 4px 12px; border-radius: 100px;">Engineering</span>
             </div>
-            <h1 class="reveal reveal-delay-1">What gstack Gets Right (And What It Misses When You're Actually Shipping Product)</h1>
+            <h1 class="reveal reveal-delay-1">gstack, CLAUDE.md, and the Work That Frameworks Don't Cover</h1>
             <p class="section-description reveal reveal-delay-2" style="max-width: 700px; margin: 24px auto 0;">
-                Garry Tan's gstack validates the role-based agent pattern. But when you're shipping real product solo, the hard part is everything outside the framework's scope.
+                I've been running a workflow similar to gstack since mid-2025. Role-based agents, CLAUDE.md files, specs-driven development. Here's what I've learned about what works and what's still unsolved.
             </p>
         </div>
     </section>
@@ -106,167 +106,143 @@
     <!-- Post Content -->
     <article class="post-content">
         <p class="reveal">
-            Garry Tan open-sourced gstack on March 12. Over 40,000 GitHub stars in under two weeks. TechCrunch coverage. The usual cycle: excitement, backlash, hot takes about whether it's just "a bunch of prompts."
+            gstack launched on March 12 and hit 40,000 GitHub stars in under two weeks. The excitement is justified. The core approach, assigning AI agents specific roles instead of treating them as generic assistants, produces measurably better output.
         </p>
 
         <p class="reveal">
-            I've been running a similar workflow since mid-2025. Skills files, role-based agent behavior, specs-driven development. All while shipping a real product to a paying client. Not as a side project. As the entire business.
+            I've been running a similar workflow since mid-2025, shipping Luminik to a paying client. CLAUDE.md files with detailed coding conventions. A specs repo that agents reference every session. Multiple agents running in parallel across repos overnight. gstack formalizes part of what I arrived at through trial and error.
         </p>
 
         <p class="reveal">
-            gstack validates the pattern. It also reveals what gets lost when the conversation stays at the framework level and never touches production.
+            What I want to do here is compare approaches. Where does gstack's model overlap with what I've built? Where does it stop? And what problems remain unsolved regardless of which framework you use?
         </p>
 
-        <h2 class="reveal">The Core Insight Is Correct</h2>
+        <h2 class="reveal">Where the Approaches Overlap</h2>
 
         <p class="reveal">
-            The idea behind gstack is sound: when you give an AI agent a single generic role, output quality degrades. When you assign it a specific persona with constrained responsibilities (a reviewer who only reviews, a planner who only plans), the output improves dramatically.
-        </p>
-
-        <p class="reveal">
-            This maps to how real engineering organizations work. Different cognitive gears for different phases. A QA engineer thinks differently from a product lead. A release manager applies different judgment than a developer writing feature code. gstack codifies that separation into slash commands.
+            gstack's core idea: when you give an AI agent a specific persona with constrained responsibilities (a reviewer who only reviews, a planner who only plans), the output improves. This is correct. It maps to how engineering organizations actually work. A QA engineer thinks differently from a product lead. gstack codifies that separation into slash commands like <code>/build</code>, <code>/review</code>, <code>/ship</code>.
         </p>
 
         <p class="reveal">
-            I arrived at the same conclusion independently, through a different path. Not by thinking about organizational structure, but by watching agents produce code that compiled, passed basic checks, and felt subtly wrong everywhere. The patterns drifted. The naming was inconsistent. The architecture choices were locally reasonable and globally incoherent.
+            I arrived at the same principle from a different direction. I kept watching Claude Code produce code that compiled and passed checks but felt subtly wrong. The patterns drifted. Naming was inconsistent. Architecture choices were locally reasonable and globally incoherent.
         </p>
 
         <p class="reveal">
-            Skills files were the fix. Detailed instruction sets covering design patterns, Quarkus conventions, React component standards, error handling rules, module boundary definitions. Loaded at the start of every session. The output went from "plausible code for a generic project" to "recognizably my codebase."
+            The fix was writing <code>CLAUDE.md</code> files: project-level instruction files that Claude Code reads at session start. Mine cover Quarkus conventions, React component patterns, error handling rules, module boundary definitions. Cursor gets equivalent instructions via <code>.cursorrules</code>. Both tools read these files automatically when a session starts.
         </p>
 
         <p class="reveal">
-            The underlying principle is the same as gstack's: constrain the agent's operating context, and it performs better. We just implemented it differently.
+            The output went from "plausible code for a generic project" to "recognizably my codebase." The underlying principle is the same one gstack uses: constrain the agent's context, and it performs better. gstack does it through role-based slash commands. I do it through per-repo instruction files. Both work.
         </p>
 
-        <h2 class="reveal">Where gstack Stops</h2>
+        <h2 class="reveal">What gstack's Scope Doesn't Cover</h2>
 
         <p class="reveal">
-            gstack is a development process tool. It covers the lifecycle from ideation through deployment: think, plan, build, review, test, ship, reflect. Within that scope, it's well-designed. The <code>/plan-ceo-review</code> skill that asks "what's the 10-star product hiding inside this request" is a genuinely useful forcing function.
-        </p>
-
-        <p class="reveal">
-            But when you're a solo founder shipping product, the engineering workflow is maybe 40% of what agents need to do for you. The other 60% is domain-specific work that no generic framework can anticipate.
+            gstack covers the development lifecycle: think, plan, build, review, test, ship, reflect. The <code>/plan-ceo-review</code> command that asks "what's the 10-star product hiding inside this request" is a genuinely useful forcing function. Within that scope, it's well-designed.
         </p>
 
         <p class="reveal">
-            Here's what I mean concretely.
+            But when I'm building Luminik, the engineering workflow is maybe 40% of what agents do for me. The other 60% is domain-specific work that no generic framework can anticipate. Three specific gaps stand out.
         </p>
 
-        <h3 class="reveal">Domain Context Is the Harder Encoding Problem</h3>
+        <h3 class="reveal">1. Domain Context Is Harder to Encode Than Code Conventions</h3>
 
         <p class="reveal">
-            My skills files don't just encode engineering patterns. They encode business logic.
-        </p>
-
-        <p class="reveal">
-            When I'm running event marketing campaigns for a client, agents need to understand ICP definitions. What makes a company a priority target versus a secondary one. They need to know how outreach sequences work across persona segments. They need to understand CRM field mappings, lead scoring logic, and attribution models.
+            My <code>CLAUDE.md</code> files don't just encode engineering patterns. They encode business logic. Example: Luminik runs event marketing campaigns. My instruction files define ICP criteria for specific events, outreach sequence structures by persona segment, CRM field mappings, lead scoring thresholds, and attribution model rules.
         </p>
 
         <p class="reveal">
-            None of this is engineering knowledge. It's domain knowledge. And it changes constantly. New events, new target lists, shifting priorities from the client.
+            None of this is engineering knowledge. It's domain knowledge. And it changes constantly. After every client call, I'm updating instruction files with new target lists, revised ICP definitions, shifted priorities.
         </p>
 
         <p class="reveal">
-            gstack's <code>/plan-ceo-review</code> can ask good product questions. But it can't ask "does this outreach sequence match the methodology we agreed on" or "is this lead classification consistent with the ICP criteria we defined for this specific event." That judgment has to come from somewhere, and for me it comes from skills files and specs that encode business decisions, not just engineering conventions.
+            gstack's <code>/plan-ceo-review</code> asks good product questions. But it can't ask "does this outreach sequence match the methodology we agreed on for Web Summit" or "is this lead classification consistent with the ICP criteria for this specific campaign." That judgment lives in my <code>CLAUDE.md</code> files and specs, and I update them weekly.
         </p>
 
         <p class="reveal">
-            The encoding labor for domain context is harder than encoding engineering patterns. Engineering conventions are relatively stable. Your error handling patterns don't change week to week. Domain context shifts with every new client conversation, every new event, every updated target list. Keeping those instructions current is a significant, ongoing cost that gstack's model doesn't account for.
+            Engineering conventions are relatively stable. Your error handling patterns don't change week to week. Domain context does. Keeping instruction files current is a significant, ongoing cost that any framework-level approach leaves to the user.
         </p>
 
-        <h3 class="reveal">Specs Are the Missing Coordination Layer</h3>
+        <h3 class="reveal">2. Cross-Session Coordination Needs a Specs Repo</h3>
 
         <p class="reveal">
-            gstack assumes you know what to build. Its process starts at "think about the product" and moves through implementation. What it doesn't address is the living document problem: how do you maintain a single source of truth that agents can reference across sessions, across days, across weeks?
-        </p>
-
-        <p class="reveal">
-            I use a specs repo. Not a task board. Not Jira. The specs repo contains detailed business requirements broken into workflows, specific tasks with implementation details, data model specifications, integration contracts, UI/UX requirements, and testing criteria.
+            gstack's slash commands are stateless. Each one runs in its own context. That works for a single feature cycle. It doesn't work for a product under continuous development for months, where decisions made in November constrain what's possible in March.
         </p>
 
         <p class="reveal">
-            After every PR merge, specs get updated. This is non-negotiable. The moment specs drift from the codebase, agents start making decisions based on outdated assumptions. You don't notice it immediately. Features still ship. Then something breaks in an unexpected place because the agent was building against a version of the system that no longer exists.
+            I maintain a dedicated specs repo. Not a task board. Not Jira. It contains business requirements broken into workflows, specific tasks with implementation details, data model definitions, integration contracts, UI/UX requirements, and testing criteria. All my agent sessions reference it.
         </p>
 
         <p class="reveal">
-            gstack's skills are stateless. Each slash command runs in its own context. That's fine for a single feature cycle. It's insufficient for a product that's been under continuous development for months, where decisions made in November constrain what's possible in March, and agents need to understand that history.
-        </p>
-
-        <h3 class="reveal">Parallel Agents Need Isolation, Not Roles</h3>
-
-        <p class="reveal">
-            gstack's model is sequential. Think, plan, build, review, test, ship. One agent, switching roles.
+            After every PR merge, specs get updated. This is non-negotiable. The moment specs drift from the codebase, agents start making decisions based on outdated assumptions. You don't notice it immediately. Features still ship. Then something breaks because the agent was building against a version of the system that no longer exists.
         </p>
 
         <p class="reveal">
-            My workflow runs multiple agents in parallel. Cursor building a frontend feature while Claude Code refactors a backend module. Overnight agents tasked across separate repos. One running test suites, another cleaning up integrations, a third handling a data migration. Each producing a discrete PR by morning.
+            This is the living document problem: how do you maintain a single source of truth that agents can reference across sessions, across days, across weeks? gstack doesn't address it. I'm not sure any framework can. It might be inherently manual work.
+        </p>
+
+        <h3 class="reveal">3. Parallel Agents Need Isolation, Not Just Roles</h3>
+
+        <p class="reveal">
+            gstack's model is sequential: think, plan, build, review, test, ship. One agent, switching roles. My workflow runs multiple agents in parallel. On a typical evening, I'll task Cursor on a frontend feature, Claude Code on a backend refactor, and a cloud-hosted agent on test cleanup. Each works in a separate repo or branch. Each produces a discrete PR by morning.
         </p>
 
         <p class="reveal">
-            The key constraint isn't roles. It's isolation. If two agents touch overlapping parts of the codebase, you wake up to merge conflicts and divergent assumptions. The work has to be cleanly separated: different branches, different modules, different repos.
+            The constraint that matters most here is isolation. If two agents touch overlapping parts of the codebase, I wake up to merge conflicts and divergent assumptions. The work has to be cleanly separated: different branches, different modules, different repos.
         </p>
 
         <p class="reveal">
-            This is an orchestration problem, not a persona problem. gstack doesn't address it because gstack is designed for one person doing one thing at a time. When you need to compress a week of team output into two days of solo work, parallel execution is where the real leverage is.
+            This is an orchestration problem. gstack is designed for one agent at a time, which is a reasonable starting point. But the biggest time compression I've found in solo development comes from running 3-4 agents simultaneously on well-separated work, not from making one agent cycle through roles faster.
         </p>
 
-        <h3 class="reveal">The 10,000 Lines Per Week Metric Is Misleading</h3>
+        <h3 class="reveal">A Note on Output Metrics</h3>
 
         <p class="reveal">
-            Garry Tan reported averaging 10,000 lines of code and 100 pull requests per week over a 50-day period. The README makes even bigger claims: 10,000 to 20,000 lines per day, 600,000+ lines in 60 days. This generated both excitement and skepticism.
-        </p>
-
-        <p class="reveal">
-            I won't question his numbers. I will say that lines of code is the wrong metric for product development.
+            gstack's README reports impressive output numbers: 10,000 to 20,000 lines per day, 600,000+ lines in 60 days. These numbers are plausible with AI agents. I've had similar volume weeks.
         </p>
 
         <p class="reveal">
-            When I'm building Luminik, the most valuable days are often the ones with the fewest lines committed. Days spent rewriting specs after a client conversation reveals a wrong assumption. Days spent deleting code because a simpler architecture emerged. Days spent manually testing every UI flow because agents consistently miss edge cases in multi-step interactions.
+            But my most valuable days on Luminik are often the ones with the fewest lines committed. Last month I spent two days rewriting specs after a client conversation revealed a wrong assumption about how their team assigns leads post-event. Zero lines of product code shipped. The specs rewrite saved weeks of building the wrong thing.
         </p>
 
         <p class="reveal">
-            The work that matters most (deciding what to build, maintaining system coherence, encoding domain judgment, verifying quality) doesn't show up in LOC counters or PR counts. Optimizing for code output volume risks optimizing for the wrong thing.
+            Deciding what to build, maintaining system coherence, encoding domain judgment into instruction files, manually testing UI flows that agents consistently get wrong: this is where my hours go. None of it shows up in LOC counters.
         </p>
 
-        <h2 class="reveal">What Actually Matters for Solo Builders</h2>
+        <h2 class="reveal">What I'd Recommend to Someone Starting This Workflow</h2>
 
         <p class="reveal">
-            If you're building alone with AI agents, here's what I'd focus on instead of choosing between gstack and alternatives:
+            gstack is a good starting point. So is building your own system from scratch. Either way, you'll end up dealing with the same set of problems. Here's what I wish I'd known earlier:
         </p>
 
         <div class="glass-card reveal" style="padding: 24px; margin: 24px 0;">
-            <h4 style="margin-bottom: 16px; color: var(--color-text-primary);">Encode your judgment, not just engineering patterns.</h4>
-            <p style="color: var(--color-text-secondary); margin: 0;">Skills files should capture how you think about your specific domain, not just how you want code structured. The business logic, the customer context, the decision frameworks. These are what make agent output actually useful versus generically correct.</p>
+            <h4 style="margin-bottom: 16px; color: var(--color-text-primary);">Write CLAUDE.md files that encode business logic, not just code style.</h4>
+            <p style="color: var(--color-text-secondary); margin: 0;">My <code>CLAUDE.md</code> files started as coding conventions (naming, error handling, module structure). The real value came when I added domain-specific rules: how lead scoring works, what fields map to what in our CRM, how outreach sequences should be structured per persona type. The agent went from "generically correct code" to "code that reflects how our product actually works."</p>
         </div>
 
         <div class="glass-card reveal" style="padding: 24px; margin: 24px 0;">
-            <h4 style="margin-bottom: 16px; color: var(--color-text-primary);">Maintain a living coordination layer.</h4>
-            <p style="color: var(--color-text-secondary); margin: 0;">Call it specs, call it a design doc repo, call it whatever. The point is that agents need access to the current state of the entire system's intent, not just the code. Without it, every session starts from scratch.</p>
+            <h4 style="margin-bottom: 16px; color: var(--color-text-primary);">Keep a specs repo and update it after every merge.</h4>
+            <p style="color: var(--color-text-secondary); margin: 0;">I use a dedicated repository with business requirements, data model definitions, integration contracts, and testing criteria. Every agent session references it. The update discipline is the hard part. Skip one week and agents start building against stale assumptions.</p>
         </div>
 
         <div class="glass-card reveal" style="padding: 24px; margin: 24px 0;">
-            <h4 style="margin-bottom: 16px; color: var(--color-text-primary);">Design for parallel execution.</h4>
-            <p style="color: var(--color-text-secondary); margin: 0;">The biggest leverage in solo development isn't making one agent faster. It's running multiple agents simultaneously on cleanly separated work. This requires thinking about your codebase in terms of independent modules with clear boundaries.</p>
+            <h4 style="margin-bottom: 16px; color: var(--color-text-primary);">Structure your codebase for parallel agent work.</h4>
+            <p style="color: var(--color-text-secondary); margin: 0;">I run Cursor, Claude Code, and cloud-hosted agents simultaneously. This only works because the repos have clear module boundaries. If I need to refactor the backend event processing pipeline and build a new frontend dashboard, those can run in parallel because they touch different repos. Design for this from the start.</p>
         </div>
 
         <div class="glass-card reveal" style="padding: 24px; margin: 24px 0;">
-            <h4 style="margin-bottom: 16px; color: var(--color-text-primary);">Measure outcomes, not output.</h4>
-            <p style="color: var(--color-text-secondary); margin: 0;">The question isn't how many lines you shipped. It's whether the product works, whether customers use it, and whether the system stays coherent as it grows.</p>
+            <h4 style="margin-bottom: 16px; color: var(--color-text-primary);">Manually test everything.</h4>
+            <p style="color: var(--color-text-secondary); margin: 0;">Agents generate code fast. They also miss edge cases consistently. I click through every UI flow myself. At a 0-to-1 stage, there's no substitute for having your eyes on every interaction path.</p>
         </div>
 
         <p class="reveal">
-            gstack is a useful contribution. It's well-packaged, it's open source, and it validates a pattern that works. But frameworks optimize for the framework's scope. The actual challenge of building product alone is everything outside that scope. The domain knowledge, the coordination, the judgment calls that no slash command can make for you.
-        </p>
-
-        <p class="reveal">
-            That's where the real work is. And it's the part nobody's figured out how to automate yet.
+            gstack is well-packaged, open source, and validates a pattern that works. The problems I've described here (domain context encoding, cross-session coordination, parallel orchestration) exist regardless of which framework you use. They're the unsolved parts of this workflow, and I expect they'll get easier as tooling matures.
         </p>
 
         <div class="section-divider reveal"></div>
 
         <p class="reveal" style="font-style: italic; color: var(--color-text-tertiary);">
-            If you're building alone with agents and figuring out your own version of this workflow, I'd like to hear what's working. The tools change fast, but the underlying patterns seem durable: encoding judgment, maintaining specs, running parallel agent workflows. Reach out on LinkedIn.
+            If you're running a similar workflow and have figured out parts I haven't, I'd like to hear about it. Reach out on LinkedIn.
         </p>
 
         <!-- Author Info -->
