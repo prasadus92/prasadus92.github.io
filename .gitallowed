@@ -1,0 +1,5 @@
+# git-secrets allow-list for false positives on public B2B conference
+# proper nouns that collide with cryptographic-key regex patterns.
+# Keep entries narrow: each line is a regex, one per line.
+RSA, SaaStr
+on RSA last year

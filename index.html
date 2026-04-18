@@ -224,10 +224,10 @@
                             <p class="experience-company">SnowOptix</p>
                             <h4 class="experience-role">Founder</h4>
                         </div>
-                        <span class="experience-date">Jan 2024 - Present</span>
+                        <span class="experience-date">Jan 2024 - Oct 2024</span>
                     </div>
                     <p class="experience-description">
-                        A side project helping data teams optimize their Snowflake costs. Now used by a top-3 global consulting firm and other enterprises. The conversations while building this led to discovering the bigger opportunity that became Luminik.
+                        A side project helping data teams optimize their Snowflake costs, adopted by a top-3 global consulting firm and several enterprise data teams. The customer conversations while building it surfaced the bigger opportunity that became Luminik, at which point I wound the project down to focus full-time on the new company.
                     </p>
                     <div class="experience-tags">
                         <span class="tag">Snowflake</span>
@@ -384,8 +384,20 @@
                 </p>
             </div>
 
-            <div class="blog-grid">
-                <a href="blog/gstack-solo-builder.html" class="glass-card blog-card reveal reveal-delay-1">
+            <div class="blog-grid" id="blog-grid">
+                <a href="blog/dedicated-mac-mini-solo-startup.html" class="glass-card blog-card reveal reveal-delay-1" data-date="2026-04-18">
+                    <div class="blog-content">
+                        <span class="blog-category">Engineering</span>
+                        <h4 class="blog-title">Building Toward a Team of Digital Employees on a Mac Mini: Hermes Agent, Claude Code (ACP), and gbrain</h4>
+                        <p class="blog-excerpt">Moving Luminik's always-on operations off my MacBook Pro onto a dedicated Mac Mini M4. The full stack, three upstream bugs I chased across Hermes Agent and gbrain with PR links, and where this is heading.</p>
+                        <div class="blog-meta">
+                            <span><i class="far fa-calendar"></i> Apr 2026</span>
+                            <span><i class="far fa-clock"></i> 13 min read</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="blog/gstack-solo-builder.html" class="glass-card blog-card reveal reveal-delay-2" data-date="2026-03-15">
                     <div class="blog-content">
                         <span class="blog-category">Engineering</span>
                         <h4 class="blog-title">gstack, CLAUDE.md, and the Work That Frameworks Don't Cover</h4>
@@ -397,7 +409,7 @@
                     </div>
                 </a>
 
-                <a href="blog/building-alone-in-2026.html" class="glass-card blog-card reveal reveal-delay-2">
+                <a href="blog/building-alone-in-2026.html" class="glass-card blog-card reveal reveal-delay-3" data-date="2026-02-10">
                     <div class="blog-content">
                         <span class="blog-category">Engineering</span>
                         <h4 class="blog-title">What It Actually Costs to Build a Serious Product Alone in 2026</h4>
@@ -408,19 +420,20 @@
                         </div>
                     </div>
                 </a>
-
-                <a href="blog/selling-before-building.html" class="glass-card blog-card reveal reveal-delay-3">
-                    <div class="blog-content">
-                        <span class="blog-category">Founder Journey</span>
-                        <h4 class="blog-title">Selling Before Building: How I Got to Revenue Without Writing Code</h4>
-                        <p class="blog-excerpt">I signed my first paying customer at Luminik before writing a single line of code. Here's exactly how that worked.</p>
-                        <div class="blog-meta">
-                            <span><i class="far fa-calendar"></i> Feb 2026</span>
-                            <span><i class="far fa-clock"></i> 10 min read</span>
-                        </div>
-                    </div>
-                </a>
             </div>
+            <script>
+              // Sort featured blog cards by data-date (newest first) as a safety net
+              // so the latest post always surfaces first even if HTML order drifts.
+              (function () {
+                var grid = document.getElementById('blog-grid');
+                if (!grid) return;
+                var cards = Array.from(grid.querySelectorAll('.blog-card'));
+                cards.sort(function (a, b) {
+                  return (b.dataset.date || '').localeCompare(a.dataset.date || '');
+                });
+                cards.forEach(function (c) { grid.appendChild(c); });
+              })();
+            </script>
 
             <div class="reveal" style="text-align: center; margin-top: 48px;">
                 <a href="blog/" class="btn btn-secondary">
