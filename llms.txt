@@ -15,6 +15,7 @@ Prasad Subrahmanya is a technical founder with 12+ years of experience building 
 ## Blog Articles
 
 ### Engineering
+- [Building Toward a Team of Digital Employees on a Mac Mini: Hermes Agent, Claude Code (ACP), and gbrain](https://prasad.tech/blog/dedicated-mac-mini-solo-startup.html) - Moving Luminik's always-on operations off a MacBook Pro onto a dedicated Mac Mini M4 running Hermes Agent, Claude Code via ACP delegation, and a local gbrain knowledge base. Includes concrete writeups of three upstream bugs with links and repros: Hermes Gemini x-goog-api-key auth regression (PR #11961 → #12204 → merged in #12251); Hermes WhatsApp PLATFORM_HINT factually wrong (Issue #12224, open); gbrain embeddings hardcoded to OpenAI, swapped to Gemini via community PR #89.
 - [gstack, CLAUDE.md, and the Work That Frameworks Don't Cover](https://prasad.tech/blog/gstack-solo-builder.html) - Comparing gstack's approach to CLAUDE.md files and specs-driven development for solo product work
 - [What It Actually Costs to Build a Serious Product Alone in 2026](https://prasad.tech/blog/building-alone-in-2026.html) - The real cost structure of solo product development with AI tools
 
@@ -61,7 +62,7 @@ Luminik solves this by embedding with event teams as an AI-powered assistant tha
 ## Professional Experience
 
 - **[Luminik](https://www.luminik.io)** (Oct 2024 - Present): Founder & CEO - AI co-pilot for event marketing
-- **SnowOptix** (Jan 2024 - Present): Founder - Snowflake cost optimization tool
+- **SnowOptix** (Jan 2024 - Oct 2024): Founder - Snowflake cost optimization side project; adopted by a top-3 global consulting firm; wound down to focus on Luminik
 - **Bain & Company** (2022 - 2024): Venture CTO - Built Aura PE due diligence platform
 - **Mainteny** (2021 - 2022): CTO & Co-founder - CRM for maintenance companies
 

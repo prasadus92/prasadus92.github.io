@@ -15,8 +15,8 @@ A modern, glassmorphism-styled personal portfolio and blog built with HTML5, CSS
 - Dark/Light theme with automatic system detection
 - Blog with articles on startups, product development, and tech
 - Professional sections:
-  - Current ventures (Luminik, SnowOptix)
-  - Professional experience (Bain & Company, Mainteny)
+  - Current venture (Luminik)
+  - Professional experience (SnowOptix, Bain & Company, Mainteny)
   - Technical expertise
   - Education
 - Google Analytics integration
