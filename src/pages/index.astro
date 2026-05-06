@@ -1,0 +1,307 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import ProofStrip from '../components/islands/ProofStrip';
+import type { ProofPoint } from '../components/islands/ProofStrip';
+import { featuredPosts, formatMonth } from '../lib/posts';
+
+const proofPoints: ProofPoint[] = [
+  {
+    label: 'Aura at Bain',
+    value: '$3.6M ARR',
+    numericValue: 3.6,
+    prefix: '$',
+    suffix: 'M ARR',
+    caption: 'Built a PE due diligence platform from zero to revenue in 18 months.'
+  },
+  {
+    label: 'Mainteny seed',
+    value: '$2.7M raised',
+    numericValue: 2.7,
+    prefix: '$',
+    suffix: 'M seed',
+    caption: 'Co-founded the company. Built the first MVP solo in 3 months. Helped lead through a Series A team scale.'
+  },
+  {
+    label: 'Solo builder',
+    value: '12+ years',
+    numericValue: 12,
+    suffix: '+ years',
+    caption: 'Engineering, product, and founder-led GTM across 4 companies. Now building Luminik on my own.'
+  },
+  {
+    label: 'Public artifacts',
+    value: 'Open source',
+    caption: 'event-outbound-skill, claude-plugins, and prasad.tech itself. Code is public. Numbers cite real sources.'
+  }
+];
+
+const title = 'Prasad Subrahmanya';
+const description = 'Founder of Luminik, solo B2B builder. Field notes on product, founder-led sales, AI agents, and zero-to-one execution. Built Aura at Bain to $3.6M ARR. Co-founded Mainteny ($2.7M seed).';
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  canonical="https://prasad.tech/"
+  active="home"
+  preloadImage
+  image="/og/prasad-og.png"
+  imageAlt="Prasad Subrahmanya — Founder of Luminik. Building B2B software from customer pain to revenue."
+>
+
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <div class="eyebrow reveal">Founder, builder, operator</div>
+        <h1 class="reveal">Building B2B software from customer pain to revenue.</h1>
+        <p class="lead reveal">
+          I'm Prasad Subrahmanya. I build serious B2B products with a very small team, sell them to the buyer who feels the pain, and write field notes for other founders running the same playbook. Today I run <a href="https://www.luminik.io" target="_blank" rel="noopener">Luminik</a>, an event pipeline platform for B2B teams.
+        </p>
+        <div class="hero-actions reveal">
+          <a href="/blog/" class="button primary"><Icon name="book-open" size={16} /> Read the field notes</a>
+          <a href="https://www.luminik.io" target="_blank" rel="noopener" class="button"><Icon name="arrow-up-right" size={16} /> Visit Luminik</a>
+          <a href="https://github.com/prasadus92" target="_blank" rel="noopener" class="button"><Icon name="github" size={16} /> GitHub</a>
+        </div>
+      </div>
+
+      <div class="proof-card card reveal">
+        <div class="proof-head">
+          <img src="/assets/images/header/prasad.jpeg" width="76" height="76" alt="Prasad Subrahmanya" decoding="async" fetchpriority="high" />
+          <div>
+            <div class="eyebrow" style="margin-bottom: 4px;">Current work</div>
+            <h2 style="font-size: 1.35rem; margin-bottom: 4px;">Luminik</h2>
+            <p style="margin: 0; color: var(--text-3);">Event pipeline platform for B2B</p>
+          </div>
+        </div>
+        <div class="proof-list">
+          <div class="proof-item">
+            <div class="proof-number">01</div>
+            <p>Source, enrich, sequence, capture, and attribute event-sourced pipeline in the systems B2B teams already use.</p>
+          </div>
+          <div class="proof-item">
+            <div class="proof-number">02</div>
+            <p>Built with explicit specs, repo instruction files, agent workflows, and human review gates that keep founder judgment close to the work.</p>
+          </div>
+          <div class="proof-item">
+            <div class="proof-number">03</div>
+            <p>Founder-led sales, customer-driven roadmap. The fastest way to learn what a buyer will pay for is to sell it before you build it.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section tight" id="proof" aria-labelledby="proof-heading">
+    <div class="container">
+      <div class="section-header">
+        <div class="eyebrow reveal">Track record</div>
+        <h2 class="reveal" id="proof-heading">Numbers and shipped products before slogans</h2>
+        <p class="lead reveal">
+          Twelve years of building software products as engineer, CTO, and founder. Two priced exits in motion as a founder, one venture-builder result inside Bain, and a side project still running in production at a top global consultancy. The portfolio earns attention with proof before promises.
+        </p>
+      </div>
+      <ProofStrip points={proofPoints} client:visible />
+      <p class="proof-source-note reveal">
+        Public proof points are intentionally narrow: Aura reached $3.6M ARR in 18 months, Mainteny raised a $2.7M seed round, and the first Mainteny MVP was built solo in 3 months. Customer names, private pipeline, internal financials, and security posture stay out of the portfolio.
+      </p>
+    </div>
+  </section>
+
+  <section class="section" id="about">
+    <div class="container two-column">
+      <div class="section-header" style="margin-bottom: 0;">
+        <div class="eyebrow reveal">About</div>
+        <h2 class="reveal">A public operating record for serious solo builders</h2>
+      </div>
+      <div>
+        <p class="lead reveal">
+          I care about the work between a customer problem and a product that can survive real use: the first manual delivery, the narrow MVP, the sales call that changes the roadmap, the architecture choice that keeps future work honest, and the review gate that prevents agents from outrunning judgment.
+        </p>
+        <p class="lead reveal">
+          Right now I am building Luminik. Before that I built SnowOptix, Aura at Bain, and Mainteny. The contexts were different, but the pattern stayed close: get near the workflow, ship the smallest useful system, then make the operating model legible enough for other people to trust.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="operating-areas">
+    <div class="container">
+      <div class="section-header center">
+        <div class="eyebrow reveal">Operating Areas</div>
+        <h2 class="reveal">What I write about and build around</h2>
+        <p class="lead reveal">The through-line is practical: what a solo technical founder can put into their own operating system tomorrow.</p>
+      </div>
+
+      <div class="path-grid">
+        <div class="path-card card interactive reveal">
+          <h3>Solo product engineering</h3>
+          <p>Keep scope narrow, ship the first useful loop, and know when the product needs architecture instead of more features.</p>
+        </div>
+        <div class="path-card card interactive reveal">
+          <h3>Founder-led GTM</h3>
+          <p>Discovery as diagnosis, sales calls as workflow mapping, and customer proof before the story gets too polished.</p>
+        </div>
+        <div class="path-card card interactive reveal">
+          <h3>Agent-assisted work</h3>
+          <p>Specs, instruction files, review queues, source attribution, and the boundary between automation and founder judgment.</p>
+        </div>
+        <div class="path-card card interactive reveal">
+          <h3>Event pipeline systems</h3>
+          <p>The data model behind event ROI: sourcing, enrichment, sequencing, capture, and attribution as one record.</p>
+        </div>
+      </div>
+
+      <div class="artifact-map" style="margin-top: 34px;">
+        <div class="artifact-node card reveal">
+          <span>01</span>
+          <strong>Customer pain</strong>
+          <p>Start with a workflow a buyer already cares about.</p>
+        </div>
+        <div class="artifact-node card reveal">
+          <span>02</span>
+          <strong>Manual delivery</strong>
+          <p>Do the work before locking the product shape.</p>
+        </div>
+        <div class="artifact-node card reveal">
+          <span>03</span>
+          <strong>Narrow software</strong>
+          <p>Automate the repeated parts, keep judgment close.</p>
+        </div>
+        <div class="artifact-node card reveal">
+          <span>04</span>
+          <strong>Review gates</strong>
+          <p>Use agents and specs without giving up accountability.</p>
+        </div>
+        <div class="artifact-node card reveal">
+          <span>05</span>
+          <strong>Repeatability</strong>
+          <p>Keep the operating model legible enough to scale.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="experience">
+    <div class="container">
+      <div class="section-header">
+        <div class="eyebrow reveal">Experience</div>
+        <h2 class="reveal">Where I have built and shipped</h2>
+        <p class="lead reveal">From founder-led startups to venture building inside Bain, the work has sat at the intersection of product, engineering, sales, and operating discipline.</p>
+      </div>
+
+      <div class="experience-grid">
+        <div class="experience-card card reveal">
+          <div class="experience-top">
+            <div>
+              <p class="experience-company">Luminik</p>
+              <h3>Founder and CEO</h3>
+            </div>
+            <span class="experience-date">Oct 2024 - Present</span>
+          </div>
+          <p>Building an event pipeline platform that helps B2B teams source, enrich, sequence, capture, and attribute event-sourced pipeline.</p>
+          <div class="tag-row">
+            <span class="tag">Event pipeline</span>
+            <span class="tag">B2B GTM</span>
+            <span class="tag">AI agents</span>
+            <span class="tag">Founder-led sales</span>
+          </div>
+        </div>
+
+        <div class="experience-card card reveal">
+          <div class="experience-top">
+            <div>
+              <p class="experience-company">SnowOptix</p>
+              <h3>Founder</h3>
+            </div>
+            <span class="experience-date">Jan 2024 - Oct 2024</span>
+          </div>
+          <p>A Snowflake cost optimization side project adopted by a top-3 global consulting firm. The customer conversations surfaced the opportunity that became Luminik.</p>
+          <div class="tag-row">
+            <span class="tag">Snowflake</span>
+            <span class="tag">Data engineering</span>
+            <span class="tag">Customer discovery</span>
+          </div>
+        </div>
+
+        <div class="experience-card card reveal">
+          <div class="experience-top">
+            <div>
+              <p class="experience-company">Bain & Company</p>
+              <h3>Venture CTO</h3>
+            </div>
+            <span class="experience-date">Nov 2022 - Dec 2023</span>
+          </div>
+          <p>Built and scaled Aura, a PE due diligence SaaS platform, from concept to $3.6M ARR in 18 months.</p>
+          <div class="tag-row">
+            <span class="tag">SaaS</span>
+            <span class="tag">Due diligence</span>
+            <span class="tag">Venture building</span>
+          </div>
+        </div>
+
+        <div class="experience-card card reveal">
+          <div class="experience-top">
+            <div>
+              <p class="experience-company">Mainteny</p>
+              <h3>Co-founder and CTO</h3>
+            </div>
+            <span class="experience-date">Aug 2020 - Oct 2022</span>
+          </div>
+          <p>Built the first MVP solo in 3 months, then helped lead the company through a $2.7M seed round and team growth.</p>
+          <div class="tag-row">
+            <span class="tag">CRM</span>
+            <span class="tag">MVP</span>
+            <span class="tag">Fundraising</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="blog">
+    <div class="container">
+      <div class="section-header center">
+        <div class="eyebrow reveal">Writing</div>
+        <h2 class="reveal">Operating notes for solo builders</h2>
+        <p class="lead reveal">Essays on building, selling, coding with agents, and turning customer work into software. Written from shipped work and live operating constraints.</p>
+      </div>
+
+      <div class="blog-grid">
+        {featuredPosts.map((post) => (
+          <a class="blog-card card interactive reveal" href={post.url}>
+            <div class="blog-card-content">
+              <span class="blog-category">{post.category}</span>
+              <h3>{post.title}</h3>
+              <p>{post.description}</p>
+              <div class="blog-meta">
+                <span><Icon name="calendar" size={14} /> {formatMonth(post.date)}</span>
+                <span><Icon name="clock" size={14} /> {post.readTime}</span>
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+
+      <div class="reveal" style="text-align: center; margin-top: 42px;">
+        <a class="button" href="/blog/">View All Articles <Icon name="arrow-right" size={16} /></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="contact">
+    <div class="container two-column">
+      <div class="section-header" style="margin-bottom: 0;">
+        <div class="eyebrow reveal">Contact</div>
+        <h2 class="reveal">Useful conversations beat vague networking</h2>
+      </div>
+      <div class="contact-box card reveal">
+        <p class="lead">Reach out if you want to talk about Luminik, event pipeline, solo-builder operating systems, or founder-led product work.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="mailto:prasadus92@gmail.com"><Icon name="envelope" size={16} /> Email</a>
+          <a class="button" href="https://linkedin.com/in/prasadus" target="_blank" rel="noopener"><Icon name="linkedin" size={16} /> LinkedIn</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

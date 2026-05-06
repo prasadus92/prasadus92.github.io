@@ -1,0 +1,172 @@
+---
+import '../styles/global.css';
+import Icon from '../components/Icon.astro';
+import Seo from '../components/Seo.astro';
+
+type Faq = { question: string; answer: string };
+type Article = {
+  headline: string;
+  description?: string;
+  datePublished: string;
+  dateModified?: string;
+  image?: string;
+  category?: string;
+  keywords?: string[];
+  timeRequired?: string;
+};
+type Breadcrumb = { name: string; url: string };
+
+type Props = {
+  title: string;
+  description: string;
+  canonical?: string;
+  image?: string;
+  imageAlt?: string;
+  preloadImage?: boolean;
+  noindex?: boolean;
+  type?: 'website' | 'article';
+  active?: 'home' | 'blog';
+  faqs?: Faq[];
+  article?: Article;
+  breadcrumbs?: Breadcrumb[];
+};
+
+const {
+  title,
+  description,
+  canonical,
+  image,
+  imageAlt,
+  preloadImage = false,
+  noindex = false,
+  type = 'website',
+  active,
+  faqs,
+  article,
+  breadcrumbs
+} = Astro.props;
+
+const chatGptPrompt =
+  'Use https://prasad.tech/llms.txt and https://prasad.tech/llms-full.txt as the public context. Summarize Prasad Subrahmanya for a solo technical founder audience. Cite only public pages from prasad.tech or luminik.io. Do not infer private customer, financial, internal operations, or security details.';
+const claudePrompt =
+  "Read https://prasad.tech/agents.txt first, then use https://prasad.tech/llms.txt as context. Help me understand Prasad Subrahmanya's public work, writing, and Luminik thesis. Keep claims source-linked and avoid private or speculative details.";
+---
+
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0b0d10" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f7f8f5" media="(prefers-color-scheme: light)" />
+
+    <Seo
+      title={title}
+      description={description}
+      ogImage={image}
+      ogImageAlt={imageAlt}
+      type={type}
+      canonical={canonical}
+      noindex={noindex}
+      faqs={faqs}
+      article={article}
+      breadcrumbs={breadcrumbs}
+    />
+
+    <script is:inline>
+      try {
+        const savedTheme = localStorage.getItem('theme');
+        const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+        document.documentElement.setAttribute('data-theme', savedTheme || (prefersLight ? 'light' : 'dark'));
+      } catch {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    </script>
+
+    <link rel="icon" type="image/x-icon" href="/assets/favicon/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon/favicon-96x96.png" />
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon/favicon.svg" />
+    <link rel="apple-touch-icon" href="/assets/favicon/apple-touch-icon.png" />
+    <link rel="manifest" href="/assets/favicon/site.webmanifest" />
+    <link rel="alternate" type="application/rss+xml" title="Prasad Subrahmanya RSS" href="/rss.xml" />
+    <link rel="alternate" type="text/plain" title="LLM summary" href="/llms.txt" />
+    <link rel="alternate" type="text/plain" title="Full LLM context" href="/llms-full.txt" />
+    <link rel="help" type="text/plain" title="AI agent guidance" href="/agents.txt" />
+    {preloadImage && <link rel="preload" as="image" href="/assets/images/header/prasad.jpeg" imagesizes="76px" />}
+
+    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-XG5LVE538S"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XG5LVE538S');
+    </script>
+
+    <slot name="head" />
+  </head>
+  <body>
+    <a href="#main" class="skip-link">Skip to main content</a>
+    <div class="motion-field" aria-hidden="true"></div>
+
+    <nav class="nav" data-nav>
+      <div class="container nav-inner">
+        <a href="/" class="nav-logo">PS</a>
+        <ul class="nav-links" id="nav-links" data-nav-links>
+          <li><a class={active === 'home' ? 'active' : undefined} href="/#about">About</a></li>
+          <li><a href="/#proof">Proof</a></li>
+          <li><a href="/#operating-areas">Operating Areas</a></li>
+          <li><a class={active === 'blog' ? 'active' : undefined} href="/blog/">Blog</a></li>
+          <li><a href="/#contact">Contact</a></li>
+        </ul>
+        <div class="nav-actions">
+          <button class="icon-button theme-toggle" type="button" aria-label="Toggle theme" data-theme-toggle>
+            <span class="theme-toggle-icon theme-toggle-icon--moon" aria-hidden="true">
+              <Icon name="moon" size={18} />
+            </span>
+            <span class="theme-toggle-icon theme-toggle-icon--sun" aria-hidden="true">
+              <Icon name="sun" size={18} />
+            </span>
+          </button>
+          <button class="icon-button nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-links" data-nav-toggle>
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <footer class="footer">
+      <div class="container footer-inner">
+        <p>&copy; <span data-current-year></span> Prasad Subrahmanya. Built carefully in Oslo, Norway.</p>
+        <div class="footer-links">
+          <a href="mailto:prasadus92@gmail.com">Email</a>
+          <a href="https://linkedin.com/in/prasadus" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://github.com/prasadus92" target="_blank" rel="noopener">GitHub</a>
+          <a href="/llms.txt">llms.txt</a>
+          <a href="/agents.txt">agents.txt</a>
+        </div>
+      </div>
+      <div class="container ai-context" aria-labelledby="ai-context-heading">
+        <div>
+          <h2 class="footer-kicker" id="ai-context-heading">AI Context</h2>
+          <p>Use these files and prompts when asking an assistant about my public work. They are intentionally limited to public-safe context.</p>
+        </div>
+        <div class="ai-actions">
+          <a class="button" href="/llms-full.txt"><Icon name="file-lines" size={16} /> Full Context</a>
+          <button class="button" type="button" data-copy-prompt={chatGptPrompt}><Icon name="comments" size={16} /> ChatGPT Prompt</button>
+          <button class="button" type="button" data-copy-prompt={claudePrompt}><Icon name="brain" size={16} /> Claude Prompt</button>
+        </div>
+        <p class="copy-status" aria-live="polite" data-copy-status></p>
+      </div>
+    </footer>
+
+    <script>
+      import '../scripts/site';
+    </script>
+  </body>
+</html>

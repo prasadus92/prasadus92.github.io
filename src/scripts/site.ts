@@ -1,0 +1,117 @@
+const root = document.documentElement;
+root.classList.add('js');
+
+try {
+  const savedTheme = localStorage.getItem('theme');
+  const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+  const initialTheme = savedTheme ?? (prefersLight ? 'light' : 'dark');
+  root.setAttribute('data-theme', initialTheme);
+} catch {
+  root.setAttribute('data-theme', 'dark');
+}
+
+const updateThemeIcon = () => {
+  const button = document.querySelector<HTMLElement>('[data-theme-toggle]');
+  if (!button) return;
+  const isDark = root.getAttribute('data-theme') === 'dark';
+  button.dataset.themeState = isDark ? 'dark' : 'light';
+  button.setAttribute('aria-label', isDark ? 'Switch to light theme' : 'Switch to dark theme');
+};
+
+updateThemeIcon();
+
+document.querySelector<HTMLButtonElement>('[data-theme-toggle]')?.addEventListener('click', () => {
+  const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  root.setAttribute('data-theme', next);
+  try {
+    localStorage.setItem('theme', next);
+  } catch {
+    // Theme still changes for the current page even when storage is blocked.
+  }
+  updateThemeIcon();
+});
+
+const nav = document.querySelector<HTMLElement>('[data-nav]');
+const setNavState = () => {
+  nav?.classList.toggle('scrolled', window.scrollY > 12);
+};
+setNavState();
+window.addEventListener('scroll', setNavState, { passive: true });
+
+const navToggle = document.querySelector<HTMLButtonElement>('[data-nav-toggle]');
+const navLinks = document.querySelector<HTMLElement>('[data-nav-links]');
+
+navToggle?.addEventListener('click', () => {
+  const isOpen = navLinks?.classList.toggle('active') ?? false;
+  navToggle.classList.toggle('active', isOpen);
+  navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+});
+
+navLinks?.querySelectorAll('a').forEach((link) => {
+  link.addEventListener('click', () => {
+    navLinks.classList.remove('active');
+    navToggle?.classList.remove('active');
+    navToggle?.setAttribute('aria-expanded', 'false');
+  });
+});
+
+const revealElements = document.querySelectorAll<HTMLElement>('.reveal');
+if ('IntersectionObserver' in window) {
+  const revealObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('active');
+        revealObserver.unobserve(entry.target);
+      });
+    },
+    { rootMargin: '0px 0px -10% 0px' }
+  );
+  revealElements.forEach((element) => revealObserver.observe(element));
+  root.classList.add('reveal-ready');
+} else {
+  revealElements.forEach((element) => element.classList.add('active'));
+}
+
+/* Subtle scroll-driven mesh parallax. The motion-field drifts on its own via
+ * CSS keyframes; this just adds a small translate offset proportional to
+ * scroll position so the field feels anchored to the page rather than fixed
+ * to the viewport. Skipped entirely under prefers-reduced-motion. */
+const meshField = document.querySelector<HTMLElement>('.motion-field');
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+if (meshField && !reducedMotion) {
+  let scrollRaf = 0;
+  const updateMesh = () => {
+    scrollRaf = 0;
+    const offset = Math.min(window.scrollY * 0.04, 80);
+    meshField.style.setProperty('--mesh-y', `${-offset}px`);
+  };
+  meshField.style.transform = 'translate3d(0, var(--mesh-y, 0), 0)';
+  meshField.style.willChange = 'transform';
+  window.addEventListener(
+    'scroll',
+    () => {
+      if (!scrollRaf) scrollRaf = window.requestAnimationFrame(updateMesh);
+    },
+    { passive: true }
+  );
+}
+
+const currentYear = document.querySelector<HTMLElement>('[data-current-year]');
+if (currentYear) currentYear.textContent = String(new Date().getFullYear());
+
+const copyStatus = document.querySelector<HTMLElement>('[data-copy-status]');
+document.querySelectorAll<HTMLButtonElement>('[data-copy-prompt]').forEach((button) => {
+  button.addEventListener('click', async () => {
+    const prompt = button.dataset.copyPrompt ?? '';
+    if (!prompt) return;
+
+    try {
+      await navigator.clipboard.writeText(prompt);
+      if (copyStatus) copyStatus.textContent = 'Prompt copied.';
+    } catch {
+      if (copyStatus) copyStatus.textContent = 'Copy failed. Open llms.txt or agents.txt instead.';
+    }
+  });
+});

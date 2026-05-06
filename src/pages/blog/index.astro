@@ -1,0 +1,128 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Icon from '../../components/Icon.astro';
+import { formatMonth, posts } from '../../lib/posts';
+
+const title = 'Field Notes for Solo Technical Founders';
+const description = 'Operating notes on product engineering, founder-led sales, AI-agent workflows, and zero-to-one execution. Drawn from Luminik, Aura at Bain, Mainteny ($2.7M seed), and SnowOptix.';
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Blog', url: '/blog/' }
+];
+
+const paths = [
+  {
+    title: 'Solo Builder OS',
+    body: 'Agents, specs, review gates, context boundaries, and the recurring work a small company still has to run carefully.',
+    href: '/blog/alfred-solo-founder-operating-system.html'
+  },
+  {
+    title: 'Founder-Led Sales',
+    body: 'Sales as workflow diagnosis first. Useful for builders who need customer truth before hiring a sales motion.',
+    href: '/blog/selling-before-building.html'
+  },
+  {
+    title: 'Event Pipeline',
+    body: 'How event ROI breaks across handoffs, and why the answer starts with one event operating record.',
+    href: '/blog/event-marketing-roi.html'
+  },
+  {
+    title: 'Zero to One',
+    body: 'Mainteny, Aura, SnowOptix, and the product decisions that changed what I built next.',
+    href: '/blog/mvp-three-months.html'
+  }
+];
+
+const collectionSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Prasad Subrahmanya Blog',
+  description,
+  url: 'https://prasad.tech/blog/',
+  mainEntity: {
+    '@type': 'ItemList',
+    itemListElement: posts.map((post, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      url: `https://prasad.tech${post.url}`,
+      name: post.title
+    }))
+  }
+};
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  canonical="https://prasad.tech/blog/"
+  active="blog"
+  image="/og/prasad-og.png"
+  imageAlt="Prasad Subrahmanya — field notes for solo technical founders"
+  breadcrumbs={breadcrumbs}
+>
+  <script is:inline slot="head" type="application/ld+json" set:html={JSON.stringify(collectionSchema)} />
+
+  <section class="blog-hero">
+    <div class="container">
+      <div class="eyebrow reveal">Blog</div>
+      <h1 class="reveal">Operating notes for solo builders</h1>
+      <p class="lead reveal" style="max-width: 760px; margin: 0 auto;">
+        Notes from building Luminik and earlier products: product, sales, AI-agent workflows, event pipeline systems, and the judgment that cannot be outsourced.
+      </p>
+    </div>
+  </section>
+
+  <section class="section tight">
+    <div class="container">
+      <article class="featured-post card reveal">
+        <div>
+          <span class="blog-category">{posts[0].category}</span>
+          <h2>{posts[0].title}</h2>
+          <p>{posts[0].description}</p>
+          <div class="hero-actions">
+            <a class="button primary" href={posts[0].url}>Start Here <Icon name="arrow-right" size={16} /></a>
+          </div>
+        </div>
+        <div class="featured-diagram" aria-label="Alfred operating contract preview">
+          <div class="featured-diagram-row">
+            <strong>Context</strong>
+            <span>Approved docs, repo rules, and public-safe positioning.</span>
+          </div>
+          <div class="featured-diagram-row">
+            <strong>Work</strong>
+            <span>Drafts, PRs, summaries, and checks that stay reviewable.</span>
+          </div>
+          <div class="featured-diagram-row">
+            <strong>Gate</strong>
+            <span>Human approval before publish, merge, send, or deploy.</span>
+          </div>
+        </div>
+      </article>
+
+      <div class="path-grid" style="margin-bottom: 44px;">
+        {paths.map((path) => (
+          <a class="path-card card interactive reveal" href={path.href} style="color: inherit; text-decoration: none;">
+            <h3>{path.title}</h3>
+            <p>{path.body}</p>
+          </a>
+        ))}
+      </div>
+
+      <div class="blog-grid">
+        {posts.map((post) => (
+          <a class="blog-card card interactive reveal" href={post.url}>
+            <div class="blog-card-content">
+              <span class="blog-category">{post.category}</span>
+              <h3>{post.title}</h3>
+              <p>{post.description}</p>
+              <div class="blog-meta">
+                <span><Icon name="calendar" size={14} /> {formatMonth(post.date)}</span>
+                <span><Icon name="clock" size={14} /> {post.readTime}</span>
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
