@@ -1629,6 +1629,13 @@ img {
   object-fit: cover;
 }
 
+@media (max-width: 900px) {
+  .author-card {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
 .related-grid {
   display: grid;
   gap: 12px;
@@ -1761,6 +1768,10 @@ img {
   .featured-post,
   .post-shell {
     grid-template-columns: 1fr;
+  }
+
+  .hero h1 {
+    max-width: 100%;
   }
 
   .post-aside {
