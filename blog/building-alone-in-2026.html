@@ -157,27 +157,26 @@
         </p>
 
         <p class="reveal">
-            My monthly tooling spend looks like this:
+            The cost is no longer mostly headcount. It is a stack of tools, context systems, review loops, and the discipline to keep them coherent.
         </p>
 
         <div class="glass-card reveal" style="padding: 24px; margin: 24px 0;">
-            <h4 style="margin-bottom: 16px; color: var(--color-text-primary);">Monthly AI Tooling Costs</h4>
+            <h4 style="margin-bottom: 16px; color: var(--color-text-primary);">The Solo-Builder Operating System</h4>
             <ul style="color: var(--color-text-secondary); list-style: none; padding: 0; margin: 0;">
-                <li style="margin-bottom: 12px;"><strong>Cursor:</strong> Over $1,000 last month (token-based pricing; this reflects heavy daily usage across premium models)</li>
-                <li style="margin-bottom: 12px;"><strong>Claude Code Max:</strong> ~$200/month</li>
-                <li style="margin-bottom: 12px;"><strong>ChatGPT Pro:</strong> ~$200/month (primarily for Codex access)</li>
-                <li style="margin-bottom: 12px;"><strong>CodeRabbit:</strong> Automated PR reviewer on every pull request</li>
-                <li style="margin-bottom: 12px;"><strong>Aikido Security:</strong> Repo security scanning</li>
-                <li><strong>Claude Flow:</strong> Experimenting with autonomous overnight sessions (hasn't clicked for me yet)</li>
+                <li style="margin-bottom: 12px;"><strong>Build environments:</strong> fast interactive coding, larger structural refactors, and isolated branches for parallel work.</li>
+                <li style="margin-bottom: 12px;"><strong>Review systems:</strong> automated PR review, security-adjacent checks, and a final human pass before merge.</li>
+                <li style="margin-bottom: 12px;"><strong>Context systems:</strong> specs, instruction files, architecture notes, and product decisions that agents can read before they act.</li>
+                <li style="margin-bottom: 12px;"><strong>Verification loops:</strong> tests, manual product checks, and documentation updates after meaningful changes.</li>
+                <li><strong>Customer time:</strong> the one part I refuse to automate away. The product still has to be built from lived buyer pain.</li>
             </ul>
         </div>
 
         <p class="reveal">
-            That's roughly $1,500-2,000/month on AI tooling alone, as a bootstrapped solo founder. This isn't indulgence. It's the infrastructure cost of compressing a team into one desk.
+            That is the real replacement for the old five-person baseline: not one magic agent, but a tighter operating system around a founder who still owns judgment.
         </p>
 
         <p class="reveal">
-            A note I'd add two months later: the software subscriptions above are half the story. The other half is a dedicated machine that runs as an always-on operator layer for the company. I added a Mac Mini to this setup in April 2026 and the marginal monthly cost for the new capability was zero. The orchestration loop runs on a free tier and heavy work still delegates to Claude Code on the same Max plan. I wrote about it in <a href="dedicated-mac-mini-solo-startup.html">A Dedicated Mac Mini for Luminik's Agents</a>.
+            A note I'd add two months later: the software subscriptions above are half the story. The other half is the operating boundary around recurring agent work. I separated Luminik's background agent layer from my interactive development loop in April 2026. I wrote about that in <a href="dedicated-mac-mini-solo-startup.html">Separating Agent Work from Founder Work</a>.
         </p>
 
         <figure class="post-visual reveal">
@@ -240,27 +239,27 @@
         <h2 class="reveal">Where Compression Shows Up</h2>
 
         <p class="reveal">
-            Certain categories of work that used to take weeks now take hours or days. These are specific, measurable examples from the last few months:
+            Certain categories of work that used to take weeks now take hours or days. The pattern is consistent across the last few months:
         </p>
 
         <p class="reveal">
-            <strong>CRM Integrations:</strong> I built Salesforce and HubSpot integrations within a week. Agents read the API documentation themselves, inspected fields, matched them to my data model, and generated the connection layer. In 2014, this would have been a multi-week project involving dedicated developers reading every page of API docs, writing mapping code manually, debugging serialization issues, handling edge cases in field types.
+            <strong>CRM Integrations:</strong> Integration work compresses when agents can read documentation, inspect schemas, map fields to a known data model, and generate the connection layer. The founder's job moves from boilerplate author to contract reviewer.
         </p>
 
         <p class="reveal">
-            <strong>Data Seeding:</strong> Seeding my staging environment plus test Salesforce and HubSpot accounts with realistic data took under an hour via scripts the agents wrote. This used to be a separate development effort with its own timeline and tickets.
+            <strong>Data Seeding:</strong> Realistic seed data used to become a small project of its own. Now it becomes a scripted artifact that agents can generate, revise, and rerun while the underlying assumptions stay visible in the spec.
         </p>
 
         <p class="reveal">
-            <strong>Live Debugging:</strong> Yesterday, I hit a staging issue. Cursor checked my ECS task logs via AWS CLI access, found the failing code path, looked at my Flyway migration files, and pointed to the exact error. End-to-end debugging across infrastructure, migration files, and application code. One session, no tool switching.
+            <strong>Live Debugging:</strong> The best debugging sessions now cross code, logs, migrations, and recent changes in one pass. The agent can gather the evidence; I still decide whether the explanation is sufficient and whether the fix preserves the architecture.
         </p>
 
         <p class="reveal">
-            <strong>Security:</strong> I ran Aikido Security across my repos, got the findings report, fed it to Claude Code, got fixes pushed, and CodeRabbit verified the fixes on the PR. The security audit → fix → verify cycle that would involve multiple people and multiple handoffs compressed into a single afternoon.
+            <strong>Quality and Security:</strong> Static findings and review comments no longer sit as a backlog of chores. They become reviewable patches, with the same final standard as any human-written change.
         </p>
 
         <p class="reveal">
-            <strong>MCP and Browser Access:</strong> Agents can access documentation directly, go check fields in external systems, match them to my data model. These were manual research tasks for a developer in the pre-AI era: open browser, read docs, take notes, translate to code. Now the agent does the lookup and the translation in the same session.
+            <strong>Documentation and Browser Work:</strong> Agents can move from docs to implementation without forcing me to manually translate every field and edge case. The time saved is not just typing. It is reduced context switching.
         </p>
 
         <h2 class="reveal">Skills Files: Encoding Judgment</h2>
@@ -369,10 +368,10 @@
             Keeping specs alive while multiple agents work in parallel is constant, unglamorous, necessary work. It's the coordination cost that used to be distributed across a team and now lands entirely on me.
         </p>
 
-        <h2 class="reveal">Overnight Agents and Mobile Steering</h2>
+        <h2 class="reveal">Parallel Agents and Review Queues</h2>
 
         <p class="reveal">
-            Before bed, I task agents via cloud environments (individual repos for tests, refactoring, cleanup) so a PR is waiting for review in the morning.
+            The useful unit of autonomous work is not "go build the product." It is a scoped task with a clear boundary and a reviewable output.
         </p>
 
         <p class="reveal">
@@ -380,11 +379,11 @@
         </p>
 
         <p class="reveal">
-            I've steered development sessions from my phone sitting at a coffee shop. The feedback cycle is tighter than it has any right to be for a single person. There are tools like Omnara that sync local Claude Code sessions to the cloud. I haven't tried it yet, but the direction is clear: development is becoming location-independent in a way that doesn't require a laptop.
+            The direction is clear: development is becoming less tied to a single device and more tied to clear ownership of context, branch, and review. That sounds less flashy than "autonomous coding." It is also more useful.
         </p>
 
         <p class="reveal">
-            Claude Flow is the tool I want to work most. The promise of fully autonomous overnight coding sessions is real. In practice, I haven't found the right configuration for my use cases yet. The agent either stays too conservative (producing trivial changes that aren't worth the session) or gets too ambitious (introducing structural decisions I haven't approved). I may still be missing the right setup for my codebase. I keep experimenting.
+            The failure mode is predictable. If the task is too small, the output is not worth the coordination cost. If the task is too broad, the agent makes structural decisions I should have made myself. The art is carving work at the size where an agent can produce momentum without smuggling in architecture.
         </p>
 
         <h2 class="reveal">Where Things Still Break Down</h2>
@@ -438,11 +437,11 @@
         </p>
 
         <p class="reveal">
-            The mechanical parts compressed dramatically. Boilerplate generation, API integration scaffolding, data seeding, documentation lookup, test writing, security scanning. All of these are faster by an order of magnitude.
+            The mechanical parts compressed dramatically. Boilerplate generation, API integration scaffolding, data seeding, documentation lookup, test writing, static checks. All of these are faster by an order of magnitude.
         </p>
 
         <p class="reveal">
-            The judgment parts didn't compress at all. What to build. How to structure it. When to stop adding and start removing. How to keep the system coherent as it grows. How to maintain quality when the agent is happy to ship something that technically works and aesthetically drifts.
+            The judgment parts didn't compress at all. What to build. How to structure it. When to stop adding and start removing. How to keep the system coherent as it grows. How to maintain quality when an agent can ship something that technically works and aesthetically drifts.
         </p>
 
         <p class="reveal">
@@ -457,10 +456,10 @@
             The total cost is different from 2014. Lower in some dimensions, higher in others. The shape changed. The amount of care required didn't.
         </p>
 
-        <h2 class="reveal">My Full Toolchain</h2>
+        <h2 class="reveal">The Toolchain Categories</h2>
 
         <p class="reveal">
-            For anyone building a similar setup, this is the complete list:
+            The exact tools will change. The categories matter more:
         </p>
 
         <div class="glass-card reveal" style="padding: 24px; margin: 24px 0; overflow-x: auto;">
@@ -476,7 +475,7 @@
                     <tr style="border-bottom: 1px solid var(--glass-border);">
                         <td style="padding: 12px 8px;"><strong>Cursor</strong></td>
                         <td style="padding: 12px 8px;">Active feature development</td>
-                        <td style="padding: 12px 8px;">Highest token spend; used for focused, contextual work</td>
+                        <td style="padding: 12px 8px;">Used for focused, contextual work inside one part of the system</td>
                     </tr>
                     <tr style="border-bottom: 1px solid var(--glass-border);">
                         <td style="padding: 12px 8px;"><strong>Claude Code</strong></td>
@@ -491,22 +490,22 @@
                     <tr style="border-bottom: 1px solid var(--glass-border);">
                         <td style="padding: 12px 8px;"><strong>CodeRabbit</strong></td>
                         <td style="padding: 12px 8px;">Automated PR review</td>
-                        <td style="padding: 12px 8px;">Catches security issues, scope drift, documentation gaps</td>
+                        <td style="padding: 12px 8px;">Catches scope drift, missed edge cases, and documentation gaps</td>
                     </tr>
                     <tr style="border-bottom: 1px solid var(--glass-border);">
                         <td style="padding: 12px 8px;"><strong>GitHub CLI</strong></td>
                         <td style="padding: 12px 8px;">Workflow automation</td>
-                        <td style="padding: 12px 8px;">Agents create PRs, read comments, push fixes</td>
+                        <td style="padding: 12px 8px;">PR creation, review follow-up, and branch-level workflow automation</td>
                     </tr>
                     <tr style="border-bottom: 1px solid var(--glass-border);">
-                        <td style="padding: 12px 8px;"><strong>Aikido Security</strong></td>
-                        <td style="padding: 12px 8px;">Security scanning</td>
-                        <td style="padding: 12px 8px;">Findings fed to agents for automated fixes</td>
+                        <td style="padding: 12px 8px;"><strong>Static checks</strong></td>
+                        <td style="padding: 12px 8px;">Quality and security signals</td>
+                        <td style="padding: 12px 8px;">Findings become reviewable work, not hidden debt</td>
                     </tr>
                     <tr style="border-bottom: 1px solid var(--glass-border);">
-                        <td style="padding: 12px 8px;"><strong>Claude Flow</strong></td>
-                        <td style="padding: 12px 8px;">Overnight autonomous sessions</td>
-                        <td style="padding: 12px 8px;">Still experimenting; hasn't clicked yet</td>
+                        <td style="padding: 12px 8px;"><strong>Isolated agent workspaces</strong></td>
+                        <td style="padding: 12px 8px;">Parallel work</td>
+                        <td style="padding: 12px 8px;">Bounded branches and scoped tasks keep parallelism reviewable</td>
                     </tr>
                     <tr style="border-bottom: 1px solid var(--glass-border);">
                         <td style="padding: 12px 8px;"><strong>Single project workspace</strong></td>
@@ -523,11 +522,6 @@
                         <td style="padding: 12px 8px;">Judgment encoding</td>
                         <td style="padding: 12px 8px;">Design patterns, conventions, principles tuned to my codebase</td>
                     </tr>
-                    <tr>
-                        <td style="padding: 12px 8px;"><strong>AWS CLI</strong></td>
-                        <td style="padding: 12px 8px;">Live debugging</td>
-                        <td style="padding: 12px 8px;">Agents access ECS logs, infra directly</td>
-                    </tr>
                 </tbody>
             </table>
         </div>
@@ -535,7 +529,7 @@
         <div class="section-divider reveal"></div>
 
         <p class="reveal" style="font-style: italic; color: var(--color-text-tertiary);">
-            If you're building alone or thinking about it, I'm happy to share more details about any part of this setup. The tools change fast, but the underlying patterns seem durable: encoding judgment, maintaining specs, running parallel agent workflows. Reach out on LinkedIn.
+            The tools change fast. The durable work is encoding judgment, maintaining specs, running parallel agent workflows, and keeping the founder responsible for taste.
         </p>
 
         <!-- Author Info -->
