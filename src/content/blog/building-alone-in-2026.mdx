@@ -14,13 +14,13 @@ import CompareTable from '../../components/post/CompareTable.astro';
 import StatRow from '../../components/post/StatRow.astro';
 import PullQuote from '../../components/post/PullQuote.astro';
 
-<p class="reveal">
+<div class="reveal">
   I started my career at BlueJeans in 2014. Even for a focused product, you needed bodies. Backend engineers, frontend engineers, dedicated QA, dedicated infrastructure, dedicated deployments. Setup was a half-day. Integrations were weeks of API reading and boilerplate. Realistic seed data was its own ticket. The work moved through people. Requirements got clarified in hallways. Design patterns transmitted through code reviews and whiteboards. A lot of what made teams effective was implicit, social, and undocumented.
-</p>
+</div>
 
-<p class="reveal">
+<div class="reveal">
   I am building Luminik alone in 2026. Backend, frontend, mobile, CRM integrations, infrastructure, security, data pipelines. The kind of scope that in 2014 would have assumed five or six people before anyone discussed timelines.
-</p>
+</div>
 
 <KeyTakeaway label="The argument in one paragraph">
   The cost did not disappear. It shifted. Mechanical work compressed by an order of magnitude. The judgment work, deciding what to build, encoding conventions, maintaining specs, reviewing parallel agent output, did not compress at all. Solo product engineering in 2026 is the work of running a tight operating system around a founder who still owns taste.
@@ -43,9 +43,9 @@ import PullQuote from '../../components/post/PullQuote.astro';
 
 <h2 class="reveal">The Solo-Builder Operating System</h2>
 
-<p class="reveal">
+<div class="reveal">
   The replacement for the old five-person baseline is not a general agent. It is a tighter operating system around a founder who still owns judgment.
-</p>
+</div>
 
 <Callout tone="note" title="The five layers I run today">
   <ul>
@@ -57,9 +57,9 @@ import PullQuote from '../../components/post/PullQuote.astro';
   </ul>
 </Callout>
 
-<p class="reveal">
+<div class="reveal">
   Two months after writing the first draft of this post I added a sixth piece: the operating boundary around recurring agent work, separated from my interactive development loop. I wrote about that in <a href="dedicated-mac-mini-solo-startup.html">Separating Agent Work from Founder Work</a>.
-</p>
+</div>
 
 <h2 class="reveal">A Working Day, Tool by Tool</h2>
 
@@ -78,9 +78,9 @@ import PullQuote from '../../components/post/PullQuote.astro';
 
 <h2 class="reveal">Where Compression Actually Shows Up</h2>
 
-<p class="reveal">
+<div class="reveal">
   Categories of work that used to take weeks now take hours or days. The pattern is consistent across the last few months.
-</p>
+</div>
 
 <StatRow stats={[
   { value: "10x", label: "CRM integrations", caption: "Agents read docs, inspect schemas, map fields, generate the connection layer. Founder moves from boilerplate author to contract reviewer." },
@@ -91,9 +91,9 @@ import PullQuote from '../../components/post/PullQuote.astro';
 
 <h2 class="reveal">Instruction Files: Encoding Judgment</h2>
 
-<p class="reveal">
+<div class="reveal">
   This is the part most people skip when they talk about AI-assisted development, and it is the part that makes the biggest difference. I maintain CLAUDE.md files for Claude Code and .cursorrules for Cursor. Project-level instruction files tuned to my codebase and my preferences.
-</p>
+</div>
 
 <Callout tone="info" title="What lives in an instruction file">
   <ul>
@@ -108,13 +108,13 @@ import PullQuote from '../../components/post/PullQuote.astro';
   </ul>
 </Callout>
 
-<p class="reveal">
+<div class="reveal">
   Without instruction files, agents produce code that compiles, passes basic checks, and feels slightly wrong everywhere. The patterns drift. The naming is inconsistent. The architecture choices are locally reasonable and globally incoherent. With well-maintained instruction files, the output is recognizably my codebase.
-</p>
+</div>
 
-<p class="reveal">
+<div class="reveal">
   In 2014, this kind of judgment lived in people's heads. Senior engineers transmitted it through code reviews, pair programming, whiteboard sessions, lunch conversations. It was implicit and social. When a junior engineer made an architectural choice that felt wrong, someone would walk over and explain why. That correction was immediate, contextual, and unrecorded. Now it has to be written down, versioned, and maintained. Otherwise it does not exist in the system.
-</p>
+</div>
 
 <PullQuote>
   Encoding work, capturing decisions, conventions, patterns, and preferences in a format agents can consume, is a genuinely new category of engineering labor. In 2014, the team carried that context socially. In 2026, the system needs it written down.
@@ -122,27 +122,27 @@ import PullQuote from '../../components/post/PullQuote.astro';
 
 <h2 class="reveal">Workspace Architecture: Single Project, Multiple Repos</h2>
 
-<p class="reveal">
+<div class="reveal">
   All my repos live in a single project workspace: backend, frontend, mobile, integrations, specs. Separate repos, shared context. This is deliberately different from a monorepo. I want agents to see the full system without coupling deployment pipelines. Release workflows stay independent per repo.
-</p>
+</div>
 
-<p class="reveal">
+<div class="reveal">
   When an agent works on the backend, it can see the frontend contracts. When it works on the frontend, it can see the API schemas. When it works on integrations, it can see both. Agents introduce fewer regressions because they understand cross-repo dependencies.
-</p>
+</div>
 
-<p class="reveal">
+<div class="reveal">
   The new failure mode: everything is visible, so drift shows up immediately. An inconsistency between backend and frontend that might have lived undetected for a sprint in a team environment surfaces the moment context is loaded. That is a good kind of discomfort.
-</p>
+</div>
 
 <h2 class="reveal">Specs Driven Development: The Most Important Repo</h2>
 
-<p class="reveal">
+<div class="reveal">
   No Jira. No Linear. No Trello. The specs repo is the roadmap, the plan, and the coordination layer. Detailed business requirements broken into workflows, specific tasks with implementation details, data model specs, integration contracts, UI/UX requirements, testing criteria. All written detailed enough to be directly consumable by humans and agents.
-</p>
+</div>
 
-<p class="reveal">
+<div class="reveal">
   After every PR merge, specs get updated. This is non-negotiable. The moment specs drift from the codebase, two things happen. Agents make decisions on outdated assumptions. My own mental model starts diverging from reality.
-</p>
+</div>
 
 <Callout tone="warning" title="Two failure modes for specs">
   <ul>
@@ -153,13 +153,13 @@ import PullQuote from '../../components/post/PullQuote.astro';
 
 <h2 class="reveal">Parallel Agents and Review Queues</h2>
 
-<p class="reveal">
+<div class="reveal">
   The useful unit of autonomous work is not "go build the product." It is a scoped task with a clear boundary and a reviewable output. The key constraint is isolation. If you task two agents on overlapping parts of the codebase overnight, you wake up to merge conflicts and divergent assumptions. Each agent gets its own branch, its own scope, its own discrete PR.
-</p>
+</div>
 
-<p class="reveal">
+<div class="reveal">
   Too small and the output is not worth the coordination cost. Too broad and the agent makes structural decisions you should have made yourself. The art is carving work at the size where an agent can produce momentum without smuggling in architecture.
-</p>
+</div>
 
 <h2 class="reveal">Where Things Still Break Down</h2>
 
@@ -179,13 +179,13 @@ import PullQuote from '../../components/post/PullQuote.astro';
 
 <h2 class="reveal">What Agents Can and Cannot Do</h2>
 
-<p class="reveal">
+<div class="reveal">
   Agents operate on what you give them. Leave out the decorator pattern for a specific use case and they choose their own shape. Leave out error handling conventions and each module handles failures differently. Leave out module boundaries and the agent makes locally optimal choices that create globally messy architecture.
-</p>
+</div>
 
-<p class="reveal">
+<div class="reveal">
   The quality of what comes out tracks directly to the quality of your instruction files, your specs, your prompts. This has always been true of software. The difference now is that the cost of poor documentation is immediate and visible, not gradual and hidden.
-</p>
+</div>
 
 <PullQuote>
   This is the actual job now. Writing code is a shrinking fraction of my day. Deciding what agents should build, reviewing what they produced, and updating the instruction files and specs that keep the system coherent is where the hours go.
@@ -193,13 +193,13 @@ import PullQuote from '../../components/post/PullQuote.astro';
 
 <h2 class="reveal">The Cost Structure Has Changed, the Work Has Not Disappeared</h2>
 
-<p class="reveal">
+<div class="reveal">
   The mechanical parts compressed dramatically. Boilerplate generation, API integration scaffolding, data seeding, documentation lookup, test writing, static checks. All of these are faster by an order of magnitude. The judgment parts did not compress at all. What to build. How to structure it. When to stop adding and start removing. How to keep the system coherent as it grows. How to maintain quality when an agent can ship something that technically works and aesthetically drifts.
-</p>
+</div>
 
-<p class="reveal">
+<div class="reveal">
   The new cost is encoding. Every decision that used to live in someone's head now needs to be written down in a format an agent can consume. Every convention that used to spread through proximity now needs to be maintained as a versioned file. Every correction that used to happen in a code review comment now needs to be generalized into a rule.
-</p>
+</div>
 
 <KeyTakeaway label="The shape of the trade">
   I can experiment faster than at any point in twelve years of building software. I can also introduce structural mistakes faster. The only reliable counterweight is discipline about specs, instruction files, standards, and manual verification. The total cost is different from 2014. Lower in some dimensions, higher in others. The amount of care required did not change.
@@ -225,6 +225,6 @@ import PullQuote from '../../components/post/PullQuote.astro';
   ]}
 />
 
-<p class="reveal" style="font-style: italic; color: var(--color-text-tertiary);">
+<div class="reveal" style="font-style: italic; color: var(--color-text-tertiary);">
   The tools change fast. The durable work is encoding judgment, maintaining specs, running parallel agent workflows, and keeping the founder responsible for taste.
-</p>
+</div>

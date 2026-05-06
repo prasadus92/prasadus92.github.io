@@ -15,9 +15,9 @@ import RoleCard from '../../components/post/RoleCard.astro';
 import StatRow from '../../components/post/StatRow.astro';
 import PullQuote from '../../components/post/PullQuote.astro';
 
-<p class="reveal">
+<div class="reveal">
   Event ROI is a CRM problem disguised as a reporting problem. By the time the CMO asks what an event produced, the evidence is already scattered across attendee portals, enrichment tools, sequencers, badge scanners, AE notes, and Salesforce. The dashboard is weak because the data model was weak from the start.
-</p>
+</div>
 
 <KeyTakeaway label="The argument in one paragraph">
   A serious event motion runs through five handoffs: source, enrich, sequence, capture, attribute. If one handoff drops the shared identifier, the final report becomes a reconstruction. Fix the handoffs and the dashboard becomes trivial. Fix the dashboard without fixing the handoffs and you keep paying for events you cannot defend.
@@ -25,9 +25,9 @@ import PullQuote from '../../components/post/PullQuote.astro';
 
 <h2 class="reveal">Two Ledgers, Only One of Them Clean</h2>
 
-<p class="reveal">
+<div class="reveal">
   Finance forces the cost side to be clean. Booth, sponsorship, travel, dinners, shipping, contractors, design. Every line has an owner and an invoice. The signal side is messier because no single team owns it end to end.
-</p>
+</div>
 
 <CompareTable
   caption="Two ledgers, one event. Most teams have the first. The second gets reassembled after the floor closes."
@@ -46,9 +46,9 @@ import PullQuote from '../../components/post/PullQuote.astro';
 
 <h2 class="reveal">The Five Handoffs That Actually Decide ROI</h2>
 
-<p class="reveal">
+<div class="reveal">
   This is the work behind a defensible report. Each stage owes the next stage a piece of evidence. The shared record is what makes the chain work.
-</p>
+</div>
 
 <div class="role-grid">
   <RoleCard
@@ -109,9 +109,9 @@ import PullQuote from '../../components/post/PullQuote.astro';
 
 <h2 class="reveal">Why the Booth Scan Is Already Too Late</h2>
 
-<p class="reveal">
+<div class="reveal">
   Many teams treat the badge scan as the start of event data. For a pipeline-focused team, the scan is the middle. The first three stages decide whether the booth is a checkpoint inside a larger pipeline motion or just a lead-collection exercise.
-</p>
+</div>
 
 <PullQuote attribution="What the manual delivery taught me">
   A target-account choice changes the enrichment priority. An enrichment result changes the outreach angle. A meeting note changes the follow-up. A follow-up changes the attribution story in CRM. None of that survives if every stage is talking to a different system.
@@ -119,9 +119,9 @@ import PullQuote from '../../components/post/PullQuote.astro';
 
 <h2 class="reveal">What a Defensible Report Actually Measures</h2>
 
-<p class="reveal">
+<div class="reveal">
   The CMO does not need more rows. The CMO needs a small set of numbers a CFO can interrogate without flinching.
-</p>
+</div>
 
 <StatRow stats={[
   { value: "1", label: "Event record", caption: "One shared identifier across all five stages. Without it, no number that follows is defensible." },
@@ -135,18 +135,18 @@ import PullQuote from '../../components/post/PullQuote.astro';
 
 <h2 class="reveal">The Practical Fix</h2>
 
-<p class="reveal">
+<div class="reveal">
   Give every event a single operating record. Attach targets, lists, sequences, meetings, scans, notes, and CRM outcomes to that record. Use the enrichment and sequencer contracts the team already pays for. Keep Salesforce or HubSpot as the place where the final pipeline story lives.
-</p>
+</div>
 
-<p class="reveal">
+<div class="reveal">
   Then measure the event as a pipeline motion, not a pile of leads. Pre-booked meetings, target-account coverage, opportunity influence, sourced pipeline, confidence level. Those are the numbers a CMO can defend.
-</p>
+</div>
 
 <KeyTakeaway label="The shape of the fix">
   The fix is not a prettier dashboard. The fix is preserving the evidence while the work is happening. If you cannot point to one event record that holds source, enrich, sequence, capture, and attribute together, the ROI conversation keeps ending the same way every quarter.
 </KeyTakeaway>
 
-<p class="reveal" style="font-style: italic; color: var(--color-text-tertiary);">
+<div class="reveal" style="font-style: italic; color: var(--color-text-tertiary);">
   This is the product problem I am working on at <a href="https://www.luminik.io" target="_blank" rel="noopener">Luminik</a>. If you are trying to prove event ROI, start by asking where the shared record breaks.
-</p>
+</div>
