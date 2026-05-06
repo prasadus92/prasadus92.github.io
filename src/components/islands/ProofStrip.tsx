@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 
 /**
- * ProofStrip — animated proof-point grid for the homepage and blog hero.
+ * ProofStrip: animated proof-point grid for the homepage and blog hero.
  *
  * Mirrors the Luminik marketing-site island pattern: a small interactive
  * component that renders a Stripe-style ledger of public-safe credibility

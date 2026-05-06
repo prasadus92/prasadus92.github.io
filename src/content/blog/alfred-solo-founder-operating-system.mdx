@@ -28,7 +28,7 @@ import StatRow from '../../components/post/StatRow.astro';
 </div>
 
 <div class="reveal">
-  Alfred is my answer. It is a small fleet of role contracts around work that needs to happen repeatedly, with a review surface where outputs land and one founder who still owns every consequential decision. This post explains the public-safe shape: what each role needs to know, what it can produce, and which parts I am preparing to open source.
+  Alfred is my answer. It is a small fleet of role contracts around work that needs to happen repeatedly, with a review surface where outputs land and one founder who still owns every consequential decision. This post explains the reusable shape: what each role needs to know, what it can produce, and which parts I am preparing to open source.
 </div>
 
 <KeyTakeaway label="The model in one paragraph">
@@ -44,7 +44,7 @@ import StatRow from '../../components/post/StatRow.astro';
 <h2 class="reveal">The Two Layers</h2>
 
 <div class="reveal">
-  Alfred is not one big agent. It splits into two layers, and the split matters because it lines up with how a real company is actually built.
+  Alfred splits into two layers, and the split matters because it lines up with how a real company is actually built.
 </div>
 
 <CompareTable
@@ -56,7 +56,7 @@ import StatRow from '../../components/post/StatRow.astro';
     { dimension: "Boundary", left: "Company work that should recur without being remembered manually", right: "Code work that needs isolation, review, or cross-repo coordination" },
     { dimension: "Cadence", left: "Scheduled or event-triggered, with exact timing kept private", right: "Triggered by reviewable engineering work, with exact routing kept private" },
     { dimension: "Output", left: "Briefs, drafts, digests, summaries", right: "PRs, comments, alerts, status posts" },
-    { dimension: "Guardrail", left: "Draft and summarize. Do not publish, send, pay, merge, or deploy.", right: "Open reviewable work. Do not approve, merge, or deploy on its own." }
+    { dimension: "Guardrail", left: "Draft and summarize only. Publishing, sending, paying, merging, and deploying stay human.", right: "Open reviewable work only. Approval, merge, and deploy stay human." }
   ]}
 />
 
@@ -76,7 +76,7 @@ import StatRow from '../../components/post/StatRow.astro';
     writes="Digest, conflict notes, and follow-up prompts"
     guardrail="Never replies on my behalf"
   >
-    <p>Turns scattered operational context into one reviewable brief. The point is not automation for its own sake. The point is reducing the chance that small coordination work disappears.</p>
+    <p>Turns scattered operational context into one reviewable brief. The point is reducing the chance that small coordination work disappears.</p>
   </RoleCard>
 
   <RoleCard
@@ -84,7 +84,7 @@ import StatRow from '../../components/post/StatRow.astro';
     role="Writer"
     trigger="Planned themes and publishing backlog"
     cadence="Scheduled drafts"
-    reads="Public-safe voice rules, recent posts, launch context"
+    reads="Approved voice rules, recent posts, launch context"
     writes="Drafts for review"
     guardrail="No publishing. Drafts only."
   >
@@ -99,7 +99,7 @@ import StatRow from '../../components/post/StatRow.astro';
     writes="Digest of threads worth reading or replying to"
     guardrail="Never quotes private channels. Always cites the source URL."
   >
-    <p>Filters signal from public spaces where solo founders and B2B operators talk. The output is a short source-linked digest, not a feed to keep refreshing.</p>
+    <p>Filters signal from public spaces where solo founders and B2B operators talk. The output is a short source-linked digest that keeps me from refreshing feeds.</p>
   </RoleCard>
 
   <RoleCard
@@ -121,7 +121,7 @@ import StatRow from '../../components/post/StatRow.astro';
     writes="Reconciliation notes, invoice prep, checklist updates"
     guardrail="Never moves money. Flags drift; I approve and act."
   >
-    <p>Catches small finance drift before it becomes founder debt. The useful output is a checklist I can verify, not an action taken on my behalf.</p>
+    <p>Catches small finance drift before it becomes founder debt. The useful output is a checklist I can verify.</p>
   </RoleCard>
 
   <RoleCard
@@ -210,12 +210,12 @@ import StatRow from '../../components/post/StatRow.astro';
   </RoleCard>
 </div>
 
-<Callout tone="info" title="One public point, private wiring">
-  Alfred has a private runtime and private review surfaces. Those details do not belong in a public post. The useful public point is the contract: every useful answer has to cite approved context before it can influence a decision.
+<Callout tone="info" title="The useful boundary">
+  Alfred has a private runtime and private review surfaces. The reusable point is the contract: every useful answer has to cite approved context before it can influence a decision.
 </Callout>
 
 <figure class="post-visual reveal">
-  <div class="post-visual-title">The public-safe answer path</div>
+  <div class="post-visual-title">The source-linked answer path</div>
   <div class="visual-flow">
     <div class="visual-step">
       <span class="visual-step-label">Ask</span>
@@ -242,7 +242,7 @@ import StatRow from '../../components/post/StatRow.astro';
 </figure>
 
 <figure class="post-figure-image reveal">
-  <img src="/assets/images/blog/alfred-luminik-differentiators.png" alt="Slack screenshot of Alfred answering a Luminik positioning question with source-linked claims." loading="lazy" decoding="async" />
+  <img src="/assets/images/blog/alfred-luminik-differentiators.png" width="590" height="448" alt="Slack screenshot of Alfred answering a Luminik positioning question with source-linked claims." loading="lazy" decoding="async" />
   <figcaption>A real Alfred answer from my founder workflow. The useful pattern is source-linked reasoning before a positioning decision; the private wiring is incidental.</figcaption>
 </figure>
 
@@ -298,7 +298,7 @@ import StatRow from '../../components/post/StatRow.astro';
 
 <ul class="reveal">
   <li><strong>Role contracts.</strong> Markdown templates that answer the five questions for chief of staff, content, sales, ops, and engineering subagent roles.</li>
-  <li><strong>Repo instruction templates.</strong> Public-safe examples of CLAUDE.md, AGENTS.md, and content-guide files for solo product teams.</li>
+  <li><strong>Repo instruction templates.</strong> Example CLAUDE.md, AGENTS.md, and content-guide files for solo product teams.</li>
   <li><strong>Review rules.</strong> The approval gates I use for shipping code, content, sales replies, and finance actions.</li>
   <li><strong>Output formats.</strong> Concise summaries, source-linked digests, PR notes, and the morning briefing shape.</li>
   <li><strong>A local runner shape.</strong> Enough structure for scheduled jobs and reviewable output without my private adapters.</li>

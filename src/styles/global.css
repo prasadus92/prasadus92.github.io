@@ -1,4 +1,4 @@
-/* Brand tokens — source of truth for colour, radius, glass, gradient mesh,
+/* Brand tokens: source of truth for colour, radius, glass, gradient mesh,
  * spacing and container width. Mirrors the structure of luminik.io's tokens
  * so both sites feel like the work of the same operator. */
 @import './brand-tokens.css';
@@ -22,7 +22,7 @@
 }
 
 /* Legacy aliases. Existing rules below reference --bg, --surface, --text,
- * --green, etc. — keep them working while the underlying source moves to the
+ * --green, etc. Keep them working while the underlying source moves to the
  * HSL token system in brand-tokens.css. */
 :root {
   --bg: hsl(var(--background));
@@ -59,6 +59,14 @@
   --color-text-muted: var(--muted-text);
   --color-accent-primary: var(--green);
   --color-accent-secondary: var(--blue);
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
 }
 
 *,
@@ -161,6 +169,7 @@ h6 {
   line-height: 1.08;
   letter-spacing: 0;
   margin: 0 0 1rem;
+  text-wrap: balance;
 }
 
 h1 {
@@ -416,12 +425,13 @@ img {
   background: var(--surface);
   font-weight: 750;
   text-decoration: none;
+  touch-action: manipulation;
 }
 
 .button.primary {
-  background: var(--green);
-  border-color: var(--green);
-  color: #05140f;
+  background: hsl(var(--primary));
+  border-color: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
 }
 
 .button:hover {
@@ -431,8 +441,9 @@ img {
 }
 
 .button.primary:hover {
-  color: #05140f;
-  background: color-mix(in srgb, var(--green) 88%, white);
+  color: hsl(var(--primary-foreground));
+  background: hsl(var(--primary-hover));
+  border-color: hsl(var(--primary-hover));
 }
 
 .hero {
@@ -1221,17 +1232,47 @@ img {
 }
 
 .post-hero {
-  padding: 148px 0 54px;
+  padding: 136px 0 54px;
 }
 
 .post-hero-inner {
-  width: min(100% - 48px, 880px);
+  width: min(100% - 48px, 1180px);
   margin-inline: auto;
 }
 
 .post-hero h1 {
-  max-width: 13ch;
+  max-width: min(100%, 1120px);
   margin-bottom: 22px;
+  font-size: clamp(3.1rem, 6vw, 5.65rem);
+}
+
+.post-hero .lead {
+  max-width: 880px;
+}
+
+.breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 22px;
+  color: var(--text-3);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+}
+
+.breadcrumb a {
+  color: var(--text-3);
+  text-decoration: none;
+}
+
+.breadcrumb a:hover {
+  color: var(--green);
+}
+
+.breadcrumb [aria-current="page"] {
+  color: var(--green);
+  font-weight: 700;
 }
 
 .post-meta {
@@ -1296,6 +1337,25 @@ img {
   font-style: italic;
 }
 
+.post-content .pull-quote blockquote {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--text);
+  font-size: clamp(1.1rem, 1.7vw, 1.3rem);
+  font-style: italic;
+  font-weight: 650;
+  line-height: 1.55;
+}
+
+.post-content .pull-quote blockquote p {
+  margin: 0;
+  color: inherit;
+  font: inherit;
+}
+
 .post-content code {
   border: 1px solid var(--line);
   border-radius: 5px;
@@ -1345,12 +1405,25 @@ img {
 }
 
 .post-visual {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: color-mix(in srgb, var(--surface) 84%, transparent);
   padding: 22px;
   margin: 32px 0;
   box-shadow: 0 12px 44px rgba(0, 0, 0, 0.18);
+}
+
+.post-visual::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(55% 70% at 8% 0%, hsl(var(--accent) / 0.12), transparent 64%),
+    radial-gradient(45% 60% at 92% 18%, hsl(var(--secondary) / 0.10), transparent 68%);
 }
 
 .post-visual-title {
@@ -1390,20 +1463,45 @@ img {
 .ledger-row {
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  background: color-mix(in srgb, var(--surface-2) 76%, transparent);
+  background:
+    linear-gradient(135deg, hsl(var(--foreground) / 0.04), transparent 44%),
+    color-mix(in srgb, var(--surface-2) 76%, transparent);
+  transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
 }
 
 .visual-step {
+  position: relative;
+  overflow: hidden;
   min-height: 112px;
   padding: 14px;
 }
 
 .visual-step-label {
-  display: block;
+  display: inline-flex;
+  min-width: 24px;
+  height: 24px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid color-mix(in srgb, var(--green) 36%, var(--line));
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--green) 12%, transparent);
   color: var(--muted);
   font-family: var(--font-mono);
   font-size: 0.72rem;
   margin-bottom: 8px;
+}
+
+@media (hover: hover) {
+  .visual-step:hover,
+  .matrix-cell:hover,
+  .swimlane-cell:hover,
+  .ledger-row:hover {
+    transform: translateY(-2px);
+    border-color: color-mix(in srgb, var(--green) 34%, var(--line));
+    background:
+      linear-gradient(135deg, hsl(var(--foreground) / 0.06), transparent 44%),
+      color-mix(in srgb, var(--surface-2) 88%, transparent);
+  }
 }
 
 .visual-step strong,
