@@ -775,6 +775,73 @@ img {
 .compare-cell-pass { background: color-mix(in srgb, hsl(var(--success)) 8%, transparent); }
 .compare-cell-fail { background: color-mix(in srgb, hsl(var(--destructive)) 8%, transparent); }
 
+@media (max-width: 640px) {
+  .compare-table {
+    overflow-x: visible;
+  }
+
+  .compare-table table,
+  .compare-table thead,
+  .compare-table tbody,
+  .compare-table tr,
+  .compare-table th,
+  .compare-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .compare-table table {
+    border: 0;
+    background: transparent;
+    overflow: visible;
+  }
+
+  .compare-table thead {
+    display: none;
+  }
+
+  .compare-table tbody {
+    display: grid;
+    gap: 12px;
+  }
+
+  .compare-table tr {
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: color-mix(in srgb, var(--surface) 82%, transparent);
+    overflow: hidden;
+  }
+
+  .compare-table th,
+  .compare-table td,
+  .compare-table tr:last-child th,
+  .compare-table tr:last-child td {
+    border-bottom: 1px solid var(--line);
+    padding: 12px 14px;
+  }
+
+  .compare-table td:last-child {
+    border-bottom: 0;
+  }
+
+  .compare-dimension {
+    width: 100%;
+    color: var(--text);
+  }
+
+  .compare-cell::before {
+    content: attr(data-label);
+    display: block;
+    margin-bottom: 5px;
+    color: var(--text-3);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+}
+
 .stat-row {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));

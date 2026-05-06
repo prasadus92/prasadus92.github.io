@@ -38,6 +38,7 @@ These are the only recurring numerical proof points currently approved for this 
 - Aura reached `$3.6M ARR` in `18 months`.
 - Mainteny raised a `$2.7M seed round`.
 - Prasad built the first Mainteny MVP solo in `3 months`.
+- SnowOptix identified `40%` savings on the bill that started the project, generated `50` inbound DMs after the prototype was posted publicly, and earned adoption by a `top-3 global consulting firm`. These are Prasad-approved proof points; the customer name and private implementation details stay out.
 
 Do not add new revenue, pipeline, customer, fundraising, runway, security, or internal operating numbers without explicit approval and a public-safe source note.
 
@@ -212,7 +213,7 @@ Top-0.1% founder writing earns trust through specifics. Use logos, names, number
 
 Public-safe credibility plays:
 
-- **Approved numbers**: Aura `$3.6M ARR` in `18 months`, Mainteny `$2.7M seed`, first MVP solo in `3 months`. These are pre-cleared.
+- **Approved numbers**: Aura `$3.6M ARR` in `18 months`, Mainteny `$2.7M seed`, first MVP solo in `3 months`, SnowOptix `40%` savings identified, `50` inbound DMs, and `top-3 global consulting firm` adoption. These are pre-cleared.
 - **Public companies and platforms**: Bain & Company, Mainteny, SnowOptix, Luminik, GitHub, Cursor, Claude Code, CodeRabbit, Quicksand, Astro. Real, public, verifiable.
 - **Public artifacts**: link to public PRs, public repos (luminik-io/event-outbound-skill, luminik-io/claude-plugins, prasadus92/prasadus92.github.io), public docs, public talks.
 - **Real category vocabulary**: "event pipeline platform", "source, enrich, sequence, capture, attribute". This is locked Luminik positioning.
@@ -244,9 +245,9 @@ When a post uses a React island, document the data shape in the component file. 
 
 ## Where the canon lives
 
-The canonical voice rules live in the private content workspace: `~/Claude_Workspace/personal/content/voice-rules.md`. That file is the single source of truth for banned vocabulary, banned phrases, banned rhetorical patterns, and channel format defaults. When this CONTENT_GUIDE.md and `voice-rules.md` disagree, `voice-rules.md` wins.
+Private voice and positioning sources may exist outside this public repo. Do not name those local paths, copy private excerpts, or publish internal canon text here.
 
-Public-facing positioning vocabulary lives in `~/Claude_Workspace/marketing/CLAUDE.md` and `~/.hermes/canon/luminik-canon-current.md`. Use them when claiming anything about Luminik.
+When a private source is needed, ask Prasad for a public-safe excerpt or restate the rule from first principles. This guide is the public repo copy; private sources can tighten it, but they must not leak into committed files.
 
 ## The Specificity Test
 

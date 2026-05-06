@@ -29,8 +29,8 @@ const { caption, leftLabel, rightLabel, rows, leftTone = 'neutral', rightTone = 
       {rows.map((row) => (
         <tr>
           <th scope="row" class="compare-dimension">{row.dimension}</th>
-          <td class={`compare-cell compare-cell-${leftTone}`}>{row.left}</td>
-          <td class={`compare-cell compare-cell-${rightTone}`}>{row.right}</td>
+          <td data-label={leftLabel} class={`compare-cell compare-cell-${leftTone}`}>{row.left}</td>
+          <td data-label={rightLabel} class={`compare-cell compare-cell-${rightTone}`}>{row.right}</td>
         </tr>
       ))}
     </tbody>

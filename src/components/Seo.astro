@@ -63,6 +63,7 @@ const WEBPAGE_ID = `${canonical}#webpage`;
 const BREADCRUMB_ID = `${canonical}#breadcrumb`;
 const FAQ_ID = `${canonical}#faq`;
 const ARTICLE_ID = `${canonical}#article`;
+const IMAGE_ID = `${canonical}#image`;
 
 /* --- Stable global nodes --- */
 const personNode = {
@@ -124,7 +125,14 @@ const webpageNode = {
   isPartOf: { '@id': WEBSITE_ID },
   about: { '@id': PERSON_ID },
   inLanguage: 'en-US',
-  primaryImageOfPage: { '@id': `${canonical}#image` }
+  primaryImageOfPage: { '@id': IMAGE_ID }
+};
+
+const imageNode = {
+  '@type': 'ImageObject',
+  '@id': IMAGE_ID,
+  url: ogImageUrl,
+  caption: ogImageAlt
 };
 
 /* --- Optional per-page nodes --- */
@@ -173,7 +181,7 @@ const faqNode = faqs && faqs.length > 0
     }
   : null;
 
-const graph = [personNode, websiteNode, webpageNode, articleNode, breadcrumbNode, faqNode].filter(Boolean);
+const graph = [personNode, websiteNode, webpageNode, imageNode, articleNode, breadcrumbNode, faqNode].filter(Boolean);
 const jsonLd = { '@context': 'https://schema.org', '@graph': graph };
 
 const robots = noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large, max-snippet:-1';
