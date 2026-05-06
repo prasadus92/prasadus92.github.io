@@ -30,6 +30,7 @@ export const GET: APIRoute = () => {
     '',
     '- Homepage: https://prasad.tech/',
     '- Blog index: https://prasad.tech/blog/',
+    '- Intro chat: https://prasad.tech/intro-chat/',
     '- Agent guidance: https://prasad.tech/agents.txt',
     '- RSS: https://prasad.tech/rss.xml',
     '- Sitemap: https://prasad.tech/sitemap.xml',

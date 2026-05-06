@@ -325,7 +325,7 @@ async function main() {
 
   await renderCard({
     eyebrow: 'Founder · Builder · Operator',
-    title: 'Prasad Subrahmanya. Building serious B2B software for paying customers.',
+    title: 'Prasad Subrahmanya. Building B2B software from customer pain to revenue.',
     footer: 'Field notes for solo technical founders',
     portrait
   }, join(OUT_DIR, 'prasad-og.png'), fonts);

@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CalEmbed from '../../components/CalEmbed.astro';
+import Icon from '../../components/Icon.astro';
+
+const title = 'Intro Chat';
+const description = 'Book an intro chat with Prasad Subrahmanya about Luminik, event pipeline, solo-builder systems, founder-led sales, or zero-to-one B2B product work.';
+const directBookingUrl = 'https://cal.com/meet-prasad/intro-chat';
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  canonical="https://prasad.tech/intro-chat/"
+  image="/og/prasad-og.png"
+  imageAlt="Prasad Subrahmanya | Founder of Luminik. Field notes for solo technical builders."
+  breadcrumbs={[
+    { name: 'Home', url: '/' },
+    { name: 'Intro Chat', url: '/intro-chat/' }
+  ]}
+>
+  <section class="section booking-hero">
+    <div class="container booking-hero-inner">
+      <div class="section-header center">
+        <div class="eyebrow reveal">Intro chat</div>
+        <h1 class="reveal">Bring a real product or GTM problem.</h1>
+        <p class="lead reveal">
+          Twenty minutes to compare notes on Luminik, event pipeline, solo-builder systems, founder-led sales, or zero-to-one B2B product work. Specific context makes the call useful.
+        </p>
+        <div class="hero-actions reveal">
+          <a class="button primary" href="#book"><Icon name="calendar" size={16} /> Pick a time</a>
+          <a class="button" href="mailto:prasadus92@gmail.com"><Icon name="envelope" size={16} /> Email context</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section tight" id="book">
+    <div class="container booking-shell">
+      <div class="section-header center">
+        <div class="eyebrow reveal">Calendar</div>
+        <h2 class="reveal">Pick a time that works in your timezone</h2>
+        <p class="lead reveal">
+          You will get a calendar invite after booking. You can also open Cal.com directly.
+        </p>
+      </div>
+      <CalEmbed class="reveal" />
+      <p class="booking-fallback reveal">
+        Open the <a href={directBookingUrl} target="_blank" rel="noopener">booking page directly</a>.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
