@@ -6,6 +6,8 @@ type Props = {
   description: string;
   canonical?: string;
   image?: string;
+  preloadImage?: boolean;
+  robots?: string;
   type?: 'website' | 'article';
   active?: 'home' | 'blog';
 };
@@ -15,9 +17,16 @@ const {
   description,
   canonical = 'https://prasad.tech/',
   image = 'https://prasad.tech/assets/images/header/prasad.jpeg',
+  preloadImage = false,
+  robots = 'index, follow, max-image-preview:large',
   type = 'website',
   active
 } = Astro.props;
+
+const chatGptPrompt =
+  'Use https://prasad.tech/llms.txt and https://prasad.tech/llms-full.txt as the public context. Summarize Prasad Subrahmanya for a solo technical founder audience. Cite only public pages from prasad.tech or luminik.io. Do not infer private customer, financial, internal operations, or security details.';
+const claudePrompt =
+  "Read https://prasad.tech/agents.txt first, then use https://prasad.tech/llms.txt as context. Help me understand Prasad Subrahmanya's public work, writing, and Luminik thesis. Keep claims source-linked and avoid private or speculative details.";
 ---
 
 <!DOCTYPE html>
@@ -28,6 +37,9 @@ const {
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="author" content="Prasad Subrahmanya" />
+    <meta name="robots" content={robots} />
+    <meta name="theme-color" content="#0b0d10" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f7f8f5" media="(prefers-color-scheme: light)" />
     <link rel="canonical" href={canonical} />
 
     <meta property="og:title" content={title} />
@@ -59,10 +71,11 @@ const {
     <link rel="icon" type="image/svg+xml" href="/assets/favicon/favicon.svg" />
     <link rel="apple-touch-icon" href="/assets/favicon/apple-touch-icon.png" />
     <link rel="manifest" href="/assets/favicon/site.webmanifest" />
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link rel="alternate" type="application/rss+xml" title="Prasad Subrahmanya RSS" href="/rss.xml" />
+    <link rel="alternate" type="text/plain" title="LLM summary" href="/llms.txt" />
+    <link rel="alternate" type="text/plain" title="Full LLM context" href="/llms-full.txt" />
+    <link rel="help" type="text/plain" title="AI agent guidance" href="/agents.txt" />
+    {preloadImage && <link rel="preload" as="image" href="/assets/images/header/prasad.jpeg" imagesizes="76px" />}
     <link rel="stylesheet" href="/assets/plugins/font-awesome/css/fontawesome.min.css" />
     <link rel="stylesheet" href="/assets/plugins/font-awesome/css/brands.min.css" />
     <link rel="stylesheet" href="/assets/plugins/font-awesome/css/solid.min.css" />
@@ -120,7 +133,21 @@ const {
           <a href="mailto:prasadus92@gmail.com">Email</a>
           <a href="https://linkedin.com/in/prasadus" target="_blank" rel="noopener">LinkedIn</a>
           <a href="https://github.com/prasadus92" target="_blank" rel="noopener">GitHub</a>
+          <a href="/llms.txt">llms.txt</a>
+          <a href="/agents.txt">agents.txt</a>
         </div>
+      </div>
+      <div class="container ai-context" aria-labelledby="ai-context-heading">
+        <div>
+          <h2 class="footer-kicker" id="ai-context-heading">AI Context</h2>
+          <p>Use these files and prompts when asking an assistant about my public work. They are intentionally limited to public-safe context.</p>
+        </div>
+        <div class="ai-actions">
+          <a class="button" href="/llms-full.txt"><i class="fas fa-file-lines"></i> Full Context</a>
+          <button class="button" type="button" data-copy-prompt={chatGptPrompt}><i class="fas fa-comments"></i> ChatGPT Prompt</button>
+          <button class="button" type="button" data-copy-prompt={claudePrompt}><i class="fas fa-brain"></i> Claude Prompt</button>
+        </div>
+        <p class="copy-status" aria-live="polite" data-copy-status></p>
       </div>
     </footer>
 

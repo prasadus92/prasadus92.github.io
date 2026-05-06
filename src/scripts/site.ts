@@ -97,3 +97,18 @@ document.addEventListener(
 
 const currentYear = document.querySelector<HTMLElement>('[data-current-year]');
 if (currentYear) currentYear.textContent = String(new Date().getFullYear());
+
+const copyStatus = document.querySelector<HTMLElement>('[data-copy-status]');
+document.querySelectorAll<HTMLButtonElement>('[data-copy-prompt]').forEach((button) => {
+  button.addEventListener('click', async () => {
+    const prompt = button.dataset.copyPrompt ?? '';
+    if (!prompt) return;
+
+    try {
+      await navigator.clipboard.writeText(prompt);
+      if (copyStatus) copyStatus.textContent = 'Prompt copied.';
+    } catch {
+      if (copyStatus) copyStatus.textContent = 'Copy failed. Open llms.txt or agents.txt instead.';
+    }
+  });
+});

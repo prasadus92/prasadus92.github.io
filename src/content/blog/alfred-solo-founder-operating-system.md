@@ -104,19 +104,19 @@ faqs:
     <div class="swimlane-row">
       <div class="swimlane-label">Without Alfred</div>
       <div class="swimlane-cells">
-        <div class="swimlane-cell">Remember the task</div>
-        <div class="swimlane-cell">Find the right context</div>
-        <div class="swimlane-cell">Do the mechanical work</div>
-        <div class="swimlane-cell">Review while already tired</div>
+<div class="swimlane-cell">Remember the task</div>
+<div class="swimlane-cell">Find the right context</div>
+<div class="swimlane-cell">Do the mechanical work</div>
+<div class="swimlane-cell">Review while already tired</div>
       </div>
     </div>
     <div class="swimlane-row">
       <div class="swimlane-label">With Alfred</div>
       <div class="swimlane-cells">
-        <div class="swimlane-cell">Task is captured</div>
-        <div class="swimlane-cell">Context is cited</div>
-        <div class="swimlane-cell">Output is prepared</div>
-        <div class="swimlane-cell">Founder reviews the decision</div>
+<div class="swimlane-cell">Task is captured</div>
+<div class="swimlane-cell">Context is cited</div>
+<div class="swimlane-cell">Output is prepared</div>
+<div class="swimlane-cell">Founder reviews the decision</div>
       </div>
     </div>
   </div>

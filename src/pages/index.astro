@@ -48,7 +48,7 @@ const websiteSchema = {
 };
 ---
 
-<BaseLayout title={title} description={description} canonical="https://prasad.tech/" active="home">
+<BaseLayout title={title} description={description} canonical="https://prasad.tech/" active="home" preloadImage>
   <script is:inline slot="head" type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
 
   <section class="hero">
@@ -68,7 +68,7 @@ const websiteSchema = {
 
       <div class="proof-card card reveal">
         <div class="proof-head">
-          <img src="/assets/images/header/prasad.jpeg" width="76" height="76" alt="Prasad Subrahmanya" />
+          <img src="/assets/images/header/prasad.jpeg" width="76" height="76" alt="Prasad Subrahmanya" decoding="async" fetchpriority="high" />
           <div>
             <div class="eyebrow" style="margin-bottom: 4px;">Current Work</div>
             <h2 style="font-size: 1.35rem; margin-bottom: 4px;">Luminik</h2>

@@ -82,7 +82,7 @@ const faqSchema = post.faqs?.length
       )}
 
       <div class="author-card card reveal">
-        <img src="/assets/images/header/prasad.jpeg" width="72" height="72" alt="Prasad Subrahmanya" />
+        <img src="/assets/images/header/prasad.jpeg" width="72" height="72" alt="Prasad Subrahmanya" loading="lazy" decoding="async" />
         <div>
           <h2 style="font-size: 1.2rem; margin-bottom: 6px;">Prasad Subrahmanya</h2>
           <p style="margin-bottom: 10px;">Founder of Luminik. Public proof points: built Aura at Bain to $3.6M ARR and led Mainteny through a $2.7M seed round.</p>
@@ -110,7 +110,7 @@ const faqSchema = post.faqs?.length
       <div class="aside-card card">
         <h2>Related Notes</h2>
         {related.map((item) => (
-          <a href={item.url}>{item.title}</a>
+          <a class="related-link" href={item.url}><strong>{item.title}</strong><span>{item.description}</span></a>
         ))}
       </div>
     </aside>

@@ -16,6 +16,8 @@ export const GET: APIRoute = () => {
     '- Homepage: https://prasad.tech/',
     '- Blog: https://prasad.tech/blog/',
     '- RSS: https://prasad.tech/rss.xml',
+    '- Full LLM context: https://prasad.tech/llms-full.txt',
+    '- Agent guidance: https://prasad.tech/agents.txt',
     '',
     '## Current Venture: Luminik',
     '',

@@ -9,398 +9,398 @@ readTime: "15 min read"
 tags: ["solo founder","AI tools","product engineering"]
 ---
 <p class="reveal">
-            I started my career at BlueJeans in 2014. The team had backend engineers, frontend engineers, dedicated QA, people handling deployments and infrastructure. Even for a focused product, you needed bodies. The work demanded coordination at every step.
-        </p>
+    I started my career at BlueJeans in 2014. The team had backend engineers, frontend engineers, dedicated QA, people handling deployments and infrastructure. Even for a focused product, you needed bodies. The work demanded coordination at every step.
+</p>
 
-        <p class="reveal">
-            Setting up a new developer's machine meant following a guide that was always slightly out of date. Someone would sit with you. Half a day gone, sometimes more for complex setups. Integrations meant weeks of reading API documentation page by page, mapping fields by hand, writing boilerplate that everyone knew would be fragile and nobody wanted to touch again. Seeding a staging environment with realistic data was its own mini-project, with separate tickets and separate timelines. These were real costs, paid in hours and attention, by real people sitting next to each other.
-        </p>
+<p class="reveal">
+    Setting up a new developer's machine meant following a guide that was always slightly out of date. Someone would sit with you. Half a day gone, sometimes more for complex setups. Integrations meant weeks of reading API documentation page by page, mapping fields by hand, writing boilerplate that everyone knew would be fragile and nobody wanted to touch again. Seeding a staging environment with realistic data was its own mini-project, with separate tickets and separate timelines. These were real costs, paid in hours and attention, by real people sitting next to each other.
+</p>
 
-        <p class="reveal">
-            The work moved through people. Requirements got clarified in hallway conversations. Design patterns got transmitted through code reviews and whiteboard sessions. When something broke, you'd walk over to someone's desk. When something was ambiguous, you'd hash it out in a meeting. A lot of what made teams effective was implicit. Never documented, never versioned, just carried in people's heads and habits.
-        </p>
+<p class="reveal">
+    The work moved through people. Requirements got clarified in hallway conversations. Design patterns got transmitted through code reviews and whiteboard sessions. When something broke, you'd walk over to someone's desk. When something was ambiguous, you'd hash it out in a meeting. A lot of what made teams effective was implicit. Never documented, never versioned, just carried in people's heads and habits.
+</p>
 
-        <p class="reveal">
-            That was the cost structure of the time. And it worked, within its constraints.
-        </p>
+<p class="reveal">
+    That was the cost structure of the time. And it worked, within its constraints.
+</p>
 
-        <h2 class="reveal">The Setup I'm Running Now</h2>
+<h2 class="reveal">The Setup I'm Running Now</h2>
 
-        <p class="reveal">
-            I'm building Luminik alone. Backend, frontend, mobile, CRM integrations, infrastructure, security, data pipelines. The kind of scope that in 2014 would have assumed five or six people before anyone discussed timelines.
-        </p>
+<p class="reveal">
+    I'm building Luminik alone. Backend, frontend, mobile, CRM integrations, infrastructure, security, data pipelines. The kind of scope that in 2014 would have assumed five or six people before anyone discussed timelines.
+</p>
 
-        <p class="reveal">
-            The cost is no longer mostly headcount. It is a stack of tools, context systems, review loops, and the discipline to keep them coherent.
-        </p>
+<p class="reveal">
+    The cost is no longer mostly headcount. It is a stack of tools, context systems, review loops, and the discipline to keep them coherent.
+</p>
 
-        <div class="glass-card reveal" style="padding: 24px; margin: 24px 0;">
-            <h4 style="margin-bottom: 16px; color: var(--color-text-primary);">The Solo-Builder Operating System</h4>
-            <ul style="color: var(--color-text-secondary); list-style: none; padding: 0; margin: 0;">
-                <li style="margin-bottom: 12px;"><strong>Build environments:</strong> fast interactive coding, larger structural refactors, and isolated branches for parallel work.</li>
-                <li style="margin-bottom: 12px;"><strong>Review systems:</strong> automated PR review, security-adjacent checks, and a final human pass before merge.</li>
-                <li style="margin-bottom: 12px;"><strong>Context systems:</strong> specs, instruction files, architecture notes, and product decisions that agents can read before they act.</li>
-                <li style="margin-bottom: 12px;"><strong>Verification loops:</strong> tests, manual product checks, and documentation updates after meaningful changes.</li>
-                <li><strong>Customer time:</strong> the one part I refuse to automate away. The product still has to be built from lived buyer pain.</li>
-            </ul>
+<div class="glass-card reveal" style="padding: 24px; margin: 24px 0;">
+    <h4 style="margin-bottom: 16px; color: var(--color-text-primary);">The Solo-Builder Operating System</h4>
+    <ul style="color: var(--color-text-secondary); list-style: none; padding: 0; margin: 0;">
+        <li style="margin-bottom: 12px;"><strong>Build environments:</strong> fast interactive coding, larger structural refactors, and isolated branches for parallel work.</li>
+        <li style="margin-bottom: 12px;"><strong>Review systems:</strong> automated PR review, security-adjacent checks, and a final human pass before merge.</li>
+        <li style="margin-bottom: 12px;"><strong>Context systems:</strong> specs, instruction files, architecture notes, and product decisions that agents can read before they act.</li>
+        <li style="margin-bottom: 12px;"><strong>Verification loops:</strong> tests, manual product checks, and documentation updates after meaningful changes.</li>
+        <li><strong>Customer time:</strong> the one part I refuse to automate away. The product still has to be built from lived buyer pain.</li>
+    </ul>
+</div>
+
+<p class="reveal">
+    That is the real replacement for the old five-person baseline: not a general agent, but a tighter operating system around a founder who still owns judgment.
+</p>
+
+<p class="reveal">
+    A note I'd add two months later: the software subscriptions above are half the story. The other half is the operating boundary around recurring agent work. I separated Luminik's background agent layer from my interactive development loop in April 2026. I wrote about that in <a href="dedicated-mac-mini-solo-startup.html">Separating Agent Work from Founder Work</a>.
+</p>
+
+<figure class="post-visual reveal">
+    <div class="post-visual-title">The solo-builder operating loop</div>
+    <div class="visual-flow">
+        <div class="visual-step">
+            <span class="visual-step-label">Context</span>
+            <strong>Specs and CLAUDE.md</strong>
+            <span>Business rules, architecture, conventions, and open questions.</span>
         </div>
-
-        <p class="reveal">
-            That is the real replacement for the old five-person baseline: not a general agent, but a tighter operating system around a founder who still owns judgment.
-        </p>
-
-        <p class="reveal">
-            A note I'd add two months later: the software subscriptions above are half the story. The other half is the operating boundary around recurring agent work. I separated Luminik's background agent layer from my interactive development loop in April 2026. I wrote about that in <a href="dedicated-mac-mini-solo-startup.html">Separating Agent Work from Founder Work</a>.
-        </p>
-
-        <figure class="post-visual reveal">
-            <div class="post-visual-title">The solo-builder operating loop</div>
-            <div class="visual-flow">
-                <div class="visual-step">
-                    <span class="visual-step-label">Context</span>
-                    <strong>Specs and CLAUDE.md</strong>
-                    <span>Business rules, architecture, conventions, and open questions.</span>
-                </div>
-                <div class="visual-step">
-                    <span class="visual-step-label">Execution</span>
-                    <strong>Cursor and Claude Code</strong>
-                    <span>Parallel implementation in separate modules, branches, or repos.</span>
-                </div>
-                <div class="visual-step">
-                    <span class="visual-step-label">Review</span>
-                    <strong>Codex and CodeRabbit</strong>
-                    <span>Automated review before I do the final pass.</span>
-                </div>
-                <div class="visual-step">
-                    <span class="visual-step-label">Verification</span>
-                    <strong>Manual product check</strong>
-                    <span>I still click through the flows that matter.</span>
-                </div>
-                <div class="visual-step">
-                    <span class="visual-step-label">Memory</span>
-                    <strong>Docs updated after merge</strong>
-                    <span>The next agent session starts with newer assumptions.</span>
-                </div>
-            </div>
-        </figure>
-
-        <h2 class="reveal">What a Working Day Actually Looks Like</h2>
-
-        <p class="reveal">
-            The tools divide along capability lines.
-        </p>
-
-        <p class="reveal">
-            <strong>Cursor</strong> handles active feature development: new flows, UI work, wiring things together. Most of my coding hours are there. It's fast for focused, contextual work within a specific part of the codebase.
-        </p>
-
-        <p class="reveal">
-            <strong>Claude Code</strong> handles large refactors where I need the agent to hold broader context and use tools more aggressively: file system access, terminal commands, multi-file changes that ripple across the codebase. I've found it more reliable than Cursor for structural changes that touch many files.
-        </p>
-
-        <p class="reveal">
-            I run both simultaneously on different parts of the codebase. While Cursor is building a new feature in the frontend, Claude Code might be refactoring a backend module. Parallel development is where the time compression shows up.
-        </p>
-
-        <p class="reveal">
-            <strong>Codex and CodeRabbit</strong> sit as automated reviewers on every pull request. CodeRabbit catches issues I wouldn't think to check when I'm tired: security-adjacent concerns, scope mismatches, documentation drift. Codex provides a second automated perspective. Between the two, most PRs get substantive review before I look at them.
-        </p>
-
-        <p class="reveal">
-            <strong>GitHub CLI</strong> is wired in throughout the workflow. Agents create pull requests, read review comments, and address feedback themselves. The loop from code, PR, review, and fix can move quickly. The merge does not. I review the final state and approve the branch deliberately.
-        </p>
-
-        <h2 class="reveal">Where Compression Shows Up</h2>
-
-        <p class="reveal">
-            Certain categories of work that used to take weeks now take hours or days. The pattern is consistent across the last few months:
-        </p>
-
-        <p class="reveal">
-            <strong>CRM Integrations:</strong> Integration work compresses when agents can read documentation, inspect schemas, map fields to a known data model, and generate the connection layer. The founder's job moves from boilerplate author to contract reviewer.
-        </p>
-
-        <p class="reveal">
-            <strong>Data Seeding:</strong> Realistic seed data used to become a small project of its own. Now it becomes a scripted artifact that agents can generate, revise, and rerun while the underlying assumptions stay visible in the spec.
-        </p>
-
-        <p class="reveal">
-            <strong>Live Debugging:</strong> The best debugging sessions now cross code, logs, migrations, and recent changes in one pass. The agent can gather the evidence; I still decide whether the explanation is sufficient and whether the fix preserves the architecture.
-        </p>
-
-        <p class="reveal">
-            <strong>Quality and Security:</strong> Static findings and review comments no longer sit as a backlog of chores. They become reviewable patches, with the same final standard as any human-written change.
-        </p>
-
-        <p class="reveal">
-            <strong>Documentation and Browser Work:</strong> Agents can move from docs to implementation without forcing me to manually translate every field and edge case. The time saved is not just typing. It is reduced context switching.
-        </p>
-
-        <h2 class="reveal">Instruction Files: Encoding Judgment</h2>
-
-        <p class="reveal">
-            This is the part most people skip when they talk about AI-assisted development, and it's the part that makes the biggest difference.
-        </p>
-
-        <p class="reveal">
-            I maintain <code>CLAUDE.md</code> files (for Claude Code) and <code>.cursorrules</code> files (for Cursor): project-level instruction files tuned for my codebase and preferences:
-        </p>
-
-        <ul class="reveal">
-            <li>Design patterns I want used (and where)</li>
-            <li>Quarkus conventions and local patterns</li>
-            <li>React component patterns and standards</li>
-            <li>SOLID, DRY, YAGNI principles as applied to my specific architecture</li>
-            <li>Error handling patterns</li>
-            <li>Testing conventions</li>
-            <li>Naming conventions</li>
-            <li>Module boundary rules</li>
-        </ul>
-
-        <p class="reveal">
-            Every new session starts by loading these alongside full repo context. This is what makes agents behave like they understand your system instead of generating plausible code for a generic one.
-        </p>
-
-        <p class="reveal">
-            Without these instruction files, agents produce code that compiles, passes basic checks, and feels slightly wrong everywhere. The patterns drift. The naming is inconsistent. The architecture choices are locally reasonable and globally incoherent.
-        </p>
-
-        <p class="reveal">
-            With well-maintained instruction files, the output is recognizably "my" codebase. The agent makes choices I would make, because I've told it how I think about these decisions.
-        </p>
-
-        <p class="reveal">
-            The deeper issue here is that in 2014, this kind of judgment lived in people's heads. Senior engineers transmitted it through code reviews, pair programming, whiteboard sessions, lunch conversations. It was implicit and social. When a junior engineer made an architectural choice that felt wrong, someone would walk over and explain why. That correction was immediate, contextual, and unrecorded.
-        </p>
-
-        <p class="reveal">
-            Now it has to be written down, versioned, and maintained. Otherwise, it simply doesn't exist in the system. Agents don't absorb judgment from proximity. They absorb it from explicit instruction.
-        </p>
-
-        <blockquote class="reveal">
-            That encoding work (capturing decisions, conventions, patterns, preferences in a format agents can consume) is a genuinely new category of engineering labor. It didn't exist in 2014 because it wasn't needed. Now it's foundational.
-        </blockquote>
-
-        <h2 class="reveal">Workspace Architecture: Single Project, Multiple Repos</h2>
-
-        <p class="reveal">
-            All my repos (backend, frontend, mobile, integrations, and specs) live in a single project workspace. Separate repos, shared context.
-        </p>
-
-        <p class="reveal">
-            This is deliberately different from a monorepo. I wanted agents to see the full system without coupling the deployment pipeline. Release workflows stay independent per repo. But when an agent is working on the backend, it can see the frontend contracts. When it's working on the frontend, it can see the API schemas. When it's working on integrations, it can see both.
-        </p>
-
-        <p class="reveal">
-            What this improves immediately: agents introduce fewer regressions because they understand cross-repo dependencies. Backend changes that would break frontend implementations get caught at development time. Mobile and web stay aligned because the agent sees both simultaneously.
-        </p>
-
-        <p class="reveal">
-            The new failure mode: everything is visible, so drift shows up immediately. An inconsistency between backend and frontend that might have lived undetected for a sprint in a team environment surfaces the moment context is loaded. That's a good kind of discomfort. It forces resolution early.
-        </p>
-
-        <h2 class="reveal">Specs Driven Development: The Most Important Repo</h2>
-
-        <p class="reveal">
-            I don't use a task board. No Jira. No Linear. No Trello.
-        </p>
-
-        <p class="reveal">
-            The specs repo is the roadmap, the plan, and the coordination layer. It contains:
-        </p>
-
-        <ul class="reveal">
-            <li><strong>Detailed business requirements</strong> broken into workflows</li>
-            <li><strong>Specific tasks</strong> with implementation details</li>
-            <li><strong>Data model specifications</strong></li>
-            <li><strong>Integration contracts</strong></li>
-            <li><strong>UI/UX requirements</strong></li>
-            <li><strong>Testing criteria</strong></li>
-        </ul>
-
-        <p class="reveal">
-            All written using what I call Specs Driven Development: specifications detailed enough to be directly consumable by both humans and AI agents, and to become the single source of coordination truth.
-        </p>
-
-        <p class="reveal">
-            After every PR merge, specs get updated to reflect current state. This is non-negotiable. The moment specs drift from the codebase, two things happen: agents start making decisions based on outdated assumptions, and my own mental model starts diverging from reality.
-        </p>
-
-        <p class="reveal">
-            Agents are explicitly instructed to treat code as the source of truth and specs as the intent layer. Code tells you what the system does. Specs tell you what the system should do and why.
-        </p>
-
-        <p class="reveal">
-            When specs lag reality, velocity drops. You do not notice it at first. Features still ship. PRs still merge. Then a change fails in a place that looked unrelated, and you realize the agent was building against a version of the system that no longer exists. That debugging session costs more than the time it would have taken to keep specs current.
-        </p>
-
-        <p class="reveal">
-            When specs encode assumptions too early, they start lying. You write down how a workflow should behave before you've watched a customer use it, and the agent builds exactly what you specified. Sometimes the spec is wrong. Keeping specs honest means being willing to rewrite them frequently, which feels like wasted work and is actually the most valuable work.
-        </p>
-
-        <p class="reveal">
-            Keeping specs alive while multiple agents work in parallel is constant, unglamorous, necessary work. It's the coordination cost that used to be distributed across a team and now lands entirely on me.
-        </p>
-
-        <h2 class="reveal">Parallel Agents and Review Queues</h2>
-
-        <p class="reveal">
-            The useful unit of autonomous work is not "go build the product." It is a scoped task with a clear boundary and a reviewable output.
-        </p>
-
-        <p class="reveal">
-            The key constraint is isolation. If you task two agents on overlapping parts of the codebase overnight, you wake up to merge conflicts and divergent assumptions. So the work has to be cleanly separated: one agent refactoring a backend module, another running test suites, a third cleaning up a specific integration. Each on its own branch, each producing a discrete PR.
-        </p>
-
-        <p class="reveal">
-            The direction is clear: development is becoming less tied to a single device and more tied to clear ownership of context, branch, and review. That sounds less flashy than "autonomous coding." It is also more useful.
-        </p>
-
-        <p class="reveal">
-            The failure mode is predictable. If the task is too small, the output is not worth the coordination cost. If the task is too broad, the agent makes structural decisions I should have made myself. The art is carving work at the size where an agent can produce momentum without smuggling in architecture.
-        </p>
-
-        <h2 class="reveal">Where Things Still Break Down</h2>
-
-        <p class="reveal">
-            Agents miss edge cases consistently. This is the most common failure mode I encounter. The happy path works. The second and third paths work. The fourth path, the one that depends on a specific state combination that only happens when a user does something slightly unusual, breaks.
-        </p>
-
-        <p class="reveal">
-            When backend and frontend move together, subtle breakage goes up even when both sides look correct independently. An API returns data in a shape the frontend technically handles, but the UI renders it wrong because the mapping assumes a different ordering or null behavior. Both sides pass their own tests. The integration fails.
-        </p>
-
-        <p class="reveal">
-            UI flows work in isolation and break when a real person clicks through them in sequence. Step 1 sets state. Step 2 reads it. Step 3 modifies it. Step 4 depends on the result of step 2 and 3 together. Agents test each step. They rarely test the chain.
-        </p>
-
-        <p class="reveal">
-            I test every button, every path, manually. At a 0-to-1 stage, I want my eyes on everything. This is deliberate. I haven't yet found a tool that can reliably test real business use cases on the UI: clicking through actual workflows, checking visual consistency, verifying interaction patterns. Claude Code can open a browser and click buttons. The capability exists. The reliability for complex, multi-step business flows isn't there yet.
-        </p>
-
-        <p class="reveal">
-            AI also drifts on UI/UX consistency. Spacing, alignment, interaction patterns, and visual hierarchy compound into the product feeling "off" if you let them slide. Each individual choice might be reasonable. The aggregate is subtly wrong. Catching this requires aesthetic judgment that agents don't have, and I'm not sure how you'd encode it into instruction files.
-        </p>
-
-        <h2 class="reveal">The Deeper Issue: What Agents Can and Can't Do</h2>
-
-        <p class="reveal">
-            Agents operate on what you give them.
-        </p>
-
-        <p class="reveal">
-            If you don't instruct them to use a decorator pattern for a specific use case, they won't arrive at it independently. If you don't specify error handling conventions, each module will handle errors differently. If you don't define module boundaries, the agent will make locally optimal choices that create globally messy architecture.
-        </p>
-
-        <p class="reveal">
-            The quality of what comes out tracks directly to the quality of your instruction files, your specs, your prompts. This has always been true of software development. Well-documented teams and products moved faster at scale than undocumented ones. The difference now is that the cost of poor documentation is immediate and visible, not gradual and hidden.
-        </p>
-
-        <p class="reveal">
-            In a team environment, implicit knowledge circulated through social mechanisms. Code reviews caught pattern violations. Pair programming transmitted conventions. Team meetings aligned understanding. None of that exists when you're building alone with agents. Everything that was social is now textual.
-        </p>
-
-        <blockquote class="reveal">
-            This is the actual job now. Writing code is a shrinking fraction of my day. Deciding what agents should build, reviewing what they produced, and updating the instruction files and specs that keep the whole system coherent is where the hours go.
-        </blockquote>
-
-        <h2 class="reveal">The Cost Structure Has Changed, the Work Hasn't Disappeared</h2>
-
-        <p class="reveal">
-            People sometimes describe AI-assisted development as if the work got easier. From the inside, it feels different.
-        </p>
-
-        <p class="reveal">
-            The mechanical parts compressed dramatically. Boilerplate generation, API integration scaffolding, data seeding, documentation lookup, test writing, static checks. All of these are faster by an order of magnitude.
-        </p>
-
-        <p class="reveal">
-            The judgment parts didn't compress at all. What to build. How to structure it. When to stop adding and start removing. How to keep the system coherent as it grows. How to maintain quality when an agent can ship something that technically works and aesthetically drifts.
-        </p>
-
-        <p class="reveal">
-            The new cost is encoding. Every decision that used to live in someone's head now needs to be written down in a format an agent can consume. Every convention that used to spread through proximity now needs to be maintained as a versioned file. Every correction that used to happen in a code review comment now needs to be generalized into a rule.
-        </p>
-
-        <p class="reveal">
-            I can experiment faster than at any point in twelve years of building software. I can also introduce structural mistakes faster. The only reliable counterweight I've found is discipline about specs, instruction files, standards, and manual verification.
-        </p>
-
-        <p class="reveal">
-            The total cost is different from 2014. Lower in some dimensions, higher in others. The shape changed. The amount of care required didn't.
-        </p>
-
-        <h2 class="reveal">The Toolchain Categories</h2>
-
-        <p class="reveal">
-            The exact tools will change. The categories matter more:
-        </p>
-
-        <div class="glass-card reveal" style="padding: 24px; margin: 24px 0; overflow-x: auto;">
-            <table style="width: 100%; border-collapse: collapse; color: var(--color-text-secondary); font-size: 0.9rem;">
-                <thead>
-                    <tr style="border-bottom: 1px solid var(--glass-border);">
-                        <th style="text-align: left; padding: 12px 8px; color: var(--color-text-primary);">Tool</th>
-                        <th style="text-align: left; padding: 12px 8px; color: var(--color-text-primary);">Role</th>
-                        <th style="text-align: left; padding: 12px 8px; color: var(--color-text-primary);">Notes</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr style="border-bottom: 1px solid var(--glass-border);">
-                        <td style="padding: 12px 8px;"><strong>Cursor</strong></td>
-                        <td style="padding: 12px 8px;">Active feature development</td>
-                        <td style="padding: 12px 8px;">Used for focused, contextual work inside one part of the system</td>
-                    </tr>
-                    <tr style="border-bottom: 1px solid var(--glass-border);">
-                        <td style="padding: 12px 8px;"><strong>Claude Code</strong></td>
-                        <td style="padding: 12px 8px;">Large refactors, tool-heavy tasks</td>
-                        <td style="padding: 12px 8px;">Better for structural changes across many files</td>
-                    </tr>
-                    <tr style="border-bottom: 1px solid var(--glass-border);">
-                        <td style="padding: 12px 8px;"><strong>Codex</strong></td>
-                        <td style="padding: 12px 8px;">Automated PR review</td>
-                        <td style="padding: 12px 8px;">Second review perspective alongside CodeRabbit</td>
-                    </tr>
-                    <tr style="border-bottom: 1px solid var(--glass-border);">
-                        <td style="padding: 12px 8px;"><strong>CodeRabbit</strong></td>
-                        <td style="padding: 12px 8px;">Automated PR review</td>
-                        <td style="padding: 12px 8px;">Catches scope drift, missed edge cases, and documentation gaps</td>
-                    </tr>
-                    <tr style="border-bottom: 1px solid var(--glass-border);">
-                        <td style="padding: 12px 8px;"><strong>GitHub CLI</strong></td>
-                        <td style="padding: 12px 8px;">Workflow automation</td>
-                        <td style="padding: 12px 8px;">PR creation, review follow-up, and branch-level workflow automation</td>
-                    </tr>
-                    <tr style="border-bottom: 1px solid var(--glass-border);">
-                        <td style="padding: 12px 8px;"><strong>Static checks</strong></td>
-                        <td style="padding: 12px 8px;">Quality and security signals</td>
-                        <td style="padding: 12px 8px;">Findings become reviewable work, not hidden debt</td>
-                    </tr>
-                    <tr style="border-bottom: 1px solid var(--glass-border);">
-                        <td style="padding: 12px 8px;"><strong>Isolated agent workspaces</strong></td>
-                        <td style="padding: 12px 8px;">Parallel work</td>
-                        <td style="padding: 12px 8px;">Bounded branches and scoped tasks keep parallelism reviewable</td>
-                    </tr>
-                    <tr style="border-bottom: 1px solid var(--glass-border);">
-                        <td style="padding: 12px 8px;"><strong>Single project workspace</strong></td>
-                        <td style="padding: 12px 8px;">Context sharing</td>
-                        <td style="padding: 12px 8px;">All repos visible to agents simultaneously</td>
-                    </tr>
-                    <tr style="border-bottom: 1px solid var(--glass-border);">
-                        <td style="padding: 12px 8px;"><strong>Specs repo</strong></td>
-                        <td style="padding: 12px 8px;">Coordination layer</td>
-                        <td style="padding: 12px 8px;">Roadmap, requirements, intent. Updated after every merge.</td>
-                    </tr>
-                    <tr style="border-bottom: 1px solid var(--glass-border);">
-                        <td style="padding: 12px 8px;"><strong>Skills files</strong></td>
-                        <td style="padding: 12px 8px;">Judgment encoding</td>
-                        <td style="padding: 12px 8px;">Design patterns, conventions, principles tuned to my codebase</td>
-                    </tr>
-                </tbody>
-            </table>
+        <div class="visual-step">
+            <span class="visual-step-label">Execution</span>
+            <strong>Cursor and Claude Code</strong>
+            <span>Parallel implementation in separate modules, branches, or repos.</span>
         </div>
+        <div class="visual-step">
+            <span class="visual-step-label">Review</span>
+            <strong>Codex and CodeRabbit</strong>
+            <span>Automated review before I do the final pass.</span>
+        </div>
+        <div class="visual-step">
+            <span class="visual-step-label">Verification</span>
+            <strong>Manual product check</strong>
+            <span>I still click through the flows that matter.</span>
+        </div>
+        <div class="visual-step">
+            <span class="visual-step-label">Memory</span>
+            <strong>Docs updated after merge</strong>
+            <span>The next agent session starts with newer assumptions.</span>
+        </div>
+    </div>
+</figure>
+
+<h2 class="reveal">What a Working Day Actually Looks Like</h2>
+
+<p class="reveal">
+    The tools divide along capability lines.
+</p>
+
+<p class="reveal">
+    <strong>Cursor</strong> handles active feature development: new flows, UI work, wiring things together. Most of my coding hours are there. It's fast for focused, contextual work within a specific part of the codebase.
+</p>
+
+<p class="reveal">
+    <strong>Claude Code</strong> handles large refactors where I need the agent to hold broader context and use tools more aggressively: file system access, terminal commands, multi-file changes that ripple across the codebase. I've found it more reliable than Cursor for structural changes that touch many files.
+</p>
+
+<p class="reveal">
+    I run both simultaneously on different parts of the codebase. While Cursor is building a new feature in the frontend, Claude Code might be refactoring a backend module. Parallel development is where the time compression shows up.
+</p>
+
+<p class="reveal">
+    <strong>Codex and CodeRabbit</strong> sit as automated reviewers on every pull request. CodeRabbit catches issues I wouldn't think to check when I'm tired: security-adjacent concerns, scope mismatches, documentation drift. Codex provides a second automated perspective. Between the two, most PRs get substantive review before I look at them.
+</p>
+
+<p class="reveal">
+    <strong>GitHub CLI</strong> is wired in throughout the workflow. Agents create pull requests, read review comments, and address feedback themselves. The loop from code, PR, review, and fix can move quickly. The merge does not. I review the final state and approve the branch deliberately.
+</p>
+
+<h2 class="reveal">Where Compression Shows Up</h2>
+
+<p class="reveal">
+    Certain categories of work that used to take weeks now take hours or days. The pattern is consistent across the last few months:
+</p>
+
+<p class="reveal">
+    <strong>CRM Integrations:</strong> Integration work compresses when agents can read documentation, inspect schemas, map fields to a known data model, and generate the connection layer. The founder's job moves from boilerplate author to contract reviewer.
+</p>
+
+<p class="reveal">
+    <strong>Data Seeding:</strong> Realistic seed data used to become a small project of its own. Now it becomes a scripted artifact that agents can generate, revise, and rerun while the underlying assumptions stay visible in the spec.
+</p>
+
+<p class="reveal">
+    <strong>Live Debugging:</strong> The best debugging sessions now cross code, logs, migrations, and recent changes in one pass. The agent can gather the evidence; I still decide whether the explanation is sufficient and whether the fix preserves the architecture.
+</p>
+
+<p class="reveal">
+    <strong>Quality and Security:</strong> Static findings and review comments no longer sit as a backlog of chores. They become reviewable patches, with the same final standard as any human-written change.
+</p>
+
+<p class="reveal">
+    <strong>Documentation and Browser Work:</strong> Agents can move from docs to implementation without forcing me to manually translate every field and edge case. The time saved is not just typing. It is reduced context switching.
+</p>
+
+<h2 class="reveal">Instruction Files: Encoding Judgment</h2>
+
+<p class="reveal">
+    This is the part most people skip when they talk about AI-assisted development, and it's the part that makes the biggest difference.
+</p>
+
+<p class="reveal">
+    I maintain <code>CLAUDE.md</code> files (for Claude Code) and <code>.cursorrules</code> files (for Cursor): project-level instruction files tuned for my codebase and preferences:
+</p>
+
+<ul class="reveal">
+    <li>Design patterns I want used (and where)</li>
+    <li>Quarkus conventions and local patterns</li>
+    <li>React component patterns and standards</li>
+    <li>SOLID, DRY, YAGNI principles as applied to my specific architecture</li>
+    <li>Error handling patterns</li>
+    <li>Testing conventions</li>
+    <li>Naming conventions</li>
+    <li>Module boundary rules</li>
+</ul>
+
+<p class="reveal">
+    Every new session starts by loading these alongside full repo context. This is what makes agents behave like they understand your system instead of generating plausible code for a generic one.
+</p>
+
+<p class="reveal">
+    Without these instruction files, agents produce code that compiles, passes basic checks, and feels slightly wrong everywhere. The patterns drift. The naming is inconsistent. The architecture choices are locally reasonable and globally incoherent.
+</p>
+
+<p class="reveal">
+    With well-maintained instruction files, the output is recognizably "my" codebase. The agent makes choices I would make, because I've told it how I think about these decisions.
+</p>
+
+<p class="reveal">
+    The deeper issue here is that in 2014, this kind of judgment lived in people's heads. Senior engineers transmitted it through code reviews, pair programming, whiteboard sessions, lunch conversations. It was implicit and social. When a junior engineer made an architectural choice that felt wrong, someone would walk over and explain why. That correction was immediate, contextual, and unrecorded.
+</p>
+
+<p class="reveal">
+    Now it has to be written down, versioned, and maintained. Otherwise, it simply doesn't exist in the system. Agents don't absorb judgment from proximity. They absorb it from explicit instruction.
+</p>
+
+<blockquote class="reveal">
+    That encoding work (capturing decisions, conventions, patterns, preferences in a format agents can consume) is a genuinely new category of engineering labor. It didn't exist in 2014 because it wasn't needed. Now it's foundational.
+</blockquote>
+
+<h2 class="reveal">Workspace Architecture: Single Project, Multiple Repos</h2>
+
+<p class="reveal">
+    All my repos (backend, frontend, mobile, integrations, and specs) live in a single project workspace. Separate repos, shared context.
+</p>
+
+<p class="reveal">
+    This is deliberately different from a monorepo. I wanted agents to see the full system without coupling the deployment pipeline. Release workflows stay independent per repo. But when an agent is working on the backend, it can see the frontend contracts. When it's working on the frontend, it can see the API schemas. When it's working on integrations, it can see both.
+</p>
+
+<p class="reveal">
+    What this improves immediately: agents introduce fewer regressions because they understand cross-repo dependencies. Backend changes that would break frontend implementations get caught at development time. Mobile and web stay aligned because the agent sees both simultaneously.
+</p>
+
+<p class="reveal">
+    The new failure mode: everything is visible, so drift shows up immediately. An inconsistency between backend and frontend that might have lived undetected for a sprint in a team environment surfaces the moment context is loaded. That's a good kind of discomfort. It forces resolution early.
+</p>
+
+<h2 class="reveal">Specs Driven Development: The Most Important Repo</h2>
+
+<p class="reveal">
+    I don't use a task board. No Jira. No Linear. No Trello.
+</p>
+
+<p class="reveal">
+    The specs repo is the roadmap, the plan, and the coordination layer. It contains:
+</p>
+
+<ul class="reveal">
+    <li><strong>Detailed business requirements</strong> broken into workflows</li>
+    <li><strong>Specific tasks</strong> with implementation details</li>
+    <li><strong>Data model specifications</strong></li>
+    <li><strong>Integration contracts</strong></li>
+    <li><strong>UI/UX requirements</strong></li>
+    <li><strong>Testing criteria</strong></li>
+</ul>
+
+<p class="reveal">
+    All written using what I call Specs Driven Development: specifications detailed enough to be directly consumable by both humans and AI agents, and to become the single source of coordination truth.
+</p>
+
+<p class="reveal">
+    After every PR merge, specs get updated to reflect current state. This is non-negotiable. The moment specs drift from the codebase, two things happen: agents start making decisions based on outdated assumptions, and my own mental model starts diverging from reality.
+</p>
+
+<p class="reveal">
+    Agents are explicitly instructed to treat code as the source of truth and specs as the intent layer. Code tells you what the system does. Specs tell you what the system should do and why.
+</p>
+
+<p class="reveal">
+    When specs lag reality, velocity drops. You do not notice it at first. Features still ship. PRs still merge. Then a change fails in a place that looked unrelated, and you realize the agent was building against a version of the system that no longer exists. That debugging session costs more than the time it would have taken to keep specs current.
+</p>
+
+<p class="reveal">
+    When specs encode assumptions too early, they start lying. You write down how a workflow should behave before you've watched a customer use it, and the agent builds exactly what you specified. Sometimes the spec is wrong. Keeping specs honest means being willing to rewrite them frequently, which feels like wasted work and is actually the most valuable work.
+</p>
+
+<p class="reveal">
+    Keeping specs alive while multiple agents work in parallel is constant, unglamorous, necessary work. It's the coordination cost that used to be distributed across a team and now lands entirely on me.
+</p>
+
+<h2 class="reveal">Parallel Agents and Review Queues</h2>
+
+<p class="reveal">
+    The useful unit of autonomous work is not "go build the product." It is a scoped task with a clear boundary and a reviewable output.
+</p>
+
+<p class="reveal">
+    The key constraint is isolation. If you task two agents on overlapping parts of the codebase overnight, you wake up to merge conflicts and divergent assumptions. So the work has to be cleanly separated: one agent refactoring a backend module, another running test suites, a third cleaning up a specific integration. Each on its own branch, each producing a discrete PR.
+</p>
+
+<p class="reveal">
+    The direction is clear: development is becoming less tied to a single device and more tied to clear ownership of context, branch, and review. That sounds less flashy than "autonomous coding." It is also more useful.
+</p>
+
+<p class="reveal">
+    The failure mode is predictable. If the task is too small, the output is not worth the coordination cost. If the task is too broad, the agent makes structural decisions I should have made myself. The art is carving work at the size where an agent can produce momentum without smuggling in architecture.
+</p>
+
+<h2 class="reveal">Where Things Still Break Down</h2>
+
+<p class="reveal">
+    Agents miss edge cases consistently. This is the most common failure mode I encounter. The happy path works. The second and third paths work. The fourth path, the one that depends on a specific state combination that only happens when a user does something slightly unusual, breaks.
+</p>
+
+<p class="reveal">
+    When backend and frontend move together, subtle breakage goes up even when both sides look correct independently. An API returns data in a shape the frontend technically handles, but the UI renders it wrong because the mapping assumes a different ordering or null behavior. Both sides pass their own tests. The integration fails.
+</p>
+
+<p class="reveal">
+    UI flows work in isolation and break when a real person clicks through them in sequence. Step 1 sets state. Step 2 reads it. Step 3 modifies it. Step 4 depends on the result of step 2 and 3 together. Agents test each step. They rarely test the chain.
+</p>
+
+<p class="reveal">
+    I test every button, every path, manually. At a 0-to-1 stage, I want my eyes on everything. This is deliberate. I haven't yet found a tool that can reliably test real business use cases on the UI: clicking through actual workflows, checking visual consistency, verifying interaction patterns. Claude Code can open a browser and click buttons. The capability exists. The reliability for complex, multi-step business flows isn't there yet.
+</p>
+
+<p class="reveal">
+    AI also drifts on UI/UX consistency. Spacing, alignment, interaction patterns, and visual hierarchy compound into the product feeling "off" if you let them slide. Each individual choice might be reasonable. The aggregate is subtly wrong. Catching this requires aesthetic judgment that agents don't have, and I'm not sure how you'd encode it into instruction files.
+</p>
+
+<h2 class="reveal">The Deeper Issue: What Agents Can and Can't Do</h2>
+
+<p class="reveal">
+    Agents operate on what you give them.
+</p>
+
+<p class="reveal">
+    If you don't instruct them to use a decorator pattern for a specific use case, they won't arrive at it independently. If you don't specify error handling conventions, each module will handle errors differently. If you don't define module boundaries, the agent will make locally optimal choices that create globally messy architecture.
+</p>
+
+<p class="reveal">
+    The quality of what comes out tracks directly to the quality of your instruction files, your specs, your prompts. This has always been true of software development. Well-documented teams and products moved faster at scale than undocumented ones. The difference now is that the cost of poor documentation is immediate and visible, not gradual and hidden.
+</p>
+
+<p class="reveal">
+    In a team environment, implicit knowledge circulated through social mechanisms. Code reviews caught pattern violations. Pair programming transmitted conventions. Team meetings aligned understanding. None of that exists when you're building alone with agents. Everything that was social is now textual.
+</p>
+
+<blockquote class="reveal">
+    This is the actual job now. Writing code is a shrinking fraction of my day. Deciding what agents should build, reviewing what they produced, and updating the instruction files and specs that keep the whole system coherent is where the hours go.
+</blockquote>
+
+<h2 class="reveal">The Cost Structure Has Changed, the Work Hasn't Disappeared</h2>
+
+<p class="reveal">
+    People sometimes describe AI-assisted development as if the work got easier. From the inside, it feels different.
+</p>
+
+<p class="reveal">
+    The mechanical parts compressed dramatically. Boilerplate generation, API integration scaffolding, data seeding, documentation lookup, test writing, static checks. All of these are faster by an order of magnitude.
+</p>
+
+<p class="reveal">
+    The judgment parts didn't compress at all. What to build. How to structure it. When to stop adding and start removing. How to keep the system coherent as it grows. How to maintain quality when an agent can ship something that technically works and aesthetically drifts.
+</p>
+
+<p class="reveal">
+    The new cost is encoding. Every decision that used to live in someone's head now needs to be written down in a format an agent can consume. Every convention that used to spread through proximity now needs to be maintained as a versioned file. Every correction that used to happen in a code review comment now needs to be generalized into a rule.
+</p>
+
+<p class="reveal">
+    I can experiment faster than at any point in twelve years of building software. I can also introduce structural mistakes faster. The only reliable counterweight I've found is discipline about specs, instruction files, standards, and manual verification.
+</p>
+
+<p class="reveal">
+    The total cost is different from 2014. Lower in some dimensions, higher in others. The shape changed. The amount of care required didn't.
+</p>
+
+<h2 class="reveal">The Toolchain Categories</h2>
+
+<p class="reveal">
+    The exact tools will change. The categories matter more:
+</p>
+
+<div class="glass-card reveal" style="padding: 24px; margin: 24px 0; overflow-x: auto;">
+    <table style="width: 100%; border-collapse: collapse; color: var(--color-text-secondary); font-size: 0.9rem;">
+        <thead>
+            <tr style="border-bottom: 1px solid var(--glass-border);">
+                <th style="text-align: left; padding: 12px 8px; color: var(--color-text-primary);">Tool</th>
+                <th style="text-align: left; padding: 12px 8px; color: var(--color-text-primary);">Role</th>
+                <th style="text-align: left; padding: 12px 8px; color: var(--color-text-primary);">Notes</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr style="border-bottom: 1px solid var(--glass-border);">
+                <td style="padding: 12px 8px;"><strong>Cursor</strong></td>
+                <td style="padding: 12px 8px;">Active feature development</td>
+                <td style="padding: 12px 8px;">Used for focused, contextual work inside one part of the system</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--glass-border);">
+                <td style="padding: 12px 8px;"><strong>Claude Code</strong></td>
+                <td style="padding: 12px 8px;">Large refactors, tool-heavy tasks</td>
+                <td style="padding: 12px 8px;">Better for structural changes across many files</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--glass-border);">
+                <td style="padding: 12px 8px;"><strong>Codex</strong></td>
+                <td style="padding: 12px 8px;">Automated PR review</td>
+                <td style="padding: 12px 8px;">Second review perspective alongside CodeRabbit</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--glass-border);">
+                <td style="padding: 12px 8px;"><strong>CodeRabbit</strong></td>
+                <td style="padding: 12px 8px;">Automated PR review</td>
+                <td style="padding: 12px 8px;">Catches scope drift, missed edge cases, and documentation gaps</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--glass-border);">
+                <td style="padding: 12px 8px;"><strong>GitHub CLI</strong></td>
+                <td style="padding: 12px 8px;">Workflow automation</td>
+                <td style="padding: 12px 8px;">PR creation, review follow-up, and branch-level workflow automation</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--glass-border);">
+                <td style="padding: 12px 8px;"><strong>Static checks</strong></td>
+                <td style="padding: 12px 8px;">Quality and security signals</td>
+                <td style="padding: 12px 8px;">Findings become reviewable work, not hidden debt</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--glass-border);">
+                <td style="padding: 12px 8px;"><strong>Isolated agent workspaces</strong></td>
+                <td style="padding: 12px 8px;">Parallel work</td>
+                <td style="padding: 12px 8px;">Bounded branches and scoped tasks keep parallelism reviewable</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--glass-border);">
+                <td style="padding: 12px 8px;"><strong>Single project workspace</strong></td>
+                <td style="padding: 12px 8px;">Context sharing</td>
+                <td style="padding: 12px 8px;">All repos visible to agents simultaneously</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--glass-border);">
+                <td style="padding: 12px 8px;"><strong>Specs repo</strong></td>
+                <td style="padding: 12px 8px;">Coordination layer</td>
+                <td style="padding: 12px 8px;">Roadmap, requirements, intent. Updated after every merge.</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--glass-border);">
+                <td style="padding: 12px 8px;"><strong>Skills files</strong></td>
+                <td style="padding: 12px 8px;">Judgment encoding</td>
+                <td style="padding: 12px 8px;">Design patterns, conventions, principles tuned to my codebase</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 
 
-        <p class="reveal" style="font-style: italic; color: var(--color-text-tertiary);">
-            The tools change fast. The durable work is encoding judgment, maintaining specs, running parallel agent workflows, and keeping the founder responsible for taste.
-        </p>
+<p class="reveal" style="font-style: italic; color: var(--color-text-tertiary);">
+    The tools change fast. The durable work is encoding judgment, maintaining specs, running parallel agent workflows, and keeping the founder responsible for taste.
+</p>
