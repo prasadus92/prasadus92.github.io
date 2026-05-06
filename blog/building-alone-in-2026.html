@@ -64,7 +64,7 @@
         ]
       },
       "datePublished": "2026-02-10",
-      "dateModified": "2026-02-10",
+      "dateModified": "2026-05-06",
       "mainEntityOfPage": "https://prasad.tech/blog/building-alone-in-2026.html",
       "publisher": {
         "@type": "Person",
@@ -127,7 +127,7 @@
             </div>
             <h1 class="reveal reveal-delay-1">What It Actually Costs to Build a Serious Product Alone in 2026</h1>
             <p class="section-description reveal reveal-delay-2" style="max-width: 700px; margin: 24px auto 0;">
-                The real cost structure of solo product development has changed. Here's what it looks like from the inside.
+                The real cost structure of solo product development has changed. This is what it looks like from the inside.
             </p>
         </div>
     </section>
@@ -139,7 +139,7 @@
         </p>
 
         <p class="reveal">
-            Setting up a new developer's machine meant following a guide that was always slightly out of date. Someone would sit with you. Half a day gone, sometimes more for complex setups. Integrations meant weeks of reading API documentation page by page, mapping fields by hand, writing boilerplate that everyone knew would be fragile and nobody wanted to touch again. Seeding a staging environment with realistic data was its own mini-project—separate tickets, separate timelines. These were real costs, paid in hours and attention, by real people sitting next to each other.
+            Setting up a new developer's machine meant following a guide that was always slightly out of date. Someone would sit with you. Half a day gone, sometimes more for complex setups. Integrations meant weeks of reading API documentation page by page, mapping fields by hand, writing boilerplate that everyone knew would be fragile and nobody wanted to touch again. Seeding a staging environment with realistic data was its own mini-project, with separate tickets and separate timelines. These were real costs, paid in hours and attention, by real people sitting next to each other.
         </p>
 
         <p class="reveal">
@@ -173,12 +173,43 @@
         </div>
 
         <p class="reveal">
-            That's roughly $1,500–2,000/month on AI tooling alone, as a bootstrapped solo founder. This isn't indulgence. It's the infrastructure cost of compressing a team into one desk.
+            That's roughly $1,500-2,000/month on AI tooling alone, as a bootstrapped solo founder. This isn't indulgence. It's the infrastructure cost of compressing a team into one desk.
         </p>
 
         <p class="reveal">
-            A note I'd add two months later: the software subscriptions above are half the story. The other half is a dedicated machine that runs as an always-on operator layer for the company. I added a Mac Mini to this setup in April 2026 and the marginal monthly cost for the new capability was zero. The orchestration loop runs on a free tier and heavy work still delegates to Claude Code on the same Max plan. I wrote about it in <a href="dedicated-mac-mini-solo-startup.html">Building Toward a Team of Digital Employees on a Mac Mini: Hermes Agent, Claude Code (ACP), and gbrain</a>.
+            A note I'd add two months later: the software subscriptions above are half the story. The other half is a dedicated machine that runs as an always-on operator layer for the company. I added a Mac Mini to this setup in April 2026 and the marginal monthly cost for the new capability was zero. The orchestration loop runs on a free tier and heavy work still delegates to Claude Code on the same Max plan. I wrote about it in <a href="dedicated-mac-mini-solo-startup.html">A Dedicated Mac Mini for Luminik's Agents</a>.
         </p>
+
+        <figure class="post-visual reveal">
+            <div class="post-visual-title">The solo-builder operating loop</div>
+            <div class="visual-flow">
+                <div class="visual-step">
+                    <span class="visual-step-label">Context</span>
+                    <strong>Specs and CLAUDE.md</strong>
+                    <span>Business rules, architecture, conventions, and open questions.</span>
+                </div>
+                <div class="visual-step">
+                    <span class="visual-step-label">Execution</span>
+                    <strong>Cursor and Claude Code</strong>
+                    <span>Parallel implementation in separate modules, branches, or repos.</span>
+                </div>
+                <div class="visual-step">
+                    <span class="visual-step-label">Review</span>
+                    <strong>Codex and CodeRabbit</strong>
+                    <span>Automated review before I do the final pass.</span>
+                </div>
+                <div class="visual-step">
+                    <span class="visual-step-label">Verification</span>
+                    <strong>Manual product check</strong>
+                    <span>I still click through the flows that matter.</span>
+                </div>
+                <div class="visual-step">
+                    <span class="visual-step-label">Memory</span>
+                    <strong>Docs updated after merge</strong>
+                    <span>The next agent session starts with newer assumptions.</span>
+                </div>
+            </div>
+        </figure>
 
         <h2 class="reveal">What a Working Day Actually Looks Like</h2>
 
@@ -187,7 +218,7 @@
         </p>
 
         <p class="reveal">
-            <strong>Cursor</strong> handles active feature development: new flows, UI work, wiring things together. This is where I spend most of my coding hours. It's fast for focused, contextual work within a specific part of the codebase.
+            <strong>Cursor</strong> handles active feature development: new flows, UI work, wiring things together. Most of my coding hours are there. It's fast for focused, contextual work within a specific part of the codebase.
         </p>
 
         <p class="reveal">
@@ -195,7 +226,7 @@
         </p>
 
         <p class="reveal">
-            I run both simultaneously on different parts of the codebase. While Cursor is building a new feature in the frontend, Claude Code might be refactoring a backend module. Parallel development is where the leverage multiplies.
+            I run both simultaneously on different parts of the codebase. While Cursor is building a new feature in the frontend, Claude Code might be refactoring a backend module. Parallel development is where the time compression shows up.
         </p>
 
         <p class="reveal">
@@ -229,7 +260,7 @@
         </p>
 
         <p class="reveal">
-            <strong>MCP and Browser Access:</strong> Agents can access documentation directly, go check fields in external systems, match them to my data model. These were manual research tasks for a developer in the pre-AI era—open browser, read docs, take notes, translate to code. Now the agent does the lookup and the translation in the same session.
+            <strong>MCP and Browser Access:</strong> Agents can access documentation directly, go check fields in external systems, match them to my data model. These were manual research tasks for a developer in the pre-AI era: open browser, read docs, take notes, translate to code. Now the agent does the lookup and the translation in the same session.
         </p>
 
         <h2 class="reveal">Skills Files: Encoding Judgment</h2>
@@ -270,7 +301,7 @@
         </p>
 
         <p class="reveal">
-            Now it has to be written down, versioned, and maintained—or it simply doesn't exist in the system. Agents don't absorb judgment from proximity. They absorb it from explicit instruction.
+            Now it has to be written down, versioned, and maintained. Otherwise, it simply doesn't exist in the system. Agents don't absorb judgment from proximity. They absorb it from explicit instruction.
         </p>
 
         <blockquote class="reveal">
@@ -315,7 +346,7 @@
         </ul>
 
         <p class="reveal">
-            All written using what I call Specs Driven Development—the idea that specifications should be detailed enough to be directly consumable by both humans and AI agents, and that they should be the single source of coordination truth.
+            All written using what I call Specs Driven Development: specifications detailed enough to be directly consumable by both humans and AI agents, and to become the single source of coordination truth.
         </p>
 
         <p class="reveal">
@@ -331,7 +362,7 @@
         </p>
 
         <p class="reveal">
-            When specs encode assumptions too early, they start lying. You write down how a workflow should behave before you've watched a customer use it, and the agent builds exactly what you specified—which turns out to be wrong. Keeping specs honest means being willing to rewrite them frequently, which feels like wasted work and is actually the most valuable work.
+            When specs encode assumptions too early, they start lying. You write down how a workflow should behave before you've watched a customer use it, and the agent builds exactly what you specified. Sometimes the spec is wrong. Keeping specs honest means being willing to rewrite them frequently, which feels like wasted work and is actually the most valuable work.
         </p>
 
         <p class="reveal">
@@ -341,7 +372,7 @@
         <h2 class="reveal">Overnight Agents and Mobile Steering</h2>
 
         <p class="reveal">
-            Before bed, I task agents via cloud environments (individual repos for tests, refactoring, cleanup) so there's a PR waiting for review in the morning.
+            Before bed, I task agents via cloud environments (individual repos for tests, refactoring, cleanup) so a PR is waiting for review in the morning.
         </p>
 
         <p class="reveal">
@@ -349,17 +380,17 @@
         </p>
 
         <p class="reveal">
-            I've steered development sessions from my phone sitting at a coffee shop. The loop is tighter than it has any right to be for a single person. There are tools like Omnara that sync local Claude Code sessions to the cloud—I haven't tried it yet, but the direction is clear: development is becoming location-independent in a way that doesn't require a laptop.
+            I've steered development sessions from my phone sitting at a coffee shop. The feedback cycle is tighter than it has any right to be for a single person. There are tools like Omnara that sync local Claude Code sessions to the cloud. I haven't tried it yet, but the direction is clear: development is becoming location-independent in a way that doesn't require a laptop.
         </p>
 
         <p class="reveal">
-            Claude Flow is the tool I want to work most. The promise of fully autonomous overnight coding sessions is real. In practice, I haven't found the right configuration for my use cases yet. The agent either stays too conservative (producing trivial changes that aren't worth the session) or gets too ambitious (introducing structural decisions I haven't approved). I'm sure there's a learning curve I haven't crested yet, or maybe a setup that's more custom to my codebase. I keep experimenting.
+            Claude Flow is the tool I want to work most. The promise of fully autonomous overnight coding sessions is real. In practice, I haven't found the right configuration for my use cases yet. The agent either stays too conservative (producing trivial changes that aren't worth the session) or gets too ambitious (introducing structural decisions I haven't approved). I may still be missing the right setup for my codebase. I keep experimenting.
         </p>
 
         <h2 class="reveal">Where Things Still Break Down</h2>
 
         <p class="reveal">
-            Agents miss edge cases consistently. This is the most common failure mode I encounter. The happy path works. The second and third paths work. The fourth path—the one that depends on a specific state combination that only happens when a user does something slightly unusual—breaks.
+            Agents miss edge cases consistently. This is the most common failure mode I encounter. The happy path works. The second and third paths work. The fourth path, the one that depends on a specific state combination that only happens when a user does something slightly unusual, breaks.
         </p>
 
         <p class="reveal">
@@ -371,11 +402,11 @@
         </p>
 
         <p class="reveal">
-            I test every button, every path, manually. At a 0-to-1 stage, I want my eyes on everything. This is deliberate. I haven't yet found a tool that can reliably test real business use cases on the UI—clicking through actual workflows, checking visual consistency, verifying interaction patterns. Claude Code can open a browser and click buttons. The capability exists. The reliability for complex, multi-step business flows isn't there yet.
+            I test every button, every path, manually. At a 0-to-1 stage, I want my eyes on everything. This is deliberate. I haven't yet found a tool that can reliably test real business use cases on the UI: clicking through actual workflows, checking visual consistency, verifying interaction patterns. Claude Code can open a browser and click buttons. The capability exists. The reliability for complex, multi-step business flows isn't there yet.
         </p>
 
         <p class="reveal">
-            AI also drifts on UI/UX consistency. Spacing, alignment, interaction patterns, visual hierarchy—these compound into the product feeling "off" if you let them slide. Each individual choice might be reasonable. The aggregate is subtly wrong. Catching this requires aesthetic judgment that agents don't have, and I'm not sure how you'd encode it into instruction files.
+            AI also drifts on UI/UX consistency. Spacing, alignment, interaction patterns, and visual hierarchy compound into the product feeling "off" if you let them slide. Each individual choice might be reasonable. The aggregate is subtly wrong. Catching this requires aesthetic judgment that agents don't have, and I'm not sure how you'd encode it into instruction files.
         </p>
 
         <h2 class="reveal">The Deeper Issue: What Agents Can and Can't Do</h2>
@@ -389,7 +420,7 @@
         </p>
 
         <p class="reveal">
-            The quality of what comes out tracks directly to the quality of your instruction files, your specs, your prompts. This has always been true of software development—well-documented teams and products moved faster at scale than undocumented ones. The difference now is that the cost of poor documentation is immediate and visible, not gradual and hidden.
+            The quality of what comes out tracks directly to the quality of your instruction files, your specs, your prompts. This has always been true of software development. Well-documented teams and products moved faster at scale than undocumented ones. The difference now is that the cost of poor documentation is immediate and visible, not gradual and hidden.
         </p>
 
         <p class="reveal">
@@ -397,7 +428,7 @@
         </p>
 
         <blockquote class="reveal">
-            This is the actual job now. Writing code is a shrinking fraction of my day. Deciding what agents should build, reviewing what they produced, updating the instruction files and specs and rules that keep the whole system coherent—that's where the hours go.
+            This is the actual job now. Writing code is a shrinking fraction of my day. Deciding what agents should build, reviewing what they produced, and updating the instruction files and specs that keep the whole system coherent is where the hours go.
         </blockquote>
 
         <h2 class="reveal">The Cost Structure Has Changed, the Work Hasn't Disappeared</h2>
@@ -429,7 +460,7 @@
         <h2 class="reveal">My Full Toolchain</h2>
 
         <p class="reveal">
-            For anyone building a similar setup, here's the complete list:
+            For anyone building a similar setup, this is the complete list:
         </p>
 
         <div class="glass-card reveal" style="padding: 24px; margin: 24px 0; overflow-x: auto;">
@@ -485,7 +516,7 @@
                     <tr style="border-bottom: 1px solid var(--glass-border);">
                         <td style="padding: 12px 8px;"><strong>Specs repo</strong></td>
                         <td style="padding: 12px 8px;">Coordination layer</td>
-                        <td style="padding: 12px 8px;">Roadmap, requirements, intent—updated after every merge</td>
+                        <td style="padding: 12px 8px;">Roadmap, requirements, intent. Updated after every merge.</td>
                     </tr>
                     <tr style="border-bottom: 1px solid var(--glass-border);">
                         <td style="padding: 12px 8px;"><strong>Skills files</strong></td>
@@ -513,7 +544,7 @@
             <div style="flex: 1; min-width: 200px;">
                 <h4 style="margin-bottom: 8px;">Prasad Subrahmanya</h4>
                 <p style="color: var(--color-text-secondary); margin-bottom: 8px; font-size: 0.9rem;">
-                    Founder & CEO at Luminik. Previously built Aura at Bain ($3.6M ARR) and led Mainteny ($2.7M seed). Building an AI co-pilot for event marketing teams.
+                    Founder & CEO at Luminik. Previously built Aura at Bain ($3.6M ARR) and led Mainteny ($2.7M seed). Building Luminik, the event pipeline platform for B2B teams.
                 </p>
                 <div style="display: flex; gap: 12px;">
                     <a href="https://linkedin.com/in/prasadus" target="_blank" style="color: var(--color-text-tertiary);"><i class="fab fa-linkedin-in"></i></a>
