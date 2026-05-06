@@ -1,16 +1,15 @@
 # Personal Website - prasad.tech
 
-A modern, glassmorphism-styled personal portfolio and blog built with HTML5, CSS3, and JavaScript.
+A personal portfolio and blog built with HTML5, CSS3, and JavaScript.
 
 ## Overview
 - **URL**: [prasad.tech](https://prasad.tech)
 - **Stack**: HTML5, CSS3, JavaScript
-- **Design**: Glassmorphism with animated gradients
 - **Theme**: Dark/Light mode with system preference detection
 - **Responsive**: Optimized for desktop, tablet, and mobile devices
 
 ## Features
-- Modern glassmorphism design with animated background orbs
+- Responsive portfolio and blog pages
 - Responsive layout with mobile-first approach
 - Dark/Light theme with automatic system detection
 - Blog with articles on startups, product development, and tech
@@ -31,7 +30,7 @@ python3 -m http.server 8000
 Then visit `http://localhost:8000` in your browser.
 
 ## Deployment
-The site is hosted on GitHub Pages with a custom domain (prasad.tech). Changes pushed to the master branch are automatically deployed.
+The site is hosted on GitHub Pages with a custom domain (prasad.tech). GitHub Pages builds from the `main` branch at `/`.
 
 ## Contact
 - Email: prasadus92@gmail.com

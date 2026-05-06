@@ -2,6 +2,8 @@
 
 Writing standards for prasad.tech blog posts. Every LLM session that touches blog content must read this file first.
 
+This repo is public. Do not commit private notes, private customer names, secrets, unpublished operating details, internal Slack text, or non-public facts from other repos. If a private source informs a post, convert it into a public-safe observation and remove the private source detail.
+
 ## Voice
 
 Write like you're explaining something to a sharp friend over coffee. Direct, specific, opinionated. Never academic. Never corporate.
@@ -38,7 +40,9 @@ These patterns make writing sound machine-generated. Never use them:
 - "(And How X Can Fix It)" style parenthetical titles
 - "It's not a bug, it's a feature"
 - "Here is where things get interesting"
-- Excessive emdashes (more than 8-10 per post signals AI). Use periods, commas, colons, or parentheses instead.
+- Em dashes. Use periods, commas, colons, or parentheses instead.
+
+Also avoid these words unless they appear inside a quoted source or code/API name: seamless, unlock, leverage, transform, synergy, cutting-edge, revolutionize, streamline.
 
 ### No filler. No throat-clearing.
 - Cut "I think", "I believe", "In my experience" when the whole post is clearly your experience.
@@ -67,6 +71,42 @@ Don't use vague terms like "skills files" without explaining what they are (CLAU
 - Concrete examples > abstract principles. Show the actual command, the actual file, the actual workflow.
 - End with something useful, not something inspirational.
 
+## Rewrite workflow
+
+Do not start by polishing sentences. Start by deciding whether the post has enough source truth.
+
+For each post, prepare a short notes packet before rewriting:
+
+1. What actually happened?
+2. Which artifact proves it happened? Examples: repo history, PR, screenshot, customer-safe anecdote, public source, code path, cost table, timeline.
+3. What did Prasad believe before the work?
+4. What changed after doing the work?
+5. What would a serious reader be able to use tomorrow?
+6. Which facts are missing and need Prasad to fill in?
+
+If the notes packet is thin, ask for details. Do not pad the post with generalized advice.
+
+## Visuals and diagrams
+
+Use visuals when they reduce cognitive load or add evidence.
+
+Good visual candidates:
+
+- Timelines for fundraising, MVP builds, or customer development.
+- Architecture diagrams for agent systems, repo maps, product stacks, and data flows.
+- Tables for cost structures, tradeoffs, toolchains, or decision criteria.
+- Workflow diagrams for sales processes, event-pipeline stages, and customer handoffs.
+- Annotated screenshots only when the screenshot is safe to publish and directly supports the argument.
+
+Avoid visuals that merely decorate the post, repeat the headline, or make the site feel like a SaaS landing page.
+
+## Public source discipline
+
+- Cite public PRs, issues, docs, or articles when making external claims.
+- For personal claims, use details Prasad can stand behind publicly.
+- For Luminik claims, use the public company language already present on luminik.io or facts Prasad explicitly approves for publication.
+- Do not reveal customer names, private revenue, private pipeline, private Slack messages, internal schedules, or private credentials.
+
 ### Sentence-level
 - Prefer short, declarative sentences.
 - Vary sentence length. Three short sentences followed by one longer one creates rhythm.
@@ -79,3 +119,16 @@ Before publishing, check every claim against this:
 1. Could someone Google this and find the same thing in the first three results? If yes, you're not adding value.
 2. Does it include a specific tool name, number, timeline, or outcome? If not, make it specific.
 3. Could another founder have written this sentence? If yes, add what makes your experience different.
+
+## Blog-specific quality bar
+
+A strong prasad.tech post usually has:
+
+- A concrete opening scene or operating fact.
+- One main argument, stated early.
+- Technical depth where the work needs it.
+- Narrative movement: before, decision, tradeoff, consequence.
+- Specific examples from Prasad's own work.
+- A modest ending that leaves the reader with a sharper model, not a slogan.
+
+The best target is not "more polished." It is "more true."

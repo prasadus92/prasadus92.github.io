@@ -1336,6 +1336,143 @@ a:hover {
   margin: 32px 0;
 }
 
+.post-visual {
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  background: var(--glass-bg);
+  padding: 24px;
+  margin: 32px 0;
+  scroll-margin-top: 96px;
+}
+
+.post-visual-title {
+  color: var(--color-text-primary);
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin: 0 0 16px;
+}
+
+.post-visual-caption {
+  color: var(--color-text-tertiary);
+  font-size: 0.85rem;
+  line-height: 1.6;
+  margin: 16px 0 0;
+}
+
+.visual-flow {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 12px;
+  align-items: stretch;
+}
+
+.visual-step {
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  padding: 14px;
+  min-height: 92px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.visual-step-label {
+  display: block;
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  margin-bottom: 8px;
+}
+
+.visual-step strong {
+  display: block;
+  color: var(--color-text-primary);
+  font-size: 0.95rem;
+  line-height: 1.35;
+}
+
+.visual-step span:not(.visual-step-label) {
+  display: block;
+  color: var(--color-text-secondary);
+  font-size: 0.82rem;
+  line-height: 1.5;
+  margin-top: 6px;
+}
+
+.visual-timeline {
+  display: grid;
+  gap: 12px;
+}
+
+.timeline-row {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 16px;
+  align-items: start;
+}
+
+.timeline-date {
+  color: var(--color-accent-primary);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  padding-top: 2px;
+}
+
+.timeline-body {
+  border-left: 1px solid var(--glass-border);
+  padding-left: 16px;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+.timeline-body strong {
+  color: var(--color-text-primary);
+}
+
+.visual-split {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.visual-column {
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.visual-column h4 {
+  color: var(--color-text-primary);
+  font-size: 0.95rem;
+  margin: 0 0 12px;
+}
+
+.visual-column ul {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.visual-column li {
+  font-size: 0.88rem;
+  line-height: 1.55;
+}
+
+@media (max-width: 640px) {
+  .post-visual {
+    padding: 18px;
+  }
+
+  .timeline-row,
+  .visual-flow,
+  .visual-split {
+    grid-template-columns: 1fr;
+  }
+
+  .timeline-body {
+    border-left: 0;
+    padding-left: 0;
+  }
+}
+
 /* ================================================ */
 /* Accessibility & Focus States                     */
 /* ================================================ */
