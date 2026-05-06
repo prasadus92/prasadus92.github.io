@@ -12,15 +12,15 @@
       gtag('config', 'G-XG5LVE538S');
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Building Toward a Team of Digital Employees on a Mac Mini: Hermes Agent, Claude Code (ACP), and gbrain - Prasad Subrahmanya</title>
+    <title>A Dedicated Mac Mini for Luminik's Agents - Prasad Subrahmanya</title>
 
-    <meta name="description" content="How I moved Luminik's always-on operations off my MacBook Pro onto a dedicated Mac Mini M4. The full stack (Hermes Agent, Claude Code via ACP, local gbrain knowledge base), three upstream bugs I chased across Hermes Agent and gbrain, with full PR and issue links, and where this is heading." />
+    <meta name="description" content="How I moved Luminik's scheduled agent work from my MacBook Pro to a dedicated Mac Mini M4 running Hermes Agent, Claude Code via ACP, and a local gbrain knowledge base." />
     <meta name="keywords" content="hermes agent, hermes agent mac mini, claude code acp, agent client protocol, gbrain, garry tan gbrain, nous research, 24/7 ai agent, mac mini m4 agent, solo founder ai infrastructure, hermes gemini x-goog-api-key, hermes whatsapp markdown platform_hint, hermes-agent pr 12251, hermes-agent issue 12224, gbrain pr 89, gbrain openai embedding, gemini embedding knowledge base, dependabot cve triage agent, sast sca solo founder, digital employees, luminik" />
     <meta name="author" content="Prasad Subrahmanya" />
 
     <!-- OpenGraph Meta Tags -->
-    <meta property="og:title" content="Building Toward a Team of Digital Employees on a Mac Mini: Hermes Agent, Claude Code (ACP), and gbrain" />
-    <meta property="og:description" content="How I moved Luminik's always-on operations off my MacBook Pro onto a dedicated Mac Mini M4. The full stack (Hermes Agent, Claude Code via ACP, local gbrain knowledge base), three upstream bugs I chased across Hermes Agent and gbrain, with full PR and issue links, and where this is heading." />
+    <meta property="og:title" content="A Dedicated Mac Mini for Luminik's Agents" />
+    <meta property="og:description" content="How I moved Luminik's scheduled agent work from my MacBook Pro to a dedicated Mac Mini M4 running Hermes Agent, Claude Code via ACP, and a local gbrain knowledge base." />
     <meta property="og:type" content="article" />
     <meta property="og:url" content="https://prasad.tech/blog/dedicated-mac-mini-solo-startup.html" />
     <meta property="og:image" content="https://prasad.tech/assets/images/header/prasad.jpeg" />
@@ -32,8 +32,8 @@
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Building Toward a Team of Digital Employees on a Mac Mini: Hermes Agent, Claude Code (ACP), and gbrain" />
-    <meta name="twitter:description" content="How I moved Luminik's always-on operations off my MacBook Pro onto a dedicated Mac Mini M4 — Hermes Agent, Claude Code via ACP, a local gbrain knowledge base, three upstream bugs I filed against or +1'd, and where this is heading." />
+    <meta name="twitter:title" content="A Dedicated Mac Mini for Luminik's Agents" />
+    <meta name="twitter:description" content="How I moved Luminik's scheduled agent work from my MacBook Pro to a dedicated Mac Mini M4 running Hermes Agent, Claude Code via ACP, and a local gbrain knowledge base." />
 
     <!-- Canonical -->
     <link rel="canonical" href="https://prasad.tech/blog/dedicated-mac-mini-solo-startup.html" />
@@ -43,8 +43,8 @@
     {
       "@context": "https://schema.org",
       "@type": "BlogPosting",
-      "headline": "Building Toward a Team of Digital Employees on a Mac Mini: Hermes Agent, Claude Code (ACP), and gbrain",
-      "description": "How I moved Luminik's always-on operations off my MacBook Pro onto a dedicated Mac Mini M4. The full stack (Hermes Agent, Claude Code via ACP, local gbrain knowledge base), three upstream bugs I chased across Hermes Agent and gbrain, with full PR and issue links, and where this is heading.",
+      "headline": "A Dedicated Mac Mini for Luminik's Agents",
+      "description": "How I moved Luminik's scheduled agent work from my MacBook Pro to a dedicated Mac Mini M4 running Hermes Agent, Claude Code via ACP, and a local gbrain knowledge base.",
       "author": {
         "@type": "Person",
         "name": "Prasad Subrahmanya",
@@ -55,7 +55,7 @@
         ]
       },
       "datePublished": "2026-04-18",
-      "dateModified": "2026-04-18",
+      "dateModified": "2026-05-06",
       "mainEntityOfPage": "https://prasad.tech/blog/dedicated-mac-mini-solo-startup.html",
       "publisher": {
         "@type": "Person",
@@ -110,7 +110,7 @@
           "name": "What upstream bugs did you hit and how did you handle them?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Three. (1) A Gemini auth regression in Hermes Agent v0.10.0: earlier that morning PR #11961 switched Google AI Studio auth from Bearer to x-goog-api-key, but Google's /v1beta/openai endpoint had since changed behavior and now rejects that header with HTTP 400 API_KEY_INVALID while accepting Bearer by default. I isolated the repro with a bare openai Python client, commented on the open revert (PR #12204) with my test, and applied the patch locally. Maintainer teknium1 landed a superseding fix in PR #12251 the same day. (2) The WhatsApp PLATFORM_HINT in agent/prompt_builder.py told the model 'do not use markdown on WhatsApp because it does not render,' which is factually wrong — WhatsApp supports *bold*, _italic_, ~strike~, inline code, fenced code blocks, and bullet lists. The hint silently overrode my SOUL.md persona file. I filed Issue #12224 with the exact line and suggested replacement; still open. (3) gbrain v0.12.0 hardcodes OpenAI embeddings, which silently undoes the zero-marginal-cost argument for anyone running Gemini elsewhere. Community PR #89 adds Gemini embedding support via GEMINI_API_KEY; checked it out, confirmed it works, left a +1 with my repro. Still open; local checkout is the working path."
+            "text": "Three. (1) A Gemini auth regression in Hermes Agent v0.10.0: earlier that morning PR #11961 switched Google AI Studio auth from Bearer to x-goog-api-key, but Google's /v1beta/openai endpoint had since changed behavior and now rejects that header with HTTP 400 API_KEY_INVALID while accepting Bearer by default. I isolated the repro with a bare openai Python client, commented on the open revert (PR #12204) with my test, and applied the patch locally. Maintainer teknium1 landed a superseding fix in PR #12251 the same day. (2) The WhatsApp PLATFORM_HINT in agent/prompt_builder.py told the model 'do not use markdown on WhatsApp because it does not render,' which is factually wrong. WhatsApp supports *bold*, _italic_, ~strike~, inline code, fenced code blocks, and bullet lists. The hint silently overrode my SOUL.md persona file. I filed Issue #12224 with the exact line and suggested replacement; still open. (3) gbrain v0.12.0 hardcodes OpenAI embeddings, which silently undoes the zero-marginal-cost argument for anyone running Gemini elsewhere. Community PR #89 adds Gemini embedding support via GEMINI_API_KEY; checked it out, confirmed it works, left a +1 with my repro. Still open; local checkout is the working path."
           }
         }
       ]
@@ -186,9 +186,9 @@
                 <span><i class="far fa-clock"></i> 15 min read</span>
                 <span class="blog-category" style="background: var(--glass-bg); padding: 4px 12px; border-radius: 100px;">Engineering</span>
             </div>
-            <h1 class="reveal reveal-delay-1">Building Toward a Team of Digital Employees on a Mac Mini: Hermes Agent, Claude Code (ACP), and gbrain</h1>
+            <h1 class="reveal reveal-delay-1">A Dedicated Mac Mini for Luminik's Agents</h1>
             <p class="section-description reveal reveal-delay-2" style="max-width: 700px; margin: 24px auto 0;">
-                How I moved Luminik's always-on operations off my MacBook Pro onto a dedicated Mac Mini M4. The full stack (Hermes Agent, Claude Code via ACP, local gbrain knowledge base), three upstream bugs I chased across Hermes Agent and gbrain, with full PR and issue links, and where this is heading.
+                How I moved Luminik's scheduled agent work off my MacBook Pro and onto a dedicated Mac Mini M4.
             </p>
         </div>
     </section>
@@ -196,29 +196,29 @@
     <!-- Post Content -->
     <article class="post-content">
         <p class="reveal">
-            For six months my MacBook Pro has been doing two jobs. Neither got my full attention.
+            For six months, my MacBook Pro ran two kinds of work.
         </p>
 
         <p class="reveal">
-            Mine: writing code, drafting proposals, running customer calls. Luminik's: overnight agent runs, scheduled checks against production, anything that should quietly exist while I am not at the keyboard. Two jobs, one box, 16 GB of RAM, and my lid-open / lid-closed status deciding whether the second job ran at all.
+            The first kind was interactive: writing code, drafting proposals, joining customer calls, reviewing PRs. The second kind was background work for Luminik: scheduled agent runs, production checks, documentation re-ingest, and the small operational jobs that should keep moving when I am away from the keyboard.
         </p>
 
         <p class="reveal">
-            In practice that meant closing Claude Code sessions before sales calls so the meeting app would not stutter. Propping the lid open through dinner because an overnight agent was mid-run and I did not want to lose the state. Deciding, every evening, whether to take the laptop home or leave it working in the office. Small concessions, individually. They compounded.
+            The setup was workable for one agent session. It became brittle when the work needed to be scheduled. A laptop lid, a customer call, or a heavy local browser session should not decide whether company operations run.
         </p>
 
         <p class="reveal">
-            Last week I stopped making them. A Mac Mini M4 now sits in the corner of my desk, running 24/7, dedicated to the work the company needs done while I sleep, travel, or sit across a table from a customer. By the evening of setup day it was running a 24/7 agent, holding a queryable knowledge base of every spec I have written, and executing two scheduled jobs on cron. I filed or patched three upstream bugs along the way. Nothing in the setup is billed per token.
+            I moved the background layer to a Mac Mini M4. By the end of the setup day, it was running Hermes Agent as a persistent process, holding a queryable gbrain knowledge base, delegating coding work to Claude Code through ACP, and executing two cron jobs. The setup also forced me through three upstream bugs, each with a public PR or issue trail.
         </p>
 
         <p class="reveal">
-            What follows is the stack, those three bugs with the PR and issue links, and why the hardware boundary turned out to matter more than I expected. It is the hardware complement to the software stack I described in <a href="building-alone-in-2026.html">What It Actually Costs to Build a Serious Product Alone in 2026</a>, and it takes the specs and CLAUDE.md discipline from <a href="gstack-solo-builder.html">gstack, CLAUDE.md, and the Work That Frameworks Don't Cover</a> one step further by making that content queryable from outside a single Claude Code session.
+            This is the hardware complement to the software stack I described in <a href="building-alone-in-2026.html">What It Actually Costs to Build a Serious Product Alone in 2026</a>. It also extends the specs and <code>CLAUDE.md</code> discipline from <a href="gstack-solo-builder.html">gstack, CLAUDE.md, and the Work That Frameworks Don't Cover</a> by making that context queryable from outside a single Claude Code session.
         </p>
 
         <h2 class="reveal">Why a Dedicated Machine</h2>
 
         <p class="reveal">
-            Running both jobs on one MacBook Pro compounded costs quietly, and all of them pointed in the same direction: an always-on company needs an always-on machine, and a portable laptop optimised for the person carrying it cannot be that machine. Four specific problems made the case.
+            The case came from four concrete constraints.
         </p>
 
         <ul class="reveal" style="margin: 16px 0 24px; padding-left: 24px;">
@@ -229,7 +229,7 @@
         </ul>
 
         <p class="reveal">
-            The separation is an old idea. Build machines and development machines have been different boxes in most engineering setups for decades. What is new is that the always-on layer also needs to be a thinking layer, not just a build runner. It holds context, makes retrievable decisions, and answers questions in the house style. Today one role is filled. The direction is a small set of scoped roles across product, sales, marketing, and customer delivery, each running on this substrate. A CI runner cannot do those things. A dedicated machine with a resident agent, and eventually a small team of them, can.
+            The separation is an old engineering idea. Build machines and development machines have often been different boxes. The difference here is that the background layer is not just a build runner. It holds context, answers questions, and routes work to the right tool. Today one role is filled. The direction is a small set of scoped roles across product, sales, marketing, and customer delivery.
         </p>
 
         <h2 class="reveal">The Stack</h2>
@@ -250,6 +250,37 @@
         <p class="reveal">
             The model is cheap-and-always-on for the orchestration loop, expensive-and-occasional for the actual work. Gemini Flash is free at the tier I need. Claude Code is billed under a subscription I already pay for. Nothing in this setup is per-token.
         </p>
+
+        <figure class="post-visual reveal">
+            <div class="post-visual-title">The Mac Mini agent stack</div>
+            <div class="visual-flow">
+                <div class="visual-step">
+                    <span class="visual-step-label">Surface</span>
+                    <strong>WhatsApp and Slack</strong>
+                    <span>Messages from me, routed into the resident agent.</span>
+                </div>
+                <div class="visual-step">
+                    <span class="visual-step-label">Loop</span>
+                    <strong>Hermes Agent</strong>
+                    <span>Persistent process, launchd service, cheap model for routing.</span>
+                </div>
+                <div class="visual-step">
+                    <span class="visual-step-label">Memory</span>
+                    <strong>gbrain</strong>
+                    <span>Specs, CLAUDE.md files, positioning docs, PGLite, MCP query path.</span>
+                </div>
+                <div class="visual-step">
+                    <span class="visual-step-label">Work</span>
+                    <strong>Claude Code via ACP</strong>
+                    <span>Heavy code tasks delegated to the subscription I already use.</span>
+                </div>
+                <div class="visual-step">
+                    <span class="visual-step-label">Schedule</span>
+                    <strong>cron jobs</strong>
+                    <span>Nightly re-ingest, morning digest, future drift checks.</span>
+                </div>
+            </div>
+        </figure>
 
         <h2 class="reveal">What Moves to the New Machine</h2>
 
@@ -281,7 +312,7 @@
         </p>
 
         <p class="reveal">
-            The first thing this unlocked was a small inventory exercise. I asked the agent to compare what was actually running in AWS against what my Terraform described. It came back with a list of low-grade discrepancies: services whose live state had drifted from their declared state, an old CloudWatch alarm still pointing at an SNS subscription that no longer existed, container images in ECR from an experiment I had forgotten about. None of it was on fire. All of it was the kind of thing that lives in the "I should do an AWS audit sometime" category and never actually gets done.
+            The first useful run was a small inventory exercise. I asked the agent to compare what was actually running in AWS against what my Terraform described. It came back with a list of low-grade discrepancies: services whose live state had drifted from their declared state, an old CloudWatch alarm still pointing at an SNS subscription that no longer existed, and container images in ECR from an experiment I had forgotten about. None of it was urgent. All of it belonged on a cleanup list I had been postponing.
         </p>
 
         <p class="reveal">
@@ -300,7 +331,7 @@
             Setup took longer than the READMEs suggested because three shipping assumptions in the tools I used were wrong or badly defaulted. All three are traceable in public trackers. The first was resolved upstream the same day I hit it. The other two are still open at time of writing, with community PRs that work locally.
         </p>
 
-        <h3 class="reveal">Bug 1: Gemini auth regression (Hermes Agent PR <a href="https://github.com/NousResearch/hermes-agent/pull/11961" target="_blank" rel="noopener">#11961</a> → <a href="https://github.com/NousResearch/hermes-agent/pull/12204" target="_blank" rel="noopener">#12204</a> → <a href="https://github.com/NousResearch/hermes-agent/pull/12251" target="_blank" rel="noopener">#12251</a>)</h3>
+        <h3 class="reveal">Bug 1: Gemini auth regression (Hermes Agent PR <a href="https://github.com/NousResearch/hermes-agent/pull/11961" target="_blank" rel="noopener">#11961</a> to <a href="https://github.com/NousResearch/hermes-agent/pull/12204" target="_blank" rel="noopener">#12204</a> to <a href="https://github.com/NousResearch/hermes-agent/pull/12251" target="_blank" rel="noopener">#12251</a>)</h3>
 
         <p class="reveal">
             Every Gemini call on my fresh install failed with an opaque <code>HTTP 400 API_KEY_INVALID</code> despite a valid AI Studio key. The git-blame trail was short: <a href="https://github.com/NousResearch/hermes-agent/pull/11961" target="_blank" rel="noopener">PR #11961</a> had been merged earlier that morning (2026-04-18, 04:30 UTC) to fix an older dual-auth 400, switching Google AI Studio auth from Bearer to the <code>x-goog-api-key</code> header. Google's <code>/v1beta/openai</code> endpoint had since changed behaviour and now rejected that header while accepting Bearer. The fix became the regression.
@@ -320,12 +351,8 @@ OpenAI(api_key="not-used", base_url=..., default_headers={"x-goog-api-key": &lt;
 </code></pre>
 
         <p class="reveal">
-            A community revert was already open as <a href="https://github.com/NousResearch/hermes-agent/pull/12204" target="_blank" rel="noopener">PR #12204</a> ("Fix gemini auth header") by <code>alizane</code>. I applied the diff locally across <code>run_agent.py</code> and <code>agent/auxiliary_client.py</code>, confirmed both primary and auxiliary paths recovered, and left <a href="https://github.com/NousResearch/hermes-agent/pull/12204#issuecomment-4274123223" target="_blank" rel="noopener">a comment on the PR</a> so other users hitting the same 400 could find it in search:
+            A community revert was already open as <a href="https://github.com/NousResearch/hermes-agent/pull/12204" target="_blank" rel="noopener">PR #12204</a> ("Fix gemini auth header") by <code>alizane</code>. I applied the diff locally across <code>run_agent.py</code> and <code>agent/auxiliary_client.py</code>, confirmed both primary and auxiliary paths recovered, and left <a href="https://github.com/NousResearch/hermes-agent/pull/12204#issuecomment-4274123223" target="_blank" rel="noopener">a comment on the PR</a> with my reproduction and local patch result.
         </p>
-
-<blockquote class="reveal" style="border-left: 3px solid var(--color-text-tertiary); padding: 8px 0 8px 20px; margin: 16px 0; color: var(--color-text-secondary); font-style: italic;">
-"+1, confirming the repro on v0.10.0 with Gemini 2.5 Flash via AI Studio key. [...] Google's <code>/v1beta/openai</code> endpoint now explicitly rejects the <code>x-goog-api-key</code> header that #11961 added, while accepting the Bearer token the OpenAI SDK emits by default. [...] Applied this PR's change as a local patch on 2026-04-18 and my Gemini calls work again through both primary (<code>run_agent.py</code>) and auxiliary (<code>agent/auxiliary_client.py</code>) paths. Would be great to get this merged — users hitting #12127 and #12168 have no other workaround short of downgrading."
-</blockquote>
 
         <p class="reveal">
             Maintainer <code>teknium1</code> shipped a cleaner superseding fix in <a href="https://github.com/NousResearch/hermes-agent/pull/12251" target="_blank" rel="noopener">PR #12251</a> ("fix(gemini): hide bad Google models and restore bearer auth"), merged at 19:52 UTC the same day (about 15 hours after the regression was introduced). That closed #12204 as redundant. My local patch reverts cleanly on the next <code>hermes update</code>.
@@ -347,12 +374,8 @@ OpenAI(api_key="not-used", base_url=..., default_headers={"x-goog-api-key": &lt;
         </p>
 
         <p class="reveal">
-            No existing issue matched, so I filed <a href="https://github.com/NousResearch/hermes-agent/issues/12224" target="_blank" rel="noopener">Issue #12224</a> with the exact file and line, the full list of WhatsApp-supported syntax, a reproduction, and a suggested replacement hint. From the filed report:
+            No existing issue matched, so I filed <a href="https://github.com/NousResearch/hermes-agent/issues/12224" target="_blank" rel="noopener">Issue #12224</a> with the exact file and line, the full list of WhatsApp-supported syntax, a reproduction, and a suggested replacement hint.
         </p>
-
-<blockquote class="reveal" style="border-left: 3px solid var(--color-text-tertiary); padding: 8px 0 8px 20px; margin: 16px 0; color: var(--color-text-secondary); font-style: italic;">
-"Agents following this hint (Gemini, Claude, GPT families all obey it) produce replies with indented lines without bullet characters instead of proper <code>- </code> lists. On a phone this renders as wrapped prose that looks broken. Users then write SOUL.md / channel-level overrides trying to restore bullets — and those overrides lose against PLATFORM_HINTS which is appended later in the prompt."
-</blockquote>
 
         <p class="reveal">
             Still open at time of publishing. My local tree has a two-line replacement that lists the actual supported syntax; I will revert it when upstream lands a fix.
@@ -365,12 +388,8 @@ OpenAI(api_key="not-used", base_url=..., default_headers={"x-goog-api-key": &lt;
         </p>
 
         <p class="reveal">
-            A community PR was already open as <a href="https://github.com/garrytan/gbrain/pull/89" target="_blank" rel="noopener">PR #89</a> ("feat: Gemini embedding support via GEMINI_API_KEY env var, zero-config, free tier") by <code>flychicken067</code>. I checked it out, confirmed the 1536-dim Gemini embedding path works cleanly on the same 107-page corpus, and left a <a href="https://github.com/garrytan/gbrain/pull/89#issuecomment-4274185128" target="_blank" rel="noopener">+1 with my repro steps</a>:
+            A community PR was already open as <a href="https://github.com/garrytan/gbrain/pull/89" target="_blank" rel="noopener">PR #89</a> ("feat: Gemini embedding support via GEMINI_API_KEY env var, zero-config, free tier") by <code>flychicken067</code>. I checked it out, confirmed the 1536-dim Gemini embedding path works cleanly on the same 107-page corpus, and left <a href="https://github.com/garrytan/gbrain/pull/89#issuecomment-4274185128" target="_blank" rel="noopener">a comment with my repro steps</a>.
         </p>
-
-<blockquote class="reveal" style="border-left: 3px solid var(--color-text-tertiary); padding: 8px 0 8px 20px; margin: 16px 0; color: var(--color-text-secondary); font-style: italic;">
-"+1, applied this locally on v0.12.0 and confirmed it works cleanly. [...] Solo-founder budget sensitivity on pay-per-token inference (OpenAI / Anthropic). We already have <code>GEMINI_API_KEY</code> wired for Hermes."
-</blockquote>
 
         <p class="reveal">
             Repro is short: <code>gh pr checkout 89 -R garrytan/gbrain && bun install && GEMINI_API_KEY=... bun ./src/core/embedding.ts</code> prints <code>dim: 1536</code> and the knowledge layer costs nothing going forward. Still open upstream. The local checkout is the working path until it merges.
@@ -379,13 +398,13 @@ OpenAI(api_key="not-used", base_url=..., default_headers={"x-goog-api-key": &lt;
         <h3 class="reveal">The general shape</h3>
 
         <p class="reveal">
-            Running open-source tooling that is in rapid development carries a small tax. Source trees change faster than docs, defaults age out of date, upstream assumptions lag the services they talk to, and occasionally you have to read the change log, reproduce in isolation, write a useful comment, and carry a local patch for a few days. It is a reasonable tax. The alternative — closed, pay-per-token, slower iteration — costs more money and teaches less. Each of the three patches above took under an hour from noticing the symptom to having a working fix with a public trail the next user can follow.
+            Running open-source tooling that is in rapid development carries a small tax. Source trees change faster than docs, defaults age out of date, upstream assumptions lag the services they talk to, and occasionally you have to read the change log, reproduce in isolation, write a useful comment, and carry a local patch for a few days. It is a reasonable tax. Closed services cost more money and teach less. Each of the three patches above took under an hour from noticing the symptom to having a working fix with a public trail the next user can follow.
         </p>
 
         <h2 class="reveal">Separation of Concerns</h2>
 
         <p class="reveal">
-            The part I did not expect to find valuable was the boundary itself. Before the Mini, my MacBook Pro held everything: personal sessions, drafts, photos, notes, Luminik's production telemetry, the agent's memory. One box. One blast radius.
+            The useful part was the boundary itself. Before the Mini, my MacBook Pro held personal sessions, drafts, photos, notes, Luminik's production telemetry, and the agent's memory. One box meant one operational boundary.
         </p>
 
         <p class="reveal">
@@ -393,7 +412,7 @@ OpenAI(api_key="not-used", base_url=..., default_headers={"x-goog-api-key": &lt;
         </p>
 
         <p class="reveal">
-            Calling this "separation of concerns" sounds obvious. It is. What surprised me is how much of the value showed up in places I had not expected when I started. The inventory drift I had been putting off. The cleaner mental model of what the agent is actually responsible for. The fact that my MacBook Pro can sleep without the company going offline. Those all fell out of deciding that the two jobs belonged on two machines.
+            Calling this "separation of concerns" sounds obvious because it is obvious. The value came from applying it to agent operations: inventory drift became visible, the agent's responsibility became easier to name, and my MacBook Pro could sleep without stopping scheduled company work.
         </p>
 
         <h2 class="reveal">What I Would Recommend</h2>
@@ -416,7 +435,7 @@ OpenAI(api_key="not-used", base_url=..., default_headers={"x-goog-api-key": &lt;
         </div>
 
         <div class="glass-card reveal" style="padding: 24px; margin: 24px 0;">
-            <h4 style="margin-bottom: 16px; color: var(--color-text-primary);">A cheap model for the loop, a frontier model for the work.</h4>
+            <h4 style="margin-bottom: 16px; color: var(--color-text-primary);">A cheap model for scheduling, a frontier model for implementation.</h4>
             <p style="color: var(--color-text-secondary); margin: 0;">The orchestration layer does not need Opus or GPT-5. It needs to be fast, cheap, and always on. Gemini Flash on the free OAuth tier is enough. Reserve the frontier model for the tasks that benefit from it: real code, long analyses, drafting. Hermes Agent handles the split cleanly via ACP delegation.</p>
         </div>
 
@@ -446,7 +465,7 @@ OpenAI(api_key="not-used", base_url=..., default_headers={"x-goog-api-key": &lt;
         </p>
 
         <p class="reveal">
-            What I am actually building toward is a small number of named agents, each with a scoped role, a scoped identity, a scoped slice of the brain, and an explicit accountability contract for what it is allowed to do on its own and what has to come through me. Not one agent trying to be everything. Not a sea of prompts. Closer to employees than to scripts, closer to scripts than to people. Digital employees.
+            What I am building toward is a small number of named agents, each with a scoped role, a scoped identity, a scoped slice of the brain, and an explicit accountability contract. Some tasks can run on their own. Some need my approval. The contract matters more than the persona.
         </p>
 
         <p class="reveal">
@@ -458,7 +477,7 @@ OpenAI(api_key="not-used", base_url=..., default_headers={"x-goog-api-key": &lt;
         </p>
 
         <p class="reveal">
-            The harder claim, the one I believe but cannot yet prove from my own setup, is that this shape of company scales further than most people expect. Not infinitely. But meaningfully further than the shape where the founder sits in the middle of every loop. I am betting Luminik on that bet. The Mac Mini in the corner is where the attempt begins.
+            The claim I am testing is that this shape of company scales further than the version where the founder sits inside every loop. I cannot prove that yet from my own setup. The Mac Mini is the first operational boundary in that experiment.
         </p>
 
         <h2 class="reveal">What's Next, Tactically</h2>
@@ -483,7 +502,7 @@ OpenAI(api_key="not-used", base_url=..., default_headers={"x-goog-api-key": &lt;
             <div style="flex: 1; min-width: 200px;">
                 <h4 style="margin-bottom: 8px;">Prasad Subrahmanya</h4>
                 <p style="color: var(--color-text-secondary); margin-bottom: 8px; font-size: 0.9rem;">
-                    Founder &amp; CEO at Luminik. Previously built Aura at Bain ($3.6M ARR) and led Mainteny ($2.7M seed). Building an AI co-pilot for event marketing teams.
+                    Founder &amp; CEO at Luminik. Previously built Aura at Bain ($3.6M ARR) and led Mainteny ($2.7M seed). Building Luminik, the event pipeline platform for B2B teams.
                 </p>
                 <div style="display: flex; gap: 12px;">
                     <a href="https://linkedin.com/in/prasadus" target="_blank" style="color: var(--color-text-tertiary);"><i class="fab fa-linkedin-in"></i></a>

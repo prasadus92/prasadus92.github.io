@@ -1,0 +1,72 @@
+# prasad.tech agent instructions
+
+This file mirrors the repo-local Claude/Codex context. The canonical version is `CLAUDE.md`; keep the two aligned when editing agent instructions.
+
+## First files to read
+
+1. `CONTENT_GUIDE.md`
+2. `README.md`
+3. The specific blog post or page being changed
+
+Do not draft, rewrite, or publish-facing copy before reading `CONTENT_GUIDE.md`.
+
+## Public repo boundary
+
+This repository is public. Treat every committed line as internet-visible.
+
+- Do not copy private notes, private customer names, internal Slack text, secrets, unpublished pricing discussions, or private repo paths into this repo.
+- Use only facts already public in this repo, facts provided explicitly for publication, or facts that can be cited to public sources.
+- If a private source inspires a post, restate the idea from first principles and remove the private source details.
+- Never fabricate numbers, quotes, dates, customer outcomes, or timelines.
+
+## Voice
+
+Prasad's public voice is direct, specific, technical when needed, and grounded in lived work. The writing should read like a founder explaining what he actually built, learned, sold, or changed.
+
+Avoid corporate SaaS language, generic founder advice, performative punchlines, and engagement-bait endings. Use concrete artifacts: repos, PRs, customer conversations that are safe to describe, product decisions, timelines, workflows, diagrams, and numbers with clear provenance.
+
+## Luminik wording
+
+Use Luminik's current public positioning:
+
+- Category: event pipeline platform
+- Mechanism: source, enrich, sequence, capture, attribute
+- Outcome: event-sourced pipeline or attributed pipeline
+
+Avoid stale phrasing like "AI co-pilot for event marketing" unless quoting old material.
+
+## Content workflow
+
+- Draft only. Do not auto-publish or push without explicit human approval.
+- Prefer revising one post deeply over lightly polishing many posts.
+- Before a major rewrite, make a notes packet: source facts, audience, thesis, proof, missing details, and suggested visuals.
+- If facts are missing, leave a short TODO for Prasad rather than inventing connective tissue.
+
+## Visuals
+
+Add diagrams or illustrations only when they teach something the prose cannot teach as efficiently.
+
+Good fits:
+
+- Workflow diagrams
+- Timeline diagrams
+- Before and after system maps
+- Cost breakdown tables
+- Architecture sketches
+- Decision trees
+
+Weak fits:
+
+- Decorative screenshots
+- Vague inspirational graphics
+- Illustrations that repeat the headline
+
+## Branch and deployment
+
+The primary branch is `main`. GitHub Pages builds from `main` at `/` and serves the custom domain `prasad.tech`.
+
+Do not push directly to `main`. Use a feature branch and pull request.
+
+## Astro migration note
+
+The current site is plain HTML, CSS, and JavaScript. A future Astro migration should preserve URLs, metadata, `sitemap.xml`, `robots.txt`, `llms.txt`, analytics, theme behavior, and GitHub Pages deployment.
