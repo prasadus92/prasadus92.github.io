@@ -1,0 +1,313 @@
+---
+slug: "alfred-solo-founder-operating-system"
+title: "Alfred: How I Structure Recurring Work as a Solo Founder"
+description: "The role contracts, review gates, approved context, and source-linked outputs behind the agent layer I use while building Luminik."
+date: "2026-05-06"
+modified: "2026-05-06"
+category: "Solo Builder OS"
+readTime: "12 min read"
+tags: ["Alfred", "solo founder", "AI agents", "operating system", "open source"]
+faqs:
+  - question: "What is Alfred?"
+    answer: "Alfred is the public name I use for the agent layer around recurring company work. The important parts are role contracts, approved context, source-linked output, and human approval before anything consequential ships."
+  - question: "Does Alfred ship code or content without my review?"
+    answer: "No. Every consequential output is a draft, a pull request, or a digest. The approval gate is explicit so the agent layer never outruns founder judgment."
+  - question: "What runs in production today?"
+    answer: "A small set of role-based agents covers recurring company functions and engineering workflows. The public pattern is useful to describe; the private runtime, channels, and schedules stay private."
+  - question: "What might be open sourced?"
+    answer: "The reusable patterns: role contracts, repo instruction templates, the five-question gate, output formats, and a small local runner shape. Luminik-specific connectors and customer data stay private."
+---
+import Callout from '../../components/post/Callout.astro';
+import KeyTakeaway from '../../components/post/KeyTakeaway.astro';
+import RoleCard from '../../components/post/RoleCard.astro';
+import CompareTable from '../../components/post/CompareTable.astro';
+import StatRow from '../../components/post/StatRow.astro';
+
+<p class="reveal">
+  I run Luminik on my own. The product, the customers, the GTM, and the operating model all live in one head. That works at low scope. It stops working the moment "recurring company work" becomes a real category of its own.
+</p>
+
+<p class="reveal">
+  Alfred is my answer. It is a small fleet of role contracts around work that needs to happen repeatedly, with a review surface where outputs land and one founder who still owns every consequential decision. This post explains the public-safe shape: what each role needs to know, what it can produce, and which parts I am preparing to open source.
+</p>
+
+<KeyTakeaway label="The model in one paragraph">
+  Alfred is a set of role contracts around recurring company work: operations, content, community, sales, finance, product health, engineering implementation, review, testing, and coordination. The private runtime is less important than the contract. Each role reads approved context, produces reviewable output, cites its sources, and waits for human approval before anything ships.
+</KeyTakeaway>
+
+<StatRow stats={[
+  { value: "12", label: "Role contracts", caption: "Recurring company functions and engineering workflows, each with a written boundary." },
+  { value: "0", label: "Autonomous publishes", caption: "Drafts, PRs, and digests only. Every ship is a human click." },
+  { value: "5", label: "Questions a role must answer", caption: "Context. Action. Output. Evidence. Approval." }
+]} />
+
+<h2 class="reveal">The Two Layers</h2>
+
+<p class="reveal">
+  Alfred is not one big agent. It splits into two layers, and the split matters because it lines up with how a real company is actually built.
+</p>
+
+<CompareTable
+  caption="Two-layer split. One layer maps to company functions. The other maps to engineering workflows."
+  leftLabel="Departmental layer"
+  rightLabel="Engineering workflow layer"
+  rows={[
+    { dimension: "Maps to", left: "Functional roles in a company", right: "Tasks inside the engineering function" },
+    { dimension: "Boundary", left: "Company work that should recur without being remembered manually", right: "Code work that needs isolation, review, or cross-repo coordination" },
+    { dimension: "Cadence", left: "Scheduled or event-triggered, with exact timing kept private", right: "Triggered by reviewable engineering work, with exact routing kept private" },
+    { dimension: "Output", left: "Briefs, drafts, digests, summaries", right: "PRs, comments, alerts, status posts" },
+    { dimension: "Guardrail", left: "Draft and summarize. Do not publish, send, pay, merge, or deploy.", right: "Open reviewable work. Do not approve, merge, or deploy on its own." }
+  ]}
+/>
+
+<h2 class="reveal">Layer One: Six Departments</h2>
+
+<p class="reveal">
+  Each department is the agent equivalent of one recurring job I would otherwise have to remember manually. The contract is small: read approved context, prepare reviewable output, and surface the decision without taking it.
+</p>
+
+<div class="role-grid">
+  <RoleCard
+    name="Chief of staff"
+    role="Personal assistant"
+    trigger="Calendar and inbox signals"
+    cadence="Scheduled and event-triggered"
+    reads="Approved personal-ops context"
+    writes="Digest, conflict notes, and follow-up prompts"
+    guardrail="Never replies on my behalf"
+  >
+    <p>Turns scattered operational context into one reviewable brief. The point is not automation for its own sake. The point is reducing the chance that small coordination work disappears.</p>
+  </RoleCard>
+
+  <RoleCard
+    name="Content"
+    role="Writer"
+    trigger="Planned themes and publishing backlog"
+    cadence="Scheduled drafts"
+    reads="Public-safe voice rules, recent posts, launch context"
+    writes="Drafts for review"
+    guardrail="No publishing. Drafts only."
+  >
+    <p>Reads the voice rules and recent real writing before drafting anything. Output includes the post body, distribution notes, and a short proof check. Posting still happens by hand.</p>
+  </RoleCard>
+
+  <RoleCard
+    name="Community"
+    role="Listener"
+    trigger="Scheduled public-community scan"
+    reads="Reddit, Slack communities, Exit Five, public newsletters"
+    writes="Digest of threads worth reading or replying to"
+    guardrail="Never quotes private channels. Always cites the source URL."
+  >
+    <p>Filters signal from public spaces where solo founders and B2B operators talk. The output is a short source-linked digest, not a feed to keep refreshing.</p>
+  </RoleCard>
+
+  <RoleCard
+    name="Sales"
+    role="SDR"
+    trigger="Approved sales review window"
+    reads="Approved CRM fields, calendar context, event context"
+    writes="Follow-up brief, draft outbound, reply suggestions"
+    guardrail="Replies still go from my inbox, in my voice"
+  >
+    <p>Turns customer and prospect context into a small set of suggested next moves. Sales is where the temptation to automate too much is highest. Replies still need founder judgment.</p>
+  </RoleCard>
+
+  <RoleCard
+    name="Finance ops"
+    role="CFO"
+    trigger="Scheduled finance hygiene"
+    reads="Approved finance exports and invoice context"
+    writes="Reconciliation notes, invoice prep, checklist updates"
+    guardrail="Never moves money. Flags drift; I approve and act."
+  >
+    <p>Catches small finance drift before it becomes founder debt. The useful output is a checklist I can verify, not an action taken on my behalf.</p>
+  </RoleCard>
+
+  <RoleCard
+    name="Product ops"
+    role="SRE plus CS"
+    trigger="Scheduled product-health review"
+    reads="Operational health signals and merged changes"
+    writes="Health summaries, customer-impact flags, release-note drafts"
+    guardrail="Never mutates production. Reports only."
+  >
+    <p>Watches the parts of the product customers feel and turns merged work into release-note drafts. It reports and proposes. It does not mutate production.</p>
+  </RoleCard>
+</div>
+
+<h2 class="reveal">Layer Two: Engineering Workflows</h2>
+
+<p class="reveal">
+  Engineering is dense enough that the role contracts split again. Each one owns one slice of the engineering function: coordination, implementation, tests, monitoring, review, and notification. The public lesson is the boundary, not the private dispatch wiring.
+</p>
+
+<div class="role-grid">
+  <RoleCard
+    name="Alfred"
+    role="Cross-repo coordinator"
+    trigger="Cross-repo coordination request"
+    reads="Issue, specs, public API contracts, affected repos"
+    writes="Coordination plan and reviewable PR sequence"
+    guardrail="No merge or deploy without human approval"
+  >
+    <p>The coordinator for features that touch more than one repo. Its job is to make contract drift visible before implementation work spreads.</p>
+  </RoleCard>
+
+  <RoleCard
+    name="Lucius"
+    role="Feature development"
+    trigger="Scoped implementation issue"
+    reads="The repo's CLAUDE.md, the issue body, linked specs"
+    writes="A feature branch and a draft PR"
+    guardrail="Single-repo only. Multi-repo work bounces to Alfred."
+  >
+    <p>The implementer. Reads the repo's instruction file every time, then opens a branch for review. Stays inside one repo by design so contract changes do not sneak in.</p>
+  </RoleCard>
+
+  <RoleCard
+    name="Bane"
+    role="Test coverage"
+    trigger="Scheduled code-quality check"
+    reads="Recently changed code and test history"
+    writes="A small test PR"
+    guardrail="Test code only unless a reviewer approves a supporting change."
+  >
+    <p>Looks for tests that would catch a real regression. Coverage for its own sake is not useful; reviewable risk reduction is.</p>
+  </RoleCard>
+
+  <RoleCard
+    name="Oracle"
+    role="Production monitor"
+    trigger="Scheduled operational check"
+    reads="Operational health summaries and surfaced logs"
+    writes="Issue with prioritized findings and proposed fixes"
+    guardrail="Reports and proposes. Never deploys."
+  >
+    <p>Turns health signals into prioritized findings with evidence. When nothing is wrong, it stays quiet. When something is wrong, it makes the next human review faster.</p>
+  </RoleCard>
+
+  <RoleCard
+    name="Ra's al Ghul"
+    role="Code review"
+    trigger="Review request"
+    reads="The diff, the issue, the spec, the prior code"
+    writes="Inline review comments and a structured summary"
+    guardrail="Comments only. Never approves on its own."
+  >
+    <p>The separate review voice. It cares about correctness, security, data integrity, and concurrency. It comments. It never approves its own work.</p>
+  </RoleCard>
+
+  <RoleCard
+    name="Bat-Signal"
+    role="Review notifier"
+    trigger="End of an approved run"
+    reads="A status payload from the calling agent"
+    writes="One concise status note"
+    guardrail="Relays only. No analysis, no decisions."
+  >
+    <p>The thinnest role in the fleet. Its job is to make review work visible in one place without adding another analysis layer.</p>
+  </RoleCard>
+</div>
+
+<Callout tone="info" title="One public point, private wiring">
+  Alfred has a private runtime and private review surfaces. Those details do not belong in a public post. The useful public point is the contract: every useful answer has to cite approved context before it can influence a decision.
+</Callout>
+
+<figure class="post-visual reveal">
+  <div class="post-visual-title">The public-safe answer path</div>
+  <div class="visual-flow">
+    <div class="visual-step">
+      <span class="visual-step-label">Ask</span>
+      <strong>Founder question</strong>
+      <span>A request enters through an approved surface.</span>
+    </div>
+    <div class="visual-step">
+      <span class="visual-step-label">Read</span>
+      <strong>Approved context</strong>
+      <span>The agent reads only the context allowed for that role.</span>
+    </div>
+    <div class="visual-step">
+      <span class="visual-step-label">Cite</span>
+      <strong>Source-linked answer</strong>
+      <span>Claims carry links, file references, or log lines.</span>
+    </div>
+    <div class="visual-step">
+      <span class="visual-step-label">Decide</span>
+      <strong>Human gate</strong>
+      <span>The founder approves the action or sends it back.</span>
+    </div>
+  </div>
+  <p class="post-visual-caption">The public lesson is the contract: approved context, source-linked answers, and a human gate before any decision changes the company.</p>
+</figure>
+
+<figure class="post-figure-image reveal">
+  <img src="/assets/images/blog/alfred-luminik-differentiators.png" alt="Slack screenshot of Alfred answering a Luminik positioning question with source-linked claims." loading="lazy" decoding="async" />
+  <figcaption>A real Alfred answer from my founder workflow. The useful pattern is source-linked reasoning before a positioning decision; the private wiring is incidental.</figcaption>
+</figure>
+
+<h2 class="reveal">The Five Questions a Role Has to Answer</h2>
+
+<p class="reveal">
+  Before any role goes live, it has to answer five questions in writing. The questions live as the role's instruction file. If any answer is vague, the role is not ready.
+</p>
+
+<ol class="reveal">
+  <li><strong>What context can it read?</strong> Specific files, repos, public docs, and approved private notes required for the task.</li>
+  <li><strong>What action can it take?</strong> Search, summarize, draft, open a PR, or post to a review surface. Never publish, send, pay, merge, or deploy.</li>
+  <li><strong>Where does the output land?</strong> A pull request, a review note, a markdown file, or a digest. Everything has a path I can find without asking.</li>
+  <li><strong>What evidence does it provide?</strong> Source links, PR numbers, log lines, file paths. A claim with no provenance is a bug.</li>
+  <li><strong>What requires my approval?</strong> The line between draft and ship. I want this line obvious enough that a tired founder cannot accidentally cross it.</li>
+</ol>
+
+<p class="reveal">
+  I use the same five questions to retire roles. Two early agents got cut because I could not write a clean answer to question two. They were doing too much.
+</p>
+
+<h2 class="reveal">What Has Worked</h2>
+
+<CompareTable
+  caption="Recurring-work lessons from the same operating pattern."
+  leftLabel="What works"
+  rightLabel="What did not"
+  leftTone="pass"
+  rightTone="fail"
+  rows={[
+    { dimension: "Code review", left: "Separate reviewer role with no approval power. It catches behavior bugs when my attention is tired.", right: "The implementer reviewing its own work. Same context, same blind spots." },
+    { dimension: "Content drafts", left: "Content role reading the voice rules and recent real writing before drafting.", right: "Cached style profile. It drifted the moment the topic changed." },
+    { dimension: "Customer support", left: "Personal handling. Reading the thread well enough to approve a draft costs about as much as writing the reply.", right: "Drafting customer-facing replies. Retired the role and the workflow improved." },
+    { dimension: "Runtime", left: "Separate always-on environment. Continuity does not depend on my interactive machine.", right: "Recurring jobs on the daily machine. Easy to start, easy to forget." }
+  ]}
+/>
+
+<h2 class="reveal">Why Solo Builders Need This More</h2>
+
+<p class="reveal">
+  A team has imperfect but real safeguards. Standups, code reviews, review threads, shared calendars, peer correction. A solo builder has none of those by default. The upside is speed. The downside is that every gap routes back to one person.
+</p>
+
+<p class="reveal">
+  Agents do not remove the need for operating design. They make operating design more important. When the work gets cheaper to generate, the review queue becomes the scarce resource.
+</p>
+
+<h2 class="reveal">What I Plan to Open Source</h2>
+
+<p class="reveal">
+  Alfred itself will not be open source soon. Role contracts, company context, and private adapters are entangled in ways that would leak company internals. The reusable parts are different. Other solo founders are rebuilding the same scaffolding I did. There is no reason to keep that scaffolding private.
+</p>
+
+<ul class="reveal">
+  <li><strong>Role contracts.</strong> Markdown templates that answer the five questions for chief of staff, content, sales, ops, and engineering subagent roles.</li>
+  <li><strong>Repo instruction templates.</strong> Public-safe examples of CLAUDE.md, AGENTS.md, and content-guide files for solo product teams.</li>
+  <li><strong>Review rules.</strong> The approval gates I use for shipping code, content, sales replies, and finance actions.</li>
+  <li><strong>Output formats.</strong> Concise summaries, source-linked digests, PR notes, and the morning briefing shape.</li>
+  <li><strong>A local runner shape.</strong> Enough structure for scheduled jobs and reviewable output without my private adapters.</li>
+</ul>
+
+<p class="reveal">
+  The release will be patterns first, code second. A solo founder can adopt the role contracts and run them inside Claude Code, Cursor, or any agent harness they prefer. The harness is replaceable. The contracts are what stay.
+</p>
+
+<KeyTakeaway label="The standard I use now">
+  Alfred is good when its work is reviewable, source-linked, and bounded. It is bad when I notice it deciding things I should be deciding. Solo builders need recurring work to stay visible and reviewable while the founder remains responsible for the decisions that matter.
+</KeyTakeaway>

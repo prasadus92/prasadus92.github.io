@@ -1,36 +1,49 @@
-# Personal Website - prasad.tech
+# prasad.tech
 
-A personal portfolio and blog built with HTML5, CSS3, and JavaScript.
+Personal portfolio and blog for Prasad Subrahmanya, built with Astro.
 
 ## Overview
 - **URL**: [prasad.tech](https://prasad.tech)
-- **Stack**: HTML5, CSS3, JavaScript
-- **Theme**: Dark/Light mode with system preference detection
-- **Responsive**: Optimized for desktop, tablet, and mobile devices
+- **Stack**: Astro, Markdown content, native HTML/CSS diagrams, progressive client-side motion
+- **Audience**: Solo technical builders and technical founders
+- **Theme**: Dark/light mode with system preference detection
+- **Responsive**: Designed for desktop, tablet, and mobile
 
 ## Features
-- Responsive portfolio and blog pages
-- Responsive layout with mobile-first approach
-- Dark/Light theme with automatic system detection
-- Blog with articles on startups, product development, and tech
-- Professional sections:
-  - Current venture (Luminik)
-  - Professional experience (SnowOptix, Bain & Company, Mainteny)
-  - Technical expertise
-  - Education
+- Astro layouts for homepage, blog index, and posts
+- Preserved article URLs at `/blog/{slug}.html`
+- Native diagrams for workflows, matrices, ledgers, timelines, and system maps
+- Progressive reveal/parallax effects with reduced-motion support
+- RSS feed, generated sitemap, `robots.txt`, `llms.txt`, canonical URLs, and JSON-LD schema
+- Content focused on Luminik, solo-builder operating systems, founder-led sales, event pipeline, and zero-to-one lessons
 - Google Analytics integration
-- OpenGraph meta tags for social sharing
-- Custom favicons for various platforms
 
 ## Local Development
-To run the site locally:
+
+Install dependencies:
+
 ```bash
-python3 -m http.server 8000
+npm install
 ```
-Then visit `http://localhost:8000` in your browser.
+
+Run locally:
+
+```bash
+npm run dev
+```
+
+Build and validate:
+
+```bash
+npm run check
+npm run build
+```
 
 ## Deployment
-The site is hosted on GitHub Pages with a custom domain (prasad.tech). GitHub Pages builds from the `main` branch at `/`.
+
+The site is hosted on GitHub Pages with the custom domain `prasad.tech`.
+
+Astro builds through `.github/workflows/deploy-pages.yml` and deploys the generated `dist/` artifact. Do not push directly to `main`; open a PR and wait for Prasad to approve and merge.
 
 ## Contact
 - Email: prasadus92@gmail.com
@@ -38,4 +51,4 @@ The site is hosted on GitHub Pages with a custom domain (prasad.tech). GitHub Pa
 - GitHub: [github.com/prasadus92](https://github.com/prasadus92)
 
 ## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License. See [LICENSE](LICENSE).

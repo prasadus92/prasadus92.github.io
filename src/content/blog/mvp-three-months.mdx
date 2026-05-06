@@ -1,0 +1,204 @@
+---
+slug: "mvp-three-months"
+title: "Building Mainteny's MVP Solo in 3 Months"
+description: "How I built Mainteny's MVP solo in 3 months before raising a $2.7M seed round. The scoping rule, the weekly schedule, the boring tech stack, and the things I would change."
+date: "2025-08-15"
+modified: "2026-05-06"
+category: "Zero to One"
+readTime: "11 min read"
+tags: ["MVP","Mainteny","solo developer"]
+---
+import Callout from '../../components/post/Callout.astro';
+import KeyTakeaway from '../../components/post/KeyTakeaway.astro';
+import CompareTable from '../../components/post/CompareTable.astro';
+import StatRow from '../../components/post/StatRow.astro';
+import PullQuote from '../../components/post/PullQuote.astro';
+
+<p class="reveal">
+  In early 2021 I quit my job to build a CRM for maintenance companies in Europe. Three months later there was a working product, three paying customers, and the conviction to raise a $2.7M seed round. No 16-hour days. No productivity hack. The scope was small enough that one person could build, sell, and support it without pretending the company was larger than it was.
+</p>
+
+<KeyTakeaway label="The argument in one paragraph">
+  An MVP is not a smaller version of the product. It is the smallest thing that proves the business is viable. Being the only developer is an advantage during this phase, because the bottleneck of an early company is judgment, and one technical brain holding the entire codebase makes judgment cheap.
+</KeyTakeaway>
+
+<StatRow stats={[
+  { value: "3 months", label: "Idea to working MVP", caption: "From the first commit to a product real customers used in production." },
+  { value: "3", label: "Paying customers", caption: "Before the seed round closed. Each one in the same narrow market." },
+  { value: "$2.7M", label: "Seed round", caption: "Closed once the product, customers, and usage were live and visible." }
+]} />
+
+<Callout tone="note" title="Public proof note">
+  The Mainteny timeline and seed-round amount are part of the small set of career proof points I use publicly. Private customer, financial, and investor details stay off this site.
+</Callout>
+
+<h2 class="reveal">Why Being the Only Developer Helped</h2>
+
+<p class="reveal">
+  At Mainteny I had a co-founder running the business while I owned the entire technical stack. Common shape for an early company: one on sales, partnerships, operations; one building. Plenty of people will tell you a single-developer setup is risky. They are right at scale. They are wrong at MVP.
+</p>
+
+<CompareTable
+  caption="Coordination overhead is the silent tax on early teams. A single technical brain skips the line item entirely."
+  leftLabel="Solo developer at MVP"
+  rightLabel="Two-plus dev team at MVP"
+  rows={[
+    { dimension: "Architecture decisions", left: "One person, one trade-off, one commit", right: "Discussion, alignment, sometimes a doc" },
+    { dimension: "Code review latency", left: "Zero", right: "Hours to days, depending on time zones" },
+    { dimension: "Pivots", left: "Same day", right: "Negotiated" },
+    { dimension: "Bug-to-fix time", left: "Minutes, because one person knows the whole codebase", right: "Hours, while context is rebuilt" },
+    { dimension: "Long-term cost", left: "Fragile if the founder gets hit by a bus", right: "Robust, but slow at the phase where speed matters most" }
+  ]}
+/>
+
+<PullQuote>
+  In the MVP phase, speed is useful only when it helps you learn from customers sooner.
+</PullQuote>
+
+<p class="reveal">
+  One-person dev teams are not better long term. They are fragile. Build the engineering team after the concept is proven. In the early uncertain months, having one technical brain making all the calls eliminates coordination overhead entirely.
+</p>
+
+<h2 class="reveal">Scoping Ruthlessly: The Art of Strategic Omission</h2>
+
+<p class="reveal">
+  The hardest skill in building an MVP is deciding what to leave out. Mainteny's customers were HVAC technicians, plumbers, and electricians. The full software those businesses need is large: scheduling, dispatching, inventory, invoicing, customer communication, reporting. A complete solution would take years. I had three months. So I asked one question obsessively: <strong>what is the one thing that, if it works, proves the business is viable?</strong>
+</p>
+
+<p class="reveal">
+  For Mainteny the answer was scheduling and job management. Everything else got cut: no inventory, no invoicing integration, no mobile app, no fancy reporting, no permissions beyond admin and technician.
+</p>
+
+<Callout tone="info" title="The MVP scoping framework">
+  <ul>
+    <li><strong>Must have.</strong> The core value proposition. Without this, the product has no reason to exist.</li>
+    <li><strong>Should have.</strong> Features that make the core significantly better. Build in month two or three if time permits.</li>
+    <li><strong>Could have.</strong> Nice additions that do not affect the core hypothesis. Do not touch them.</li>
+    <li><strong>Won't have.</strong> Everything else. Write them down so you stop thinking about them.</li>
+  </ul>
+</Callout>
+
+<p class="reveal">
+  The won't-have list is the most important document. My Mainteny version had over 40 items. Every time a customer mentioned a feature, it went onto that list instead of the roadmap. Customers respected this. They preferred a focused tool over a bloated mess.
+</p>
+
+<h2 class="reveal">The Weekly Structure That Worked</h2>
+
+<p class="reveal">
+  When you are the only person building, every hour is a trade-off. I tried every productivity system imaginable. What actually worked was dead simple: fixed blocks for fixed activities.
+</p>
+
+<CompareTable
+  caption="Roughly 24 hours of focused coding per week. Over three months, about 300 hours. Enough to build an MVP if you are not wasting time on the wrong things."
+  leftLabel="Block"
+  rightLabel="What it is for"
+  rows={[
+    { dimension: "Mon to Thu, 6am to 12pm", left: "Deep coding", right: "No meetings, no email, no Slack. Treated like the most important meeting on my calendar." },
+    { dimension: "Mon to Thu, 1pm to 5pm", left: "Customer-facing", right: "Calls, sales, support, admin. Customers learned to expect a reply in this window." },
+    { dimension: "Friday morning", left: "Planning", right: "Review the week. Decide next week's must-have." },
+    { dimension: "Friday afternoon", left: "Buffer", right: "Anything that slipped during the week." }
+  ]}
+/>
+
+<h2 class="reveal">What to Build First</h2>
+
+<figure class="post-visual reveal">
+  <div class="post-visual-title">The MVP build order</div>
+  <div class="visual-timeline">
+    <div class="timeline-row">
+      <div class="timeline-date">Weeks 1-2</div>
+      <div class="timeline-body"><strong>Core loop.</strong> Create job, assign technician, update status, capture completion. Demo-ready end of week 2.</div>
+    </div>
+    <div class="timeline-row">
+      <div class="timeline-date">Weeks 3-4</div>
+      <div class="timeline-body"><strong>Just enough access.</strong> Authentication only after the core loop was clearly worth using.</div>
+    </div>
+    <div class="timeline-row">
+      <div class="timeline-date">Weeks 5-8</div>
+      <div class="timeline-body"><strong>Daily work features.</strong> Scheduling, customer records, technician views, basic status workflows.</div>
+    </div>
+    <div class="timeline-row">
+      <div class="timeline-date">Weeks 9-10</div>
+      <div class="timeline-body"><strong>Reliability.</strong> Deployment pipeline, monitoring, backups. The minimum to run for real.</div>
+    </div>
+  </div>
+  <p class="post-visual-caption">If I had started with infrastructure I would have had a beautiful deployment pipeline and no product.</p>
+</figure>
+
+<h3 class="reveal">What I deliberately deferred</h3>
+
+<ul class="reveal">
+  <li><strong>Advanced permissions.</strong> The first customers needed clear ownership, not an enterprise policy engine.</li>
+  <li><strong>Deep analytics.</strong> Enough usage signal to learn, not a dashboard pretending the product was mature.</li>
+  <li><strong>Complex automation.</strong> Manual steps were acceptable when they helped me understand the workflow better.</li>
+  <li><strong>Native mobile.</strong> The first usage pattern was operational and desktop-led, so mobile could follow the evidence.</li>
+  <li><strong>Multi-market polish.</strong> One market, one workflow, one narrow buyer pain.</li>
+</ul>
+
+<h2 class="reveal">Tech Stack: Boring Beats Better</h2>
+
+<p class="reveal">
+  When you are building alone, the temptation to try new technologies is strong. Resist it. This is not the time to learn Rust or experiment with a new database. I chose the most boring stack I knew well.
+</p>
+
+<Callout tone="info" title="The MVP tech stack">
+  <ul>
+    <li><strong>Backend.</strong> Spring Boot 2.x with Spring Data JPA. Years of muscle memory.</li>
+    <li><strong>Database.</strong> PostgreSQL, managed.</li>
+    <li><strong>Frontend.</strong> Server-rendered templates plus JavaScript. One codebase, not two.</li>
+    <li><strong>Hosting.</strong> Kubernetes on Google Cloud. Faster than a VM because I had deployed dozens of apps to it.</li>
+    <li><strong>CI/CD.</strong> GitHub Actions plus simple deployment scripts.</li>
+  </ul>
+</Callout>
+
+<PullQuote>
+  Choose technologies based on your speed with them, not their theoretical fit. A technology you know deeply beats a technology that is "better" but unfamiliar.
+</PullQuote>
+
+<h2 class="reveal">Selling While Building</h2>
+
+<p class="reveal">
+  The biggest mistake technical founders make is building in isolation. They spend months coding, then discover they have built the wrong thing. I started selling in week 3, before the product was usable. The pitch was specific and respectful: <em>I am building a tool for businesses like yours. Can I show you what I am working on and get your feedback?</em>
+</p>
+
+<p class="reveal">
+  Enough people said yes. Those conversations did three things at once: validated the problem, shaped the product, and seeded the customer pipeline. By the time the MVP was ready, fifteen companies were waiting to try it. Three became paying customers in the first month.
+</p>
+
+<KeyTakeaway label="What early customers actually want">
+  Early customers do not expect perfection. They expect seriousness. If their feedback turns into visible product improvement, the relationship changes from vendor evaluation to co-creation. Be honest about what works, what is immature, and how quickly you respond when something blocks them.
+</KeyTakeaway>
+
+<h2 class="reveal">The Fundraising Inflection Point</h2>
+
+<p class="reveal">
+  With three paying customers and a working MVP, I had what investors needed to see: a market that existed, an ability to build, and customers who would pay. The seed round came together quickly. Investors could talk to real users and look at real usage data. A working product changed the conversation more than another slide could.
+</p>
+
+<h2 class="reveal">What I Would Do Differently</h2>
+
+<CompareTable
+  caption="Looking back at three months of solo execution. Some calls held up. A few I would change."
+  leftLabel="Would keep"
+  rightLabel="Would change"
+  leftTone="pass"
+  rightTone="fail"
+  rows={[
+    { dimension: "Aggressive scoping", left: "Yes. Every feature I did not build was time I could spend on the core product or with customers.", right: "" },
+    { dimension: "Fixed weekly schedule", left: "Yes. Without protected morning blocks I would have context-switched constantly.", right: "" },
+    { dimension: "Customer conversations in week 3", left: "", right: "Should have started week 1, before any code. Conversations would have shaped the architecture." },
+    { dimension: "Analytics added late", left: "", right: "Would add usage tracking from day one. Understanding actual usage would have sharpened the priority list." },
+    { dimension: "Pricing experimentation", left: "", right: "Would test pricing earlier. Early price points teach the market what kind of product you believe you are building." },
+    { dimension: "Observability", left: "", right: "Would add lightweight structured logging and failure visibility from week one. Enough to see where customers got stuck." }
+  ]}
+/>
+
+<h2 class="reveal">The Solo Developer Advantage</h2>
+
+<p class="reveal">
+  Building an MVP as the only developer is about moving fast during the phase where speed matters most. Once you have validated the concept, build the engineering team. Once you have product-market fit, scale the organization. In those early uncertain months, having one person who can pivot the architecture instantly, ship daily, and iterate without coordination overhead is a genuine advantage.
+</p>
+
+<KeyTakeaway label="The point was never that one developer should stay alone forever">
+  Three months, one developer, one narrow product, three paying customers were enough to prove the idea deserved more ambition. The first proof did not require an organization. It required a narrow problem, direct customer contact, and enough engineering judgment to turn each customer objection into the next product decision.
+</KeyTakeaway>

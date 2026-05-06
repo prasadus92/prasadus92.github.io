@@ -1,0 +1,118 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import { formatMonth, getRelatedPosts, type Post } from '../lib/posts';
+
+type Props = {
+  post: Post;
+};
+
+const { post } = Astro.props;
+const related = getRelatedPosts(post);
+const canonical = `https://prasad.tech${post.url}`;
+const modified = post.modified ?? post.date;
+const ogImage = `/og/blog/${post.slug}.png`;
+const ogImageAlt = `${post.title} — prasad.tech`;
+
+/* Convert "12 min read" → ISO 8601 duration "PT12M" so schema parsers
+   pick up an actual reading time. */
+function readTimeToIso(readTime: string): string | undefined {
+  const match = readTime.match(/(\d+)\s*min/i);
+  if (!match) return undefined;
+  return `PT${match[1]}M`;
+}
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Blog', url: '/blog/' },
+  { name: post.title, url: post.url }
+];
+
+const article = {
+  headline: post.title,
+  description: post.description,
+  datePublished: post.date,
+  dateModified: modified,
+  image: ogImage,
+  category: post.category,
+  keywords: post.tags,
+  timeRequired: readTimeToIso(post.readTime)
+};
+---
+
+<BaseLayout
+  title={post.title}
+  description={post.description}
+  canonical={canonical}
+  type="article"
+  active="blog"
+  image={ogImage}
+  imageAlt={ogImageAlt}
+  faqs={post.faqs}
+  article={article}
+  breadcrumbs={breadcrumbs}
+>
+
+  <section class="post-hero">
+    <div class="post-hero-inner">
+      <div class="post-meta reveal">
+        <span><Icon name="calendar" size={14} /> {formatMonth(post.date)}</span>
+        <span><Icon name="clock" size={14} /> {post.readTime}</span>
+        <span class="blog-category">{post.category}</span>
+      </div>
+      <h1 class="reveal">{post.title}</h1>
+      <p class="lead reveal">{post.description}</p>
+    </div>
+  </section>
+
+  <div class="post-shell">
+    <article class="post-content">
+      <slot />
+
+      {post.faqs?.length && (
+        <section class="faq-list reveal" aria-labelledby="faq-heading">
+          <h2 id="faq-heading">FAQ</h2>
+          {post.faqs.map((faq) => (
+            <div class="faq-item card">
+              <h3>{faq.question}</h3>
+              <p>{faq.answer}</p>
+            </div>
+          ))}
+        </section>
+      )}
+
+      <div class="author-card card reveal">
+        <img src="/assets/images/header/prasad.jpeg" width="72" height="72" alt="Prasad Subrahmanya" loading="lazy" decoding="async" />
+        <div>
+          <h2 style="font-size: 1.2rem; margin-bottom: 6px;">Prasad Subrahmanya</h2>
+          <p style="margin-bottom: 10px;">Founder of Luminik. Public proof points: built Aura at Bain to $3.6M ARR and led Mainteny through a $2.7M seed round.</p>
+          <div class="tag-row">
+            <a class="tag" href="https://linkedin.com/in/prasadus" target="_blank" rel="noopener">LinkedIn</a>
+            <a class="tag" href="https://github.com/prasadus92" target="_blank" rel="noopener">GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal" style="margin-top: 36px; text-align: center;">
+        <a class="button" href="/blog/"><Icon name="arrow-left" size={16} /> Back to Blog</a>
+      </div>
+    </article>
+
+    <aside class="post-aside" aria-label="Post sidebar">
+      <div class="aside-card card">
+        <h2>Filed Under</h2>
+        <div class="tag-row">
+          <span class="tag">{post.category}</span>
+          {post.tags.map((tag) => <span class="tag">{tag}</span>)}
+        </div>
+      </div>
+
+      <div class="aside-card card">
+        <h2>Related Notes</h2>
+        {related.map((item) => (
+          <a class="related-link" href={item.url}><strong>{item.title}</strong><span>{item.description}</span></a>
+        ))}
+      </div>
+    </aside>
+  </div>
+</BaseLayout>
