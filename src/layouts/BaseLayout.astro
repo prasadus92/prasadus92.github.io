@@ -1,27 +1,49 @@
 ---
 import '../styles/global.css';
 import Icon from '../components/Icon.astro';
+import Seo from '../components/Seo.astro';
+
+type Faq = { question: string; answer: string };
+type Article = {
+  headline: string;
+  description?: string;
+  datePublished: string;
+  dateModified?: string;
+  image?: string;
+  category?: string;
+  keywords?: string[];
+  timeRequired?: string;
+};
+type Breadcrumb = { name: string; url: string };
 
 type Props = {
   title: string;
   description: string;
   canonical?: string;
   image?: string;
+  imageAlt?: string;
   preloadImage?: boolean;
-  robots?: string;
+  noindex?: boolean;
   type?: 'website' | 'article';
   active?: 'home' | 'blog';
+  faqs?: Faq[];
+  article?: Article;
+  breadcrumbs?: Breadcrumb[];
 };
 
 const {
   title,
   description,
-  canonical = 'https://prasad.tech/',
-  image = 'https://prasad.tech/assets/images/header/prasad.jpeg',
+  canonical,
+  image,
+  imageAlt,
   preloadImage = false,
-  robots = 'index, follow, max-image-preview:large',
+  noindex = false,
   type = 'website',
-  active
+  active,
+  faqs,
+  article,
+  breadcrumbs
 } = Astro.props;
 
 const chatGptPrompt =
@@ -35,27 +57,21 @@ const claudePrompt =
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{title}</title>
-    <meta name="description" content={description} />
-    <meta name="author" content="Prasad Subrahmanya" />
-    <meta name="robots" content={robots} />
     <meta name="theme-color" content="#0b0d10" media="(prefers-color-scheme: dark)" />
     <meta name="theme-color" content="#f7f8f5" media="(prefers-color-scheme: light)" />
-    <link rel="canonical" href={canonical} />
 
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:type" content={type} />
-    <meta property="og:url" content={canonical} />
-    <meta property="og:image" content={image} />
-    <meta property="og:image:alt" content="Prasad Subrahmanya" />
-    <meta property="og:site_name" content="Prasad Subrahmanya" />
-    <meta property="og:locale" content="en_US" />
-
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={image} />
+    <Seo
+      title={title}
+      description={description}
+      ogImage={image}
+      ogImageAlt={imageAlt}
+      type={type}
+      canonical={canonical}
+      noindex={noindex}
+      faqs={faqs}
+      article={article}
+      breadcrumbs={breadcrumbs}
+    />
 
     <script is:inline>
       try {

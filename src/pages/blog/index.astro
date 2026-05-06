@@ -3,8 +3,12 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Icon from '../../components/Icon.astro';
 import { formatMonth, posts } from '../../lib/posts';
 
-const title = 'Blog | Prasad Subrahmanya';
-const description = 'Operating notes for solo technical builders: product, founder-led sales, AI-agent workflows, event pipeline systems, and zero-to-one lessons from Luminik, Aura, Mainteny, and SnowOptix.';
+const title = 'Field Notes for Solo Technical Founders';
+const description = 'Operating notes on product engineering, founder-led sales, AI-agent workflows, and zero-to-one execution. Drawn from Luminik, Aura at Bain, Mainteny ($2.7M seed), and SnowOptix.';
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Blog', url: '/blog/' }
+];
 
 const paths = [
   {
@@ -47,7 +51,15 @@ const collectionSchema = {
 };
 ---
 
-<BaseLayout title={title} description={description} canonical="https://prasad.tech/blog/" active="blog">
+<BaseLayout
+  title={title}
+  description={description}
+  canonical="https://prasad.tech/blog/"
+  active="blog"
+  image="/og/prasad-og.png"
+  imageAlt="Prasad Subrahmanya — field notes for solo technical founders"
+  breadcrumbs={breadcrumbs}
+>
   <script is:inline slot="head" type="application/ld+json" set:html={JSON.stringify(collectionSchema)} />
 
   <section class="blog-hero">

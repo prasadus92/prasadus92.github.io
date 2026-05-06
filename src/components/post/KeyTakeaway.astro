@@ -1,0 +1,13 @@
+---
+type Props = {
+  label?: string;
+};
+
+const { label = 'Takeaway' } = Astro.props;
+---
+<aside class="key-takeaway card reveal" role="note">
+  <span class="key-takeaway-label">{label}</span>
+  <div class="key-takeaway-body">
+    <slot />
+  </div>
+</aside>

@@ -1,0 +1,214 @@
+---
+/**
+ * Seo — single source of truth for the <head> schema, OG, Twitter, robots,
+ * and AI-discoverability metadata on prasad.tech.
+ *
+ * Mirrors the @graph pattern used on luminik.io: one linked knowledge graph
+ * per page so search and AEO engines can de-duplicate entities. Stable @ids
+ * for Person + WebSite + Logo; per-page @ids for WebPage + Breadcrumb +
+ * Article + FAQPage so every node is uniquely addressable.
+ */
+
+const SITE_URL = 'https://prasad.tech';
+const SITE_TITLE = 'Prasad Subrahmanya';
+const SITE_DESCRIPTION = 'Founder of Luminik, B2B builder, solo operator. Field notes for serious solo founders on product, founder-led sales, AI agents, and zero-to-one execution.';
+const PERSON_ID = `${SITE_URL}/#person`;
+const WEBSITE_ID = `${SITE_URL}/#website`;
+const LOGO_URL = `${SITE_URL}/assets/images/header/prasad.jpeg`;
+
+type Faq = { question: string; answer: string };
+type Article = {
+  headline: string;
+  description?: string;
+  datePublished: string;
+  dateModified?: string;
+  image?: string;
+  category?: string;
+  keywords?: string[];
+  timeRequired?: string;
+};
+type Breadcrumb = { name: string; url: string };
+
+type Props = {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+  ogImageAlt?: string;
+  type?: 'website' | 'article';
+  canonical?: string;
+  noindex?: boolean;
+  faqs?: Faq[];
+  article?: Article;
+  breadcrumbs?: Breadcrumb[];
+};
+
+const {
+  title = SITE_TITLE,
+  description = SITE_DESCRIPTION,
+  ogImage = '/og/prasad-og.png',
+  ogImageAlt = 'Prasad Subrahmanya — Founder of Luminik, solo builder field notes',
+  type = 'website',
+  canonical: canonicalProp,
+  noindex = false,
+  faqs,
+  article,
+  breadcrumbs
+} = Astro.props;
+
+const canonical = canonicalProp ?? new URL(Astro.url.pathname, SITE_URL).toString();
+const fullTitle = title === SITE_TITLE ? `${title} — Founder, Builder, Operator` : `${title} | ${SITE_TITLE}`;
+const ogImageUrl = ogImage.startsWith('http') ? ogImage : new URL(ogImage, SITE_URL).toString();
+
+const WEBPAGE_ID = `${canonical}#webpage`;
+const BREADCRUMB_ID = `${canonical}#breadcrumb`;
+const FAQ_ID = `${canonical}#faq`;
+const ARTICLE_ID = `${canonical}#article`;
+
+/* --- Stable global nodes --- */
+const personNode = {
+  '@type': 'Person',
+  '@id': PERSON_ID,
+  name: 'Prasad Subrahmanya',
+  givenName: 'Prasad',
+  familyName: 'Subrahmanya',
+  url: `${SITE_URL}/`,
+  image: LOGO_URL,
+  jobTitle: 'Founder and CEO',
+  worksFor: {
+    '@type': 'Organization',
+    name: 'Luminik',
+    url: 'https://www.luminik.io',
+    legalName: 'DataRavel Inc.'
+  },
+  alumniOf: [
+    { '@type': 'Organization', name: 'Bain & Company', url: 'https://www.bain.com' },
+    { '@type': 'Organization', name: 'Mainteny' }
+  ],
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Oslo',
+    addressCountry: 'NO'
+  },
+  sameAs: [
+    'https://linkedin.com/in/prasadus',
+    'https://github.com/prasadus92',
+    'https://www.luminik.io'
+  ],
+  knowsAbout: [
+    'event pipeline platforms',
+    'solo technical founding',
+    'AI-assisted software development',
+    'founder-led sales',
+    'B2B SaaS',
+    'product engineering',
+    'zero-to-one execution'
+  ]
+};
+
+const websiteNode = {
+  '@type': 'WebSite',
+  '@id': WEBSITE_ID,
+  url: `${SITE_URL}/`,
+  name: SITE_TITLE,
+  description: SITE_DESCRIPTION,
+  publisher: { '@id': PERSON_ID },
+  inLanguage: 'en-US'
+};
+
+const webpageNode = {
+  '@type': 'WebPage',
+  '@id': WEBPAGE_ID,
+  url: canonical,
+  name: fullTitle,
+  description,
+  isPartOf: { '@id': WEBSITE_ID },
+  about: { '@id': PERSON_ID },
+  inLanguage: 'en-US',
+  primaryImageOfPage: { '@id': `${canonical}#image` }
+};
+
+/* --- Optional per-page nodes --- */
+const breadcrumbNode = breadcrumbs && breadcrumbs.length > 0
+  ? {
+      '@type': 'BreadcrumbList',
+      '@id': BREADCRUMB_ID,
+      itemListElement: breadcrumbs.map((crumb, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name: crumb.name,
+        item: new URL(crumb.url, SITE_URL).toString()
+      }))
+    }
+  : null;
+
+const articleNode = article
+  ? {
+      '@type': 'BlogPosting',
+      '@id': ARTICLE_ID,
+      isPartOf: { '@id': WEBPAGE_ID },
+      mainEntityOfPage: { '@id': WEBPAGE_ID },
+      headline: article.headline,
+      description: article.description ?? description,
+      image: article.image ? new URL(article.image, SITE_URL).toString() : ogImageUrl,
+      author: { '@id': PERSON_ID },
+      publisher: { '@id': PERSON_ID },
+      datePublished: article.datePublished,
+      dateModified: article.dateModified ?? article.datePublished,
+      articleSection: article.category,
+      keywords: article.keywords?.join(', '),
+      timeRequired: article.timeRequired,
+      inLanguage: 'en-US'
+    }
+  : null;
+
+const faqNode = faqs && faqs.length > 0
+  ? {
+      '@type': 'FAQPage',
+      '@id': FAQ_ID,
+      mainEntity: faqs.map((faq) => ({
+        '@type': 'Question',
+        name: faq.question,
+        acceptedAnswer: { '@type': 'Answer', text: faq.answer }
+      }))
+    }
+  : null;
+
+const graph = [personNode, websiteNode, webpageNode, articleNode, breadcrumbNode, faqNode].filter(Boolean);
+const jsonLd = { '@context': 'https://schema.org', '@graph': graph };
+
+const robots = noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large, max-snippet:-1';
+---
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
+<meta name="author" content="Prasad Subrahmanya" />
+<meta name="robots" content={robots} />
+<link rel="canonical" href={canonical} />
+
+<meta property="og:type" content={type} />
+<meta property="og:url" content={canonical} />
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={ogImageUrl} />
+<meta property="og:image:alt" content={ogImageAlt} />
+<meta property="og:site_name" content={SITE_TITLE} />
+<meta property="og:locale" content="en_US" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content="@prasadus92" />
+<meta name="twitter:creator" content="@prasadus92" />
+<meta name="twitter:title" content={fullTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImageUrl} />
+<meta name="twitter:image:alt" content={ogImageAlt} />
+
+{type === 'article' && article && (
+  <>
+    <meta property="article:published_time" content={article.datePublished} />
+    {article.dateModified && <meta property="article:modified_time" content={article.dateModified} />}
+    <meta property="article:author" content="https://prasad.tech/" />
+    {article.category && <meta property="article:section" content={article.category} />}
+    {article.keywords?.map((tag) => <meta property="article:tag" content={tag} />)}
+  </>
+)}
+
+<script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />

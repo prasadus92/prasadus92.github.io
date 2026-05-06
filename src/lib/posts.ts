@@ -23,7 +23,7 @@ type MarkdownModule = {
   default?: MarkdownComponent;
 };
 
-const modules = import.meta.glob<MarkdownModule>('../content/blog/*.md', {
+const modules = import.meta.glob<MarkdownModule>('../content/blog/*.{md,mdx}', {
   eager: true
 });
 

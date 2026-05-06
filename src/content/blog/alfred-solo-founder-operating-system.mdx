@@ -1,0 +1,287 @@
+---
+slug: "alfred-solo-founder-operating-system"
+title: "Alfred: How a Solo Founder Runs a Six-Department Company With Agents"
+description: "Six departmental agents, six Batman-named engineering subagents, one Slack persona, and five questions every role answers before it ships. What actually runs at Luminik today."
+date: "2026-05-06"
+modified: "2026-05-06"
+category: "Solo Builder OS"
+readTime: "12 min read"
+tags: ["Alfred", "solo founder", "AI agents", "operating system", "open source"]
+faqs:
+  - question: "What is Alfred?"
+    answer: "Alfred is two things. It is the cross-repo coordinator that ties multi-repo features together at Luminik. It is also the Slack persona in the #alfred channel where every other agent posts its results. The persona is the surface; the cross-repo coordinator is one of six Batman-named engineering agents."
+  - question: "Does Alfred ship code or content without my review?"
+    answer: "No. Every consequential output is a draft, a pull request, or a digest in #alfred. The approval gate is explicit so the agent layer never outruns founder judgment."
+  - question: "What runs in production today?"
+    answer: "Six departmental agents (chief of staff, content, community, sales, finance ops, product ops) plus six Batman-named engineering subagents (Alfred, Lucius, Bane, Oracle, Ra's al Ghul, Bat-Signal). A Hermes cron runtime dispatches them and routes results into one Slack channel."
+  - question: "What might be open sourced?"
+    answer: "The reusable patterns: role contracts, repo instruction templates, the five-question gate, output formats, and a small local runner shape. Luminik-specific connectors and customer data stay private."
+---
+import Callout from '../../components/post/Callout.astro';
+import KeyTakeaway from '../../components/post/KeyTakeaway.astro';
+import RoleCard from '../../components/post/RoleCard.astro';
+import CompareTable from '../../components/post/CompareTable.astro';
+import StatRow from '../../components/post/StatRow.astro';
+import PullQuote from '../../components/post/PullQuote.astro';
+
+<p class="reveal">
+  I run Luminik on my own. The product, the customers, the GTM, and the operating model all live in one head. That works at low scope. It stops working the moment "recurring company work" becomes a real category of its own.
+</p>
+
+<p class="reveal">
+  Alfred is my answer. It is a small fleet of agents that runs the work no single person should be queueing up at midnight, with one Slack channel where everything lands and one founder who still owns every consequential decision. This post explains exactly what is in production, what each agent is allowed to do, and the parts I am preparing to open source.
+</p>
+
+<KeyTakeaway label="The model in one paragraph">
+  Alfred is six departmental agents (chief of staff, content, community, sales, finance ops, product ops) plus six Batman-named engineering subagents (Alfred, Lucius, Bane, Oracle, Ra's al Ghul, Bat-Signal). A Hermes cron runtime dispatches them. Bat-Signal posts results to <code>#alfred</code> in Slack. Nothing ships without my approval.
+</KeyTakeaway>
+
+<StatRow stats={[
+  { value: "12", label: "Agents in production", caption: "Six departmental, six engineering. One persona surface in Slack." },
+  { value: "0", label: "Autonomous publishes", caption: "Drafts, PRs, and digests only. Every ship is a human click." },
+  { value: "5", label: "Questions a role must answer", caption: "Context. Action. Output. Evidence. Approval." }
+]} />
+
+<h2 class="reveal">The Two Layers</h2>
+
+<p class="reveal">
+  Alfred is not one big agent. It splits into two layers, and the split matters because it lines up with how a real company is actually built.
+</p>
+
+<CompareTable
+  caption="Two-layer split. Departments are functional. Engineering subagents are tactical."
+  leftLabel="Departmental layer"
+  rightLabel="Engineering subagent layer"
+  rows={[
+    { dimension: "Maps to", left: "Functional roles in a company", right: "Tasks inside the engineering function" },
+    { dimension: "Names", left: "chief of staff, content, community, sales, finance ops, product ops", right: "Alfred, Lucius, Bane, Oracle, Ra's al Ghul, Bat-Signal" },
+    { dimension: "Cadence", left: "Daily, twice-weekly, or every two hours", right: "Per-PR, daily cron, or event-triggered" },
+    { dimension: "Output", left: "Briefs, drafts, digests, summaries", right: "PRs, comments, alerts, status posts" },
+    { dimension: "Lives in", left: "agents/<department>/", right: "agents/engineering/prompts/" }
+  ]}
+/>
+
+<h2 class="reveal">Layer One: Six Departments</h2>
+
+<p class="reveal">
+  Each department is the agent equivalent of one role I would otherwise have to hire. The contract is small: read approved context, prepare reviewable output, surface decisions through Slack and WhatsApp.
+</p>
+
+<div class="role-grid">
+  <RoleCard
+    name="Chief of staff"
+    role="Personal assistant"
+    trigger="Inbox events plus a 06:30 cron"
+    cadence="Multiple times daily"
+    reads="Inbox, calendar, the day's agent output"
+    writes="Daily digest, calendar conflict alerts, WhatsApp briefings"
+    guardrail="Never replies on my behalf"
+  >
+    <p>Triages email, flags meetings that conflict with deep-work blocks, and writes the morning digest that pulls every other agent's overnight output into one place. The first thing I open every day.</p>
+  </RoleCard>
+
+  <RoleCard
+    name="Content"
+    role="Writer"
+    trigger="Themes file plus Mon/Thu cron"
+    cadence="LinkedIn 2x weekly, blog weekly, SEO/AEO weekly"
+    reads="voice-rules.md, recent posts, launch context, public canon"
+    writes="Draft PRs in the private content repo"
+    guardrail="No publishing. Drafts only."
+  >
+    <p>Reads the canonical voice rules and the last two real posts before drafting anything. Output lands as a pull request with the post body, the first comment, and a numbers-grounding note. Posting still happens by hand.</p>
+  </RoleCard>
+
+  <RoleCard
+    name="Community"
+    role="Listener"
+    trigger="Every 2 hours, weekdays"
+    reads="Reddit, Slack communities, Exit Five, public newsletters"
+    writes="Digest of threads worth reading or replying to"
+    guardrail="Never quotes private channels. Always cites the source URL."
+  >
+    <p>Filters signal from the public spaces where solo founders and B2B operators talk. Most digests are a couple of links. Two or three a month flag a real conversation I should join.</p>
+  </RoleCard>
+
+  <RoleCard
+    name="Sales"
+    role="SDR"
+    trigger="Daily 08:00 cron"
+    reads="CRM, calendar, event registrations, recent reply threads"
+    writes="Pipeline brief, draft outbound, response handler suggestions"
+    guardrail="Replies still go from my inbox, in my voice"
+  >
+    <p>The morning brief is six bullets and a short list of follow-ups. Sales is the role where the temptation to automate too much is highest and the cost of doing so is the worst. A wrong inbound reply burns a real prospect.</p>
+  </RoleCard>
+
+  <RoleCard
+    name="Finance ops"
+    role="CFO"
+    trigger="Daily, weekly, monthly"
+    reads="Bank CSVs, invoices, subscription audit, contractor agreements"
+    writes="Reconciliation report, invoice prep, tax checklist updates"
+    guardrail="Never moves money. Flags drift; I approve and act."
+  >
+    <p>Catches subscription drift, drafts contractor invoices, prepares the year-end tax checklist. The role I notice least, which is the right outcome for finance hygiene.</p>
+  </RoleCard>
+
+  <RoleCard
+    name="Product ops"
+    role="SRE plus CS"
+    trigger="Every 15 minutes plus daily 09:00 cron"
+    reads="Production health, customer health signals, error logs"
+    writes="Uptime alerts, customer-health flags, release notes drafts"
+    guardrail="Never mutates production. Reports only."
+  >
+    <p>Watches the parts of the product that customers feel. Drafts release notes from merged commits. Sends an alert when something is wrong, and keeps quiet when nothing is.</p>
+  </RoleCard>
+</div>
+
+<h2 class="reveal">Layer Two: Six Engineering Subagents</h2>
+
+<p class="reveal">
+  Engineering is dense enough that the department itself splits into named subagents. Each one owns one slice of the engineering function. The names are deliberate. They make Slack threading and routing memorable.
+</p>
+
+<div class="role-grid">
+  <RoleCard
+    name="Alfred"
+    role="Cross-repo coordinator"
+    trigger="GitHub label agent:cross-repo on the orchestrator repo"
+    reads="Issue body, OpenAPI diff, every affected repo"
+    writes="Coordinated PRs across backend, frontend, mobile, nango"
+    guardrail="Blocks downstream PRs until upstream CI is green"
+  >
+    <p>The agent that lands a feature spanning multiple repos without producing a contract drift window. Delegates each repo's actual code to Lucius, then merges in a strict order with cooldown between merges.</p>
+  </RoleCard>
+
+  <RoleCard
+    name="Lucius"
+    role="Feature development"
+    trigger="agent-feature.yml on a repo issue"
+    reads="The repo's CLAUDE.md, the issue body, linked specs"
+    writes="A feature branch and a draft PR"
+    guardrail="Single-repo only. Multi-repo work bounces to Alfred."
+  >
+    <p>The implementer. Reads the repo's instruction file every time, then ships the feature on a branch. Stays inside one repo by design so contract changes never sneak in.</p>
+  </RoleCard>
+
+  <RoleCard
+    name="Bane"
+    role="Test coverage"
+    trigger="Daily cron"
+    reads="Last seven days of commits, flaky-test history"
+    writes="At most one test PR per run"
+    guardrail="Test code only. Touches production code only to expose a seam."
+  >
+    <p>Quality over quantity. One PR per day, focused on changed code from the last week. The test must catch a real regression, not pad a coverage number.</p>
+  </RoleCard>
+
+  <RoleCard
+    name="Oracle"
+    role="Production monitor"
+    trigger="Daily cron at 06:00 UTC"
+    reads="ECS state, CloudWatch errors, ALB target health, RDS metrics"
+    writes="Issue with prioritized findings and proposed fixes"
+    guardrail="Reports and proposes. Never deploys."
+  >
+    <p>Reads staging signals before I do, every morning. When something is wrong, the issue lands with the error fingerprint and a proposed patch. When nothing is wrong, Oracle is silent.</p>
+  </RoleCard>
+
+  <RoleCard
+    name="Ra's al Ghul"
+    role="Code review"
+    trigger="Every PR via gstack /review"
+    reads="The diff, the issue, the spec, the prior code"
+    writes="Inline review comments and a structured summary"
+    guardrail="Comments only. Never approves on its own."
+  >
+    <p>The third voice on every PR after CodeRabbit and Codex. Reads diffs the way an architect reviews a building plan. Care is for correctness, security, data integrity, and concurrency. The comments are usually the ones I act on.</p>
+  </RoleCard>
+
+  <RoleCard
+    name="Bat-Signal"
+    role="Slack notifier"
+    trigger="Called by other agents at end of run"
+    reads="A status payload from the calling agent"
+    writes="One concise message in #alfred"
+    guardrail="Relays only. No analysis, no decisions."
+  >
+    <p>The thinnest agent in the fleet, and the most important one for a single-channel workflow. Bat-Signal turns six engineering agents into one place I check.</p>
+  </RoleCard>
+</div>
+
+<Callout tone="info" title="Two roles for the name 'Alfred'">
+  Alfred is also the persona in Slack. When I type <code>@Alfred</code> in <code>#alfred</code>, I am not invoking the cross-repo coordinator. I am querying a chief-of-staff layer that talks to gbrain (a personal knowledge base) and the other agents. Same persona, different surface. The screenshot below is from that surface, asking Luminik a positioning question.
+</Callout>
+
+<figure class="post-figure-image reveal">
+  <img src="/assets/images/blog/alfred-luminik-differentiators.png" alt="Slack screenshot of @Alfred answering a positioning question about Luminik's top three differentiators with citations to internal documents." loading="lazy" decoding="async" />
+  <figcaption>Alfred answering a positioning query in <code>#alfred</code>. Every claim cites the source document.</figcaption>
+</figure>
+
+<h2 class="reveal">The Five Questions a Role Has to Answer</h2>
+
+<p class="reveal">
+  Before any role goes live, it has to answer five questions in writing. The questions live as the role's instruction file. If any answer is vague, the role is not ready.
+</p>
+
+<ol class="reveal">
+  <li><strong>What context can it read?</strong> Specific files, repos, public docs, and any private notes that are safe for the task.</li>
+  <li><strong>What action can it take?</strong> Search, summarize, draft, open a PR, post to a private review channel. Never publish, send, pay, merge, or deploy.</li>
+  <li><strong>Where does the output land?</strong> A pull request, a Slack thread, a markdown file, or a digest. Everything has a path I can find without asking.</li>
+  <li><strong>What evidence does it provide?</strong> Source links, PR numbers, log lines, file paths. A claim with no provenance is a bug.</li>
+  <li><strong>What requires my approval?</strong> The line between draft and ship. I want this line obvious enough that a tired founder cannot accidentally cross it.</li>
+</ol>
+
+<p class="reveal">
+  I use the same five questions to retire roles. Two early agents got cut because I could not write a clean answer to question two. They were doing too much.
+</p>
+
+<h2 class="reveal">What Has Worked</h2>
+
+<CompareTable
+  caption="Two years of solo-founder work running through the same fleet."
+  leftLabel="What works"
+  rightLabel="What did not"
+  leftTone="pass"
+  rightTone="fail"
+  rows={[
+    { dimension: "Code review", left: "Ra's al Ghul as the third voice on every PR. Catches behavior bugs at the end of long days.", right: "Earlier draft of Lucius reviewing PRs. The implementer should not also be the reviewer." },
+    { dimension: "Content drafts", left: "Content agent reading voice-rules.md and the latest two posts before drafting.", right: "Earlier version that cached a style profile. Drifted the moment I changed topic." },
+    { dimension: "Customer support", left: "Personal handling. Reading the thread well enough to approve a draft costs about as much as writing the reply.", right: "Drafting customer-facing replies. Retired the role and have not missed it." },
+    { dimension: "Runtime", left: "Always-on Mac Mini at home. Continuity does not depend on whether my laptop is open.", right: "Scheduled jobs on the laptop. Worked until I closed the lid for a flight." }
+  ]}
+/>
+
+<h2 class="reveal">Why Solo Builders Need This More</h2>
+
+<p class="reveal">
+  A team has imperfect but real safeguards. Standups, code reviews, Slack threads, shared calendars, peer correction. A solo builder has none of those by default. The upside is speed. The downside is that every gap routes back to one person.
+</p>
+
+<PullQuote attribution="The pattern I keep coming back to">
+  Agents do not remove the need for operating design. They make operating design more important. When the work gets cheaper to generate, the review queue becomes the scarce resource.
+</PullQuote>
+
+<h2 class="reveal">What I Plan to Open Source</h2>
+
+<p class="reveal">
+  Alfred itself will not be open source soon. Role contracts, the private knowledge base, and Luminik-specific connectors are entangled in ways that would leak company internals. The reusable parts are different. Other solo founders are rebuilding the same scaffolding I did. There is no reason to keep that scaffolding private.
+</p>
+
+<ul class="reveal">
+  <li><strong>Role contracts.</strong> Markdown templates that answer the five questions for chief of staff, content, sales, ops, and engineering subagent roles.</li>
+  <li><strong>Repo instruction templates.</strong> Public-safe examples of CLAUDE.md, AGENTS.md, and content-guide files for solo product teams.</li>
+  <li><strong>Review rules.</strong> The approval gates I use for shipping code, content, sales replies, and money.</li>
+  <li><strong>Output formats.</strong> Concise summaries, source-linked digests, PR notes, and the morning briefing shape.</li>
+  <li><strong>A local runner shape.</strong> Enough structure for scheduled jobs and reviewable output without my private adapters.</li>
+</ul>
+
+<p class="reveal">
+  The release will be patterns first, code second. A solo founder can adopt the role contracts and run them inside Claude Code, Cursor, or any agent harness they prefer. The harness is replaceable. The contracts are what stay.
+</p>
+
+<KeyTakeaway label="The standard I use now">
+  Alfred is good when its work is reviewable, source-linked, and bounded. It is bad when I notice it deciding things I should be deciding. Solo builders do not need agent theatre. They need a way to make recurring work visible and reviewable while keeping the founder responsible for the decisions that matter.
+</KeyTakeaway>

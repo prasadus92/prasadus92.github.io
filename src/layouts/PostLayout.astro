@@ -11,48 +11,47 @@ const { post } = Astro.props;
 const related = getRelatedPosts(post);
 const canonical = `https://prasad.tech${post.url}`;
 const modified = post.modified ?? post.date;
-const schema = {
-  '@context': 'https://schema.org',
-  '@type': 'BlogPosting',
+const ogImage = `/og/blog/${post.slug}.png`;
+const ogImageAlt = `${post.title} — prasad.tech`;
+
+/* Convert "12 min read" → ISO 8601 duration "PT12M" so schema parsers
+   pick up an actual reading time. */
+function readTimeToIso(readTime: string): string | undefined {
+  const match = readTime.match(/(\d+)\s*min/i);
+  if (!match) return undefined;
+  return `PT${match[1]}M`;
+}
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Blog', url: '/blog/' },
+  { name: post.title, url: post.url }
+];
+
+const article = {
   headline: post.title,
   description: post.description,
   datePublished: post.date,
   dateModified: modified,
-  mainEntityOfPage: canonical,
-  image: 'https://prasad.tech/assets/images/header/prasad.jpeg',
-  articleSection: post.category,
-  keywords: post.tags.join(', '),
-  author: {
-    '@type': 'Person',
-    name: 'Prasad Subrahmanya',
-    url: 'https://prasad.tech/',
-    sameAs: ['https://linkedin.com/in/prasadus', 'https://github.com/prasadus92']
-  },
-  publisher: {
-    '@type': 'Person',
-    name: 'Prasad Subrahmanya'
-  }
+  image: ogImage,
+  category: post.category,
+  keywords: post.tags,
+  timeRequired: readTimeToIso(post.readTime)
 };
-
-const faqSchema = post.faqs?.length
-  ? {
-      '@context': 'https://schema.org',
-      '@type': 'FAQPage',
-      mainEntity: post.faqs.map((faq) => ({
-        '@type': 'Question',
-        name: faq.question,
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: faq.answer
-        }
-      }))
-    }
-  : null;
 ---
 
-<BaseLayout title={`${post.title} | Prasad Subrahmanya`} description={post.description} canonical={canonical} type="article" active="blog">
-  <script is:inline slot="head" type="application/ld+json" set:html={JSON.stringify(schema)} />
-  {faqSchema && <script is:inline slot="head" type="application/ld+json" set:html={JSON.stringify(faqSchema)} />}
+<BaseLayout
+  title={post.title}
+  description={post.description}
+  canonical={canonical}
+  type="article"
+  active="blog"
+  image={ogImage}
+  imageAlt={ogImageAlt}
+  faqs={post.faqs}
+  article={article}
+  breadcrumbs={breadcrumbs}
+>
 
   <section class="post-hero">
     <div class="post-hero-inner">

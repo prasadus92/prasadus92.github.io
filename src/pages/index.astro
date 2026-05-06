@@ -36,54 +36,19 @@ const proofPoints: ProofPoint[] = [
   }
 ];
 
-const title = 'Prasad Subrahmanya | Founder of Luminik, Solo Builder Notes';
-const description = 'Prasad Subrahmanya is the founder of Luminik, an event pipeline platform for B2B teams. He writes for solo technical builders about product, sales, AI agents, and zero-to-one execution.';
-
-const websiteSchema = {
-  '@context': 'https://schema.org',
-  '@graph': [
-    {
-      '@type': 'Person',
-      '@id': 'https://prasad.tech/#person',
-      name: 'Prasad Subrahmanya',
-      url: 'https://prasad.tech/',
-      image: 'https://prasad.tech/assets/images/header/prasad.jpeg',
-      jobTitle: 'Founder and CEO',
-      worksFor: {
-        '@type': 'Organization',
-        name: 'Luminik',
-        url: 'https://www.luminik.io'
-      },
-      address: {
-        '@type': 'PostalAddress',
-        addressLocality: 'Oslo',
-        addressCountry: 'NO'
-      },
-      sameAs: ['https://linkedin.com/in/prasadus', 'https://github.com/prasadus92'],
-      knowsAbout: [
-        'event pipeline platforms',
-        'solo technical founding',
-        'AI-assisted software development',
-        'founder-led sales',
-        'B2B SaaS'
-      ]
-    },
-    {
-      '@type': 'WebSite',
-      '@id': 'https://prasad.tech/#website',
-      url: 'https://prasad.tech/',
-      name: 'Prasad Subrahmanya',
-      description: 'Field notes for solo technical builders.',
-      publisher: {
-        '@id': 'https://prasad.tech/#person'
-      }
-    }
-  ]
-};
+const title = 'Prasad Subrahmanya';
+const description = 'Founder of Luminik, solo B2B builder. Field notes on product, founder-led sales, AI agents, and zero-to-one execution. Built Aura at Bain to $3.6M ARR. Co-founded Mainteny ($2.7M seed).';
 ---
 
-<BaseLayout title={title} description={description} canonical="https://prasad.tech/" active="home" preloadImage>
-  <script is:inline slot="head" type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+<BaseLayout
+  title={title}
+  description={description}
+  canonical="https://prasad.tech/"
+  active="home"
+  preloadImage
+  image="/og/prasad-og.png"
+  imageAlt="Prasad Subrahmanya — Founder of Luminik. Building B2B software from customer pain to revenue."
+>
 
   <section class="hero">
     <div class="container hero-grid">

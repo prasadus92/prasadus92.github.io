@@ -1,5 +1,6 @@
 import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
+import mdx from '@astrojs/mdx';
 
 export default defineConfig({
   site: 'https://prasad.tech',
@@ -8,5 +9,5 @@ export default defineConfig({
   build: {
     format: 'preserve'
   },
-  integrations: [react()]
+  integrations: [mdx(), react()]
 });

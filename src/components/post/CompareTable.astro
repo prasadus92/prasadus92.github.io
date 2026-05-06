@@ -1,0 +1,39 @@
+---
+type Row = {
+  dimension: string;
+  left: string;
+  right: string;
+};
+
+type Props = {
+  caption?: string;
+  leftLabel: string;
+  rightLabel: string;
+  rows: Row[];
+  leftTone?: 'pass' | 'fail' | 'neutral';
+  rightTone?: 'pass' | 'fail' | 'neutral';
+};
+
+const { caption, leftLabel, rightLabel, rows, leftTone = 'neutral', rightTone = 'neutral' } = Astro.props;
+---
+<figure class="compare-table reveal">
+  <table>
+    <thead>
+      <tr>
+        <th scope="col" class="compare-dimension">&nbsp;</th>
+        <th scope="col" class={`compare-head compare-head-${leftTone}`}>{leftLabel}</th>
+        <th scope="col" class={`compare-head compare-head-${rightTone}`}>{rightLabel}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {rows.map((row) => (
+        <tr>
+          <th scope="row" class="compare-dimension">{row.dimension}</th>
+          <td class={`compare-cell compare-cell-${leftTone}`}>{row.left}</td>
+          <td class={`compare-cell compare-cell-${rightTone}`}>{row.right}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+  {caption && <figcaption class="post-visual-caption">{caption}</figcaption>}
+</figure>
