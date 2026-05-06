@@ -12,15 +12,15 @@
       gtag('config', 'G-XG5LVE538S');
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Dedicated Mac Mini for Luminik's Agents - Prasad Subrahmanya</title>
+    <title>Separating Agent Work from Founder Work - Prasad Subrahmanya</title>
 
-    <meta name="description" content="How I moved Luminik's scheduled agent work from my MacBook Pro to a dedicated Mac Mini M4 running Hermes Agent, Claude Code via ACP, and a local gbrain knowledge base." />
-    <meta name="keywords" content="hermes agent, hermes agent mac mini, claude code acp, agent client protocol, gbrain, garry tan gbrain, nous research, 24/7 ai agent, mac mini m4 agent, solo founder ai infrastructure, hermes gemini x-goog-api-key, hermes whatsapp markdown platform_hint, hermes-agent pr 12251, hermes-agent issue 12224, gbrain pr 89, gbrain openai embedding, gemini embedding knowledge base, dependabot cve triage agent, sast sca solo founder, digital employees, luminik" />
+    <meta name="description" content="How I separated Luminik's background agent work from my interactive development environment, and what that taught me about context, boundaries, and review." />
+    <meta name="keywords" content="solo founder, AI agents, agent infrastructure, Claude Code, knowledge base, Luminik, founder operating system" />
     <meta name="author" content="Prasad Subrahmanya" />
 
     <!-- OpenGraph Meta Tags -->
-    <meta property="og:title" content="A Dedicated Mac Mini for Luminik's Agents" />
-    <meta property="og:description" content="How I moved Luminik's scheduled agent work from my MacBook Pro to a dedicated Mac Mini M4 running Hermes Agent, Claude Code via ACP, and a local gbrain knowledge base." />
+    <meta property="og:title" content="Separating Agent Work from Founder Work" />
+    <meta property="og:description" content="How I separated Luminik's background agent work from my interactive development environment, and what that taught me about context, boundaries, and review." />
     <meta property="og:type" content="article" />
     <meta property="og:url" content="https://prasad.tech/blog/dedicated-mac-mini-solo-startup.html" />
     <meta property="og:image" content="https://prasad.tech/assets/images/header/prasad.jpeg" />
@@ -32,8 +32,8 @@
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="A Dedicated Mac Mini for Luminik's Agents" />
-    <meta name="twitter:description" content="How I moved Luminik's scheduled agent work from my MacBook Pro to a dedicated Mac Mini M4 running Hermes Agent, Claude Code via ACP, and a local gbrain knowledge base." />
+    <meta name="twitter:title" content="Separating Agent Work from Founder Work" />
+    <meta name="twitter:description" content="How I separated Luminik's background agent work from my interactive development environment, and what that taught me about context, boundaries, and review." />
 
     <!-- Canonical -->
     <link rel="canonical" href="https://prasad.tech/blog/dedicated-mac-mini-solo-startup.html" />
@@ -43,8 +43,8 @@
     {
       "@context": "https://schema.org",
       "@type": "BlogPosting",
-      "headline": "A Dedicated Mac Mini for Luminik's Agents",
-      "description": "How I moved Luminik's scheduled agent work from my MacBook Pro to a dedicated Mac Mini M4 running Hermes Agent, Claude Code via ACP, and a local gbrain knowledge base.",
+      "headline": "Separating Agent Work from Founder Work",
+      "description": "How I separated Luminik's background agent work from my interactive development environment, and what that taught me about context, boundaries, and review.",
       "author": {
         "@type": "Person",
         "name": "Prasad Subrahmanya",
@@ -63,57 +63,7 @@
       },
       "image": "https://prasad.tech/assets/images/header/prasad.jpeg",
       "articleSection": "Engineering",
-      "keywords": "solo founder, AI agents, Mac Mini, Hermes Agent, gbrain, Claude Code, agent infrastructure, doc drift"
-    }
-    </script>
-
-    <!-- JSON-LD: FAQPage -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "Why run a dedicated Mac Mini for AI agents instead of using the cloud?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "A cloud instance that matches what a Mac Mini M4 does in this setup (keeping OAuth tokens in a physical Keychain, running close to a MacBook Pro that also uses them, holding messaging gateways for WhatsApp and Slack) ends up costing more per month than the Mini depreciates. The bigger reason is coordination. A dedicated machine forces you to decide what crosses the boundary between your MacBook Pro and the always-on layer, which clarifies what the agent is actually responsible for."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "What is Hermes Agent and how is it different from Claude Code?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Hermes Agent is an open-source 24/7 agent from Nous Research that runs persistently on a machine and connects to messaging apps. Claude Code is a command-line tool for software engineering tasks, authenticated by a Claude Max subscription. They complement each other. Hermes handles the orchestration loop (cheap, always-on, routes work) and delegates heavy reasoning to Claude Code as a child process via ACP. The orchestrator can run on a free Gemini tier while the frontier model handles only the work that actually benefits from it."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "How does gbrain help with documentation drift?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "gbrain is a local knowledge graph that ingests markdown (specs, CLAUDE.md files, positioning docs) into a PGLite database with hybrid keyword and embedding search. A nightly cron re-ingests the sources so the agent is querying current content rather than a snapshot from six weeks ago. The agent also gets an explicit instruction that code is the source of truth and docs are a summary. When they conflict, it surfaces the conflict rather than silently resolving. The drift does not disappear, but it becomes visible."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "How much does this setup cost per month?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Zero marginal cost on new services for the base stack. Gemini 2.5 Flash via the free OAuth tier handles orchestration. Claude Max, which was already paid for, handles heavy code tasks via delegation. GCP credits cover Vertex AI fallback. The Mac Mini itself is a one-time hardware purchase. Separate from the agent work, the same read-only audit exercise surfaced a handful of small cost and config drift items that had been accumulating without a regular audit."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "What upstream bugs did you hit and how did you handle them?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Three. (1) A Gemini auth regression in Hermes Agent v0.10.0: earlier that morning PR #11961 switched Google AI Studio auth from Bearer to x-goog-api-key, but Google's /v1beta/openai endpoint had since changed behavior and now rejects that header with HTTP 400 API_KEY_INVALID while accepting Bearer by default. I isolated the repro with a bare openai Python client, commented on the open revert (PR #12204) with my test, and applied the patch locally. Maintainer teknium1 landed a superseding fix in PR #12251 the same day. (2) The WhatsApp PLATFORM_HINT in agent/prompt_builder.py told the model 'do not use markdown on WhatsApp because it does not render,' which is factually wrong. WhatsApp supports *bold*, _italic_, ~strike~, inline code, fenced code blocks, and bullet lists. The hint silently overrode my SOUL.md persona file. I filed Issue #12224 with the exact line and suggested replacement; still open. (3) gbrain v0.12.0 hardcodes OpenAI embeddings, which silently undoes the zero-marginal-cost argument for anyone running Gemini elsewhere. Community PR #89 adds Gemini embedding support via GEMINI_API_KEY; checked it out, confirmed it works, left a +1 with my repro. Still open; local checkout is the working path."
-          }
-        }
-      ]
+      "keywords": "solo founder, AI agents, agent infrastructure, Claude Code, knowledge base, Luminik, founder operating system"
     }
     </script>
 
@@ -183,12 +133,12 @@
         <div class="container">
             <div class="post-meta reveal">
                 <span><i class="far fa-calendar"></i> April 2026</span>
-                <span><i class="far fa-clock"></i> 15 min read</span>
+                <span><i class="far fa-clock"></i> 11 min read</span>
                 <span class="blog-category" style="background: var(--glass-bg); padding: 4px 12px; border-radius: 100px;">Engineering</span>
             </div>
-            <h1 class="reveal reveal-delay-1">A Dedicated Mac Mini for Luminik's Agents</h1>
+            <h1 class="reveal reveal-delay-1">Separating Agent Work from Founder Work</h1>
             <p class="section-description reveal reveal-delay-2" style="max-width: 700px; margin: 24px auto 0;">
-                How I moved Luminik's scheduled agent work off my MacBook Pro and onto a dedicated Mac Mini M4.
+                A practical note on why Luminik's background agent work now runs behind a clearer operational boundary.
             </p>
         </div>
     </section>
@@ -196,23 +146,23 @@
     <!-- Post Content -->
     <article class="post-content">
         <p class="reveal">
-            For six months, my MacBook Pro ran two kinds of work.
+            A laptop is a strange place to run a company.
         </p>
 
         <p class="reveal">
-            The first kind was interactive: writing code, drafting proposals, joining customer calls, reviewing PRs. The second kind was background work for Luminik: scheduled agent runs, production checks, documentation re-ingest, and the small operational jobs that should keep moving when I am away from the keyboard.
+            It is excellent for interactive work: writing code, reviewing product decisions, thinking through customer problems, and changing direction quickly. It is much worse as the permanent home for background work that should keep moving whether I am in a meeting, in transit, or fully focused on one hard problem.
         </p>
 
         <p class="reveal">
-            The setup was workable for one agent session. It became brittle when the work needed to be scheduled. A laptop lid, a customer call, or a heavy local browser session should not decide whether company operations run.
+            That distinction became clearer as Luminik's agent workflows grew from occasional helper sessions into recurring company work. The issue was not raw compute. The issue was boundary. The same machine should not hold my personal workspace, my interactive development loop, and the company's background operating layer.
         </p>
 
         <p class="reveal">
-            I moved the background layer to a Mac Mini M4. By the end of the setup day, it was running Hermes Agent as a persistent process, holding a queryable gbrain knowledge base, delegating coding work to Claude Code through ACP, and executing two cron jobs. The setup also forced me through three upstream bugs, each with a public PR or issue trail.
+            So I separated them. Luminik now has a dedicated always-on environment for background agent work. It holds approved context, runs scheduled checks, routes engineering tasks to the right tool, and leaves anything consequential behind a review path. The important part is not the hardware. The important part is that the company has an operational surface that is distinct from the founder's daily work surface.
         </p>
 
         <p class="reveal">
-            This is the hardware complement to the software stack I described in <a href="building-alone-in-2026.html">What It Actually Costs to Build a Serious Product Alone in 2026</a>. It also extends the specs and <code>CLAUDE.md</code> discipline from <a href="gstack-solo-builder.html">gstack, CLAUDE.md, and the Work That Frameworks Don't Cover</a> by making that context queryable from outside a single Claude Code session.
+            This extends the discipline I described in <a href="building-alone-in-2026.html">What It Actually Costs to Build a Serious Product Alone in 2026</a> and <a href="gstack-solo-builder.html">gstack, CLAUDE.md, and the Work That Frameworks Don't Cover</a>: specs, instruction files, review gates, and explicit context. Once that context starts driving recurring work, it deserves its own boundary.
         </p>
 
         <h2 class="reveal">Why a Dedicated Machine</h2>
@@ -222,231 +172,208 @@
         </p>
 
         <ul class="reveal" style="margin: 16px 0 24px; padding-left: 24px;">
-            <li style="margin-bottom: 12px;"><strong>The MacBook Pro is where I take sales calls and customer conversations.</strong> During those hours Luminik needs me fully present and the machine fully available, not fighting parallel coding agents for RAM or thermal-throttling mid-video-call. The laptop's primary job is mine, not the company's background processes.</li>
-            <li style="margin-bottom: 12px;"><strong>Parallel coding agents saturate 16 GB quickly.</strong> A single Claude Code session is comfortable. Three in parallel, plus a browser with customer tabs, plus a meeting app, and the box starts swapping. Serial work I could manage. The plural agent team, which is the direction this is heading, I could not.</li>
-            <li style="margin-bottom: 12px;"><strong>Claude Code remote dispatch needs a running host.</strong> The iOS shortcut and web-based dispatch both assume the actual engine is awake somewhere. When my laptop lid closes at dinner, that path dies with it. The whole appeal of remote dispatch is that it survives my state, not depends on it.</li>
-            <li style="margin-bottom: 12px;"><strong>The work I want to scale beyond my own hours is much bigger than "run more code."</strong> Triaging Dependabot and CVE alerts before they pile into a weekend migration. Running SAST/SCA sweeps against every merge so an agent-written commit does not quietly introduce an auth bypass, a leaked secret, or an unsafe deserialization path. Keeping test coverage above the line when I am merging fast. Writing the tests the agent forgot to write. Summarising customer calls into next-action signal. Keeping sales collateral in sync with current positioning. Producing first-draft SEO content against the keywords that matter this week. Drafting replies to GTM inbound in the voice we actually sell in. All of this has the shape of recurring work someone would do if I had the hours. The whole point is to not need those hours.</li>
+            <li style="margin-bottom: 12px;"><strong>Interactive work needs full attention.</strong> A customer conversation, a product decision, and a multi-file refactor all deserve a clean foreground environment. Background jobs should not compete with that attention.</li>
+            <li style="margin-bottom: 12px;"><strong>Recurring work needs continuity.</strong> Documentation checks, repository hygiene, context refresh, and release follow-up should not depend on whether my laptop happens to be open.</li>
+            <li style="margin-bottom: 12px;"><strong>Agent work needs a review boundary.</strong> The useful question is not "can an agent do this?" It is "what can it read, what can it change, where does the output land, and who approves it?"</li>
+            <li style="margin-bottom: 12px;"><strong>The company needs memory outside my head.</strong> Luminik has specs, positioning, architecture notes, customer learnings, and repo conventions. If agents are going to help with real work, they need current context and citations, not vibes.</li>
         </ul>
 
         <p class="reveal">
-            The separation is an old engineering idea. Build machines and development machines have often been different boxes. The difference here is that the background layer is not just a build runner. It holds context, answers questions, and routes work to the right tool. Today one role is filled. The direction is a small set of scoped roles across product, sales, marketing, and customer delivery.
+            The separation is an old engineering idea. Build machines and development machines have often been different boxes. The difference here is that the background layer is not just a build runner. It holds context, answers questions, and routes work to the right tool. The architecture matters because it makes accountability visible.
         </p>
 
-        <h2 class="reveal">The Stack</h2>
+        <h2 class="reveal">The Operating Shape</h2>
 
         <p class="reveal">
-            The machine is a Mac Mini M4 with 16 GB of RAM. I named it Alfred because it runs below the surface while I work on other things. On it:
+            I think about the setup less as a toolchain and more as an operating shape:
         </p>
 
         <ul class="reveal" style="margin: 16px 0 24px; padding-left: 24px;">
-            <li style="margin-bottom: 8px;"><strong>Hermes Agent</strong> (open-source, Nous Research) as the always-on orchestration layer, installed as a <code>launchd</code> service with <code>KeepAlive</code> enabled.</li>
-            <li style="margin-bottom: 8px;"><strong>Gemini 2.5 Flash</strong> via the free Google OAuth tier handles the agent's routing and tool calls.</li>
-            <li style="margin-bottom: 8px;"><strong>Claude Code via ACP delegation</strong> handles anything the agent decides is a real coding task. That subprocess authenticates against my existing Claude Max subscription.</li>
-            <li style="margin-bottom: 8px;"><strong>gbrain</strong> (open-source, Garry Tan) holds the knowledge layer. 107 markdown pages at the moment: all of Luminik's specs, every <code>CLAUDE.md</code> across six repos, and my positioning docs. Embedded with Gemini, stored in a local PGLite database, queryable from the agent via MCP.</li>
-            <li style="margin-bottom: 8px;"><strong>WhatsApp and Slack gateways</strong> give me access to the agent from anywhere. WhatsApp self-chat is the primary surface. A <code>#alfred</code> channel in the Luminik workspace is the secondary.</li>
-            <li style="margin-bottom: 8px;"><strong>Two cron jobs</strong>. One at 3am re-ingests every spec and <code>CLAUDE.md</code> file into gbrain so the knowledge layer stays current. One at 7am produces a short digest of overnight CI failures, ECS task count changes, and GCP credit burn.</li>
+            <li style="margin-bottom: 8px;"><strong>Surface:</strong> a small set of approved ways for me to ask for work or context.</li>
+            <li style="margin-bottom: 8px;"><strong>Context:</strong> specs, repo instructions, positioning, and architectural notes that agents can query with citations.</li>
+            <li style="margin-bottom: 8px;"><strong>Router:</strong> a resident orchestration process that decides whether a request is a lookup, a draft, a code task, or a scheduled check.</li>
+            <li style="margin-bottom: 8px;"><strong>Worker:</strong> coding and analysis tools that operate in isolated branches or bounded workspaces.</li>
+            <li style="margin-bottom: 8px;"><strong>Gate:</strong> human review, PR review, and explicit approval before anything material changes.</li>
         </ul>
 
         <p class="reveal">
-            The model is cheap-and-always-on for the orchestration loop, expensive-and-occasional for the actual work. Gemini Flash is free at the tier I need. Claude Code is billed under a subscription I already pay for. Nothing in this setup is per-token.
+            That shape keeps the tactical details swappable. Models will change. Agent runners will change. Local and cloud environments will keep trading advantages. The durable part is the split between context, execution, and approval.
         </p>
 
         <figure class="post-visual reveal">
-            <div class="post-visual-title">The Mac Mini agent stack</div>
+            <div class="post-visual-title">The agent operating boundary</div>
             <div class="visual-flow">
                 <div class="visual-step">
-                    <span class="visual-step-label">Surface</span>
-                    <strong>WhatsApp and Slack</strong>
-                    <span>Messages from me, routed into the resident agent.</span>
+                    <span class="visual-step-label">Ask</span>
+                    <strong>Approved prompts</strong>
+                    <span>Requests enter through known surfaces.</span>
                 </div>
                 <div class="visual-step">
-                    <span class="visual-step-label">Loop</span>
-                    <strong>Hermes Agent</strong>
-                    <span>Persistent process, launchd service, cheap model for routing.</span>
+                    <span class="visual-step-label">Orient</span>
+                    <strong>Queryable context</strong>
+                    <span>Specs, conventions, and positioning are cited before work begins.</span>
                 </div>
                 <div class="visual-step">
-                    <span class="visual-step-label">Memory</span>
-                    <strong>gbrain</strong>
-                    <span>Specs, CLAUDE.md files, positioning docs, PGLite, MCP query path.</span>
+                    <span class="visual-step-label">Route</span>
+                    <strong>Agent process</strong>
+                    <span>The request becomes a lookup, draft, code task, or scheduled check.</span>
                 </div>
                 <div class="visual-step">
                     <span class="visual-step-label">Work</span>
-                    <strong>Claude Code via ACP</strong>
-                    <span>Heavy code tasks delegated to the subscription I already use.</span>
+                    <strong>Bounded workspace</strong>
+                    <span>Changes happen in reviewable branches, not directly in production.</span>
                 </div>
                 <div class="visual-step">
-                    <span class="visual-step-label">Schedule</span>
-                    <strong>cron jobs</strong>
-                    <span>Nightly re-ingest, morning digest, future drift checks.</span>
+                    <span class="visual-step-label">Gate</span>
+                    <strong>Human review</strong>
+                    <span>The founder stays accountable for final judgment.</span>
                 </div>
             </div>
         </figure>
 
-        <h2 class="reveal">What Moves to the New Machine</h2>
+        <h2 class="reveal">What Belongs Behind the Boundary</h2>
 
-        <h3 class="reveal">Cross-session memory</h3>
+        <h3 class="reveal">Company memory</h3>
 
         <p class="reveal">
-            <code>CLAUDE.md</code> files solve one level of this. Each repo reminds the agent of its own conventions. The scope is a single repo. Cross-session memory, the kind that remembers what a customer said last month or which enrichment vendor we decided to prioritize, lives outside that scope. Before Alfred it lived in my head and in scattered markdown files.
+            <code>CLAUDE.md</code> files solve one level of this. Each repo reminds the agent of its own conventions. The scope is a single repo. Company memory is broader: what Luminik calls itself, why the architecture works the way it does, which tradeoffs are settled, and which claims are safe to make in public.
         </p>
 
         <p class="reveal">
-            gbrain is the layer that gives it a home. Specs, conventions, positioning, and proof points get ingested once and then re-ingested nightly. When I ask the agent to summarize the enrichment architecture, it runs a vector query against the brain and returns an answer with citations to specific pages. When specs change, the nightly cron picks them up. The agent's view stays current without manual intervention.
+            That context needs to be queryable and cited. A static file is useful for one session. A retrieval layer is better for recurring work because it makes the agent show its sources before it acts. If the answer came from an outdated spec, I want to see that immediately.
         </p>
 
-        <figure class="reveal" style="margin: 32px 0;">
-            <img src="../assets/images/blog/alfred-luminik-differentiators.png" alt="Slack exchange: I ask Alfred to name Luminik's top three differentiators and cite the source docs. Alfred runs an mcp_gbrain_query tool call and responds with Full Lifecycle Coverage, Evidence-Based Attribution, and ICP Scoring for Actionable Events, each with cited source documents." style="max-width: 100%; height: auto; border-radius: 8px; border: 1px solid var(--glass-border); display: block; margin: 0 auto;">
-            <figcaption style="text-align: center; margin-top: 12px; color: var(--color-text-tertiary); font-size: 0.9rem; font-style: italic;">
-                Alfred answering a positioning question in #alfred. The <code>mcp_gbrain_query</code> tool call runs against the local knowledge base; the answer cites the specific source documents it pulled from.
-            </figcaption>
+        <figure class="post-visual reveal">
+            <div class="post-visual-title">Context discipline for recurring agent work</div>
+            <div class="visual-flow">
+                <div class="visual-step">
+                    <span class="visual-step-label">Intent</span>
+                    <strong>Specs</strong>
+                    <span>What the system should do and why.</span>
+                </div>
+                <div class="visual-step">
+                    <span class="visual-step-label">Reality</span>
+                    <strong>Code</strong>
+                    <span>What the system actually does today.</span>
+                </div>
+                <div class="visual-step">
+                    <span class="visual-step-label">Voice</span>
+                    <strong>Positioning</strong>
+                    <span>What the company can safely claim.</span>
+                </div>
+                <div class="visual-step">
+                    <span class="visual-step-label">Rules</span>
+                    <strong>Instructions</strong>
+                    <span>How agents should behave inside each repo.</span>
+                </div>
+                <div class="visual-step">
+                    <span class="visual-step-label">Check</span>
+                    <strong>Citations</strong>
+                    <span>Every answer carries its trail back to source.</span>
+                </div>
+            </div>
         </figure>
 
         <p class="reveal">
             This is the cross-session coordination problem I described in <a href="gstack-solo-builder.html">the gstack post</a>. A specs repo is necessary. Making it queryable by an always-on agent is the next step, and it is easier to run on a machine that does not sleep.
         </p>
 
-        <h3 class="reveal">Production visibility</h3>
+        <h3 class="reveal">Operational visibility</h3>
 
         <p class="reveal">
-            Alfred has a separate AWS identity from mine. A scoped IAM user with read-only permissions, not my SSO session. It can describe ECS services, query CloudWatch logs, check RDS status. It cannot delete, create, or modify anything. If the machine is compromised, the blast radius is a read leak, not an outage.
+            Recurring agents should be able to inspect more than they can change. That one rule eliminates a large class of bad outcomes. The agent can help me notice drift, stale assumptions, and forgotten follow-up. It should not silently mutate infrastructure or product behavior.
         </p>
 
         <p class="reveal">
-            The first useful run was a small inventory exercise. I asked the agent to compare what was actually running in AWS against what my Terraform described. It came back with a list of low-grade discrepancies: services whose live state had drifted from their declared state, an old CloudWatch alarm still pointing at an SNS subscription that no longer existed, and container images in ECR from an experiment I had forgotten about. None of it was urgent. All of it belonged on a cleanup list I had been postponing.
+            The first useful run produced a boring cleanup list: live state that needed to be reconciled with declared state, old artifacts from past experiments, and reminders I had let sit too long. Nothing dramatic. That was the point. A good background layer turns small entropy into visible work before it becomes weekend work.
         </p>
 
         <p class="reveal">
-            Cleaning it up took a couple of small PRs. The fixes are not the interesting part. The interesting part is that a newly issued read-only identity, used in its first hour of existence, produced a punch list I had been putting off for weeks. That is a better argument for having an always-on read-only surface on your infrastructure than any security essay I could write.
+            The fixes were small PRs. The lesson was larger: agents are most useful when they increase the surface area of what you can notice without increasing the surface area of what they can damage.
         </p>
 
         <h3 class="reveal">Scheduled maintenance</h3>
 
         <p class="reveal">
-            Anything that needs to run on a schedule now has a place to run. The two jobs today are the gbrain re-ingest and the morning digest. That is enough to start. A future job is the one I actually want: a weekly spec-vs-code diff that opens a GitHub issue when a spec describes behavior the code no longer implements. Documentation drift is hard to eliminate. A scheduled detector that makes it visible is the realistic goal.
+            Anything that needs to run on a schedule now has a place to run: context refresh, documentation drift checks, repository hygiene, and release follow-up. None of these needs autonomy in the theatrical sense. They need consistency, source links, and a reviewable output.
         </p>
 
-        <h2 class="reveal">Three Upstream Bugs Along the Way</h2>
+        <h2 class="reveal">What the Setup Taught Me About Open Source</h2>
 
         <p class="reveal">
-            Setup took longer than the READMEs suggested because three shipping assumptions in the tools I used were wrong or badly defaulted. All three are traceable in public trackers. The first was resolved upstream the same day I hit it. The other two are still open at time of writing, with community PRs that work locally.
+            Setup took longer than the READMEs suggested because a few assumptions in the tools were wrong or stale. That is normal in fast-moving open-source software. The useful part was not the breakage. The useful part was the loop: isolate the symptom, verify it outside my own stack, leave a public trail, and move on with a small local patch.
         </p>
 
-        <h3 class="reveal">Bug 1: Gemini auth regression (Hermes Agent PR <a href="https://github.com/NousResearch/hermes-agent/pull/11961" target="_blank" rel="noopener">#11961</a> to <a href="https://github.com/NousResearch/hermes-agent/pull/12204" target="_blank" rel="noopener">#12204</a> to <a href="https://github.com/NousResearch/hermes-agent/pull/12251" target="_blank" rel="noopener">#12251</a>)</h3>
+        <h3 class="reveal">A provider integration regression</h3>
 
         <p class="reveal">
-            Every Gemini call on my fresh install failed with an opaque <code>HTTP 400 API_KEY_INVALID</code> despite a valid AI Studio key. The git-blame trail was short: <a href="https://github.com/NousResearch/hermes-agent/pull/11961" target="_blank" rel="noopener">PR #11961</a> had been merged earlier that morning (2026-04-18, 04:30 UTC) to fix an older dual-auth 400, switching Google AI Studio auth from Bearer to the <code>x-goog-api-key</code> header. Google's <code>/v1beta/openai</code> endpoint had since changed behaviour and now rejected that header while accepting Bearer. The fix became the regression.
+            One issue came from a provider integration change in Hermes Agent. I reproduced it outside my local environment, compared it with the recent upstream changes, and confirmed that an existing community PR addressed the failure path. I left a validation comment on <a href="https://github.com/NousResearch/hermes-agent/pull/12204#issuecomment-4274123223" target="_blank" rel="noopener">PR #12204</a>. The maintainer then shipped a cleaner fix in <a href="https://github.com/NousResearch/hermes-agent/pull/12251" target="_blank" rel="noopener">PR #12251</a> the same day.
         </p>
 
+        <h3 class="reveal">A prompt assumption that leaked into product behavior</h3>
+
         <p class="reveal">
-            I isolated the repro against the live endpoint with a bare <code>openai</code> Python client, same key and SDK version Hermes was using:
+            The second issue was a formatting assumption inside a platform prompt. The agent was obeying a tool-level instruction that contradicted the behavior I wanted. That is a small bug, but a revealing one: with agents, product behavior often lives in prompt assembly as much as in application code. I filed <a href="https://github.com/NousResearch/hermes-agent/issues/12224" target="_blank" rel="noopener">Issue #12224</a> with the reproduction and suggested correction.
         </p>
 
-<pre class="reveal" style="background: var(--glass-bg); padding: 16px; border-radius: 8px; overflow-x: auto; font-size: 0.9rem;"><code># Bearer (what the OpenAI SDK emits by default)
-OpenAI(api_key=&lt;key&gt;, base_url="...generativelanguage.googleapis.com/v1beta/openai")
-# → 200 OK ✓
-
-# x-goog-api-key (what Hermes started sending after #11961)
-OpenAI(api_key="not-used", base_url=..., default_headers={"x-goog-api-key": &lt;key&gt;})
-# → 400 API_KEY_INVALID ✗
-</code></pre>
+        <h3 class="reveal">A default that constrained the knowledge layer</h3>
 
         <p class="reveal">
-            A community revert was already open as <a href="https://github.com/NousResearch/hermes-agent/pull/12204" target="_blank" rel="noopener">PR #12204</a> ("Fix gemini auth header") by <code>alizane</code>. I applied the diff locally across <code>run_agent.py</code> and <code>agent/auxiliary_client.py</code>, confirmed both primary and auxiliary paths recovered, and left <a href="https://github.com/NousResearch/hermes-agent/pull/12204#issuecomment-4274123223" target="_blank" rel="noopener">a comment on the PR</a> with my reproduction and local patch result.
-        </p>
-
-        <p class="reveal">
-            Maintainer <code>teknium1</code> shipped a cleaner superseding fix in <a href="https://github.com/NousResearch/hermes-agent/pull/12251" target="_blank" rel="noopener">PR #12251</a> ("fix(gemini): hide bad Google models and restore bearer auth"), merged at 19:52 UTC the same day (about 15 hours after the regression was introduced). That closed #12204 as redundant. My local patch reverts cleanly on the next <code>hermes update</code>.
-        </p>
-
-        <h3 class="reveal">Bug 2: WhatsApp PLATFORM_HINT is factually wrong (<a href="https://github.com/NousResearch/hermes-agent/issues/12224" target="_blank" rel="noopener">Issue #12224</a>, open)</h3>
-
-        <p class="reveal">
-            Second bug. Alfred's WhatsApp replies were indented prose instead of bullet lists, even when <code>SOUL.md</code> explicitly mandated <code>- </code> prefixed bullets with a MANDATORY-rules block. Tracing the prompt buildup pointed at <code>agent/prompt_builder.py:286</code>:
-        </p>
-
-<pre class="reveal" style="background: var(--glass-bg); padding: 16px; border-radius: 8px; overflow-x: auto; font-size: 0.9rem;"><code>PLATFORM_HINTS["whatsapp"] = (
-    "You are on a text messaging communication platform, WhatsApp. "
-    "Please do not use markdown as it does not render."
-)</code></pre>
-
-        <p class="reveal">
-            This is factually incorrect. WhatsApp has supported its own markdown dialect for years: <code>*bold*</code>, <code>_italic_</code>, <code>~strike~</code>, backtick inline code, triple-backtick fenced blocks, and <code>- </code> bullet lists all render. The <code>PLATFORM_HINTS</code> string is appended <em>after</em> <code>SOUL.md</code> in the final prompt, so any persona-level instruction about formatting silently loses to it. Gemini, Claude, and GPT families all obeyed the hint.
-        </p>
-
-        <p class="reveal">
-            No existing issue matched, so I filed <a href="https://github.com/NousResearch/hermes-agent/issues/12224" target="_blank" rel="noopener">Issue #12224</a> with the exact file and line, the full list of WhatsApp-supported syntax, a reproduction, and a suggested replacement hint.
-        </p>
-
-        <p class="reveal">
-            Still open at time of publishing. My local tree has a two-line replacement that lists the actual supported syntax; I will revert it when upstream lands a fix.
-        </p>
-
-        <h3 class="reveal">Bug 3: gbrain ships with OpenAI embeddings hardcoded (<a href="https://github.com/garrytan/gbrain/pull/89" target="_blank" rel="noopener">gbrain PR #89</a>, open)</h3>
-
-        <p class="reveal">
-            gbrain <code>v0.12.0</code> out of the box requires an <code>OPENAI_API_KEY</code> for embeddings. The embed path in <code>src/core/embedding.ts</code> is hardwired to <code>text-embedding-3-small</code>. For a solo founder running the orchestration layer on a free Gemini OAuth tier, that default adds a pay-per-token OpenAI dependency to what is otherwise a zero-marginal-cost setup. Not a bug per the code, but a default that silently undoes the whole cost argument for anyone who already has Gemini credentials wired.
-        </p>
-
-        <p class="reveal">
-            A community PR was already open as <a href="https://github.com/garrytan/gbrain/pull/89" target="_blank" rel="noopener">PR #89</a> ("feat: Gemini embedding support via GEMINI_API_KEY env var, zero-config, free tier") by <code>flychicken067</code>. I checked it out, confirmed the 1536-dim Gemini embedding path works cleanly on the same 107-page corpus, and left <a href="https://github.com/garrytan/gbrain/pull/89#issuecomment-4274185128" target="_blank" rel="noopener">a comment with my repro steps</a>.
-        </p>
-
-        <p class="reveal">
-            Repro is short: <code>gh pr checkout 89 -R garrytan/gbrain && bun install && GEMINI_API_KEY=... bun ./src/core/embedding.ts</code> prints <code>dim: 1536</code> and the knowledge layer costs nothing going forward. Still open upstream. The local checkout is the working path until it merges.
+            The third issue was a default in the knowledge layer that made one provider path the only practical path. A community PR already existed, so I checked it locally against my corpus and left confirmation on <a href="https://github.com/garrytan/gbrain/pull/89#issuecomment-4274185128" target="_blank" rel="noopener">gbrain PR #89</a>. That is the healthiest version of open source: one person opens the path, another verifies it under real use, and the next user gets a better default.
         </p>
 
         <h3 class="reveal">The general shape</h3>
 
         <p class="reveal">
-            Running open-source tooling that is in rapid development carries a small tax. Source trees change faster than docs, defaults age out of date, upstream assumptions lag the services they talk to, and occasionally you have to read the change log, reproduce in isolation, write a useful comment, and carry a local patch for a few days. It is a reasonable tax. Closed services cost more money and teach less. Each of the three patches above took under an hour from noticing the symptom to having a working fix with a public trail the next user can follow.
+            Running open-source tooling that is in rapid development carries a small tax. Source trees change faster than docs, defaults age out of date, and upstream assumptions lag the services they talk to. The right response is not theatrics. It is calm reproduction, useful comments, and small reversible patches. That is the craft.
         </p>
 
         <h2 class="reveal">Separation of Concerns</h2>
 
         <p class="reveal">
-            The useful part was the boundary itself. Before the Mini, my MacBook Pro held personal sessions, drafts, photos, notes, Luminik's production telemetry, and the agent's memory. One box meant one operational boundary.
+            The useful part was the boundary itself. Before this change, personal work, interactive development, company context, and recurring agent work all shared the same operational surface. That made the system easy to start and harder to trust.
         </p>
 
         <p class="reveal">
-            After the Mini, there are two. The MacBook Pro is the personal layer and the interactive work surface. Alfred is the company's always-on operations layer. It has its own AWS identity, its own Azure service principal, its own Google Cloud service account, its own Slack app with its own scopes. When the MacBook Pro closes, Alfred keeps running. When Alfred restarts, the MacBook Pro is unaffected. Credentials are divided along the same lines the work is divided.
+            After the change, there are two layers. One is the founder's interactive workspace. The other is the company's recurring operations layer. They have different context, different permissions, different schedules, and different failure modes. That sounds simple because it is simple. It is also the thing that makes the rest of the setup legible.
         </p>
 
         <p class="reveal">
-            Calling this "separation of concerns" sounds obvious because it is obvious. The value came from applying it to agent operations: inventory drift became visible, the agent's responsibility became easier to name, and my MacBook Pro could sleep without stopping scheduled company work.
+            This is the part of agent infrastructure that deserves more attention. Autonomy is less interesting than accountability. A recurring agent should have a role you can explain, a boundary you can audit, and an output you can review.
         </p>
 
         <h2 class="reveal">What I Would Recommend</h2>
 
         <p class="reveal">
-            Not every solo builder needs this. If you are pre-product and iterating on a first draft, a laptop is enough. The setup time is real and you should earn the need for it first.
+            Not every solo builder needs this. If you are still shaping a first prototype, a laptop and disciplined notes are enough. Earn the complexity.
         </p>
 
         <p class="reveal">
-            You have earned the need when three things are true at once. Agents are producing enough work overnight that you lose signal by missing it. Your specs or <code>CLAUDE.md</code> files are authoritative context you update often. And at least one workflow would benefit from running on a schedule instead of when you remember to run it.
+            You have earned the need when three things are true at once. Agents are producing enough work that review, memory, and follow-up start to blur. Your specs or <code>CLAUDE.md</code> files are authoritative context you update often. And at least one workflow would benefit from running on a schedule instead of when you remember to run it.
         </p>
 
         <p class="reveal">
-            When those are true, here is the minimum setup I would suggest:
+            When those are true, the minimum setup is conceptual:
         </p>
 
         <div class="glass-card reveal" style="padding: 24px; margin: 24px 0;">
-            <h4 style="margin-bottom: 16px; color: var(--color-text-primary);">A physical machine, not a cloud instance.</h4>
-            <p style="color: var(--color-text-secondary); margin: 0;">A Mac Mini M4 with 16 GB of RAM covers this work comfortably and depreciates slower than a comparable cloud instance costs per year. It also keeps OAuth tokens in a Keychain you control, which matters more than it seems. A cloud equivalent requires extra IAM and OIDC work to replicate what a desktop gives you for free.</p>
+            <h4 style="margin-bottom: 16px; color: var(--color-text-primary);">A separate environment.</h4>
+            <p style="color: var(--color-text-secondary); margin: 0;">Use a machine or workspace whose job is company operations, not personal browsing, private notes, and interactive development. The boundary matters more than the vendor choice.</p>
         </div>
 
         <div class="glass-card reveal" style="padding: 24px; margin: 24px 0;">
-            <h4 style="margin-bottom: 16px; color: var(--color-text-primary);">A cheap model for scheduling, a frontier model for implementation.</h4>
-            <p style="color: var(--color-text-secondary); margin: 0;">The orchestration layer does not need Opus or GPT-5. It needs to be fast, cheap, and always on. Gemini Flash on the free OAuth tier is enough. Reserve the frontier model for the tasks that benefit from it: real code, long analyses, drafting. Hermes Agent handles the split cleanly via ACP delegation.</p>
+            <h4 style="margin-bottom: 16px; color: var(--color-text-primary);">Fit-for-purpose models.</h4>
+            <p style="color: var(--color-text-secondary); margin: 0;">Routing, summarization, and implementation are different jobs. Treat model choice as an architecture decision, not a loyalty program.</p>
         </div>
 
         <div class="glass-card reveal" style="padding: 24px; margin: 24px 0;">
-            <h4 style="margin-bottom: 16px; color: var(--color-text-primary);">Read-only identities by default.</h4>
-            <p style="color: var(--color-text-secondary); margin: 0;">Give the always-on machine its own identity on every cloud (AWS IAM, Azure SP, GCP SA), scoped tighter than your own. Read-only is almost always enough for a monitoring layer. Writes should go through Terraform or a human-approved path. If the machine is compromised, information is at risk. Operations are not.</p>
+            <h4 style="margin-bottom: 16px; color: var(--color-text-primary);">Inspection before mutation.</h4>
+            <p style="color: var(--color-text-secondary); margin: 0;">Default recurring agents toward read, compare, summarize, draft, and open reviewable work. Let writes move through the same approval path you would expect from a careful teammate.</p>
         </div>
 
         <div class="glass-card reveal" style="padding: 24px; margin: 24px 0;">
             <h4 style="margin-bottom: 16px; color: var(--color-text-primary);">A queryable knowledge layer, not a static file.</h4>
-            <p style="color: var(--color-text-secondary); margin: 0;">Static <code>CLAUDE.md</code> files are necessary for in-repo conventions. Cross-session memory wants a real retrieval layer. gbrain is the cleanest open-source option I have tried. The nightly re-ingest is what keeps the drift manageable over weeks and months.</p>
+            <p style="color: var(--color-text-secondary); margin: 0;">Static <code>CLAUDE.md</code> files are necessary for in-repo conventions. Cross-session memory wants retrieval, citations, and freshness checks.</p>
         </div>
 
         <div class="glass-card reveal" style="padding: 24px; margin: 24px 0;">
@@ -457,43 +384,39 @@ OpenAI(api_key="not-used", base_url=..., default_headers={"x-goog-api-key": &lt;
         <h2 class="reveal">Where This Is Going</h2>
 
         <p class="reveal">
-            I did not set up a Mac Mini to have a 24/7 agent. I set it up because a single founder should not be the only operations layer of their own company, and the existing tooling made it cheap to stop being that.
+            I did not set up a dedicated environment because "24/7 agent" sounds futuristic. I did it because a single founder should not be the only operations layer of the company.
         </p>
 
         <p class="reveal">
-            Luminik, like any company, is a collection of recurring jobs. Monitoring production. Reading customer signal. Keeping docs in sync with code. Drafting outbound. Answering the small lookups that would otherwise sit half-resolved in a browser tab for a week. Most of these jobs share a shape: a trigger, a context, a set of actions, a place to put the output. It is the same shape of work that used to require a person.
+            Luminik, like any company, is a collection of recurring jobs. Keeping docs in sync with code. Reviewing the gap between intent and implementation. Turning customer signal into sharper product decisions. Noticing operational drift. Most of these jobs share a shape: trigger, context, action, output, review.
         </p>
 
         <p class="reveal">
-            What I am building toward is a small number of named agents, each with a scoped role, a scoped identity, a scoped slice of the brain, and an explicit accountability contract. Some tasks can run on their own. Some need my approval. The contract matters more than the persona.
+            What I am building toward is a small number of scoped agent roles, each with a clear slice of context and an explicit accountability contract. Some tasks can run on their own. Some need my approval. The contract matters more than the persona.
         </p>
 
         <p class="reveal">
-            The Mini is the substrate that has to exist for that to work. An always-on machine. Separated identities. A queryable brain. Scheduled jobs that run without being told. None of it is the finished product. It is the coordination layer a solo founder needs to run a company that looks, from the outside, like it has a small team.
+            The dedicated environment is the substrate that has to exist for that to work: always-on runtime, separated context, queryable memory, and scheduled jobs that produce reviewable output. None of it is the finished product. It is the coordination layer a solo founder needs to run a company with the discipline of a larger team.
         </p>
 
         <p class="reveal">
-            Today there is one role filled: an operations agent that monitors, remembers, and answers. The next ones are already queued in my head. A GTM agent that drafts outbound with context from the brain and flags the follow-ups I owe. A product-research agent that ingests customer conversations and surfaces patterns across them. A devops agent that is allowed to read everywhere and write only through a human-approved path. Each gets its own identity, its own slice of the brain, its own scope.
+            The claim I am testing is that this shape of company scales further than the version where the founder sits inside every loop. The first lesson is already clear: the quality of an agent system is mostly the quality of its boundaries.
+        </p>
+
+        <h2 class="reveal">What's Next</h2>
+
+        <p class="reveal">
+            Near-term: better drift detection between specs and code, clearer review queues for recurring work, and tighter source attribution for any agent-generated summary. The point is not more agents. The point is fewer unclosed loops.
         </p>
 
         <p class="reveal">
-            The claim I am testing is that this shape of company scales further than the version where the founder sits inside every loop. I cannot prove that yet from my own setup. The Mac Mini is the first operational boundary in that experiment.
-        </p>
-
-        <h2 class="reveal">What's Next, Tactically</h2>
-
-        <p class="reveal">
-            Near-term: a weekly spec-versus-code drift detector. Migrating the CI agents across my Luminik repos off a pay-per-token setup onto this Mini's Claude Max delegation path. A Tailscale layer so I can reach the Mini from my MacBook Pro or phone when I am traveling.
-        </p>
-
-        <p class="reveal">
-            Medium-term: the second and third agents. Scoped to the recurring job shapes above that are still mine to do. Same discipline each time: own identity, own slice of the brain, explicit contract. None of that is theoretical. The substrate is already running.
+            Medium-term: more scoped roles around the recurring job shapes that still sit with me. Same discipline each time: bounded context, bounded authority, explicit contract, reviewable output.
         </p>
 
         <div class="section-divider reveal"></div>
 
         <p class="reveal" style="font-style: italic; color: var(--color-text-tertiary);">
-            If you are setting up something similar and hit a snag I would recognize, or if you have found a better separation than the one described here, I would like to hear about it. Reach out on <a href="https://linkedin.com/in/prasadus" target="_blank" rel="noopener">LinkedIn</a>.
+            Agent infrastructure is less about autonomy than accountability. The boundary is the product.
         </p>
 
         <!-- Author Info -->

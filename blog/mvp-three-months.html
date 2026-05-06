@@ -277,17 +277,17 @@
         <h3 class="reveal">Week 1-2: The Core Loop</h3>
 
         <p class="reveal">
-            The first thing I built was the core user flow: create a job, assign it to a technician, mark it complete. No login system (I hardcoded a test user). No database migrations (I reset the database constantly). No error handling beyond basic try-catch.
+            The first thing I built was the core user flow: create a job, assign it to a technician, mark it complete. Everything else was subordinate to that loop. Access, persistence, reporting, and polish only mattered if the core loop was worth using.
         </p>
 
         <p class="reveal">
-            By the end of week 2, I could demo the core flow to customers. It was ugly and broken in dozens of ways, but it showed the idea clearly enough to get feedback.
+            By the end of week 2, I could demo the core flow to customers. It was narrow, but it was coherent. That was enough to make the conversation specific.
         </p>
 
         <h3 class="reveal">Week 3-4: Just Enough Authentication</h3>
 
         <p class="reveal">
-            Only after validating the core loop did I add user accounts. I used Spring Security with the simplest possible configuration: username/password, no OAuth, no social login, and no password reset (I'd manually reset passwords via database).
+            Only after validating the core loop did I add access control. The goal was not to design a complete identity platform. The goal was to let real users try the product safely without pulling the roadmap toward infrastructure too early.
         </p>
 
         <figure class="post-visual reveal">
@@ -337,18 +337,18 @@
             This ordering is important. If I'd started with infrastructure, I'd have a beautiful deployment pipeline and no product. By leaving it until the end, I ensured I was only building infrastructure for something that actually worked.
         </p>
 
-        <h3 class="reveal">What I Deliberately Skipped</h3>
+        <h3 class="reveal">What I Deliberately Deferred</h3>
 
         <ul class="reveal">
-            <li><strong>Unit tests:</strong> Yes, this is heresy. But for an MVP where code will be rewritten anyway, extensive testing is premature optimization.</li>
-            <li><strong>Documentation:</strong> I was the only developer. I'd document when there was someone else to read it.</li>
-            <li><strong>Performance optimization:</strong> With a handful of users, performance doesn't matter. Optimize later.</li>
-            <li><strong>Mobile responsiveness:</strong> The desktop version came first. Mobile could wait.</li>
-            <li><strong>Internationalization:</strong> We launched in one market with one language.</li>
+            <li><strong>Advanced permissions:</strong> The first customers needed clear ownership, not an enterprise policy engine.</li>
+            <li><strong>Deep analytics:</strong> I needed enough usage signal to learn, not a dashboard that pretended the product was mature.</li>
+            <li><strong>Complex automation:</strong> Manual steps were acceptable where they helped me understand the workflow better.</li>
+            <li><strong>Native mobile:</strong> The first usage pattern was operational and desktop-led, so mobile could follow the evidence.</li>
+            <li><strong>Multi-market polish:</strong> The first wedge was one market, one workflow, and one narrow buyer pain.</li>
         </ul>
 
         <p class="reveal">
-            Each of these is important eventually. None of them matter for proving the initial hypothesis.
+            Each of these can become important. None of them was the fastest path to proving the initial hypothesis.
         </p>
 
         <h2 class="reveal">Tech Stack Decisions: Boring is Beautiful</h2>
@@ -403,7 +403,7 @@
         </p>
 
         <p class="reveal">
-            Nobody says no to this. You're not selling; you're asking for help. People love giving advice.
+            Enough people said yes because the ask was specific and respectful. I was not asking them to buy a finished product. I was asking whether the workflow I was attacking matched a real operational pain.
         </p>
 
         <p class="reveal">
@@ -421,11 +421,11 @@
         </p>
 
         <p class="reveal">
-            The trick was being honest about the product's state. I told prospects exactly what worked and what didn't. I promised to fix things quickly when they broke. I gave them my personal phone number for support.
+            The trick was being honest about the product's state. I told prospects exactly what worked, what was still immature, and how quickly I would respond when something blocked their workflow.
         </p>
 
         <p class="reveal">
-            Early customers don't expect perfection. They expect to be heard. If you can demonstrate that their feedback directly shapes the product, they'll tolerate rough edges.
+            Early customers do not expect perfection. They expect seriousness. If feedback turns into visible product improvement, the relationship changes from vendor evaluation to co-creation.
         </p>
 
         <h2 class="reveal">The Fundraising Inflection Point</h2>
@@ -435,7 +435,7 @@
         </p>
 
         <p class="reveal">
-            The seed round came together quickly after that. Investors could see a product, talk to real customers, and evaluate actual usage data. This is infinitely more compelling than a pitch deck alone.
+            The seed round came together quickly after that. Investors could see a product, talk to real customers, and evaluate actual usage data. A working product changed the conversation more than another slide ever could.
         </p>
 
         <p class="reveal">
@@ -475,13 +475,13 @@
         <h3 class="reveal">Change: More Aggressive on Pricing</h3>
 
         <p class="reveal">
-            I underpriced initially because I lacked confidence. Customers who would have paid more were happy to pay less. This left money on the table and made the unit economics look worse than they should have.
+            I would have tested pricing with more confidence. Early price points teach the market what kind of product you believe you are building.
         </p>
 
-        <h3 class="reveal">Change: Better Error Handling</h3>
+        <h3 class="reveal">Change: Better Observability Earlier</h3>
 
         <p class="reveal">
-            Skipping comprehensive error handling saved time initially but cost more later. Some balance between "perfect error handling" and "no error handling" would have been smarter.
+            I would add lightweight observability earlier. Not a heavy enterprise setup. Just enough structured logging, usage events, and failure visibility to know where customers were getting stuck before they had to tell me.
         </p>
 
         <h2 class="reveal">The Solo Developer Advantage</h2>
@@ -495,11 +495,11 @@
         </p>
 
         <p class="reveal">
-            Three months. One developer. One product. Three customers. That's all it took to prove the idea was worth pursuing.
+            Three months, one developer, one narrow product, and three paying customers were enough to prove the idea deserved more ambition.
         </p>
 
         <p class="reveal">
-            The rest is execution.
+            The point was not that one developer should stay alone forever. The point was that the first proof did not require an organization. It required a narrow problem, direct customer contact, and enough engineering judgment to keep the loop moving.
         </p>
 
         <div class="section-divider reveal"></div>
@@ -513,12 +513,12 @@
                 <li style="margin-bottom: 8px;">Build the core loop first, infrastructure last.</li>
                 <li style="margin-bottom: 8px;">Use boring technology you know well.</li>
                 <li style="margin-bottom: 8px;">Start customer conversations before you start coding.</li>
-                <li>Ship fast, iterate faster, perfect later.</li>
+                <li>Ship narrow, learn quickly, and keep quality proportional to customer risk.</li>
             </ol>
         </div>
 
         <p class="reveal" style="font-style: italic; color: var(--color-text-tertiary);">
-            Have questions about building your MVP or navigating early company-building work? Feel free to reach out. I'm always happy to chat with founders who are in the trenches.
+            Early products do not need to look big. They need to make one customer problem unmistakably real.
         </p>
 
         <!-- Author Info -->
