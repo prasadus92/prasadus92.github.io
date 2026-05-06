@@ -1,14 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 
 /**
- * ProofStrip — animated proof-point grid for the homepage and blog hero.
+ * ProofStrip: animated proof-point grid for the homepage and blog hero.
  *
  * Mirrors the Luminik marketing-site island pattern: a small interactive
  * component that renders a Stripe-style ledger of public-safe credibility
- * proof points. Each point counts up on first viewport intersection. Numbers
- * stay locked to the public proof list (Aura $3.6M ARR, Mainteny $2.7M seed,
- * Mainteny first MVP solo in 3 months); strings come from props so they can
- * be reused across pages without duplicating values.
+ * proof points. Each point counts up on first viewport intersection. Strings
+ * come from props so the approved evidence anchors stay centralized on the
+ * page that uses the island.
  */
 
 export type ProofPoint = {
