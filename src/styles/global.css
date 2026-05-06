@@ -1665,6 +1665,48 @@ img {
   padding: 28px;
 }
 
+.booking-hero {
+  padding-top: 150px;
+  padding-bottom: 52px;
+}
+
+.booking-hero-inner {
+  max-width: 900px;
+}
+
+.booking-shell {
+  max-width: 1040px;
+}
+
+.booking-shell .section-header {
+  margin-bottom: 28px;
+}
+
+.cal-embed {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.cal-embed-frame {
+  width: 100%;
+  min-height: 720px;
+  overflow: auto;
+}
+
+.booking-fallback {
+  margin-top: 16px;
+  color: var(--text-3);
+  font-size: 0.92rem;
+  text-align: center;
+}
+
+.booking-fallback a {
+  color: var(--green);
+}
+
 .footer {
   border-top: 1px solid var(--line);
   padding: 34px 0;

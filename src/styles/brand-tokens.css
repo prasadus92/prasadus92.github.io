@@ -33,21 +33,21 @@
   --foreground:           222 47% 11%;
   --card:                 0 0% 100%;
   --card-foreground:      222 47% 11%;
-  --primary:              160 84% 39%;      /* emerald-600 */
+  --primary:              160 84% 28%;      /* emerald-700, dark enough for white text */
   --primary-foreground:   0 0% 100%;
-  --primary-hover:        160 90% 32%;
+  --primary-hover:        160 90% 23%;
   --secondary:            217 91% 60%;      /* sky-500 */
   --secondary-foreground: 0 0% 100%;
   --muted:                210 40% 96%;
   --muted-foreground:     215 20% 38%;      /* lifted from prior 0.64 alpha for AA margin */
-  --accent:               160 84% 39%;
+  --accent:               160 84% 28%;
   --accent-foreground:    0 0% 100%;
   --warning:              38 92% 50%;
   --destructive:          0 84% 60%;
   --success:              160 70% 45%;
   --border:               214 32% 88%;
   --border-strong:        215 20% 70%;
-  --ring:                 160 84% 39%;
+  --ring:                 160 84% 28%;
 
   --text-primary:         222 47% 11%;
   --text-secondary:       222 30% 25%;
