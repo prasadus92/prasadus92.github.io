@@ -1,6 +1,6 @@
 ---
 /**
- * Seo — single source of truth for the <head> schema, OG, Twitter, robots,
+ * Seo: single source of truth for the <head> schema, OG, Twitter, robots,
  * and AI-discoverability metadata on prasad.tech.
  *
  * Mirrors the @graph pattern used on luminik.io: one linked knowledge graph
@@ -46,7 +46,7 @@ const {
   title = SITE_TITLE,
   description = SITE_DESCRIPTION,
   ogImage = '/og/prasad-og.png',
-  ogImageAlt = 'Prasad Subrahmanya — Founder of Luminik, solo builder field notes',
+  ogImageAlt = 'Prasad Subrahmanya | Founder of Luminik, solo builder field notes',
   type = 'website',
   canonical: canonicalProp,
   noindex = false,
@@ -56,7 +56,7 @@ const {
 } = Astro.props;
 
 const canonical = canonicalProp ?? new URL(Astro.url.pathname, SITE_URL).toString();
-const fullTitle = title === SITE_TITLE ? `${title} — Founder, Builder, Operator` : `${title} | ${SITE_TITLE}`;
+const fullTitle = title === SITE_TITLE ? `${title} | Founder, Builder, Operator` : `${title} | ${SITE_TITLE}`;
 const ogImageUrl = ogImage.startsWith('http') ? ogImage : new URL(ogImage, SITE_URL).toString();
 
 const WEBPAGE_ID = `${canonical}#webpage`;
