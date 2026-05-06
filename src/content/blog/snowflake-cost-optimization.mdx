@@ -14,9 +14,9 @@ import CompareTable from '../../components/post/CompareTable.astro';
 import StatRow from '../../components/post/StatRow.astro';
 import PullQuote from '../../components/post/PullQuote.astro';
 
-<p class="reveal">
+<div class="reveal">
   SnowOptix started as a narrow tool for a Snowflake cost problem I understood directly. It earned real use, including adoption by a top-3 global consulting firm. The more important outcome was the set of conversations it created. Those conversations surfaced a different problem: B2B teams were spending heavily on events, but the handoffs across attendee lists, enrichment, outreach, booth activity, and CRM attribution were fragile. That opportunity became Luminik.
-</p>
+</div>
 
 <KeyTakeaway label="The argument in one paragraph">
   I did not pivot from a plan. I followed customer evidence the side project made visible. The discovery came from the follow-up questions buyers asked after the demo, not from market-size reports. Side projects are useful as discovery mechanisms because a working artifact opens conversations a thesis cannot.
@@ -55,13 +55,13 @@ import PullQuote from '../../components/post/PullQuote.astro';
 
 <h2 class="reveal">How SnowOptix Started</h2>
 
-<p class="reveal">
+<div class="reveal">
   At a previous role, the Snowflake bill kept growing. Queries were inefficient, warehouses were over-provisioned, and the data team was focused on shipping features, not reducing costs. Common pattern in fast-growing startups: optimize for speed, not efficiency. Eventually the bill gets large enough that someone notices.
-</p>
+</div>
 
-<p class="reveal">
+<div class="reveal">
   Snowflake exposes plenty of metadata about query performance, warehouse utilization, and storage patterns. The data is scattered across multiple system views, and turning it into actionable insights requires real engineering effort. So I built a tool. Nothing fancy at first: scripts that pulled the metadata, ran analysis, and generated recommendations like "this warehouse is idle 80% of the time, consider auto-suspend" or "these 10 queries account for 60% of your compute costs."
-</p>
+</div>
 
 <StatRow stats={[
   { value: "40%", label: "Savings identified", caption: "Measured on the Snowflake bill that started the project, before turning the scripts into a product." },
@@ -75,13 +75,13 @@ import PullQuote from '../../components/post/PullQuote.astro';
 
 <h2 class="reveal">The Conversations That Changed the Direction</h2>
 
-<p class="reveal">
+<div class="reveal">
   My first intention was to understand whether SnowOptix could be a real product. The calls gave me a different signal. Snowflake costs came up, but so did a broader coordination problem. Data and engineering leaders kept mentioning their go-to-market colleagues. The same shape of frustration showed up in different words: cost and governance problems on the data side, a messier coordination problem around events on the GTM side.
-</p>
+</div>
 
-<p class="reveal">
+<div class="reveal">
   I started asking for introductions. The conversations with GTM leaders were eye-opening.
-</p>
+</div>
 
 <Callout tone="info" title="The event-marketing problem (summarized from the calls)">
   <ul>
@@ -92,15 +92,15 @@ import PullQuote from '../../components/post/PullQuote.astro';
   </ul>
 </Callout>
 
-<p class="reveal">
+<div class="reveal">
   The pattern was consistent. Companies were spending heavily on events, and the process around events was still manual and fragmented. There was no system. Just a lot of individual effort.
-</p>
+</div>
 
 <h2 class="reveal">SnowOptix vs Luminik: The Decision to Pivot</h2>
 
-<p class="reveal">
+<div class="reveal">
   This is the moment that matters. SnowOptix was solving a real problem for real companies, including a top-3 global consulting firm. I could have doubled down. The event marketing problem was clearly bigger. The pain was more acute. The willingness to pay was higher.
-</p>
+</div>
 
 <CompareTable
   caption="Three lenses for the choice. The third one (timing) is the lens that ultimately decided it."
@@ -119,9 +119,9 @@ import PullQuote from '../../components/post/PullQuote.astro';
 
 <h2 class="reveal">Why Following Curiosity Beats Following Plans</h2>
 
-<p class="reveal">
+<div class="reveal">
   If I had sat down at the start of last year and tried to identify the biggest market opportunity in B2B software, I would not have landed on event marketing. I would have looked at market size reports and competitive landscapes and come up with something obvious. Instead, I followed my curiosity. I built something to solve my own problem. That led to conversations. The conversations led to insights. The insights led to a bigger opportunity. This is how discovery actually works.
-</p>
+</div>
 
 <h2 class="reveal">Side Projects as Discovery Mechanisms</h2>
 

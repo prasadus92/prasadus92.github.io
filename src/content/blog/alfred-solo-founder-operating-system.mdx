@@ -23,13 +23,13 @@ import RoleCard from '../../components/post/RoleCard.astro';
 import CompareTable from '../../components/post/CompareTable.astro';
 import StatRow from '../../components/post/StatRow.astro';
 
-<p class="reveal">
+<div class="reveal">
   I run Luminik on my own. The product, the customers, the GTM, and the operating model all live in one head. That works at low scope. It stops working the moment "recurring company work" becomes a real category of its own.
-</p>
+</div>
 
-<p class="reveal">
+<div class="reveal">
   Alfred is my answer. It is a small fleet of role contracts around work that needs to happen repeatedly, with a review surface where outputs land and one founder who still owns every consequential decision. This post explains the public-safe shape: what each role needs to know, what it can produce, and which parts I am preparing to open source.
-</p>
+</div>
 
 <KeyTakeaway label="The model in one paragraph">
   Alfred is a set of role contracts around recurring company work: operations, content, community, sales, finance, product health, engineering implementation, review, testing, and coordination. The private runtime is less important than the contract. Each role reads approved context, produces reviewable output, cites its sources, and waits for human approval before anything ships.
@@ -43,9 +43,9 @@ import StatRow from '../../components/post/StatRow.astro';
 
 <h2 class="reveal">The Two Layers</h2>
 
-<p class="reveal">
+<div class="reveal">
   Alfred is not one big agent. It splits into two layers, and the split matters because it lines up with how a real company is actually built.
-</p>
+</div>
 
 <CompareTable
   caption="Two-layer split. One layer maps to company functions. The other maps to engineering workflows."
@@ -62,9 +62,9 @@ import StatRow from '../../components/post/StatRow.astro';
 
 <h2 class="reveal">Layer One: Six Departments</h2>
 
-<p class="reveal">
+<div class="reveal">
   Each department is the agent equivalent of one recurring job I would otherwise have to remember manually. The contract is small: read approved context, prepare reviewable output, and surface the decision without taking it.
-</p>
+</div>
 
 <div class="role-grid">
   <RoleCard
@@ -138,9 +138,9 @@ import StatRow from '../../components/post/StatRow.astro';
 
 <h2 class="reveal">Layer Two: Engineering Workflows</h2>
 
-<p class="reveal">
+<div class="reveal">
   Engineering is dense enough that the role contracts split again. Each one owns one slice of the engineering function: coordination, implementation, tests, monitoring, review, and notification. The public lesson is the boundary, not the private dispatch wiring.
-</p>
+</div>
 
 <div class="role-grid">
   <RoleCard
@@ -248,9 +248,9 @@ import StatRow from '../../components/post/StatRow.astro';
 
 <h2 class="reveal">The Five Questions a Role Has to Answer</h2>
 
-<p class="reveal">
+<div class="reveal">
   Before any role goes live, it has to answer five questions in writing. The questions live as the role's instruction file. If any answer is vague, the role is not ready.
-</p>
+</div>
 
 <ol class="reveal">
   <li><strong>What context can it read?</strong> Specific files, repos, public docs, and approved private notes required for the task.</li>
@@ -260,9 +260,9 @@ import StatRow from '../../components/post/StatRow.astro';
   <li><strong>What requires my approval?</strong> The line between draft and ship. I want this line obvious enough that a tired founder cannot accidentally cross it.</li>
 </ol>
 
-<p class="reveal">
+<div class="reveal">
   I use the same five questions to retire roles. Two early agents got cut because I could not write a clean answer to question two. They were doing too much.
-</p>
+</div>
 
 <h2 class="reveal">What Has Worked</h2>
 
@@ -282,19 +282,19 @@ import StatRow from '../../components/post/StatRow.astro';
 
 <h2 class="reveal">Why Solo Builders Need This More</h2>
 
-<p class="reveal">
+<div class="reveal">
   A team has imperfect but real safeguards. Standups, code reviews, review threads, shared calendars, peer correction. A solo builder has none of those by default. The upside is speed. The downside is that every gap routes back to one person.
-</p>
+</div>
 
-<p class="reveal">
+<div class="reveal">
   Agents do not remove the need for operating design. They make operating design more important. When the work gets cheaper to generate, the review queue becomes the scarce resource.
-</p>
+</div>
 
 <h2 class="reveal">What I Plan to Open Source</h2>
 
-<p class="reveal">
+<div class="reveal">
   Alfred itself will not be open source soon. Role contracts, company context, and private adapters are entangled in ways that would leak company internals. The reusable parts are different. Other solo founders are rebuilding the same scaffolding I did. There is no reason to keep that scaffolding private.
-</p>
+</div>
 
 <ul class="reveal">
   <li><strong>Role contracts.</strong> Markdown templates that answer the five questions for chief of staff, content, sales, ops, and engineering subagent roles.</li>
@@ -304,9 +304,9 @@ import StatRow from '../../components/post/StatRow.astro';
   <li><strong>A local runner shape.</strong> Enough structure for scheduled jobs and reviewable output without my private adapters.</li>
 </ul>
 
-<p class="reveal">
+<div class="reveal">
   The release will be patterns first, code second. A solo founder can adopt the role contracts and run them inside Claude Code, Cursor, or any agent harness they prefer. The harness is replaceable. The contracts are what stay.
-</p>
+</div>
 
 <KeyTakeaway label="The standard I use now">
   Alfred is good when its work is reviewable, source-linked, and bounded. It is bad when I notice it deciding things I should be deciding. Solo builders need recurring work to stay visible and reviewable while the founder remains responsible for the decisions that matter.

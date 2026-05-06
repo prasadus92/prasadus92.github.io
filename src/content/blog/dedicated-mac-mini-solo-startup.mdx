@@ -14,9 +14,9 @@ import CompareTable from '../../components/post/CompareTable.astro';
 import StatRow from '../../components/post/StatRow.astro';
 import PullQuote from '../../components/post/PullQuote.astro';
 
-<p class="reveal">
+<div class="reveal">
   I moved Luminik's recurring agent work off my development machine and onto a small always-on box at home. The decision sounds like an infrastructure detail. It was actually about boundaries: what the agent layer can read, what it can change, where the output lands, and which calls still need my approval.
-</p>
+</div>
 
 <KeyTakeaway label="The argument in one paragraph">
   My daily machine is for interactive work. Recurring company work has a different shape. It needs continuity, current context, and a review path that does not depend on which meeting I happen to be in. Once recurring agent work outgrows the daily-machine model, the answer is less about hardware and more about a distinct surface, a queryable memory, and a clear approval boundary.
@@ -36,15 +36,15 @@ import PullQuote from '../../components/post/PullQuote.astro';
   ]}
 />
 
-<p class="reveal">
+<div class="reveal">
   The separation is an old engineering idea. Build machines and development machines have often been different boxes. The difference here is that the background layer is not just a build runner. It holds context, answers questions, and routes work to the right tool. The architecture matters because it makes accountability visible.
-</p>
+</div>
 
 <h2 class="reveal">The Operating Shape</h2>
 
-<p class="reveal">
+<div class="reveal">
   I think about the setup less as a toolchain and more as an operating shape. Five layers, each with a clear job. Models will change. Agent runners will change. Local and cloud environments will keep trading advantages. The durable part is the split between context, execution, and approval.
-</p>
+</div>
 
 <Callout tone="note" title="Five layers I keep visible">
   <ul>
@@ -91,9 +91,9 @@ import PullQuote from '../../components/post/PullQuote.astro';
 
 <h3 class="reveal">Company memory</h3>
 
-<p class="reveal">
+<div class="reveal">
   CLAUDE.md files solve one level of this. Each repo reminds the agent of its own conventions. The scope is a single repo. Company memory is broader: what Luminik calls itself, why the architecture works the way it does, which trade-offs are settled, and which claims are safe to make in public. That context needs to be queryable and cited. A static file is useful for one session. A retrieval layer is better for recurring work because it makes the agent show its sources before it acts.
-</p>
+</div>
 
 <figure class="post-visual reveal">
   <div class="post-visual-title">Context discipline for recurring agent work</div>
@@ -128,9 +128,9 @@ import PullQuote from '../../components/post/PullQuote.astro';
 
 <h3 class="reveal">Operational visibility</h3>
 
-<p class="reveal">
+<div class="reveal">
   Recurring agents should be able to inspect more than they can change. That one rule eliminates a large class of bad outcomes. The agent helps me notice drift, stale assumptions, and forgotten follow-up. It does not silently mutate infrastructure or product behavior. The first useful run produced a cleanup list: live state that needed reconciliation with declared state, old artifacts from past experiments, reminders I had let sit too long. The fixes were small PRs. The operating effect was larger.
-</p>
+</div>
 
 <PullQuote>
   Agents are useful when they increase what you can notice without increasing what they can damage.
@@ -138,15 +138,15 @@ import PullQuote from '../../components/post/PullQuote.astro';
 
 <h3 class="reveal">Scheduled maintenance</h3>
 
-<p class="reveal">
+<div class="reveal">
   Anything that needs to run on a schedule now has a place to run: context refresh, documentation drift checks, repository hygiene, release follow-up. None of these needs autonomy in the theatrical sense. They need consistency, source links, and a reviewable output.
-</p>
+</div>
 
 <h2 class="reveal">What the Setup Taught Me About Open Source</h2>
 
-<p class="reveal">
+<div class="reveal">
   Setup took longer than the READMEs suggested because a few assumptions in the tools were wrong or stale. Normal in fast-moving open-source software. The useful part was not the breakage. The useful sequence was simple: isolate the symptom, verify it outside my own setup, leave a public trail, and move on with a small local patch.
-</p>
+</div>
 
 <CompareTable
   caption="Three real upstream encounters during setup. Each one ended with a public trail and a working system."
@@ -159,15 +159,15 @@ import PullQuote from '../../components/post/PullQuote.astro';
   ]}
 />
 
-<p class="reveal">
+<div class="reveal">
   Running open-source tooling that is in rapid development carries a small tax. Source trees change faster than docs. Defaults age out of date. Upstream assumptions lag the services they talk to. The right response is calm reproduction, useful comments, and small reversible patches.
-</p>
+</div>
 
 <h2 class="reveal">Separation of Concerns</h2>
 
-<p class="reveal">
+<div class="reveal">
   The useful part was the boundary itself. Before this change, personal work, interactive development, company context, and recurring agent work all shared the same operational surface. After the change, there are two layers. One is the founder's interactive workspace. The other is the company's recurring operations layer. Different context, different permissions, different schedules, different failure modes.
-</p>
+</div>
 
 <KeyTakeaway label="The part of agent infrastructure that deserves more attention">
   Autonomy is less interesting than accountability. A recurring agent should have a role you can explain, a boundary you can audit, and an output you can review. Quality of an agent system is mostly the quality of its boundaries.
@@ -175,9 +175,9 @@ import PullQuote from '../../components/post/PullQuote.astro';
 
 <h2 class="reveal">When You Have Earned the Complexity</h2>
 
-<p class="reveal">
+<div class="reveal">
   Not every solo builder needs this. If you are still shaping a first prototype, a laptop and disciplined notes are enough. You have earned the need when three things are true at once. Agents are producing enough work that review, memory, and follow-up start to blur. Your specs or CLAUDE.md files are authoritative context you update often. And at least one workflow would benefit from running on a schedule instead of when you remember to run it.
-</p>
+</div>
 
 <Callout tone="info" title="The minimum setup, conceptually">
   <ul>
@@ -191,10 +191,10 @@ import PullQuote from '../../components/post/PullQuote.astro';
 
 <h2 class="reveal">Where This Is Going</h2>
 
-<p class="reveal">
+<div class="reveal">
   Luminik, like any company, is a collection of recurring jobs. Keeping docs in sync with code. Reviewing the gap between intent and implementation. Turning customer signal into sharper product decisions. Noticing operational drift. Most of these jobs share a shape: trigger, context, action, output, review. The dedicated environment is the substrate that has to exist for that to work: always-on runtime, separated context, queryable memory, and scheduled jobs that produce reviewable output. It is not the finished product. It is the coordination layer a solo founder needs to run a company with the discipline of a larger team.
-</p>
+</div>
 
-<p class="reveal" style="font-style: italic; color: var(--color-text-tertiary);">
+<div class="reveal" style="font-style: italic; color: var(--color-text-tertiary);">
   Background agents need bounded context, bounded authority, and reviewable output. That is the standard I am using for the next version of the setup.
-</p>
+</div>
