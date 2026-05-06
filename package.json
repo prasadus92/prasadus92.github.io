@@ -5,10 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "prebuild": "node scripts/generate-og.mjs",
+    "prebuild": "node scripts/generate-favicon.mjs && node scripts/generate-og.mjs",
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check",
+    "favicon": "node scripts/generate-favicon.mjs",
     "og": "node scripts/generate-og.mjs",
     "audit:site": "npm run build && node scripts/audit-site.mjs"
   },

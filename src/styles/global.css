@@ -3,11 +3,23 @@
  * so both sites feel like the work of the same operator. */
 @import './brand-tokens.css';
 
-/* Quicksand mirrors the Luminik product/marketing chrome. display=swap trades
- * a brief invisible-text moment for a guaranteed font load; locking the
- * fallback (display=optional) made first paint feel system-default on slow
- * networks. */
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+/* Quicksand mirrors the Luminik product/marketing chrome. The font files are
+ * local so the site, generated OG cards, and CI renders use the same face. */
+@font-face {
+  font-family: 'Quicksand';
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url('/assets/fonts/quicksand-latin.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400 500;
+  font-display: swap;
+  src: url('/assets/fonts/jetbrains-mono-latin.woff2') format('woff2');
+}
 
 /* Legacy aliases. Existing rules below reference --bg, --surface, --text,
  * --green, etc. — keep them working while the underlying source moves to the
