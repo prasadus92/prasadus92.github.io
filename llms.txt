@@ -15,7 +15,7 @@ Prasad Subrahmanya is a technical founder with 12+ years of experience building 
 ## Blog Articles
 
 ### Engineering
-- [A Dedicated Mac Mini for Luminik's Agents](https://prasad.tech/blog/dedicated-mac-mini-solo-startup.html) - Moving Luminik's scheduled agent work onto a dedicated Mac Mini M4 running Hermes Agent, Claude Code via ACP delegation, and a local gbrain knowledge base. Includes concrete writeups of three upstream bugs with links and repros.
+- [Separating Agent Work from Founder Work](https://prasad.tech/blog/dedicated-mac-mini-solo-startup.html) - Why Luminik's background agent work runs behind a clearer operational boundary, with notes on context, review, and public upstream learning.
 - [gstack, CLAUDE.md, and the Work That Frameworks Don't Cover](https://prasad.tech/blog/gstack-solo-builder.html) - Comparing gstack's approach to CLAUDE.md files and specs-driven development for solo product work
 - [What It Actually Costs to Build a Serious Product Alone in 2026](https://prasad.tech/blog/building-alone-in-2026.html) - The real cost structure of solo product development with AI tools
 
@@ -35,7 +35,7 @@ Prasad Subrahmanya is a technical founder with 12+ years of experience building 
 - [Building a $3.6M ARR Product Inside a Consulting Firm](https://prasad.tech/blog/zero-to-one-bain.html) - Lessons from building Aura at Bain & Company
 
 ### Fundraising
-- [What Raising a Seed Round Actually Took](https://prasad.tech/blog/raising-seed-round.html) - Six months, 87 investor conversations, and the cost of context switching during a raise
+- [Fundraising as Narrative Clarity](https://prasad.tech/blog/raising-seed-round.html) - What raising Mainteny's seed round taught me about investor fit, diligence readiness, product demos, and the CTO's role
 
 ### Product Development
 - [From Idea to MVP in 3 Months as the Only Developer](https://prasad.tech/blog/mvp-three-months.html) - Building Mainteny's MVP as sole technical person

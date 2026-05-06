@@ -19,6 +19,16 @@ This repository is public. Treat every committed line as internet-visible.
 - If a private source inspires a post, restate the idea from first principles and remove the private source details.
 - Never fabricate numbers, quotes, dates, customer outcomes, or timelines.
 
+## Public brand filter
+
+Assume every post is read by a VC, competitor, future employer, recruiter, customer, and security reviewer.
+
+- Publish proof of taste, judgment, operating discipline, technical depth, and customer understanding.
+- Do not publish operational manuals: exact internal schedules, credential patterns, cloud identities, private tool wiring, support channels, customer org charts, private quotes, unpublished metrics, or detailed security posture.
+- Avoid copy that makes Prasad look careless or small: no bragging about cheap/free tooling, skipped quality, chaotic fundraising, or heroic firefighting unless the lesson clearly strengthens the founder narrative.
+- Prefer public-safe specificity: name the principle, workflow shape, tradeoff, public artifact, or anonymized customer-safe scene. Cut details that help competitors copy the motion or give diligence readers unnecessary ammunition.
+- Before publishing, ask: does this sentence make Prasad look more inevitable, more trustworthy, and more thoughtful? If not, revise or cut it.
+
 ## Voice
 
 Prasad's public voice is direct, specific, technical when needed, and grounded in lived work. The writing should read like a founder explaining what he actually built, learned, sold, or changed.

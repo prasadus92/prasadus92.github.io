@@ -204,15 +204,15 @@
         <h3 class="reveal">1. Domain Context Is Harder to Encode Than Code Conventions</h3>
 
         <p class="reveal">
-            My <code>CLAUDE.md</code> files don't just encode engineering patterns. They encode business logic. Example: Luminik runs event marketing campaigns. My instruction files define ICP criteria for specific events, outreach sequence structures by persona segment, CRM field mappings, lead scoring thresholds, and attribution model rules.
+            My <code>CLAUDE.md</code> files don't just encode engineering patterns. They encode business logic. For Luminik, that means event-pipeline vocabulary, workflow boundaries, data-model assumptions, and the rules that keep source, enrich, sequence, capture, and attribute from drifting into five disconnected features.
         </p>
 
         <p class="reveal">
-            None of this is engineering knowledge. It's domain knowledge. And it changes constantly. After every client call, I'm updating instruction files with new target lists, revised ICP definitions, shifted priorities.
+            None of this is engineering knowledge. It is domain judgment. It changes as the product learns, and the instruction files have to change with it.
         </p>
 
         <p class="reveal">
-            gstack's <code>/plan-ceo-review</code> asks good product questions. But it can't ask "does this outreach sequence match the methodology we agreed on for Web Summit" or "is this lead classification consistent with the ICP criteria for this specific campaign." That judgment lives in my <code>CLAUDE.md</code> files and specs, and I update them weekly.
+            gstack's <code>/plan-ceo-review</code> asks good product questions. But it cannot know whether an event workflow still matches Luminik's current product assumptions unless those assumptions are written down somewhere the agent can read. That judgment lives in my <code>CLAUDE.md</code> files and specs, and I keep them current.
         </p>
 
         <p class="reveal">
@@ -226,7 +226,7 @@
         </p>
 
         <p class="reveal">
-            I maintain a dedicated specs repo. Not a task board. Not Jira. It contains business requirements broken into workflows, specific tasks with implementation details, data model definitions, integration contracts, UI/UX requirements, and testing criteria. All my agent sessions reference it.
+            I maintain a dedicated specs repo. Not a task board. Not Jira. It contains business requirements broken into workflows, data model definitions, integration contracts, UI/UX requirements, and testing criteria. All my agent sessions reference it.
         </p>
 
         <p class="reveal">
@@ -238,7 +238,7 @@
         </p>
 
         <p class="reveal">
-            An update since I wrote this: part of the answer turned out to be a hardware-level shift, not a framework one. Moving the specs into a local knowledge graph that a 24/7 agent re-ingests nightly shrinks the drift window from "whenever I remember to look" to "since 3am." I wrote up that setup in <a href="dedicated-mac-mini-solo-startup.html">A Dedicated Mac Mini for Luminik's Agents</a>.
+            An update since I wrote this: part of the answer turned out to be an operating-boundary shift, not a framework one. Moving approved context into a queryable layer shrinks the drift window from "whenever I remember to look" to "the next scheduled check." I wrote up that setup in <a href="dedicated-mac-mini-solo-startup.html">Separating Agent Work from Founder Work</a>.
         </p>
 
         <h3 class="reveal">3. Parallel Agents Need Isolation, Not Just Roles</h3>
@@ -262,7 +262,7 @@
         </p>
 
         <p class="reveal">
-            But my most valuable days on Luminik are often the ones with the fewest lines committed. Last month I spent two days rewriting specs after a client conversation revealed a wrong assumption about how their team assigns leads post-event. Zero lines of product code shipped. The specs rewrite saved weeks of building the wrong thing.
+            But my most valuable days on Luminik are often the ones with the fewest lines committed. Sometimes a customer conversation reveals that the spec is carrying the wrong assumption. Rewriting that assumption before code hardens around it can save weeks.
         </p>
 
         <p class="reveal">
@@ -277,7 +277,7 @@
 
         <div class="glass-card reveal" style="padding: 24px; margin: 24px 0;">
             <h4 style="margin-bottom: 16px; color: var(--color-text-primary);">Write CLAUDE.md files that encode business logic, not just code style.</h4>
-            <p style="color: var(--color-text-secondary); margin: 0;">My <code>CLAUDE.md</code> files started as coding conventions (naming, error handling, module structure). The real value came when I added domain-specific rules: how lead scoring works, what fields map to what in our CRM, how outreach sequences should be structured per persona type. The agent went from "generically correct code" to "code that reflects how our product actually works."</p>
+            <p style="color: var(--color-text-secondary); margin: 0;">My <code>CLAUDE.md</code> files started as coding conventions (naming, error handling, module structure). The real value came when I added product rules: vocabulary, workflow boundaries, data-model assumptions, and the tradeoffs agents should preserve. The agent went from "generically correct code" to "code that reflects how our product actually works."</p>
         </div>
 
         <div class="glass-card reveal" style="padding: 24px; margin: 24px 0;">

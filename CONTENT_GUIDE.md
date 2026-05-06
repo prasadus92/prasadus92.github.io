@@ -18,10 +18,11 @@ The author (Prasad) has 12+ years building software products. He writes from exp
 
 ## Rules
 
-### Be specific. Always.
+### Be specific. Safely.
 - Bad: "AI tools can help with development"
 - Good: "Cursor handles frontend features. Claude Code handles multi-file refactors. I run both simultaneously on different parts of the codebase."
-- Use real tool names. Real numbers. Real timelines. Name the actual thing.
+- Use real tool names, numbers, timelines, and artifacts only when they are public-safe and strengthen the point.
+- Specificity should create trust, not leak an operating manual.
 
 ### Write from experience, not authority
 - Bad: "The key insight is that constraints improve agent output."
@@ -49,6 +50,23 @@ Also avoid these words unless they appear inside a quoted source or code/API nam
 - Cut transition sentences that just announce what you're about to say.
 - If a paragraph only says "here's what I mean" before the next paragraph actually says it, delete the first one.
 
+### Public brand and diligence filter
+Assume every post is read by a VC, competitor, future employer, recruiter, customer, and security reviewer.
+
+Publish:
+- Founder judgment, taste, and operating discipline.
+- Technical depth that explains tradeoffs without exposing private systems.
+- Customer-safe scenes that reveal buyer pain without identifying the buyer.
+- Public artifacts such as PRs, public issues, public docs, and already-approved metrics.
+
+Cut or anonymize:
+- Customer names, org size, internal team structure, private quotes, private tool screenshots, and unpublished outcomes.
+- Exact internal schedules, cron times, support channels, phone numbers, cloud identities, credential paths, and security posture.
+- Detailed GTM playbooks, outreach lists, event names tied to private pilots, or anything a competitor can copy as a recipe.
+- Copy that sounds careless: skipped tests, weak auth, cheap/free bragging, chaotic fundraising, heroic firefighting, or self-deprecating founder theater.
+
+The test: does this sentence make Prasad look more inevitable, more trustworthy, and more thoughtful? If not, revise or cut it.
+
 ### Don't be judgmental about people or projects
 - Critique approaches and tradeoffs, not people.
 - Bad: "Garry Tan's framework misses the point" (reads as: I know better than him)
@@ -68,7 +86,7 @@ Don't use vague terms like "skills files" without explaining what they are (CLAU
 - Lead with the most interesting thing. Not the setup. Not the context. The thing.
 - Short paragraphs. 1-3 sentences each.
 - Use subheadings to let people scan.
-- Concrete examples > abstract principles. Show the actual command, the actual file, the actual workflow.
+- Concrete examples > abstract principles. Show the actual command, file, or workflow only when the detail is safe to publish. Otherwise show the workflow shape.
 - End with something useful, not something inspirational.
 
 ## Rewrite workflow
@@ -78,7 +96,7 @@ Do not start by polishing sentences. Start by deciding whether the post has enou
 For each post, prepare a short notes packet before rewriting:
 
 1. What actually happened?
-2. Which artifact proves it happened? Examples: repo history, PR, screenshot, customer-safe anecdote, public source, code path, cost table, timeline.
+2. Which artifact proves it happened? Examples: repo history, PR, screenshot, customer-safe anecdote, public source, code path, public-safe table, timeline.
 3. What did Prasad believe before the work?
 4. What changed after doing the work?
 5. What would a serious reader be able to use tomorrow?
@@ -94,7 +112,7 @@ Good visual candidates:
 
 - Timelines for fundraising, MVP builds, or customer development.
 - Architecture diagrams for agent systems, repo maps, product stacks, and data flows.
-- Tables for cost structures, tradeoffs, toolchains, or decision criteria.
+- Tables for public-safe tradeoffs, toolchain categories, or decision criteria.
 - Workflow diagrams for sales processes, event-pipeline stages, and customer handoffs.
 - Annotated screenshots only when the screenshot is safe to publish and directly supports the argument.
 
@@ -105,7 +123,7 @@ Avoid visuals that merely decorate the post, repeat the headline, or make the si
 - Cite public PRs, issues, docs, or articles when making external claims.
 - For personal claims, use details Prasad can stand behind publicly.
 - For Luminik claims, use the public company language already present on luminik.io or facts Prasad explicitly approves for publication.
-- Do not reveal customer names, private revenue, private pipeline, private Slack messages, internal schedules, or private credentials.
+- Do not reveal customer names, private revenue, private pipeline, private Slack messages, internal schedules, private credentials, private cloud/account structure, or detailed security posture.
 
 ### Sentence-level
 - Prefer short, declarative sentences.
@@ -117,7 +135,7 @@ Avoid visuals that merely decorate the post, repeat the headline, or make the si
 
 Before publishing, check every claim against this:
 1. Could someone Google this and find the same thing in the first three results? If yes, you're not adding value.
-2. Does it include a specific tool name, number, timeline, or outcome? If not, make it specific.
+2. Does it include a specific tool name, number, timeline, or outcome that is safe to publish? If not, make the principle specific without leaking the private detail.
 3. Could another founder have written this sentence? If yes, add what makes your experience different.
 
 ## Blog-specific quality bar
