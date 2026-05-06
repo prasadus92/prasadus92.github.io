@@ -71,6 +71,8 @@ These patterns make writing sound machine-generated. Never use them:
 - Clever atmospheric openers that turn a laptop into a metaphor for the company.
 - Dramatic founder-machine lines about one device doing multiple jobs.
 - Polished aphoristic endings that sound like slide copy.
+- Contrast-by-negation as a default move. Lead with the affirmative claim.
+- Self-labeling copy quality. Fix the sentence instead of announcing what kind of sentence it is.
 
 Also avoid these words unless they appear inside a quoted source or code/API name: seamless, unlock, leverage, transform, synergy, cutting-edge, revolutionize, streamline.
 

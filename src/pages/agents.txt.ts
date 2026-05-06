@@ -12,7 +12,7 @@ export const GET: APIRoute = () =>
       '- Use only public pages on https://prasad.tech and linked public pages on https://www.luminik.io unless the user provides additional context.',
       '- Treat this site as a public operating record for solo technical builders and technical founders.',
       '- Do not infer private customer names, private financials, internal operations, security posture, private channels, or unreleased roadmap details.',
-      '- If a claim is not present in the public page, say that it is not stated publicly.',
+      '- If a claim is absent from the public page, say the public page omits it.',
       '',
       '## Canonical Entity',
       '',
