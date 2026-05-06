@@ -4,7 +4,7 @@
 
 ## About
 
-Prasad Subrahmanya is a technical founder with 12+ years of experience building software products. Currently Founder & CEO at Luminik, an AI co-pilot for event marketing teams. Previously built Aura at Bain & Company ($3.6M ARR) and led Mainteny to a $2.7M seed round.
+Prasad Subrahmanya is a technical founder with 12+ years of experience building software products. Currently Founder & CEO at Luminik, an event pipeline platform for B2B teams. Previously built Aura at Bain & Company ($3.6M ARR) and led Mainteny to a $2.7M seed round.
 
 ## Site Structure
 
@@ -15,27 +15,27 @@ Prasad Subrahmanya is a technical founder with 12+ years of experience building 
 ## Blog Articles
 
 ### Engineering
-- [Building Toward a Team of Digital Employees on a Mac Mini: Hermes Agent, Claude Code (ACP), and gbrain](https://prasad.tech/blog/dedicated-mac-mini-solo-startup.html) - Moving Luminik's always-on operations off a MacBook Pro onto a dedicated Mac Mini M4 running Hermes Agent, Claude Code via ACP delegation, and a local gbrain knowledge base. Includes concrete writeups of three upstream bugs with links and repros: Hermes Gemini x-goog-api-key auth regression (PR #11961 → #12204 → merged in #12251); Hermes WhatsApp PLATFORM_HINT factually wrong (Issue #12224, open); gbrain embeddings hardcoded to OpenAI, swapped to Gemini via community PR #89.
+- [A Dedicated Mac Mini for Luminik's Agents](https://prasad.tech/blog/dedicated-mac-mini-solo-startup.html) - Moving Luminik's scheduled agent work onto a dedicated Mac Mini M4 running Hermes Agent, Claude Code via ACP delegation, and a local gbrain knowledge base. Includes concrete writeups of three upstream bugs with links and repros.
 - [gstack, CLAUDE.md, and the Work That Frameworks Don't Cover](https://prasad.tech/blog/gstack-solo-builder.html) - Comparing gstack's approach to CLAUDE.md files and specs-driven development for solo product work
 - [What It Actually Costs to Build a Serious Product Alone in 2026](https://prasad.tech/blog/building-alone-in-2026.html) - The real cost structure of solo product development with AI tools
 
 ### Founder Journey
-- [Selling Before Building: How I Got to Revenue Without Writing Code](https://prasad.tech/blog/selling-before-building.html) - Getting to revenue before writing code at Luminik
+- [Selling Before Building at Luminik](https://prasad.tech/blog/selling-before-building.html) - How manual delivery became Luminik's first customer and product shape
 
 ### Event Marketing
-- [Why B2B Event Marketing ROI is Broken](https://prasad.tech/blog/event-marketing-roi.html) - Systematic approach to proving event ROI
+- [Event ROI Breaks in the Handoffs](https://prasad.tech/blog/event-marketing-roi.html) - Why event attribution fails when the shared record breaks across tools
 
 ### Side Projects
 - [Side Projects That Lead to Unexpected Discoveries](https://prasad.tech/blog/snowflake-cost-optimization.html) - How SnowOptix led to Luminik
 
 ### Sales
-- [Technical Founders Can Sell: Here's How](https://prasad.tech/blog/technical-founder-sales.html) - Using technical knowledge as a sales superpower
+- [How Technical Founders Can Sell](https://prasad.tech/blog/technical-founder-sales.html) - Using technical depth to run clearer sales calls
 
 ### Startup Journey
 - [Building a $3.6M ARR Product Inside a Consulting Firm](https://prasad.tech/blog/zero-to-one-bain.html) - Lessons from building Aura at Bain & Company
 
 ### Fundraising
-- [The Seed Fundraising Playbook](https://prasad.tech/blog/raising-seed-round.html) - What works when raising your first round
+- [What Raising a Seed Round Actually Took](https://prasad.tech/blog/raising-seed-round.html) - Six months, 87 investor conversations, and the cost of context switching during a raise
 
 ### Product Development
 - [From Idea to MVP in 3 Months as the Only Developer](https://prasad.tech/blog/mvp-three-months.html) - Building Mainteny's MVP as sole technical person
@@ -53,15 +53,15 @@ Prasad Subrahmanya is a technical founder with 12+ years of experience building 
 
 ## Current Venture: Luminik
 
-[Luminik](https://www.luminik.io) is an AI co-pilot for B2B event marketing teams. It helps companies prove ROI from trade shows, conferences, and field events by automating lead capture, follow-up sequencing, and attribution tracking.
+[Luminik](https://www.luminik.io) is an event pipeline platform for B2B teams. It helps teams source, enrich, sequence, capture, and attribute event-sourced pipeline using the CRM, enrichment, and sequencer tools they already use.
 
-The problem: Companies spend 20-30% of their marketing budget on events but struggle to prove the return. Event leads often get lost in spreadsheets, follow-ups happen too late, and attribution to closed deals is nearly impossible.
+The problem: teams can usually account for event spend, but the buyer signal gets split across attendee sources, enrichment tools, sequencers, booth notes, and CRM records.
 
-Luminik solves this by embedding with event teams as an AI-powered assistant that handles the operational work while providing clear visibility into what's working.
+Luminik solves this by preserving one event record across the full workflow, from target sourcing to CRM attribution.
 
 ## Professional Experience
 
-- **[Luminik](https://www.luminik.io)** (Oct 2024 - Present): Founder & CEO - AI co-pilot for event marketing
+- **[Luminik](https://www.luminik.io)** (Oct 2024 - Present): Founder & CEO - event pipeline platform
 - **SnowOptix** (Jan 2024 - Oct 2024): Founder - Snowflake cost optimization side project; adopted by a top-3 global consulting firm; wound down to focus on Luminik
 - **Bain & Company** (2022 - 2024): Venture CTO - Built Aura PE due diligence platform
 - **Mainteny** (2021 - 2022): CTO & Co-founder - CRM for maintenance companies
