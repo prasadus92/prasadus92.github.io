@@ -15,6 +15,7 @@ export const GET: APIRoute = () => {
     '',
     '- Homepage: https://prasad.tech/',
     '- Blog: https://prasad.tech/blog/',
+    '- Intro chat: https://prasad.tech/intro-chat/',
     '- RSS: https://prasad.tech/rss.xml',
     '- Full LLM context: https://prasad.tech/llms-full.txt',
     '- Agent guidance: https://prasad.tech/agents.txt',
@@ -40,6 +41,7 @@ export const GET: APIRoute = () => {
     '',
     '## Contact',
     '',
+    '- Intro chat: https://prasad.tech/intro-chat/',
     '- Email: prasadus92@gmail.com',
     '- LinkedIn: https://linkedin.com/in/prasadus',
     '- GitHub: https://github.com/prasadus92'
