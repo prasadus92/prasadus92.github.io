@@ -11,9 +11,11 @@ try {
 }
 
 const updateThemeIcon = () => {
-  const icon = document.querySelector<HTMLElement>('[data-theme-icon]');
-  if (!icon) return;
-  icon.className = root.getAttribute('data-theme') === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+  const button = document.querySelector<HTMLElement>('[data-theme-toggle]');
+  if (!button) return;
+  const isDark = root.getAttribute('data-theme') === 'dark';
+  button.dataset.themeState = isDark ? 'dark' : 'light';
+  button.setAttribute('aria-label', isDark ? 'Switch to light theme' : 'Switch to dark theme');
 };
 
 updateThemeIcon();
@@ -71,29 +73,30 @@ if ('IntersectionObserver' in window) {
   revealElements.forEach((element) => element.classList.add('active'));
 }
 
-const planes = Array.from(document.querySelectorAll<HTMLElement>('.motion-plane'));
-let pointerX = 0;
-let pointerY = 0;
-let raf = 0;
+/* Subtle scroll-driven mesh parallax. The motion-field drifts on its own via
+ * CSS keyframes; this just adds a small translate offset proportional to
+ * scroll position so the field feels anchored to the page rather than fixed
+ * to the viewport. Skipped entirely under prefers-reduced-motion. */
+const meshField = document.querySelector<HTMLElement>('.motion-field');
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-const updateParallax = () => {
-  raf = 0;
-  planes.forEach((plane, index) => {
-    const multiplier = (index + 1) * 10;
-    plane.style.setProperty('--mx', String(pointerX * multiplier));
-    plane.style.setProperty('--my', String(pointerY * multiplier));
-  });
-};
-
-document.addEventListener(
-  'pointermove',
-  (event) => {
-    pointerX = event.clientX / window.innerWidth - 0.5;
-    pointerY = event.clientY / window.innerHeight - 0.5;
-    if (!raf) raf = window.requestAnimationFrame(updateParallax);
-  },
-  { passive: true }
-);
+if (meshField && !reducedMotion) {
+  let scrollRaf = 0;
+  const updateMesh = () => {
+    scrollRaf = 0;
+    const offset = Math.min(window.scrollY * 0.04, 80);
+    meshField.style.setProperty('--mesh-y', `${-offset}px`);
+  };
+  meshField.style.transform = 'translate3d(0, var(--mesh-y, 0), 0)';
+  meshField.style.willChange = 'transform';
+  window.addEventListener(
+    'scroll',
+    () => {
+      if (!scrollRaf) scrollRaf = window.requestAnimationFrame(updateMesh);
+    },
+    { passive: true }
+  );
+}
 
 const currentYear = document.querySelector<HTMLElement>('[data-current-year]');
 if (currentYear) currentYear.textContent = String(new Date().getFullYear());

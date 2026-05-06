@@ -168,6 +168,86 @@ Avoid visuals that merely decorate the post, repeat the headline, or make the si
 - Active voice. "I built X" not "X was built."
 - Plain words. "Use" not "leverage." "Start" not "embark on." "Hard" not "challenging."
 
+## Positioning: builder + businessman, not just engineer
+
+Prasad is a real builder and businessman with both technical depth and commercial judgment. Posts must read that way. The site should make a reader think: "this person builds serious software, sells it, runs the operating model, and explains tradeoffs the way a McKinsey or Bain partner would explain them. He is not just a coder."
+
+Calibrate the mix per post:
+
+- **Engineering posts** (Alfred, gstack, Mac Mini, building-alone-in-2026): keep technical depth, add one or two business stakes paragraphs that explain why the technical choice matters for the company.
+- **Sales / GTM posts** (technical-founder-sales, selling-before-building, event-marketing-roi): lead with the buyer outcome and the business mechanism. Use technical detail as proof of credibility, not as the lead.
+- **Founder-narrative posts** (raising-seed-round, mvp-three-months, zero-to-one-bain, snowflake-cost-optimization): show both sides. Decisions framed as engineering tradeoffs and as commercial bets. Numbers with public-safe provenance.
+
+Avoid the "hardcore engineer" trap. Plain language wins. A VP Marketing or a CMO should be able to follow the post even if the topic is technical. A staff engineer should still find it credible.
+
+## Pyramid principle: lead with the answer
+
+Every post, every section, follows McKinsey-style pyramid principle:
+
+1. **Top of pyramid: the answer.** State it in one sentence at the start. The reader should know your conclusion before they decide whether to keep reading.
+2. **Middle: three or four supporting reasons.** Each one is a sub-claim that lands on its own.
+3. **Bottom: the evidence.** Numbers, examples, screenshots, code snippets, public artifacts.
+
+Apply this at the post level, the section level, and the section-of-a-section level. Read every section's first sentence in isolation. If they do not, in order, summarize the post's argument, restructure.
+
+Examples:
+
+- ❌ "By April 2026, Luminik had enough recurring agent work that my normal development setup was carrying too many jobs." (setup voice)
+- ✅ "I moved Luminik's recurring agent work off my development machine and onto a small always-on box at home. The decision sounds like an infrastructure detail. It was actually about boundaries." (answer first)
+
+## 80/20 discipline: the 20% that gives 80% of the value
+
+Cut everything that does not earn its place. The reader's attention budget is the scarce resource. For each post:
+
+- One main argument, stated early. Not two competing arguments.
+- Three to five supporting points. Not seven.
+- One or two diagrams that add information the prose cannot deliver. Not five decorative ones.
+- One ending that leaves the reader with something to do or a sharper model. Not a slide-deck flourish.
+
+If a paragraph would not change the reader's mind or hand them a tool, cut it. Word count is not the goal. Compression is.
+
+## Credibility: how to stack proof without bragging
+
+Top-0.1% founder writing earns trust through specifics. Use logos, names, numbers, and public artifacts when they are public-safe. The line is "this strengthens the founder narrative" vs "this leaks the operating manual."
+
+Public-safe credibility plays:
+
+- **Approved numbers**: Aura `$3.6M ARR` in `18 months`, Mainteny `$2.7M seed`, first MVP solo in `3 months`. These are pre-cleared.
+- **Public companies and platforms**: Bain & Company, Mainteny, SnowOptix, Luminik, GitHub, Cursor, Claude Code, CodeRabbit, Quicksand, Astro. Real, public, verifiable.
+- **Public artifacts**: link to public PRs, public repos (luminik-io/event-outbound-skill, luminik-io/claude-plugins, prasadus92/prasadus92.github.io), public docs, public talks.
+- **Real category vocabulary**: "event pipeline platform", "source, enrich, sequence, capture, attribute". This is locked Luminik positioning.
+- **Specific timeline**: "Oct 2024 – present" is stronger than "the past year".
+
+Out of bounds:
+
+- Customer names (Series C cyber, Series A IDV, Series B regtech). The category is the public-safe shape; the name is private.
+- Private pipeline numbers, private revenue, fundraising specifics not already public.
+- Internal Slack channels, agent dispatch routing, private cloud identities, internal schedules.
+- Phrases like "obsessed with", "passionate about", "I'm thrilled to share". They look like LinkedIn theatre.
+
+The test: if a reader pasted the sentence into a competitor analysis, would it leak something Prasad would not voluntarily hand over? If yes, cut.
+
+## Rich illustrations: native HTML, React islands, Mermaid
+
+The Luminik marketing site uses React islands (`PipelineBuilderDemo`, `AttributionDashboardDemo`, `EventCalendarTimeline`, etc.) to communicate product mechanisms. The portfolio should follow the same pattern when a diagram earns its place.
+
+Stack policy:
+
+- **Native HTML/CSS diagrams** are the default. Matrices, swimlanes, ledgers, timelines, and flow diagrams in plain markup. They render fast, respect dark/light themes, and degrade gracefully.
+- **React islands** for interactive or data-driven visuals. Use `client:visible` so they do not block the first paint. Keep them small and accessible. Mirror the Luminik `src/components/islands/` pattern when reusing component shapes.
+- **Mermaid** for diagrams that benefit from a graph notation: architecture sketches, decision trees, sequence diagrams. Render at build time when possible, client-side as a fallback.
+- **No stock illustrations, decorative gradients, or brand-asset clip-art.** Founder-class restraint.
+
+Each diagram has to answer: what does this teach that the prose cannot teach as efficiently? If the answer is "decoration", remove the diagram.
+
+When a post uses a React island, document the data shape in the component file. Keep the island self-contained so it survives a future refactor.
+
+## Where the canon lives
+
+The canonical voice rules live in the private content workspace: `~/Claude_Workspace/personal/content/voice-rules.md`. That file is the single source of truth for banned vocabulary, banned phrases, banned rhetorical patterns, and channel format defaults. When this CONTENT_GUIDE.md and `voice-rules.md` disagree, `voice-rules.md` wins.
+
+Public-facing positioning vocabulary lives in `~/Claude_Workspace/marketing/CLAUDE.md` and `~/.hermes/canon/luminik-canon-current.md`. Use them when claiming anything about Luminik.
+
 ## The Specificity Test
 
 Before publishing, check every claim against this:

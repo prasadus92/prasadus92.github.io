@@ -1,7 +1,7 @@
 ---
 slug: "dedicated-mac-mini-solo-startup"
 title: "Separating Agent Work from Founder Work"
-description: "How I separated Luminik's background agent work from my interactive development environment, and what that taught me about context, boundaries, and review."
+description: "Why I moved Luminik's recurring agent work off my development machine, what that boundary looks like, and what it took three upstream bug reports to learn."
 date: "2026-04-18"
 modified: "2026-05-06"
 category: "Solo Builder OS"
@@ -9,23 +9,19 @@ readTime: "11 min read"
 tags: ["solo founder","AI agents","agent infrastructure","Luminik"]
 ---
 <p class="reveal">
-  By April 2026, Luminik had enough recurring agent work that my normal development setup was carrying too many jobs.
+  I moved Luminik's recurring agent work off my development machine and onto a small always-on box at home. The decision sounds like an infrastructure detail. It was actually about boundaries: what the agent layer can read, what it can change, where the output lands, and which calls still need my approval.
 </p>
 
 <p class="reveal">
-  I use my daily machine for interactive work: writing code, reviewing product decisions, thinking through customer problems, and changing direction quickly. The recurring work had a different shape. It needed approved context, continuity, and a review path that did not depend on which meeting I was in.
+  My daily machine is where I write code, talk to customers, and change direction quickly. Whatever runs on it should respect that I might close the lid for a flight, switch to a customer call, or stop a process mid-stream. Recurring company work has a different shape. It needs continuity, current context, and a review path that does not depend on which meeting I happen to be in.
 </p>
 
 <p class="reveal">
-  The issue was boundary. Compute was available. The harder question was what the background layer could read, what it could change, where the output should land, and which decisions still required my approval.
+  Once the recurring work outgrew the daily-machine model, the answer was less about hardware and more about a distinct surface. Luminik now has a separate environment for background agent jobs: it holds approved context, runs scheduled checks, routes engineering tasks to the right tool, and parks anything consequential behind a review path.
 </p>
 
 <p class="reveal">
-  So I separated the surfaces. Luminik now has a dedicated environment for background agent work. It holds approved context, runs scheduled checks, routes engineering tasks to the right tool, and leaves anything consequential behind a review path. The useful part is not the hardware. The useful part is that recurring company work has a surface distinct from my daily development loop.
-</p>
-
-<p class="reveal">
-    This extends the discipline I described in <a href="building-alone-in-2026.html">What It Actually Costs to Build a Serious Product Alone in 2026</a> and <a href="gstack-solo-builder.html">gstack, CLAUDE.md, and the Work That Frameworks Don't Cover</a>: specs, instruction files, review gates, and explicit context. Once that context starts driving recurring work, it deserves its own boundary.
+  This extends the discipline from <a href="building-alone-in-2026.html">What It Actually Costs to Build a Serious Product Alone in 2026</a> and <a href="gstack-solo-builder.html">gstack, CLAUDE.md, and the Work That Frameworks Don't Cover</a>. Specs, instruction files, and review gates are how I keep agent work honest. Once that scaffolding started driving recurring jobs, it deserved its own runtime.
 </p>
 
 <h2 class="reveal">Why a Dedicated Machine</h2>

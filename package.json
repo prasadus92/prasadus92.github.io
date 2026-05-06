@@ -11,8 +11,14 @@
     "audit:site": "npm run build && node scripts/audit-site.mjs"
   },
   "dependencies": {
+    "@astrojs/react": "^5.0.4",
     "@astrojs/rss": "^4.0.18",
-    "astro": "^6.2.2"
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "astro": "^6.2.2",
+    "mermaid": "^11.14.0",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.9",

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import Icon from '../../components/Icon.astro';
 import { formatMonth, posts } from '../../lib/posts';
 
 const title = 'Blog | Prasad Subrahmanya';
@@ -67,7 +68,7 @@ const collectionSchema = {
           <h2>{posts[0].title}</h2>
           <p>{posts[0].description}</p>
           <div class="hero-actions">
-            <a class="button primary" href={posts[0].url}>Start Here <i class="fas fa-arrow-right"></i></a>
+            <a class="button primary" href={posts[0].url}>Start Here <Icon name="arrow-right" size={16} /></a>
           </div>
         </div>
         <div class="featured-diagram" aria-label="Alfred operating contract preview">
@@ -103,8 +104,8 @@ const collectionSchema = {
               <h3>{post.title}</h3>
               <p>{post.description}</p>
               <div class="blog-meta">
-                <span><i class="far fa-calendar"></i> {formatMonth(post.date)}</span>
-                <span><i class="far fa-clock"></i> {post.readTime}</span>
+                <span><Icon name="calendar" size={14} /> {formatMonth(post.date)}</span>
+                <span><Icon name="clock" size={14} /> {post.readTime}</span>
               </div>
             </div>
           </a>

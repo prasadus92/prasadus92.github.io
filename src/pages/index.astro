@@ -1,6 +1,40 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import ProofStrip from '../components/islands/ProofStrip';
+import type { ProofPoint } from '../components/islands/ProofStrip';
 import { featuredPosts, formatMonth } from '../lib/posts';
+
+const proofPoints: ProofPoint[] = [
+  {
+    label: 'Aura at Bain',
+    value: '$3.6M ARR',
+    numericValue: 3.6,
+    prefix: '$',
+    suffix: 'M ARR',
+    caption: 'Built a PE due diligence platform from zero to revenue in 18 months.'
+  },
+  {
+    label: 'Mainteny seed',
+    value: '$2.7M raised',
+    numericValue: 2.7,
+    prefix: '$',
+    suffix: 'M seed',
+    caption: 'Co-founded the company. Built the first MVP solo in 3 months. Helped lead through a Series A team scale.'
+  },
+  {
+    label: 'Solo builder',
+    value: '12+ years',
+    numericValue: 12,
+    suffix: '+ years',
+    caption: 'Engineering, product, and founder-led GTM across 4 companies. Now building Luminik on my own.'
+  },
+  {
+    label: 'Public artifacts',
+    value: 'Open source',
+    caption: 'event-outbound-skill, claude-plugins, and prasad.tech itself. Code is public. Numbers cite real sources.'
+  }
+];
 
 const title = 'Prasad Subrahmanya | Founder of Luminik, Solo Builder Notes';
 const description = 'Prasad Subrahmanya is the founder of Luminik, an event pipeline platform for B2B teams. He writes for solo technical builders about product, sales, AI agents, and zero-to-one execution.';
@@ -54,15 +88,15 @@ const websiteSchema = {
   <section class="hero">
     <div class="container hero-grid">
       <div class="hero-copy">
-        <div class="eyebrow reveal">Founder of Luminik · notes for solo builders</div>
-        <h1 class="reveal">I build B2B products from customer pain to production software.</h1>
+        <div class="eyebrow reveal">Founder, builder, operator</div>
+        <h1 class="reveal">Building B2B software from customer pain to revenue.</h1>
         <p class="lead reveal">
-          I'm Prasad Subrahmanya, founder of <a href="https://www.luminik.io" target="_blank" rel="noopener">Luminik</a>, an event pipeline platform for B2B teams. I write for solo technical builders about founder-led sales, AI-agent workflows, specs, review gates, and the product judgment that still has to stay with the founder.
+          I'm Prasad Subrahmanya. I build serious B2B products with a very small team, sell them to the buyer who feels the pain, and write field notes for other founders running the same playbook. Today I run <a href="https://www.luminik.io" target="_blank" rel="noopener">Luminik</a>, an event pipeline platform for B2B teams.
         </p>
         <div class="hero-actions reveal">
-          <a href="/blog/" class="button primary"><i class="fas fa-book-open"></i> Read the Notes</a>
-          <a href="https://www.luminik.io" target="_blank" rel="noopener" class="button"><i class="fas fa-arrow-up-right-from-square"></i> Luminik</a>
-          <a href="https://github.com/prasadus92" target="_blank" rel="noopener" class="button"><i class="fab fa-github"></i> GitHub</a>
+          <a href="/blog/" class="button primary"><Icon name="book-open" size={16} /> Read the field notes</a>
+          <a href="https://www.luminik.io" target="_blank" rel="noopener" class="button"><Icon name="arrow-up-right" size={16} /> Visit Luminik</a>
+          <a href="https://github.com/prasadus92" target="_blank" rel="noopener" class="button"><Icon name="github" size={16} /> GitHub</a>
         </div>
       </div>
 
@@ -70,9 +104,9 @@ const websiteSchema = {
         <div class="proof-head">
           <img src="/assets/images/header/prasad.jpeg" width="76" height="76" alt="Prasad Subrahmanya" decoding="async" fetchpriority="high" />
           <div>
-            <div class="eyebrow" style="margin-bottom: 4px;">Current Work</div>
+            <div class="eyebrow" style="margin-bottom: 4px;">Current work</div>
             <h2 style="font-size: 1.35rem; margin-bottom: 4px;">Luminik</h2>
-            <p style="margin: 0; color: var(--text-3);">Event pipeline platform</p>
+            <p style="margin: 0; color: var(--text-3);">Event pipeline platform for B2B</p>
           </div>
         </div>
         <div class="proof-list">
@@ -82,50 +116,29 @@ const websiteSchema = {
           </div>
           <div class="proof-item">
             <div class="proof-number">02</div>
-            <p>Building with explicit specs, repo instructions, AI-agent workflows, and human review gates.</p>
+            <p>Built with explicit specs, repo instruction files, agent workflows, and human review gates that keep judgment in the loop.</p>
           </div>
           <div class="proof-item">
             <div class="proof-number">03</div>
-            <p>Writing the field notes I wanted when I started building serious products with a very small team.</p>
+            <p>Founder-led sales, customer-driven roadmap. The fastest way to learn what a buyer will pay for is to sell it before you build it.</p>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="section tight" id="proof">
+  <section class="section tight" id="proof" aria-labelledby="proof-heading">
     <div class="container">
       <div class="section-header">
-        <div class="eyebrow reveal">Proof Ledger</div>
-        <h2 class="reveal">The operating record behind the writing</h2>
+        <div class="eyebrow reveal">Track record</div>
+        <h2 class="reveal" id="proof-heading">Numbers and shipped products, not slogans</h2>
         <p class="lead reveal">
-          The site should earn attention through proof: shipped products, sales work, architecture decisions, and numbers with provenance.
+          Twelve years of building software products as engineer, CTO, and founder. Two priced exits in motion as a founder, one venture-builder result inside Bain, and a side project still running in production at a top global consultancy. The portfolio earns attention with proof, not promises.
         </p>
       </div>
-      <div class="proof-ledger">
-        <div class="ledger-card card interactive reveal">
-          <div class="ledger-label">Luminik</div>
-          <h3>Event pipeline platform</h3>
-          <p>Current company. The mechanism is source, enrich, sequence, capture, and attribute.</p>
-        </div>
-        <div class="ledger-card card interactive reveal">
-          <div class="ledger-label">Aura</div>
-          <h3>$3.6M ARR</h3>
-          <p>Built a PE due diligence platform at Bain from zero to revenue in 18 months.</p>
-        </div>
-        <div class="ledger-card card interactive reveal">
-          <div class="ledger-label">Mainteny</div>
-          <h3>$2.7M seed</h3>
-          <p>Built the first MVP solo in 3 months, then helped scale the company and team.</p>
-        </div>
-        <div class="ledger-card card interactive reveal">
-          <div class="ledger-label">SnowOptix</div>
-          <h3>Customer-led discovery</h3>
-          <p>A side project that earned enterprise use and led to the sharper Luminik thesis.</p>
-        </div>
-      </div>
+      <ProofStrip points={proofPoints} client:visible />
       <p class="proof-source-note reveal">
-        Public proof points on this site are intentionally narrow: Aura reached $3.6M ARR in 18 months, Mainteny raised a $2.7M seed round, and the first Mainteny MVP was built solo in 3 months. Private customer, pipeline, financial, and security details stay out of the portfolio.
+        Public proof points are intentionally narrow: Aura reached $3.6M ARR in 18 months, Mainteny raised a $2.7M seed round, and the first Mainteny MVP was built solo in 3 months. Customer names, private pipeline, internal financials, and security posture stay out of the portfolio.
       </p>
     </div>
   </section>
@@ -297,8 +310,8 @@ const websiteSchema = {
               <h3>{post.title}</h3>
               <p>{post.description}</p>
               <div class="blog-meta">
-                <span><i class="far fa-calendar"></i> {formatMonth(post.date)}</span>
-                <span><i class="far fa-clock"></i> {post.readTime}</span>
+                <span><Icon name="calendar" size={14} /> {formatMonth(post.date)}</span>
+                <span><Icon name="clock" size={14} /> {post.readTime}</span>
               </div>
             </div>
           </a>
@@ -306,7 +319,7 @@ const websiteSchema = {
       </div>
 
       <div class="reveal" style="text-align: center; margin-top: 42px;">
-        <a class="button" href="/blog/">View All Articles <i class="fas fa-arrow-right"></i></a>
+        <a class="button" href="/blog/">View All Articles <Icon name="arrow-right" size={16} /></a>
       </div>
     </div>
   </section>
@@ -320,8 +333,8 @@ const websiteSchema = {
       <div class="contact-box card reveal">
         <p class="lead">Reach out if you want to talk about Luminik, event pipeline, solo-builder operating systems, or founder-led product work.</p>
         <div class="hero-actions">
-          <a class="button primary" href="mailto:prasadus92@gmail.com"><i class="fas fa-envelope"></i> Email</a>
-          <a class="button" href="https://linkedin.com/in/prasadus" target="_blank" rel="noopener"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
+          <a class="button primary" href="mailto:prasadus92@gmail.com"><Icon name="envelope" size={16} /> Email</a>
+          <a class="button" href="https://linkedin.com/in/prasadus" target="_blank" rel="noopener"><Icon name="linkedin" size={16} /> LinkedIn</a>
         </div>
       </div>
     </div>

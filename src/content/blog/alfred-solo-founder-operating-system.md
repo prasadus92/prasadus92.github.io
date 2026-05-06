@@ -1,246 +1,214 @@
 ---
 slug: "alfred-solo-founder-operating-system"
-title: "How I Use Alfred to Run Recurring Founder Work"
-description: "The operating contract behind my agent setup: approved context, reviewable output, and a path toward a public version other builders can use."
+title: "How Alfred Runs Recurring Work for a Solo Founder"
+description: "Alfred is the agent layer around my recurring company work. Here is what it actually does, what it does not do, and what I plan to open source."
 date: "2026-05-06"
 modified: "2026-05-06"
 category: "Solo Builder OS"
-readTime: "13 min read"
-tags: ["Alfred","solo founder","AI agents","operating system","open source"]
+readTime: "12 min read"
+tags: ["Alfred", "solo founder", "AI agents", "operating system", "open source"]
 faqs:
   - question: "What is Alfred?"
-    answer: "Alfred is my name for the recurring-agent operating layer around my work. It helps with drafts, checks, summaries, and reviewable code tasks. It is not a replacement for founder judgment."
-  - question: "Does Alfred publish, send, merge, or deploy on its own?"
-    answer: "No. The public rule is simple: anything consequential goes through human approval. Drafts, pull requests, and summaries are useful. Silent publishing or merging would be the wrong boundary."
-  - question: "What might become open source first?"
-    answer: "The safest first release would be the patterns: role contracts, repo instruction templates, review rules, and a local runner shape with private adapters removed."
+    answer: "Alfred is the name I use for the recurring-agent layer around my work at Luminik. It runs scheduled jobs that read approved context, prepare reviewable output, and surface decisions to me in Slack and WhatsApp. It does not publish, send, merge, or pay on its own."
+  - question: "Does Alfred ship code or content without review?"
+    answer: "No. Every consequential output is a draft, a pull request, or a digest in a private review channel. The approval gate is explicit so the agent layer never outruns founder judgment."
+  - question: "What does Alfred actually run today?"
+    answer: "Six roles across engineering, content, community, sales, product ops, and a personal-assistant chief-of-staff role. They handle pipeline briefs, PR review, repo hygiene, scheduled site checks, content drafts, and morning summaries."
+  - question: "What might be open sourced?"
+    answer: "The reusable parts: role contracts, repo instruction templates, review rules, output formats, and a small local runner. The Luminik-specific connectors and customer data stay private."
 ---
 <p class="reveal">
-  Alfred started from a practical constraint: recurring work across code, content, sales, and operations kept asking for attention at awkward times.
+  I build a software product on my own. That means the company has no PM remembering why a roadmap shifted, no RevOps reconciling event spend, no eng manager spotting drift between specs and production. All of that work still has to happen. None of it can wait until I get to it.
 </p>
 
 <p class="reveal">
-  Some of that work needed my judgment. Much of it needed my standards, my context, and a review path. Those are different things.
+  Alfred is the answer I have been building for the last few months. It is the agent layer that runs recurring company work, drafts the output, and brings the decisions back for my review. The product code, customer relationships, and judgment stay with me. Everything else is fair game for an agent with a clear contract.
 </p>
 
 <p class="reveal">
-  That distinction matters for solo builders. When you work alone or with a tiny team, the company has no ambient memory. There is no PM sitting nearby who remembers why a decision changed. There is no RevOps teammate quietly reconciling what happened after an event. There is no engineering manager checking whether the specs, repo conventions, and production behavior still agree.
-</p>
-
-<p class="reveal">
-  The usual answer is to carry all of that in your head. That works until the surface area gets wide enough that the founder becomes the queue.
-</p>
-
-<p class="reveal">
-  Alfred is my attempt to make the queue visible. It is a small operating layer around recurring founder work: context lookup, draft preparation, repo hygiene, PR support, content review, and scheduled checks. The output has to be reviewable. The authority stays bounded.
+  This post explains what Alfred actually runs today, the rules that make the system safe enough to trust, and the parts I am preparing to open source for other solo founders.
 </p>
 
 <figure class="post-visual reveal">
-  <div class="post-visual-title">The Alfred contract</div>
+  <div class="post-visual-title">Alfred at a glance</div>
   <div class="visual-matrix">
     <div class="matrix-cell">
-      <strong>Can read approved context</strong>
-      <span>Repo instructions, public positioning, specs, docs, and notes that are safe for the task.</span>
+      <strong>Reads approved context</strong>
+      <span>Repo instruction files, public positioning, specs, brand canon, and a private knowledge base I curate.</span>
     </div>
     <div class="matrix-cell">
-      <strong>Can prepare reviewable output</strong>
-      <span>Summaries, drafts, pull requests, checklists, and source-linked analysis.</span>
+      <strong>Prepares reviewable output</strong>
+      <span>Pull requests, post drafts, pipeline digests, code review comments, and scheduled site QA reports.</span>
     </div>
     <div class="matrix-cell">
-      <strong>Cannot ship silently</strong>
-      <span>No publishing, sending, paying, merging, or deployment without explicit approval.</span>
+      <strong>Never ships silently</strong>
+      <span>No publishing, sending, merging, paying, or deploying without my explicit approval, every time.</span>
     </div>
     <div class="matrix-cell">
-      <strong>Must show its trail</strong>
-      <span>Important claims need source links, file references, or a clear note that the answer is an inference.</span>
+      <strong>Cites its sources</strong>
+      <span>Every claim that depends on data points to a file, PR, log, or note. If a number is fabricated, it is a bug.</span>
     </div>
   </div>
-  <p class="post-visual-caption">The boundary is intentionally plain. A useful agent setup should make accountability boring.</p>
+  <p class="post-visual-caption">A useful agent system makes accountability boring. Alfred is mostly contract, not magic.</p>
 </figure>
 
-<h2 class="reveal">The Job Alfred Has</h2>
+<h2 class="reveal">The Six Roles Alfred Runs</h2>
 
 <p class="reveal">
-  I do not think about Alfred as one super-agent. That framing invites the wrong design.
+  Alfred is not one big agent. It is a small set of roles, each with a contract that fits one slice of the company. Most of them run as scheduled jobs. A few are triggered by GitHub events on the repos that matter.
 </p>
 
 <p class="reveal">
-  The better model is recurring company work with a named contract. Every task needs four things: context, allowed actions, output shape, and approval rule.
+  Today there are six roles in production. The names come from a Batman bench I keep in my head, which is mostly a way to make Slack channel routing easy to remember.
+</p>
+
+<h3 class="reveal">Lucius. Engineering</h3>
+
+<p class="reveal">
+  Lucius reviews open pull requests across the Luminik repos and writes the comments I would write if I had time to read every diff. The comments are usually about behaviour, not style. Style is what CodeRabbit covers, and the two run side by side. Lucius opens roughly a handful of PRs a day on its own with small, scoped patches: stale doc fixes, repo instruction updates, broken-link cleanups, missing tests on changed lines.
 </p>
 
 <p class="reveal">
-  For example, a content pass is allowed to read voice rules, existing drafts, public positioning, and blog structure. It can propose edits and open a pull request. It cannot invent metrics, quote private notes, publish the post, or merge the PR.
+  The cap is one PR per run, focused on changes from the last week. Lucius is allowed to read code and tests. It is not allowed to merge, force-push, or change production behaviour.
+</p>
+
+<h3 class="reveal">Bane. Content</h3>
+
+<p class="reveal">
+  Bane writes LinkedIn drafts twice a week against a themes file I update when my priorities change. It reads the voice rules, recent posts, and the current launch context. The output lands as a pull request in my private content repo with the post body, the first comment, and a numbers-grounding note that traces every figure to a real source.
 </p>
 
 <p class="reveal">
-  A repo hygiene pass can inspect files, compare docs with code, run checks, and prepare a patch. It cannot decide that a production behavior should change because a spec said something different. The code and the current product still get the final say.
+  I review the PR in GitHub, request changes inline, then merge. Posting still happens by hand because LinkedIn rewards the original drafter. Bane saves me the cold-start cost, not the publishing decision.
+</p>
+
+<h3 class="reveal">Oracle. Community and signals</h3>
+
+<p class="reveal">
+  Oracle watches Reddit threads, Slack communities, and a few public newsletters every two hours during the working week. It produces a short digest of the threads worth reading and the ones I should reply to as a founder. The digest never quotes private channels. It always links to the source. I open it once or twice a day.
+</p>
+
+<h3 class="reveal">Ra's al Ghul. Sales</h3>
+
+<p class="reveal">
+  Ra's drafts the morning pipeline brief: which prospects moved, which replies need a human response, which event registrations expire this week. The brief is six bullets and a short list of follow-ups. Replies still go out from my inbox, in my voice, after I have read the thread.
 </p>
 
 <p class="reveal">
-  A sales-prep pass can summarize public context and prepare questions. It cannot expose private customer details, send messages, or turn a narrow observation into a universal claim.
+  Sales is the role where the temptation to automate too much is highest, and the cost of doing so is the worst. A wrong inbound reply burns a real prospect. Ra's stays draft-only on purpose.
 </p>
 
+<h3 class="reveal">Bat-Signal. Product and customer ops</h3>
+
 <p class="reveal">
-  Once each job has that shape, the system becomes easier to reason about. The agent is less mysterious. The founder review gets sharper. The failure modes become visible enough to improve.
+  Bat-Signal does the boring uptime work. It checks production health on a tight schedule, runs site QA on luminik.io and prasad.tech once a day, validates that integrations are still alive, and drafts release notes from the merged commits in the engineering repos. When something is broken, it pings me with the specific error and a link to the failing run. When nothing is broken, I do not hear from it.
 </p>
 
-<h2 class="reveal">Why This Matters More for Solo Builders</h2>
+<h3 class="reveal">Alfred itself. Chief of staff</h3>
 
 <p class="reveal">
-  Teams have many imperfect memory systems: standups, code reviews, Slack threads, shared calendars, PM docs, sales notes, and people correcting each other in real time.
-</p>
-
-<p class="reveal">
-  A solo builder has fewer accidental safeguards. The upside is speed. The downside is that every gap routes back to one person.
-</p>
-
-<p class="reveal">
-  Agents help with mechanical work, but they do not remove the need for operating design. In fact, they make operating design more important. When the work gets cheaper to generate, the review queue becomes the scarce resource.
+  Alfred is the personal-assistant role on top of the others. It handles the morning inbox triage, calendar conflict detection, the daily digest that pulls together the other roles, and the briefings that reach me when I am not at my desk. It is the surface that turns five other agents into one place I check.
 </p>
 
 <figure class="post-visual reveal">
-  <div class="post-visual-title">Where the solo founder becomes the queue</div>
+  <div class="post-visual-title">Where Alfred fits in a working day</div>
   <div class="swimlane">
     <div class="swimlane-row">
       <div class="swimlane-label">Without Alfred</div>
       <div class="swimlane-cells">
-<div class="swimlane-cell">Remember the task</div>
-<div class="swimlane-cell">Find the right context</div>
-<div class="swimlane-cell">Do the mechanical work</div>
-<div class="swimlane-cell">Review while already tired</div>
+        <div class="swimlane-cell">Remember every recurring task</div>
+        <div class="swimlane-cell">Re-find the right context each time</div>
+        <div class="swimlane-cell">Do the mechanical work</div>
+        <div class="swimlane-cell">Review while already tired</div>
       </div>
     </div>
     <div class="swimlane-row">
       <div class="swimlane-label">With Alfred</div>
       <div class="swimlane-cells">
-<div class="swimlane-cell">Task is captured</div>
-<div class="swimlane-cell">Context is cited</div>
-<div class="swimlane-cell">Output is prepared</div>
-<div class="swimlane-cell">Founder reviews the decision</div>
+        <div class="swimlane-cell">Task is captured in a role contract</div>
+        <div class="swimlane-cell">Context is cited and current</div>
+        <div class="swimlane-cell">Output arrives as a draft or PR</div>
+        <div class="swimlane-cell">Founder reviews the decision</div>
       </div>
     </div>
   </div>
-  <p class="post-visual-caption">The goal is not to remove the founder. It is to stop wasting founder attention on rediscovering context.</p>
+  <p class="post-visual-caption">The point is not to remove me from the loop. The point is to stop spending founder attention on rediscovering context I already know.</p>
 </figure>
 
-<h2 class="reveal">What Alfred Handles Today</h2>
+<h2 class="reveal">The Five Questions a Role Has to Answer</h2>
 
 <p class="reveal">
-  The public-safe version is enough to explain the architecture without turning the post into an operating manual.
+  Before a new Alfred role goes live, I make it answer five questions in writing. The questions live in the repo as the role's instruction file, and the agent has to follow them. If any of the answers are vague, the role is not ready.
+</p>
+
+<ol class="reveal">
+  <li><strong>What context can it read?</strong> Specific files, repos, public docs, and any private notes that are safe for the task. No ambient access.</li>
+  <li><strong>What action can it take?</strong> Search, summarize, draft, open a PR, post to a private review channel. Never publish, send, pay, merge, or deploy.</li>
+  <li><strong>Where does the output land?</strong> A pull request, a Slack thread, a markdown file, or a digest. Everything has a path I can find without asking.</li>
+  <li><strong>What evidence does it provide?</strong> Source links, PR numbers, log lines, file paths. A claim with no provenance is a bug.</li>
+  <li><strong>What requires my approval?</strong> The line between draft and ship. I want this line obvious enough that a tired founder cannot accidentally cross it.</li>
+</ol>
+
+<p class="reveal">
+  I use the same five questions to decide whether a role is still earning its keep. Two of my early agents got retired because I could not write a clean answer to question two. They were doing too much.
+</p>
+
+<h2 class="reveal">What Has Actually Worked</h2>
+
+<p class="reveal">
+  The system has been running long enough to see the shape of what helps and what does not.
 </p>
 
 <p class="reveal">
-  Alfred helps me with four categories of recurring work.
-</p>
-
-<h3 class="reveal">1. Context lookup</h3>
-
-<p class="reveal">
-  If I ask a question about Luminik positioning, product vocabulary, repo conventions, or a past decision, I want the answer to come with a source. The source may be a repo instruction file, a public doc, a spec, or a file reference.
+  Lucius is the role I would not give up. The pull-request commentary on Luminik repos catches behaviour bugs that I would have missed at the end of a long day. Most days it flags fewer issues than CodeRabbit. The ones it flags are usually the ones I act on.
 </p>
 
 <p class="reveal">
-  This keeps the system honest. A confident answer without a trail is just another thing I have to debug.
-</p>
-
-<h3 class="reveal">2. Reviewable drafts</h3>
-
-<p class="reveal">
-  Alfred can draft content, PR descriptions, release notes, checklists, and follow-up notes. The word reviewable is doing a lot of work here. A draft is useful because it gives me something concrete to accept, reject, or rewrite.
+  Bane has changed how I write online. Not the words, the queue. Two LinkedIn drafts a week sit in PRs waiting for me, and the cold-start cost drops to zero. The drafts are not always good. They are always close enough to argue with, which is the point.
 </p>
 
 <p class="reveal">
-  This is especially useful for writing. My standards are specific: no theatrical narration, no fake precision, no private details, no em dashes, no generic founder advice. Encoding those rules lets the first draft start closer to where I want the final version to land.
-</p>
-
-<h3 class="reveal">3. Repo hygiene and PR support</h3>
-
-<p class="reveal">
-  A lot of engineering work is not glamorous: stale docs, mismatched instructions, broken links, forgotten TODOs, tests that should be run before a branch is ready, review comments that need a patch.
+  Bat-Signal is the role I notice least, which is the right outcome for an uptime agent. The scheduled site checks have caught a couple of regressions on luminik.io before any customer would have, including one where a sitemap stopped including freshly published posts.
 </p>
 
 <p class="reveal">
-  Alfred can turn that into visible work. It can inspect, summarize, patch, and open a PR. The PR is the key unit. It keeps the work inspectable and prevents background automation from becoming background mutation.
+  Oracle is the role I trust least so far. Community signal is genuinely hard to summarize without losing nuance, and the digests are still hit and miss. I read them with a higher skepticism floor than I read Lucius output.
 </p>
 
-<h3 class="reveal">4. Scheduled checks</h3>
+<h2 class="reveal">What Has Not Worked</h2>
 
 <p class="reveal">
-  Some tasks are useful because they happen consistently: content drift checks, repo instruction review, release follow-up, public-site QA, and periodic summaries of what changed.
-</p>
-
-<p class="reveal">
-  The schedule is not the interesting part. The interesting part is the output standard. A scheduled task should leave behind a concise result, source references, and a clear next action.
-</p>
-
-<figure class="post-visual reveal">
-  <div class="post-visual-title">Recurring work by authority level</div>
-  <div class="visual-ledger">
-    <div class="ledger-row">
-      <strong>Read</strong>
-      <span>Search code, docs, public positioning, and approved notes.</span>
-      <span>Allowed for most tasks when the context is relevant.</span>
-    </div>
-    <div class="ledger-row">
-      <strong>Draft</strong>
-      <span>Create summaries, briefs, proposed copy, and checklists.</span>
-      <span>Useful when the output needs judgment before use.</span>
-    </div>
-    <div class="ledger-row">
-      <strong>Patch</strong>
-      <span>Open reviewable code or content changes on a branch.</span>
-      <span>Allowed when the write set is clear and validation is possible.</span>
-    </div>
-    <div class="ledger-row">
-      <strong>Ship</strong>
-      <span>Publish, merge, send, pay, deploy, or change production state.</span>
-      <span>Explicit human approval required every time.</span>
-    </div>
-  </div>
-</figure>
-
-<h2 class="reveal">The Part That Still Belongs to the Founder</h2>
-
-<p class="reveal">
-  The founder still owns taste, customer truth, sequencing, and risk.
+  The first version of Alfred tried to do customer support drafts. It was wrong. Customer-facing replies are not a place where draft-then-review saves me time. Reading the thread well enough to approve a draft costs about the same as writing the reply. I retired that role and have not missed it.
 </p>
 
 <p class="reveal">
-  Alfred can notice that a post sounds generic. It cannot decide what I am willing to stand behind publicly. Alfred can prepare a PR. It cannot decide that the implementation fits the product. Alfred can summarize customer-safe notes. It cannot replace the direct conversation that gives those notes meaning.
+  The second mistake was over-fitting Bane to a specific post format. The drafts were on-voice for the last post I shipped, then drifted whenever I changed topic. I rewrote the role to read the themes file and the latest two real posts before drafting, instead of caching a style profile. The drafts got better.
 </p>
 
 <p class="reveal">
-  This is the point I keep coming back to with AI-agent workflows: judgment does not disappear. It moves.
+  The third was running scheduled jobs on my laptop. They worked until they did not, because solo builders close their laptops and travel. I moved the recurring jobs to a small always-on machine at home. The boundary between my development machine and the agent runtime is its own post.
+</p>
+
+<h2 class="reveal">What I Plan to Open Source</h2>
+
+<p class="reveal">
+  Alfred itself will not be open source any time soon. The role contracts, the private knowledge base, and the company-specific connectors are entangled in ways that would leak Luminik internals if I tried to release the whole thing.
 </p>
 
 <p class="reveal">
-  If the agent writes code, the founder reviews architecture and behavior. If the agent drafts content, the founder checks truth and voice. If the agent runs checks, the founder decides what deserves action. If the agent summarizes context, the founder still asks whether the context is current enough to trust.
-</p>
-
-<p class="reveal">
-  The agent system is good when that movement is explicit.
-</p>
-
-<h2 class="reveal">What I Would Open Source</h2>
-
-<p class="reveal">
-  I want a public version of Alfred because the pattern is useful beyond my setup. The private parts are not the product. The reusable parts are the contracts.
-</p>
-
-<p class="reveal">
-  A sensible first release would avoid anything that exposes Luminik-specific operations. It would start with the pieces that other solo builders can inspect and adapt:
+  The reusable parts are different. Other solo founders running similar setups end up rebuilding the same scaffolding I did. There is no reason to keep that scaffolding private. I am preparing a public version that includes the patterns without the company.
 </p>
 
 <ul class="reveal">
-  <li><strong>Role contracts:</strong> what each agent role can read, write, and escalate.</li>
-  <li><strong>Repo instruction templates:</strong> public-safe examples for coding, content, docs, and review workflows.</li>
-  <li><strong>Review rules:</strong> the approval gates for publishing, merging, sending, and deployment.</li>
-  <li><strong>Task output formats:</strong> concise summaries, source trails, PR notes, and open questions.</li>
-  <li><strong>A local runner shape:</strong> enough structure for scheduled checks and reviewable output without requiring my private adapters.</li>
+  <li><strong>Role contracts.</strong> Markdown templates that answer the five questions for engineering, content, sales, ops, and chief-of-staff roles.</li>
+  <li><strong>Repo instruction templates.</strong> Public-safe examples of CLAUDE.md, AGENTS.md, and content-guide files for solo product teams.</li>
+  <li><strong>Review rules.</strong> The approval gates I use for shipping code, content, sales replies, and money.</li>
+  <li><strong>Output formats.</strong> Concise summaries, source-linked digests, PR notes, and the morning briefing shape.</li>
+  <li><strong>A local runner shape.</strong> Enough structure for scheduled jobs and reviewable output without my private adapters.</li>
 </ul>
 
 <p class="reveal">
-  The work before open sourcing is mostly extraction. Remove private connectors. Replace company-specific context with examples. Write the security model plainly. Make the default behavior draft-first. Give people a pattern they can trust before giving them a tool they can run.
+  The release will be patterns first, code second. A solo founder can adopt the role contracts and run them inside Claude Code, Cursor, or any agent harness they prefer. The harness is replaceable. The contracts are what stay.
 </p>
 
 <figure class="post-visual reveal">
@@ -249,22 +217,22 @@ faqs:
     <div class="visual-step">
       <span class="visual-step-label">Extract</span>
       <strong>Separate contracts from context</strong>
-      <span>Keep reusable role rules. Remove private company material.</span>
+      <span>Keep the reusable role rules. Remove Luminik-specific data.</span>
     </div>
     <div class="visual-step">
       <span class="visual-step-label">Harden</span>
       <strong>Make approval gates default</strong>
-      <span>Draft, PR, and review should be the starting behavior.</span>
+      <span>Draft, PR, and review are the starting behaviour for every role.</span>
     </div>
     <div class="visual-step">
       <span class="visual-step-label">Document</span>
       <strong>Show safe examples</strong>
-      <span>Templates, diagrams, and setup notes for solo builders.</span>
+      <span>Public-safe templates, diagrams, and setup notes other solo founders can adapt.</span>
     </div>
     <div class="visual-step">
       <span class="visual-step-label">Release</span>
       <strong>Start with the boring core</strong>
-      <span>Local checks and role contracts before hosted automation.</span>
+      <span>Local checks, role contracts, and review rules before any hosted automation.</span>
     </div>
   </div>
 </figure>
@@ -272,21 +240,9 @@ faqs:
 <h2 class="reveal">The Standard I Use Now</h2>
 
 <p class="reveal">
-  A recurring agent job has to answer five questions before I trust it.
-</p>
-
-<ol class="reveal">
-  <li>What context is it allowed to read?</li>
-  <li>What action is it allowed to take?</li>
-  <li>Where does the output land?</li>
-  <li>What evidence does it provide?</li>
-  <li>What requires my approval?</li>
-</ol>
-
-<p class="reveal">
-  If those answers are vague, the job is not ready. If they are clear, even a simple automation becomes useful.
+  After a few quiet failures and a few useful surprises, the rule I keep coming back to is simple. Alfred is good when its work is reviewable, source-linked, and bounded. It is bad when I notice it deciding things I should be deciding.
 </p>
 
 <p class="reveal">
-  That is the practical lesson from Alfred so far. Solo builders do not need agent theater. They need a way to make recurring work visible, source-linked, and reviewable, while keeping the founder responsible for the decisions that matter.
+  Solo builders do not need agent theatre. They need a way to make recurring work visible, source-linked, and reviewable, while keeping the founder responsible for the decisions that matter. The agent layer is not the product. The contract is.
 </p>

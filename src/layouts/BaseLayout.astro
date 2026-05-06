@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import Icon from '../components/Icon.astro';
 
 type Props = {
   title: string;
@@ -76,10 +77,8 @@ const claudePrompt =
     <link rel="alternate" type="text/plain" title="Full LLM context" href="/llms-full.txt" />
     <link rel="help" type="text/plain" title="AI agent guidance" href="/agents.txt" />
     {preloadImage && <link rel="preload" as="image" href="/assets/images/header/prasad.jpeg" imagesizes="76px" />}
-    <link rel="stylesheet" href="/assets/plugins/font-awesome/css/fontawesome.min.css" />
-    <link rel="stylesheet" href="/assets/plugins/font-awesome/css/brands.min.css" />
-    <link rel="stylesheet" href="/assets/plugins/font-awesome/css/solid.min.css" />
-    <link rel="stylesheet" href="/assets/plugins/font-awesome/css/regular.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
     <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-XG5LVE538S"></script>
     <script is:inline>
@@ -93,11 +92,7 @@ const claudePrompt =
   </head>
   <body>
     <a href="#main" class="skip-link">Skip to main content</a>
-    <div class="motion-field" aria-hidden="true">
-      <div class="motion-plane one"></div>
-      <div class="motion-plane two"></div>
-      <div class="motion-plane three"></div>
-    </div>
+    <div class="motion-field" aria-hidden="true"></div>
 
     <nav class="nav" data-nav>
       <div class="container nav-inner">
@@ -110,8 +105,13 @@ const claudePrompt =
           <li><a href="/#contact">Contact</a></li>
         </ul>
         <div class="nav-actions">
-          <button class="icon-button" type="button" aria-label="Toggle theme" data-theme-toggle>
-            <i class="fas fa-moon" data-theme-icon></i>
+          <button class="icon-button theme-toggle" type="button" aria-label="Toggle theme" data-theme-toggle>
+            <span class="theme-toggle-icon theme-toggle-icon--moon" aria-hidden="true">
+              <Icon name="moon" size={18} />
+            </span>
+            <span class="theme-toggle-icon theme-toggle-icon--sun" aria-hidden="true">
+              <Icon name="sun" size={18} />
+            </span>
           </button>
           <button class="icon-button nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-links" data-nav-toggle>
             <span></span>
@@ -143,9 +143,9 @@ const claudePrompt =
           <p>Use these files and prompts when asking an assistant about my public work. They are intentionally limited to public-safe context.</p>
         </div>
         <div class="ai-actions">
-          <a class="button" href="/llms-full.txt"><i class="fas fa-file-lines"></i> Full Context</a>
-          <button class="button" type="button" data-copy-prompt={chatGptPrompt}><i class="fas fa-comments"></i> ChatGPT Prompt</button>
-          <button class="button" type="button" data-copy-prompt={claudePrompt}><i class="fas fa-brain"></i> Claude Prompt</button>
+          <a class="button" href="/llms-full.txt"><Icon name="file-lines" size={16} /> Full Context</a>
+          <button class="button" type="button" data-copy-prompt={chatGptPrompt}><Icon name="comments" size={16} /> ChatGPT Prompt</button>
+          <button class="button" type="button" data-copy-prompt={claudePrompt}><Icon name="brain" size={16} /> Claude Prompt</button>
         </div>
         <p class="copy-status" aria-live="polite" data-copy-status></p>
       </div>

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from './BaseLayout.astro';
+import Icon from '../components/Icon.astro';
 import { formatMonth, getRelatedPosts, type Post } from '../lib/posts';
 
 type Props = {
@@ -56,8 +57,8 @@ const faqSchema = post.faqs?.length
   <section class="post-hero">
     <div class="post-hero-inner">
       <div class="post-meta reveal">
-        <span><i class="far fa-calendar"></i> {formatMonth(post.date)}</span>
-        <span><i class="far fa-clock"></i> {post.readTime}</span>
+        <span><Icon name="calendar" size={14} /> {formatMonth(post.date)}</span>
+        <span><Icon name="clock" size={14} /> {post.readTime}</span>
         <span class="blog-category">{post.category}</span>
       </div>
       <h1 class="reveal">{post.title}</h1>
@@ -94,7 +95,7 @@ const faqSchema = post.faqs?.length
       </div>
 
       <div class="reveal" style="margin-top: 36px; text-align: center;">
-        <a class="button" href="/blog/"><i class="fas fa-arrow-left"></i> Back to Blog</a>
+        <a class="button" href="/blog/"><Icon name="arrow-left" size={16} /> Back to Blog</a>
       </div>
     </article>
 
