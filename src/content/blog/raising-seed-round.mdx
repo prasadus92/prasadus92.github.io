@@ -1,0 +1,161 @@
+---
+slug: "raising-seed-round"
+title: "Fundraising as Narrative Clarity"
+description: "What raising Mainteny's $2.7M seed round taught me about narrative, investor fit, diligence readiness, the CTO's role, and protecting product attention while a round is in motion."
+date: "2025-09-15"
+modified: "2026-05-06"
+category: "Fundraising"
+readTime: "12 min read"
+tags: ["Mainteny","fundraising","seed round"]
+---
+import Callout from '../../components/post/Callout.astro';
+import KeyTakeaway from '../../components/post/KeyTakeaway.astro';
+import CompareTable from '../../components/post/CompareTable.astro';
+import StatRow from '../../components/post/StatRow.astro';
+import PullQuote from '../../components/post/PullQuote.astro';
+
+<p class="reveal">
+  During Mainteny's seed round, the work was making the company legible to people who had not lived inside it. Product decisions, customer proof, market structure, founder fit, technical risk, and the live demo all had to compress into a story an investor could understand quickly and stress-test under diligence.
+</p>
+
+<KeyTakeaway label="The argument in one paragraph">
+  Fundraising is narrative work backed by a real product. The hard part is not raising money. The hard part is building something worth investing in. The best thing a founder can do to make fundraising easier is spend less time on fundraising and more time on the company.
+</KeyTakeaway>
+
+<h2 class="reveal">The Time Cost</h2>
+
+<p class="reveal">
+  Fundraising is not a side quest. It competes directly with product work, customer work, hiring, and operating cadence. The only rhythm that worked was separating the modes.
+</p>
+
+<CompareTable
+  caption="Block entire days, not hours. The context-switching tax is real and it is paid first by the parts of the company nobody is watching."
+  leftLabel="Block"
+  rightLabel="What it covers"
+  rows={[
+    { dimension: "Investor blocks", left: "Outbound, calls, follow-ups, narrative iteration", right: "Decks, intro asks, pipeline review" },
+    { dimension: "Product blocks", left: "Customer-impacting work and demo quality", right: "Bug fixes that affect retention. Metric movement. Nothing speculative." },
+    { dimension: "Diligence blocks", left: "Documents and references", right: "Cap table, financial model, contracts, technical notes" },
+    { dimension: "Recovery blocks", left: "Time to think before the next conversation", right: "Without recovery the narrative gets shallower with every retelling" }
+  ]}
+/>
+
+<h2 class="reveal">Investor Outreach That Respects Attention</h2>
+
+<p class="reveal">
+  Warm introductions help, but they do not replace a sharp thesis. Cold outreach can work when it is researched, specific, and concise. The best messages did three things quickly: showed investor fit, made the market legible, and gave one reason the team had earned the right to build the company.
+</p>
+
+<p class="reveal">
+  The worst thing you can do is send the same email to 200 investors. They can smell a mail merge. Read their portfolio. Read their writing. Connect specific dots.
+</p>
+
+<Callout tone="info" title="The cold-outreach structure that worked">
+  <p><strong>Subject:</strong> Vertical SaaS in an overlooked operational market</p>
+  <p>Hi <em>[Name]</em>,</p>
+  <p>I noticed your investment in <em>[similar company]</em> and your recent post about European B2B markets. We are building something adjacent.</p>
+  <p><em>[Company]</em> helps an operationally complex market move from fragmented workflows to a purpose-built system of record. We have early customer proof, a clear wedge, and a product that can be shown live.</p>
+  <p>Would you be open to a 20-minute call next week?</p>
+</Callout>
+
+<p class="reveal">
+  Four things matter in that template: it shows you did the homework, it connects to a thesis they have already publicly committed to, it anchors the company in a specific market, and it asks for a small commitment.
+</p>
+
+<h2 class="reveal">What Investors Actually Evaluate</h2>
+
+<p class="reveal">
+  After enough conversations, patterns emerge. Three signals carry most of the weight at seed.
+</p>
+
+<CompareTable
+  caption="Three things investors actually weigh at seed. The TAM slide is rarely one of them."
+  leftLabel="What you say"
+  rightLabel="What they evaluate"
+  rows={[
+    { dimension: "Market", left: "TAM number", right: "Whether you understand the market deeply enough to have a contrarian insight your competitors do not have" },
+    { dimension: "Team", left: "Resumes and titles", right: "Founder-market fit. Why are you the person to solve this? What context would another team need years to earn?" },
+    { dimension: "Product", left: "Slides about the product", right: "Ten minutes of the actual product running on a real workflow. The product carries the part of the pitch slides cannot." }
+  ]}
+/>
+
+<PullQuote>
+  Polite interest is not momentum. Momentum is specific next steps, diligence questions, reference calls, and a partner who starts doing work on the opportunity.
+</PullQuote>
+
+<h2 class="reveal">How the Narrative Improved Across Drafts</h2>
+
+<p class="reveal">
+  The first version of the pitch tried to explain too much. The second sharpened the wedge. The third led with the demo. Each version made the conversation better.
+</p>
+
+<CompareTable
+  caption="Three drafts of the same pitch. Less explanation per draft. Sharper questions every time."
+  leftLabel="Draft and what changed"
+  rightLabel="What investors did differently"
+  rows={[
+    { dimension: "Version 1: Too much explanation", left: "Tried to prove the whole product, the whole market, and every technical decision in one meeting.", right: "Polite interest. No follow-up." },
+    { dimension: "Version 2: Sharper wedge", left: "Stopped trying to prove the whole market. Focused on the narrow customer pain we knew better than anyone in the room.", right: "Questions moved from 'what is this' to 'how big can this become'." },
+    { dimension: "Version 3: Demo first", left: "Led with the live workflow. Talked about expansion, buyer behavior, and product velocity afterwards.", right: "Diligence requests landed faster. Partners started doing work between meetings." }
+  ]}
+/>
+
+<h2 class="reveal">Diligence: Where Vague Storytelling Collapses</h2>
+
+<p class="reveal">
+  Financial model, customer proof, contracts, cap table, references, technical architecture, hiring plan. The story has to survive contact with the documents. Once one high-conviction investor leans in, the market changes. The same company can feel speculative one week and obvious the next. Be ready before that moment: clean data room, crisp references, clear terms, and a product story that does not need constant rescue.
+</p>
+
+<h2 class="reveal">The CTO's Role During the Raise</h2>
+
+<p class="reveal">
+  A technical co-founder does four things during a raise that the CEO cannot do alone.
+</p>
+
+<Callout tone="note" title="What the CTO owns during a seed">
+  <ul>
+    <li><strong>Run the demo.</strong> Shows the technical co-founder can communicate. Lets the CEO handle the business questions while you handle the technical ones.</li>
+    <li><strong>Handle technical due diligence.</strong> Some investors bring advisors. Be able to explain trade-offs clearly, including where the system is intentionally simple.</li>
+    <li><strong>Articulate the "why you" technical story.</strong> Why is your approach differentiated? Why can you build faster than competitors? Investors want a CTO with opinions about technology, not just skills.</li>
+    <li><strong>Keep the product alive.</strong> During the intense months, focus on stability, demo quality, and the product improvements that make the company stronger in customer conversations.</li>
+  </ul>
+</Callout>
+
+<h2 class="reveal">Raise vs Bootstrap</h2>
+
+<CompareTable
+  caption="The hidden cost of venture capital is the trajectory it locks you into. Once you raise, the comfortable middle ground of a small, profitable business is no longer available."
+  leftLabel="Raise if"
+  rightLabel="Bootstrap if"
+  rows={[
+    { dimension: "Speed to market", left: "Network effects, winner-take-most dynamics", right: "Market rewards depth over breadth" },
+    { dimension: "Capital intensity", left: "Significant upfront investment before revenue is possible", right: "You can get to profitability with minimal capital" },
+    { dimension: "Competitive pressure", left: "Competitors are well-funded and moving fast", right: "Your edge compounds with care, not capital" },
+    { dimension: "Control", left: "You are willing to share decision rights", right: "You want to maintain founder control" }
+  ]}
+/>
+
+<h2 class="reveal">What I Would Tighten Next Time</h2>
+
+<ul class="reveal">
+  <li><strong>Pressure-test the narrative before starting.</strong> Wedge, expansion story, demo, objection handling. The raise is too late to discover the gaps.</li>
+  <li><strong>Target investor fit more ruthlessly.</strong> Some firms are structurally unlikely to invest no matter how good the conversation feels. Stage, geography, check size, category experience, and partner ownership all matter. A pleasant conversation with the wrong firm is still a cost.</li>
+  <li><strong>Prepare diligence before anyone asks.</strong> The data room is not clerical work. It is the operating system of the raise.</li>
+  <li><strong>Protect founder attention.</strong> Process beats willpower. Clear ownership, weekly review of investor status, and enough product time that the company keeps improving while the round is in motion.</li>
+</ul>
+
+<h2 class="reveal">Seven Things I Would Tell a First-Time Founder</h2>
+
+<StatRow stats={[
+  { value: "1", label: "It takes longer", caption: "Double your estimate. Then add a month." },
+  { value: "2", label: "Rejection is data", caption: "When an investor passes, ask why. Do not take it personally, but take it seriously." },
+  { value: "3", label: "Best investors add more than money", caption: "Their expertise can be worth more than better terms elsewhere." },
+  { value: "4", label: "Fundraising is a skill", caption: "The pitch improves when you treat every conversation as feedback on clarity." },
+  { value: "5", label: "Co-founder relationship gets tested", caption: "Fundraising stress reveals cracks. Better now than after you have employees." },
+  { value: "6", label: "Don't optimize for valuation alone", caption: "Higher valuation with worse terms or worse investors is not a win." },
+  { value: "7", label: "Market conditions matter", caption: "You cannot control them. Be aware of them." }
+]} />
+
+<KeyTakeaway label="What stayed with me">
+  Raising capital is useful when it improves the company's odds of doing the work ahead. It is dangerous when it becomes the work. If you have built real value, you will find capital. If you have not, no fundraising tactics will save you.
+</KeyTakeaway>
