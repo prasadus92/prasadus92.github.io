@@ -37,7 +37,7 @@ import PullQuote from '../../components/post/PullQuote.astro';
 />
 
 <div class="reveal">
-  The separation is an old engineering idea. Build machines and development machines have often been different boxes. The difference here is that the background layer is not just a build runner. It holds context, answers questions, and routes work to the right tool. The architecture matters because it makes accountability visible.
+  The separation is an old engineering idea. Build machines and development machines have often been different boxes. The difference here is that the background layer also holds context, answers questions, and routes work to the right tool. The architecture matters because it makes accountability visible.
 </div>
 
 <h2 class="reveal">The Operating Shape</h2>
@@ -145,7 +145,7 @@ import PullQuote from '../../components/post/PullQuote.astro';
 <h2 class="reveal">What the Setup Taught Me About Open Source</h2>
 
 <div class="reveal">
-  Setup took longer than the READMEs suggested because a few assumptions in the tools were wrong or stale. Normal in fast-moving open-source software. The useful part was not the breakage. The useful sequence was simple: isolate the symptom, verify it outside my own setup, leave a public trail, and move on with a small local patch.
+  Setup took longer than the READMEs suggested because a few assumptions in the tools were wrong or stale. Normal in fast-moving open-source software. The useful sequence was simple: isolate the symptom, verify it outside my own setup, leave a public trail, and move on with a small local patch.
 </div>
 
 <CompareTable
@@ -176,7 +176,7 @@ import PullQuote from '../../components/post/PullQuote.astro';
 <h2 class="reveal">When You Have Earned the Complexity</h2>
 
 <div class="reveal">
-  Not every solo builder needs this. If you are still shaping a first prototype, a laptop and disciplined notes are enough. You have earned the need when three things are true at once. Agents are producing enough work that review, memory, and follow-up start to blur. Your specs or CLAUDE.md files are authoritative context you update often. And at least one workflow would benefit from running on a schedule instead of when you remember to run it.
+  This setup starts making sense once three things are true at once. Agents are producing enough work that review, memory, and follow-up start to blur. Your specs or CLAUDE.md files are authoritative context you update often. And at least one workflow would benefit from running on a schedule instead of when you remember to run it. Before that, a laptop and disciplined notes are enough.
 </div>
 
 <Callout tone="info" title="The minimum setup, conceptually">
@@ -192,7 +192,7 @@ import PullQuote from '../../components/post/PullQuote.astro';
 <h2 class="reveal">Where This Is Going</h2>
 
 <div class="reveal">
-  Luminik, like any company, is a collection of recurring jobs. Keeping docs in sync with code. Reviewing the gap between intent and implementation. Turning customer signal into sharper product decisions. Noticing operational drift. Most of these jobs share a shape: trigger, context, action, output, review. The dedicated environment is the substrate that has to exist for that to work: always-on runtime, separated context, queryable memory, and scheduled jobs that produce reviewable output. It is not the finished product. It is the coordination layer a solo founder needs to run a company with the discipline of a larger team.
+  Luminik, like any company, is a collection of recurring jobs. Keeping docs in sync with code. Reviewing the gap between intent and implementation. Turning customer signal into sharper product decisions. Noticing operational drift. Most of these jobs share a shape: trigger, context, action, output, review. The dedicated environment is the substrate that has to exist for that to work: always-on runtime, separated context, queryable memory, and scheduled jobs that produce reviewable output. It is the coordination layer a solo founder needs to run a company with the discipline of a larger team.
 </div>
 
 <div class="reveal" style="font-style: italic; color: var(--color-text-tertiary);">

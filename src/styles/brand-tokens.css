@@ -1,5 +1,5 @@
 /*
- * Personal brand tokens — prasad.tech.
+ * Personal brand tokens: prasad.tech.
  * Mirrors the structure of Luminik's brand-tokens.css so both sites feel like
  * the work of the same operator. The accent palette stays personal (emerald +
  * sky + amber) to keep prasad.tech distinct from luminik.io.
@@ -11,11 +11,11 @@
 :root {
   color-scheme: light dark;
 
-  /* --- Raw accent anchors --------------------------------------------- */
+  /* Raw accent anchors --------------------------------------------------- */
   --accent-50:  #ecfdf5;
   --accent-100: #d1fae5;
   --accent-200: #a7f3d0;
-  --accent-300: #6ee7b7;   /* primary mint — used for eyebrows, links */
+  --accent-300: #6ee7b7;   /* primary mint for eyebrows and links */
   --accent-400: #34d399;
   --accent-500: #10b981;
   --accent-600: #059669;
@@ -28,7 +28,7 @@
   --warm-300:  #fcd34d;
   --warm-500:  #f59e0b;
 
-  /* --- Semantic HSL triplets (light) ---------------------------------- */
+  /* Semantic HSL triplets (light) ---------------------------------------- */
   --background:           60 10% 97%;       /* #f7f8f5 */
   --foreground:           222 47% 11%;
   --card:                 0 0% 100%;
@@ -54,7 +54,7 @@
   --text-tertiary:        215 20% 40%;
   --text-inverse:         0 0% 100%;
 
-  /* --- Glass / overlay tokens ----------------------------------------- */
+  /* Glass / overlay tokens ----------------------------------------------- */
   --glass-bg:             255 255 255;
   --glass-bg-opacity:     0.74;
   --glass-border:         255 255 255;
@@ -64,19 +64,19 @@
   --glass-shadow:         0 8px 32px rgba(12, 18, 32, 0.06), 0 1px 2px rgba(12, 18, 32, 0.04);
   --glass-shadow-lifted:  0 18px 48px rgba(12, 18, 32, 0.10), 0 2px 6px rgba(12, 18, 32, 0.05);
 
-  /* --- Gradient meshes (ambient hero glow) ---------------------------- */
+  /* Gradient meshes (ambient hero glow) ---------------------------------- */
   --mesh-a: radial-gradient(60% 50% at 18% 12%, rgba(110, 231, 183, 0.16) 0%, transparent 60%);
   --mesh-b: radial-gradient(50% 45% at 84% 22%, rgba(96, 165, 250, 0.12) 0%, transparent 65%);
   --mesh-c: radial-gradient(55% 55% at 60% 95%, rgba(245, 158, 11, 0.10) 0%, transparent 70%);
 
-  /* --- Radius --------------------------------------------------------- */
+  /* Radius --------------------------------------------------------------- */
   --radius-sm:  0.375rem;
   --radius-md:  0.5rem;
   --radius-lg:  0.625rem;
   --radius-xl:  0.875rem;
   --radius-2xl: 1.25rem;
 
-  /* --- Spacing scale (4px base) --------------------------------------- */
+  /* Spacing scale (4px base) --------------------------------------------- */
   --space-1: 0.25rem;
   --space-2: 0.5rem;
   --space-3: 0.75rem;
@@ -88,7 +88,7 @@
   --space-9: 6rem;
   --space-10: 8rem;
 
-  /* --- Container ------------------------------------------------------ */
+  /* Container ------------------------------------------------------------ */
   --container: 1180px;
 }
 

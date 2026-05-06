@@ -42,6 +42,8 @@ These are the only recurring numerical proof points currently approved for this 
 
 Do not add new revenue, pipeline, customer, fundraising, runway, security, or internal operating numbers without explicit approval and a public-safe source note.
 
+Rendered copy should use these facts as evidence, not label them as "public proof points" or expose internal boundary language. Good: "The numbers I use here are the ones I can stand behind." Bad: "Public proof points are intentionally narrow."
+
 ## Rules
 
 ### Be specific. Safely.
@@ -219,7 +221,7 @@ Public-safe credibility plays:
 - **Public companies and platforms**: Bain & Company, Mainteny, SnowOptix, Luminik, GitHub, Cursor, Claude Code, CodeRabbit, Quicksand, Astro. Real, public, verifiable.
 - **Public artifacts**: link to public PRs, public repos (luminik-io/event-outbound-skill, luminik-io/claude-plugins, prasadus92/prasadus92.github.io), public docs, public talks.
 - **Real category vocabulary**: "event pipeline platform", "source, enrich, sequence, capture, attribute". This is locked Luminik positioning.
-- **Specific timeline**: "Oct 2024 – present" is stronger than "the past year".
+- **Specific timeline**: "Oct 2024 to present" is stronger than "the past year".
 
 Out of bounds:
 
