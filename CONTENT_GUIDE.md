@@ -15,6 +15,31 @@ The author (Prasad) has 12+ years building software products. He writes from exp
 - **Naval Ravikant**: Compression. One idea per sentence. No wasted words.
 - **DHH (Basecamp)**: Strong opinions. Specific about tools and tradeoffs. Contrarian when earned by experience.
 - **David Perell**: Specificity over abstraction. Lead with the most interesting thing. The "dinner party test": write how you'd explain it to a smart friend.
+- **Nick Wignall**: Familiar problem, named mechanism, concrete examples, practical next move. Borrow the clarity, not the psychology-blog persona.
+
+## Audience and Positioning
+
+The primary reader is a solo technical builder or technical founder building serious software with a small team, close customer contact, and AI-assisted workflows.
+
+The site should make this niche obvious:
+
+- Building real B2B products from customer pain.
+- Founder-led sales as diagnosis.
+- Agent-assisted development with human judgment, specs, and review gates.
+- Event pipeline thinking through Luminik.
+- Zero-to-one operating lessons from Aura, Mainteny, SnowOptix, and Luminik.
+
+The homepage and blog index should feel like a founder's field notes with proof, diagrams, and practical mechanisms. They should not feel like a generic resume, personal-brand funnel, or inspirational creator blog.
+
+## Approved Public Proof Points
+
+These are the only recurring numerical proof points currently approved for this public repo:
+
+- Aura reached `$3.6M ARR` in `18 months`.
+- Mainteny raised a `$2.7M seed round`.
+- Prasad built the first Mainteny MVP solo in `3 months`.
+
+Do not add new revenue, pipeline, customer, fundraising, runway, security, or internal operating numbers without explicit approval and a public-safe source note.
 
 ## Rules
 
@@ -42,6 +67,9 @@ These patterns make writing sound machine-generated. Never use them:
 - "It's not a bug, it's a feature"
 - "Here is where things get interesting"
 - Em dashes. Use periods, commas, colons, or parentheses instead.
+- Clever atmospheric openers that turn a laptop into a metaphor for the company.
+- Dramatic founder-machine lines about one device doing multiple jobs.
+- Polished aphoristic endings that sound like slide copy.
 
 Also avoid these words unless they appear inside a quoted source or code/API name: seamless, unlock, leverage, transform, synergy, cutting-edge, revolutionize, streamline.
 
@@ -63,6 +91,7 @@ Cut or anonymize:
 - Customer names, org size, internal team structure, private quotes, private tool screenshots, and unpublished outcomes.
 - Exact internal schedules, cron times, support channels, phone numbers, cloud identities, credential paths, and security posture.
 - Detailed GTM playbooks, outreach lists, event names tied to private pilots, or anything a competitor can copy as a recipe.
+- Internal agent operations, private channels, internal dispatch names, detailed approval routing, and private knowledge-base wiring. Public posts can describe queryable context, scheduled checks, reviewable output, and human approval.
 - Copy that sounds careless: skipped tests, weak auth, cheap/free bragging, chaotic fundraising, heroic firefighting, or self-deprecating founder theater.
 
 The test: does this sentence make Prasad look more inevitable, more trustworthy, and more thoughtful? If not, revise or cut it.
@@ -115,8 +144,16 @@ Good visual candidates:
 - Tables for public-safe tradeoffs, toolchain categories, or decision criteria.
 - Workflow diagrams for sales processes, event-pipeline stages, and customer handoffs.
 - Annotated screenshots only when the screenshot is safe to publish and directly supports the argument.
+- Native HTML/CSS diagrams that show systems, boundaries, timelines, matrices, ledgers, or workflows. These are preferred over decorative images because they stay readable, responsive, and portable to Astro later.
 
 Avoid visuals that merely decorate the post, repeat the headline, or make the site feel like a SaaS landing page.
+
+## Publishing and PR Rules
+
+- Never merge a pull request without Prasad's explicit approval.
+- Never push directly to `main`.
+- Never deploy, publish, revert, or force-push on Prasad's behalf unless he explicitly asks for that exact action.
+- The normal workflow is: edit on a feature branch, validate locally, open a PR, summarize risks, then wait for Prasad to review and merge.
 
 ## Public source discipline
 

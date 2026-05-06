@@ -1,0 +1,131 @@
+---
+import '../styles/global.css';
+
+type Props = {
+  title: string;
+  description: string;
+  canonical?: string;
+  image?: string;
+  type?: 'website' | 'article';
+  active?: 'home' | 'blog';
+};
+
+const {
+  title,
+  description,
+  canonical = 'https://prasad.tech/',
+  image = 'https://prasad.tech/assets/images/header/prasad.jpeg',
+  type = 'website',
+  active
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content="Prasad Subrahmanya" />
+    <link rel="canonical" href={canonical} />
+
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content={type} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={image} />
+    <meta property="og:image:alt" content="Prasad Subrahmanya" />
+    <meta property="og:site_name" content="Prasad Subrahmanya" />
+    <meta property="og:locale" content="en_US" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={image} />
+
+    <script is:inline>
+      try {
+        const savedTheme = localStorage.getItem('theme');
+        const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+        document.documentElement.setAttribute('data-theme', savedTheme || (prefersLight ? 'light' : 'dark'));
+      } catch {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    </script>
+
+    <link rel="icon" type="image/x-icon" href="/assets/favicon/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon/favicon-96x96.png" />
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon/favicon.svg" />
+    <link rel="apple-touch-icon" href="/assets/favicon/apple-touch-icon.png" />
+    <link rel="manifest" href="/assets/favicon/site.webmanifest" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/assets/plugins/font-awesome/css/fontawesome.min.css" />
+    <link rel="stylesheet" href="/assets/plugins/font-awesome/css/brands.min.css" />
+    <link rel="stylesheet" href="/assets/plugins/font-awesome/css/solid.min.css" />
+    <link rel="stylesheet" href="/assets/plugins/font-awesome/css/regular.min.css" />
+
+    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-XG5LVE538S"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XG5LVE538S');
+    </script>
+
+    <slot name="head" />
+  </head>
+  <body>
+    <a href="#main" class="skip-link">Skip to main content</a>
+    <div class="motion-field" aria-hidden="true">
+      <div class="motion-plane one"></div>
+      <div class="motion-plane two"></div>
+      <div class="motion-plane three"></div>
+    </div>
+
+    <nav class="nav" data-nav>
+      <div class="container nav-inner">
+        <a href="/" class="nav-logo">PS</a>
+        <ul class="nav-links" id="nav-links" data-nav-links>
+          <li><a class={active === 'home' ? 'active' : undefined} href="/#about">About</a></li>
+          <li><a href="/#proof">Proof</a></li>
+          <li><a href="/#operating-areas">Operating Areas</a></li>
+          <li><a class={active === 'blog' ? 'active' : undefined} href="/blog/">Blog</a></li>
+          <li><a href="/#contact">Contact</a></li>
+        </ul>
+        <div class="nav-actions">
+          <button class="icon-button" type="button" aria-label="Toggle theme" data-theme-toggle>
+            <i class="fas fa-moon" data-theme-icon></i>
+          </button>
+          <button class="icon-button nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-links" data-nav-toggle>
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <footer class="footer">
+      <div class="container footer-inner">
+        <p>&copy; <span data-current-year></span> Prasad Subrahmanya. Built carefully in Oslo, Norway.</p>
+        <div class="footer-links">
+          <a href="mailto:prasadus92@gmail.com">Email</a>
+          <a href="https://linkedin.com/in/prasadus" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://github.com/prasadus92" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      import '../scripts/site';
+    </script>
+  </body>
+</html>

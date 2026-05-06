@@ -1,0 +1,118 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import { formatMonth, getRelatedPosts, type Post } from '../lib/posts';
+
+type Props = {
+  post: Post;
+};
+
+const { post } = Astro.props;
+const related = getRelatedPosts(post);
+const canonical = `https://prasad.tech${post.url}`;
+const modified = post.modified ?? post.date;
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.title,
+  description: post.description,
+  datePublished: post.date,
+  dateModified: modified,
+  mainEntityOfPage: canonical,
+  image: 'https://prasad.tech/assets/images/header/prasad.jpeg',
+  articleSection: post.category,
+  keywords: post.tags.join(', '),
+  author: {
+    '@type': 'Person',
+    name: 'Prasad Subrahmanya',
+    url: 'https://prasad.tech/',
+    sameAs: ['https://linkedin.com/in/prasadus', 'https://github.com/prasadus92']
+  },
+  publisher: {
+    '@type': 'Person',
+    name: 'Prasad Subrahmanya'
+  }
+};
+
+const faqSchema = post.faqs?.length
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: post.faqs.map((faq) => ({
+        '@type': 'Question',
+        name: faq.question,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: faq.answer
+        }
+      }))
+    }
+  : null;
+---
+
+<BaseLayout title={`${post.title} | Prasad Subrahmanya`} description={post.description} canonical={canonical} type="article" active="blog">
+  <script is:inline slot="head" type="application/ld+json" set:html={JSON.stringify(schema)} />
+  {faqSchema && <script is:inline slot="head" type="application/ld+json" set:html={JSON.stringify(faqSchema)} />}
+
+  <section class="post-hero">
+    <div class="post-hero-inner">
+      <div class="post-meta reveal">
+        <span><i class="far fa-calendar"></i> {formatMonth(post.date)}</span>
+        <span><i class="far fa-clock"></i> {post.readTime}</span>
+        <span class="blog-category">{post.category}</span>
+      </div>
+      <h1 class="reveal">{post.title}</h1>
+      <p class="lead reveal">{post.description}</p>
+    </div>
+  </section>
+
+  <div class="post-shell">
+    <article class="post-content">
+      <slot />
+
+      {post.faqs?.length && (
+        <section class="faq-list reveal" aria-labelledby="faq-heading">
+          <h2 id="faq-heading">FAQ</h2>
+          {post.faqs.map((faq) => (
+            <div class="faq-item card">
+              <h3>{faq.question}</h3>
+              <p>{faq.answer}</p>
+            </div>
+          ))}
+        </section>
+      )}
+
+      <div class="author-card card reveal">
+        <img src="/assets/images/header/prasad.jpeg" width="72" height="72" alt="Prasad Subrahmanya" />
+        <div>
+          <h2 style="font-size: 1.2rem; margin-bottom: 6px;">Prasad Subrahmanya</h2>
+          <p style="margin-bottom: 10px;">Founder of Luminik. Public proof points: built Aura at Bain to $3.6M ARR and led Mainteny through a $2.7M seed round.</p>
+          <div class="tag-row">
+            <a class="tag" href="https://linkedin.com/in/prasadus" target="_blank" rel="noopener">LinkedIn</a>
+            <a class="tag" href="https://github.com/prasadus92" target="_blank" rel="noopener">GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal" style="margin-top: 36px; text-align: center;">
+        <a class="button" href="/blog/"><i class="fas fa-arrow-left"></i> Back to Blog</a>
+      </div>
+    </article>
+
+    <aside class="post-aside" aria-label="Post sidebar">
+      <div class="aside-card card">
+        <h2>Filed Under</h2>
+        <div class="tag-row">
+          <span class="tag">{post.category}</span>
+          {post.tags.map((tag) => <span class="tag">{tag}</span>)}
+        </div>
+      </div>
+
+      <div class="aside-card card">
+        <h2>Related Notes</h2>
+        {related.map((item) => (
+          <a href={item.url}>{item.title}</a>
+        ))}
+      </div>
+    </aside>
+  </div>
+</BaseLayout>
