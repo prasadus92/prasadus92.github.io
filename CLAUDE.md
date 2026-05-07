@@ -26,8 +26,8 @@ Assume every post is read by a VC, competitor, future employer, recruiter, custo
 - Publish proof of taste, judgment, operating discipline, technical depth, and customer understanding.
 - Do not publish operational manuals: exact internal schedules, credential patterns, cloud identities, private tool wiring, support channels, customer org charts, private quotes, unpublished metrics, or detailed security posture.
 - Avoid copy that makes Prasad look careless or small: no bragging about cheap/free tooling, skipped quality, chaotic fundraising, or heroic firefighting unless the lesson clearly strengthens the founder narrative.
-- Prefer public-safe specificity: name the principle, workflow shape, tradeoff, public artifact, or anonymized customer-safe scene. Cut details that help competitors copy the motion or give diligence readers unnecessary ammunition.
-- Keep internal guardrails out of rendered copy. Use approved numbers as evidence, not as labels like "public proof points" or disclaimers about what the portfolio omits.
+- Prefer specificity that is safe for a public repo: name the principle, workflow shape, tradeoff, public artifact, or anonymized customer-safe scene. Cut details that help competitors copy the motion or give diligence readers unnecessary ammunition.
+- Keep internal guardrails out of rendered copy. Use approved numbers as evidence, not as labels like "proof points" or disclaimers about what the portfolio omits.
 - Before publishing, ask: does this sentence make Prasad look more inevitable, more trustworthy, and more thoughtful? If not, revise or cut it.
 
 ## Voice

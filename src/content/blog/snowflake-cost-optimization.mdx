@@ -1,9 +1,9 @@
 ---
 slug: "snowflake-cost-optimization"
 title: "SnowOptix: The Side Project That Led to Luminik"
-description: "SnowOptix started as a side project for a Snowflake cost problem. The conversations it created surfaced a much bigger pattern in B2B GTM. That pattern became Luminik."
+description: "SnowOptix solved a real Snowflake cost problem, earned useful validation, and still showed the limits of the category. The conversations it created led to Luminik."
 date: "2025-12-15"
-modified: "2026-05-06"
+modified: "2026-05-07"
 category: "Customer Discovery"
 readTime: "9 min read"
 tags: ["SnowOptix","Luminik","customer discovery"]
@@ -15,11 +15,11 @@ import StatRow from '../../components/post/StatRow.astro';
 import PullQuote from '../../components/post/PullQuote.astro';
 
 <div class="reveal">
-  SnowOptix started as a narrow tool for a Snowflake cost problem I understood directly. It got used outside my own account, including adoption by a top-3 global consulting firm. The more important outcome was the set of conversations it created. Those conversations surfaced a different problem: B2B teams were spending heavily on events, while the handoffs across attendee lists, enrichment, outreach, booth activity, and CRM attribution were fragile. That opportunity became Luminik.
+  SnowOptix started as a narrow tool for a Snowflake cost problem I understood directly. It identified meaningful savings on the bill that started the project, then got into the Snowflake Native App Accelerator with help from Snowflake's startups team. That validation was useful. The category still looked weak as a company wedge: small market, improving native Snowflake observability, crowded alternatives, and adoption that stayed smaller and more episodic than the recurring contracts I wanted to build around. The valuable outcome was the set of conversations it created. Those conversations surfaced a different problem: B2B teams were spending heavily on events, while the handoffs across attendee lists, enrichment, outreach, booth activity, and CRM attribution were fragile. That opportunity became Luminik.
 </div>
 
 <KeyTakeaway label="The argument in one paragraph">
-  I did not pivot from a plan. I followed customer evidence the side project made visible. The discovery came from the follow-up questions buyers asked after the demo, not from market-size reports. Side projects are useful as discovery mechanisms because a working artifact opens conversations a thesis cannot.
+  I followed evidence from a working artifact. SnowOptix proved the cost pain was real, then showed the business limits around that pain. The calls pointed toward a larger and more urgent workflow problem in events: lists, enrichment, outreach, booth activity, and CRM attribution. A side project can be a research instrument when it creates conversations a thesis cannot.
 </KeyTakeaway>
 
 <figure class="post-visual reveal">
@@ -36,19 +36,19 @@ import PullQuote from '../../components/post/PullQuote.astro';
       <span>The side project gave me something concrete to show.</span>
     </div>
     <div class="visual-step">
-      <span class="visual-step-label">Conversations</span>
-      <strong>GTM leaders</strong>
-      <span>The demos opened discussions outside the original problem.</span>
+      <span class="visual-step-label">Validation</span>
+      <strong>Snowflake support</strong>
+      <span>The Native App Accelerator and startups team helped me test the shape.</span>
     </div>
     <div class="visual-step">
-      <span class="visual-step-label">Pattern</span>
-      <strong>Event workflow pain</strong>
-      <span>Manual prep, late lists, weak follow-up, poor attribution.</span>
+      <span class="visual-step-label">Limit</span>
+      <strong>Small market</strong>
+      <span>Native tooling improved, alternatives were crowded, and contracts stayed small.</span>
     </div>
     <div class="visual-step">
       <span class="visual-step-label">Company</span>
       <strong>Luminik</strong>
-      <span>The repeated pain became the new focus.</span>
+      <span>Event workflow pain had a clearer buyer and budget path.</span>
     </div>
   </div>
 </figure>
@@ -56,31 +56,31 @@ import PullQuote from '../../components/post/PullQuote.astro';
 <h2 class="reveal">How SnowOptix Started</h2>
 
 <div class="reveal">
-  At a previous role, the Snowflake bill kept growing. Queries were inefficient, warehouses were over-provisioned, and the data team was focused on shipping features, not reducing costs. Common pattern in fast-growing startups: optimize for speed, not efficiency. Eventually the bill gets large enough that someone notices.
+  At a previous role, the Snowflake bill kept growing. Queries were inefficient, warehouses were over-provisioned, and the data team was focused on shipping features before reducing costs. That happens often in fast-growing startups: speed comes first, efficiency gets attention once the bill is large enough.
 </div>
 
 <div class="reveal">
-  Snowflake exposes plenty of metadata about query performance, warehouse utilization, and storage patterns. The data is scattered across multiple system views, and turning it into actionable insights requires real engineering effort. So I built a tool. Nothing fancy at first: scripts that pulled the metadata, ran analysis, and generated recommendations like "this warehouse is idle 80% of the time, consider auto-suspend" or "these 10 queries account for 60% of your compute costs."
+  Snowflake exposes plenty of metadata about query performance, warehouse utilization, and storage patterns. The data is scattered across multiple system views, and turning it into actionable insights requires real engineering effort. So I built a tool. The first version was simple: scripts that pulled the metadata, ran analysis, and generated recommendations like "this warehouse is idle 80% of the time, consider auto-suspend" or "these 10 queries account for 60% of your compute costs."
 </div>
 
 <StatRow stats={[
-  { value: "40%", label: "Savings identified", caption: "Measured on the Snowflake bill that started the project, before turning the scripts into a product." },
-  { value: "50", label: "Inbound DMs", caption: "In the week after I posted the prototype publicly. Enough demand to test whether the pain was broader." },
-  { value: "Top-3", label: "Consulting firm adoption", caption: "Named at category level only. The customer name and private implementation details stay private." }
+  { value: "40%", label: "Savings identified", caption: "Measured on the Snowflake bill that started the project." },
+  { value: "Native App", label: "Snowflake Accelerator", caption: "SnowOptix entered Snowflake's Native App Accelerator with support from the startups team." },
+  { value: "Narrow", label: "Market shape", caption: "The category was competitive, increasingly served by native tooling, and weak for recurring contracts." }
 ]} />
 
-<Callout tone="note" title="Evidence note">
-  These numbers came before any polished product strategy: one bill analysis found a concrete savings opportunity, one public prototype created 50 inbound DMs in a week, and one top-3 consulting-firm adoption showed the scripts were useful in an account that was not mine.
+<Callout tone="note" title="What the evidence said">
+  The evidence was mixed. The original bill analysis found a concrete savings opportunity. Snowflake's Native App Accelerator and startups team gave the project useful validation. Customer interest showed the pain was real, while the market shape showed why it would be hard to build the recurring-contract business I wanted.
 </Callout>
 
 <h2 class="reveal">The Conversations That Changed the Direction</h2>
 
 <div class="reveal">
-  My first intention was to understand whether SnowOptix could be a real product. The calls gave me a different signal. Snowflake costs came up, but so did a broader coordination problem. Data and engineering leaders kept mentioning their go-to-market colleagues. The same shape of frustration showed up in different words: cost and governance problems on the data side, a messier coordination problem around events on the GTM side.
+  My first intention was to understand whether SnowOptix could be a real product. The calls gave me a sharper answer. Snowflake costs were real. The commercial pull was uneven. Several conversations drifted toward GTM operations: how teams prepared for events, followed up, and explained ROI after the spend was gone.
 </div>
 
 <div class="reveal">
-  I started asking for introductions. The conversations with GTM leaders were eye-opening.
+  I started asking for introductions. Those introductions gave me a second set of conversations with GTM leaders.
 </div>
 
 <Callout tone="info" title="The event-marketing problem (summarized from the calls)">
@@ -93,13 +93,13 @@ import PullQuote from '../../components/post/PullQuote.astro';
 </Callout>
 
 <div class="reveal">
-  The pattern was consistent. Companies were spending heavily on events, and the process around events was still manual and fragmented. There was no system. Just a lot of individual effort.
+  The pattern was consistent. Companies were spending heavily on events, and the operating process stayed manual across lists, enrichment, outreach, notes, and attribution.
 </div>
 
 <h2 class="reveal">SnowOptix vs Luminik: The Decision to Pivot</h2>
 
 <div class="reveal">
-  That left me with a choice. SnowOptix was solving a problem for companies, including a top-3 global consulting firm. I could have doubled down. The event marketing problem was larger, more urgent, and closer to budget-owner pain.
+  That left me with a choice. SnowOptix had real validation, including the Snowflake accelerator path. The business case still felt constrained. Snowflake's own tooling was improving, the category was crowded, and the adoption I saw stayed smaller and more episodic than the contracts I wanted. Luminik had a clearer buyer, a larger budget surface, and more urgent workflow pain.
 </div>
 
 <CompareTable
@@ -107,34 +107,34 @@ import PullQuote from '../../components/post/PullQuote.astro';
   leftLabel="SnowOptix"
   rightLabel="Luminik"
   rows={[
-    { dimension: "Market shape", left: "Subset of a subset (Snowflake users with cost pain)", right: "Horizontal pain across every B2B with a sales team and an event budget" },
-    { dimension: "Buyer urgency", left: "Interested, with slower budget pressure. Cost optimization is rarely a CFO emergency.", right: "Marketing leaders had quarter-by-quarter pressure to defend event ROI." },
-    { dimension: "Solution timing", left: "Solvable today with traditional engineering", right: "Newly solvable with LLMs. Two years ago not possible. Two years from now table stakes." }
+    { dimension: "Market shape", left: "Small category: Snowflake users with cost pain, many observability alternatives, improving native tooling.", right: "Broader B2B pain across teams with sales targets and event budgets." },
+    { dimension: "Buyer urgency", left: "Useful pain with inconsistent budget pressure. Savings mattered, with priority often below other data-team work.", right: "Marketing leaders had quarter-by-quarter pressure to defend event ROI." },
+    { dimension: "Solution timing", left: "Technically straightforward, increasingly served by platform-native observability.", right: "LLMs made source, enrich, sequence, capture, and attribute more practical as one workflow." }
   ]}
 />
 
 <PullQuote>
-  SnowOptix had pull. Luminik had a larger market, a more urgent buyer, and a clearer path to budget.
+  SnowOptix had validation. Luminik had a clearer buyer, larger budget surface, and stronger path to recurring contracts.
 </PullQuote>
 
 <h2 class="reveal">Why Following Curiosity Beats Following Plans</h2>
 
 <div class="reveal">
-  If I had sat down at the start of last year and tried to identify the biggest market opportunity in B2B software, I would not have landed on event marketing. I would have looked at market size reports and competitive landscapes and come up with something obvious. Instead, I followed my curiosity. I built something to solve my own problem. That led to conversations. The conversations led to insights. I trust that path more now.
+  I started with a problem I could feel in the work. The artifact changed the conversations I could have. Those conversations changed the market I understood. I trust that path more than a market map drawn before any customer has reacted to a product.
 </div>
 
 <h2 class="reveal">Side Projects as Discovery Mechanisms</h2>
 
 <Callout tone="note" title="Five rules I would name earlier next time">
   <ul>
-    <li><strong>Build things that solve your own problems.</strong> The best side projects start with genuine frustration, not "I think there might be a market here."</li>
-  <li><strong>Talk about what you are building.</strong> Post on LinkedIn, Twitter, Hacker News, or wherever your potential users hang out. Treat it as an invitation to conversation.</li>
-    <li><strong>Have lots of conversations.</strong> Every conversation is a data point. Ask about adjacent problems. Ask who else you should talk to.</li>
-    <li><strong>Follow the energy.</strong> If conversations about Topic A feel like pulling teeth and conversations about Topic B feel electric, that is information.</li>
-    <li><strong>Be willing to abandon.</strong> Once you have learned what you need, it is okay to move on. Sunk-cost reasoning kills good judgment at this exact step.</li>
+    <li><strong>Build things that solve your own problems.</strong> The best side projects start with genuine frustration rather than a market thesis invented in the abstract.</li>
+    <li><strong>Talk about what you are building.</strong> Post on LinkedIn, Twitter, Hacker News, or wherever your potential users hang out. Treat it as an invitation to conversation.</li>
+    <li><strong>Have enough conversations to see the shape.</strong> Ask about adjacent problems. Ask who else you should talk to. Listen for specific follow-up questions.</li>
+    <li><strong>Track conversation quality.</strong> If one topic produces polite interest and another produces specific workflow detail, pay attention.</li>
+    <li><strong>Let the project finish its job.</strong> Once it has taught you enough, moving on can be the right decision.</li>
   </ul>
 </Callout>
 
 <KeyTakeaway label="The bigger lesson">
-  We are trained to make plans, set goals, and execute systematically. That works for problems where the path is known. For discovery problems, finding the right product, market, or career move, systematic planning often fails. Discovery requires starting with what interests you, building things to learn, and staying open to directions you did not plan. SnowOptix led me to Luminik. I could not have planned that. I could create the conditions for it to happen.
+  Planning is useful once the problem is known. Discovery work needs a different posture: build something concrete, show it to people, notice which questions keep coming back, and let the evidence update the target. SnowOptix became the learning artifact that made Luminik clear enough to pursue.
 </KeyTakeaway>

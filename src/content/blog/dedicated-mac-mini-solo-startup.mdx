@@ -1,9 +1,9 @@
 ---
 slug: "dedicated-mac-mini-solo-startup"
 title: "Separating Agent Work from Founder Work"
-description: "Why I moved Luminik's recurring agent work off my development machine, the operating shape of the boundary, and what it took three upstream bug reports to learn."
+description: "Why I moved Luminik's recurring agent work into a dedicated environment, the operating shape of the boundary, and what it took three upstream bug reports to learn."
 date: "2026-04-18"
-modified: "2026-05-06"
+modified: "2026-05-07"
 category: "Solo Builder OS"
 readTime: "11 min read"
 tags: ["solo founder","AI agents","agent infrastructure","Luminik"]
@@ -15,7 +15,7 @@ import StatRow from '../../components/post/StatRow.astro';
 import PullQuote from '../../components/post/PullQuote.astro';
 
 <div class="reveal">
-  I moved Luminik's recurring agent work off my development machine and onto a small always-on box at home. The decision sounds like an infrastructure detail. It was actually about boundaries: what the agent layer can read, what it can change, where the output lands, and which calls still need my approval.
+  I moved Luminik's recurring agent work out of my interactive development workspace and into a dedicated environment. The decision sounds like an infrastructure detail. It was actually about boundaries: what the agent layer can read, what it can change, where the output lands, and which calls still need my approval.
 </div>
 
 <KeyTakeaway label="The argument in one paragraph">
@@ -37,7 +37,7 @@ import PullQuote from '../../components/post/PullQuote.astro';
 />
 
 <div class="reveal">
-  The separation is an old engineering idea. Build machines and development machines have often been different boxes. The difference here is that the background layer also holds context, answers questions, and routes work to the right tool. The architecture matters because it makes accountability visible.
+  The separation is an old engineering idea. Build environments and interactive development environments have often been different. The difference here is that the background layer also holds context, answers questions, and routes work to the right tool. The architecture matters because it makes accountability visible.
 </div>
 
 <h2 class="reveal">The Operating Shape</h2>

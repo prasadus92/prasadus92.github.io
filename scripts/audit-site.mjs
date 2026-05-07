@@ -4,6 +4,16 @@ import path from 'node:path';
 const root = process.cwd();
 const dist = path.join(root, 'dist');
 const requiredFiles = ['index.html', 'blog/index.html', 'rss.xml', 'robots.txt', 'sitemap.xml', 'llms.txt', 'llms-full.txt', 'agents.txt'];
+const forbiddenRenderedCopy = [
+  [/50\s+(?:inbound\s+)?DMs?/i, 'Do not publish unapproved SnowOptix inbound-DM claims'],
+  [/Inbound DMs/i, 'Do not publish unapproved SnowOptix inbound-DM labels'],
+  [/top-3\s+(?:global\s+)?consulting[- ]firm/i, 'Do not publish unapproved SnowOptix consulting-firm adoption claims'],
+  [/adopted by a top-3/i, 'Do not publish unapproved SnowOptix adoption claims'],
+  [/Public Proof Points/i, 'Use reader-facing track-record language instead of internal proof-point labels'],
+  [/public-safe/i, 'Do not render internal public-safety labels'],
+  [/scrap(?:e|ing)/i, 'Use lawful sourcing language instead of scrape/scraping'],
+  [/—/, 'Use commas, periods, colons, or semicolons instead of em dashes']
+];
 
 function assert(condition, message) {
   if (!condition) {
@@ -53,6 +63,10 @@ for (const file of htmlFiles) {
   assert(!/(?:&#x3C;|&lt;)(p|h2|h3|figure|div|ul|ol)\s+(?:class|style)=/.test(html), `${rel} appears to render raw content HTML as a code block`);
   assert(/<title>[^<]{12,100}<\/title>/.test(html), `${rel} has a missing or weak title`);
 
+  for (const [pattern, message] of forbiddenRenderedCopy) {
+    assert(!pattern.test(html), `${rel}: ${message}`);
+  }
+
   if (isErrorPage) {
     assert(/<meta name="robots" content="noindex, follow"/.test(html), '404.html should be noindex');
   } else {
@@ -80,6 +94,13 @@ assert(llms.includes('https://prasad.tech/agents.txt'), 'llms.txt must link agen
 
 const agents = fs.readFileSync(path.join(dist, 'agents.txt'), 'utf8');
 assert(agents.includes('Do not infer private customer names'), 'agents.txt must include public-safety guardrails');
+
+for (const rel of ['llms.txt', 'llms-full.txt', 'agents.txt']) {
+  const text = fs.readFileSync(path.join(dist, rel), 'utf8');
+  for (const [pattern, message] of forbiddenRenderedCopy) {
+    assert(!pattern.test(text), `${rel}: ${message}`);
+  }
+}
 
 if (missing.length) {
   throw new Error(`Missing local href/src targets:\n${missing.join('\n')}`);
