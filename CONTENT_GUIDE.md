@@ -40,9 +40,9 @@ These are the only recurring numerical proof points currently approved for this 
 - Prasad built the first Mainteny MVP solo in `3 months`.
 - SnowOptix identified `40%` savings on the bill that started the project, generated `50` inbound DMs after the prototype was posted publicly, and earned adoption by a `top-3 global consulting firm`. These are Prasad-approved proof points; the customer name and private implementation details stay out.
 
-Do not add new revenue, pipeline, customer, fundraising, runway, security, or internal operating numbers without explicit approval and a public-safe source note.
+Do not add new revenue, pipeline, customer, fundraising, runway, security, or internal operating numbers without explicit approval and a source note that is safe for this public repo.
 
-Rendered copy should use these facts as evidence, not label them as "public proof points" or expose internal boundary language. Good: "The numbers I use here are the ones I can stand behind." Bad: "Public proof points are intentionally narrow."
+Rendered copy should use these facts as evidence. Do not label them as "public proof points", add boundary disclaimers, or repeat the same numbers immediately after a stat card.
 
 ## Rules
 
@@ -163,7 +163,7 @@ Avoid visuals that merely decorate the post, repeat the headline, or make the si
 ## Public source discipline
 
 - Cite public PRs, issues, docs, or articles when making external claims.
-- For personal claims, use details Prasad can stand behind publicly.
+- For personal claims, use details Prasad can defend publicly.
 - For Luminik claims, use the public company language already present on luminik.io or facts Prasad explicitly approves for publication.
 - Do not reveal customer names, private revenue, private pipeline, private Slack messages, internal schedules, private credentials, private cloud/account structure, or detailed security posture.
 

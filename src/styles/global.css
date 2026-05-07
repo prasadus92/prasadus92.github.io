@@ -542,7 +542,7 @@ img {
 
 .proof-strip {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 18px;
   margin: 14px 0 8px;
 }
@@ -871,7 +871,7 @@ img {
 
 .stat-row {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
   gap: 14px;
   margin: 28px 0;
 }
@@ -971,7 +971,6 @@ img {
   font-size: 0.85rem;
 }
 
-.proof-source-note,
 .proof-note {
   max-width: 780px;
   margin: 22px 0 0;
@@ -1797,7 +1796,9 @@ img {
   border: 0;
   background: transparent;
   cursor: pointer;
-  font: inherit;
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  line-height: inherit;
 }
 
 .footer-links a:hover,
