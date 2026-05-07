@@ -4,10 +4,9 @@ import { useEffect, useRef, useState } from 'react';
  * ProofStrip: animated proof-point grid for the homepage and blog hero.
  *
  * Mirrors the Luminik marketing-site island pattern: a small interactive
- * component that renders a Stripe-style ledger of public-safe credibility
- * proof points. Each point counts up on first viewport intersection. Strings
- * come from props so the approved evidence anchors stay centralized on the
- * page that uses the island.
+ * component that renders a Stripe-style ledger of credibility proof points.
+ * Each point counts up on first viewport intersection. Strings come from props
+ * so the evidence anchors stay centralized on the page that uses the island.
  */
 
 export type ProofPoint = {
@@ -26,7 +25,7 @@ type Props = {
 const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
 
 function CountUp({ from = 0, to, duration = 1200, prefix = '', suffix = '', formatter }: { from?: number; to: number; duration?: number; prefix?: string; suffix?: string; formatter?: (n: number) => string }) {
-  const [value, setValue] = useState(from);
+  const [value, setValue] = useState(to);
   const ref = useRef<HTMLSpanElement>(null);
   const started = useRef(false);
 
@@ -42,6 +41,7 @@ function CountUp({ from = 0, to, duration = 1200, prefix = '', suffix = '', form
       const visible = entries.find((entry) => entry.isIntersecting);
       if (!visible || started.current) return;
       started.current = true;
+      setValue(from);
       const start = performance.now();
       const tick = (now: number) => {
         const t = Math.min(1, (now - start) / duration);
