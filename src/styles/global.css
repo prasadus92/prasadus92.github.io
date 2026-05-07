@@ -424,7 +424,10 @@ img {
   border-radius: var(--radius);
   color: var(--text);
   background: var(--surface);
+  font-family: var(--font-body);
+  font-size: 0.94rem;
   font-weight: 750;
+  line-height: 1;
   text-decoration: none;
   touch-action: manipulation;
 }
