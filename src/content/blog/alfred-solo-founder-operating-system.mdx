@@ -15,7 +15,7 @@ faqs:
   - question: "What runs in production today?"
     answer: "A small set of role-based agents covers recurring company functions and engineering workflows. The public pattern is useful to describe; the private runtime, channels, and schedules stay private."
   - question: "What might be open sourced?"
-    answer: "The reusable patterns: role contracts, repo instruction templates, the five-question gate, output formats, and a small local runner shape. Luminik-specific connectors and customer data stay private."
+    answer: "An OSS version is in progress around the reusable parts: role contracts, repo instruction templates, the five-question gate, output formats, and a small local runner shape. Luminik-specific connectors and customer data stay private."
 ---
 import Callout from '../../components/post/Callout.astro';
 import KeyTakeaway from '../../components/post/KeyTakeaway.astro';
@@ -28,7 +28,7 @@ import StatRow from '../../components/post/StatRow.astro';
 </div>
 
 <div class="reveal">
-  Alfred is my answer. It is a small fleet of role contracts around work that needs to happen repeatedly, with a review surface where outputs land and one founder who still owns every consequential decision. This post explains the reusable shape: what each role needs to know, what it can produce, and which parts I am preparing to open source.
+  Alfred is my answer. It is a small fleet of role contracts around work that needs to happen repeatedly, with a review surface where outputs land and one founder who still owns every consequential decision. This post explains the reusable shape: what each role needs to know, what it can produce, and the parts I am turning into an OSS version.
 </div>
 
 <KeyTakeaway label="The model in one paragraph">
@@ -210,10 +210,10 @@ import StatRow from '../../components/post/StatRow.astro';
   Agents do not remove the need for operating design. They make operating design more important. When the work gets cheaper to generate, the review queue becomes the scarce resource.
 </div>
 
-<h2 class="reveal">What I Plan to Open Source</h2>
+<h2 class="reveal">What the OSS Version Should Contain</h2>
 
 <div class="reveal">
-  Alfred itself will not be open source soon. Role contracts, company context, and private adapters are entangled in ways that would leak company internals. The reusable parts are different. Other solo founders are rebuilding the same scaffolding I did. There is no reason to keep that scaffolding private.
+  Alfred is getting an OSS version around the parts that transfer cleanly to other solo founders. The private version has company context, customer data, and adapters that stay private. The public version should focus on the reusable scaffolding: contracts, review gates, output shapes, and a small runner pattern.
 </div>
 
 <ul class="reveal">
@@ -225,7 +225,7 @@ import StatRow from '../../components/post/StatRow.astro';
 </ul>
 
 <div class="reveal">
-  The release will be patterns first, code second. A solo founder should be able to adopt the role contracts inside Claude Code, Cursor, or any agent harness they prefer, without taking my private adapters with them.
+  The release should be useful before it is complete. A solo founder should be able to adopt the role contracts inside Claude Code, Cursor, or any agent harness they prefer, without taking my private adapters with them.
 </div>
 
 <KeyTakeaway label="The standard I use now">
