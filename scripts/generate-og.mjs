@@ -271,9 +271,9 @@ function portraitBlock(portrait) {
   }));
 }
 
-function cardElement({ eyebrow, title, footer, portrait }) {
+function cardElement({ eyebrow, title, titleLines, footer, portrait }) {
   const hasPortrait = Boolean(portrait);
-  const lines = wrapText(title, hasPortrait ? 25 : 28, 4);
+  const lines = titleLines ?? wrapText(title, hasPortrait ? 25 : 28, 4);
 
   return h('div', {
     style: {
@@ -325,7 +325,13 @@ async function main() {
 
   await renderCard({
     eyebrow: 'Founder · Builder · Operator',
-    title: 'Prasad Subrahmanya. Building B2B software from customer pain to revenue.',
+    title: 'Prasad Subrahmanya. B2B software from real workflow pain to paying customers.',
+    titleLines: [
+      'Prasad Subrahmanya.',
+      'B2B software from',
+      'real workflow pain to',
+      'paying customers.'
+    ],
     footer: 'Field notes for solo technical founders',
     portrait
   }, join(OUT_DIR, 'prasad-og.png'), fonts);
