@@ -1,9 +1,9 @@
 ---
 slug: "event-marketing-roi"
 title: "Event ROI Is a Handoff Problem"
-description: "B2B event ROI is fuzzy because the evidence breaks across attendee lists, enrichment, sequencer, booth, and CRM. The fix is one event record that survives every handoff."
+description: "B2B event ROI is fuzzy because the evidence breaks across attendee lists, enrichment, sequencer, booth, and CRM. The fix is one event record that keeps evidence attached through every handoff."
 date: "2026-01-15"
-modified: "2026-05-06"
+modified: "2026-05-07"
 category: "Event Pipeline"
 readTime: "11 min read"
 tags: ["event pipeline","event ROI","B2B GTM"]
@@ -40,7 +40,7 @@ import PullQuote from '../../components/post/PullQuote.astro';
     { dimension: "Source", left: "Invoices and PO line items", right: "Attendee portals, enrichment vendors, sequencer, scans, notes" },
     { dimension: "Identifier", left: "Vendor plus invoice number", right: "Contact, account, and event ID, usually drifting across systems" },
     { dimension: "Audit trail", left: "Bank statement to GL line", right: "Reconstructed from screenshots, Slack threads, and AE memory" },
-    { dimension: "When it lands", left: "Within 7 days of the event", right: "Two to six weeks after, when half the context has leaked" }
+    { dimension: "When it lands", left: "During the normal finance close", right: "After the event team has already moved on" }
   ]}
 />
 
@@ -55,9 +55,9 @@ import PullQuote from '../../components/post/PullQuote.astro';
     name="Source"
     role="Stage one"
     trigger="Event lands in the GTM calendar"
-    reads="Public attendee data, exhibitor directories, speaker lists, partner portals, customer CSVs"
+    reads="Approved public pages and customer-provided event records"
     writes="A target list with provenance"
-    guardrail="Lawful sourcing only. Use public or customer-provided data, never gated or unauthorized data."
+    guardrail="Use public or customer-provided records with provenance."
   >
     <p>Names the universe. The output is who might be there. Without provenance, the next four stages cannot defend their inputs.</p>
   </RoleCard>
@@ -66,9 +66,9 @@ import PullQuote from '../../components/post/PullQuote.astro';
     name="Enrich"
     role="Stage two"
     trigger="Target list ready"
-    reads="The customer's existing Apollo, ZoomInfo, Clay, Cognism, Hunter, or LeadMagic contract"
+    reads="Customer-approved enrichment source"
     writes="ICP-scored contact records inside the buyer's CRM"
-    guardrail="Bring-your-own-vendor. Never duplicate enrichment they already pay for."
+    guardrail="Use only tools and data sources the customer has approved."
   >
     <p>Names who matters. ICP fit, role, seniority, account state in CRM. The cost of enriching the wrong list is everything that comes after.</p>
   </RoleCard>
@@ -77,7 +77,7 @@ import PullQuote from '../../components/post/PullQuote.astro';
     name="Sequence"
     role="Stage three"
     trigger="ICP-scored list landed"
-    reads="Sequencer of record (Apollo, Lemlist, Instantly, Smartlead, HubSpot, Salesforce)"
+    reads="Customer-approved sequencer or CRM context"
     writes="Email plus LinkedIn sequences scoped to the event"
     guardrail="Never auto-replies. Reps still own the relationship."
   >
@@ -88,7 +88,7 @@ import PullQuote from '../../components/post/PullQuote.astro';
     name="Capture"
     role="Stage four"
     trigger="Floor opens"
-    reads="Mobile capture, badge scans, voice notes, AE meetings"
+    reads="Customer-provided meeting notes and scan records"
     writes="Event-specific contact and account records, offline-tolerant"
     guardrail="Same-day CRM sync. Notes attach to the right opportunity, not a generic lead bucket."
   >
@@ -98,8 +98,8 @@ import PullQuote from '../../components/post/PullQuote.astro';
   <RoleCard
     name="Attribute"
     role="Stage five"
-    trigger="48 hours after floor close"
-    reads="Salesforce or HubSpot opportunities, account history, sequence engagement"
+    trigger="After the floor closes"
+    reads="Customer-approved CRM opportunity context"
     writes="Sourced and influenced pipeline tagged to the event record"
     guardrail="Confidence level on every match. Never silently overwrite an existing source."
   >
@@ -126,7 +126,7 @@ import PullQuote from '../../components/post/PullQuote.astro';
 <StatRow stats={[
   { value: "1", label: "Event record", caption: "One shared identifier across all five stages. Without it, no number that follows is defensible." },
   { value: "5", label: "Stages with provenance", caption: "Source. Enrich. Sequence. Capture. Attribute. Each points to the system that produced the record." },
-  { value: "48h", label: "Attribution close", caption: "Pipeline sourced and influenced is tagged to the event record within 48 hours of floor close." }
+  { value: "Close", label: "Attribution close", caption: "Pipeline sourced and influenced is tagged to the event record while context is still fresh." }
 ]} />
 
 <Callout tone="info" title="Where AI actually helps in this workflow">

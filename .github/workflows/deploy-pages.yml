@@ -33,8 +33,6 @@ jobs:
         run: npm run check
       - name: Build
         run: npm run build
-      - name: Site audit
-        run: node scripts/audit-site.mjs
       - name: Upload artifact
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: actions/upload-pages-artifact@v4

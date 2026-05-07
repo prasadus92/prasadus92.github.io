@@ -2,7 +2,7 @@
 
 Writing standards for prasad.tech blog posts. Every LLM session that touches blog content must read this file first.
 
-This repo is public. Do not commit private notes, private customer names, secrets, unpublished operating details, internal Slack text, or non-public facts from other repos. If a private source informs a post, convert it into a public-safe observation and remove the private source detail.
+This repo is public. Do not commit private notes, private customer names, secrets, unpublished operating details, internal Slack text, or non-public facts from other repos. If a private source informs a post, convert it into an observation that is safe for this public repo and remove the private source detail.
 
 ## Voice
 
@@ -31,25 +31,25 @@ The site should make this niche obvious:
 
 The homepage and blog index should feel like a founder's field notes with proof, diagrams, and practical mechanisms. They should not feel like a generic resume, personal-brand funnel, or inspirational creator blog.
 
-## Approved Public Proof Points
+## Approved Evidence Anchors
 
 These are the only recurring numerical proof points currently approved for this public repo:
 
 - Aura reached `$3.6M ARR` in `18 months`.
 - Mainteny raised a `$2.7M seed round`.
 - Prasad built the first Mainteny MVP solo in `3 months`.
-- SnowOptix identified `40%` savings on the bill that started the project, generated `50` inbound DMs after the prototype was posted publicly, and earned adoption by a `top-3 global consulting firm`. These are Prasad-approved proof points; the customer name and private implementation details stay out.
+- SnowOptix identified `40%` savings on the bill that started the project and entered Snowflake's Native App Accelerator with support from Snowflake's startups team. Avoid unsourced demand counts, customer adoption claims, large paying contracts, or recurring revenue claims from SnowOptix.
 
-Do not add new revenue, pipeline, customer, fundraising, runway, security, or internal operating numbers without explicit approval and a public-safe source note.
+Do not add new revenue, pipeline, customer, fundraising, runway, security, or internal operating numbers without explicit approval and a source note that is safe for this public repo.
 
-Rendered copy should use these facts as evidence, not label them as "public proof points" or expose internal boundary language. Good: "The numbers I use here are the ones I can stand behind." Bad: "Public proof points are intentionally narrow."
+Rendered copy should use these facts as evidence. Do not label them as proof points, add boundary disclaimers, or repeat the same numbers immediately after a stat card.
 
 ## Rules
 
 ### Be specific. Safely.
 - Bad: "AI tools can help with development"
 - Good: "Cursor handles frontend features. Claude Code handles multi-file refactors. I run both simultaneously on different parts of the codebase."
-- Use real tool names, numbers, timelines, and artifacts only when they are public-safe and strengthen the point.
+- Use real tool names, numbers, timelines, and artifacts only when they are safe for this public repo and strengthen the point.
 - Specificity should create trust, not leak an operating manual.
 
 ### Write from experience, not authority
@@ -130,7 +130,7 @@ Do not start by polishing sentences. Start by deciding whether the post has enou
 For each post, prepare a short notes packet before rewriting:
 
 1. What actually happened?
-2. Which artifact proves it happened? Examples: repo history, PR, screenshot, customer-safe anecdote, public source, code path, public-safe table, timeline.
+2. Which artifact proves it happened? Examples: repo history, PR, screenshot, customer-safe anecdote, public source, code path, safe table, timeline.
 3. What did Prasad believe before the work?
 4. What changed after doing the work?
 5. What would a serious reader be able to use tomorrow?
@@ -146,7 +146,7 @@ Good visual candidates:
 
 - Timelines for fundraising, MVP builds, or customer development.
 - Architecture diagrams for agent systems, repo maps, product stacks, and data flows.
-- Tables for public-safe tradeoffs, toolchain categories, or decision criteria.
+- Tables for tradeoffs, toolchain categories, or decision criteria that are safe for this public repo.
 - Workflow diagrams for sales processes, event-pipeline stages, and customer handoffs.
 - Annotated screenshots only when the screenshot is safe to publish and directly supports the argument.
 - Native HTML/CSS diagrams that show systems, boundaries, timelines, matrices, ledgers, or workflows. These are preferred over decorative images because they stay readable, responsive, and portable to Astro later.
@@ -163,7 +163,7 @@ Avoid visuals that merely decorate the post, repeat the headline, or make the si
 ## Public source discipline
 
 - Cite public PRs, issues, docs, or articles when making external claims.
-- For personal claims, use details Prasad can stand behind publicly.
+- For personal claims, use details Prasad can defend publicly.
 - For Luminik claims, use the public company language already present on luminik.io or facts Prasad explicitly approves for publication.
 - Do not reveal customer names, private revenue, private pipeline, private Slack messages, internal schedules, private credentials, private cloud/account structure, or detailed security posture.
 
@@ -181,7 +181,7 @@ Calibrate the mix per post:
 
 - **Engineering posts** (Alfred, gstack, Mac Mini, building-alone-in-2026): keep technical depth, add one or two business stakes paragraphs that explain why the technical choice matters for the company.
 - **Sales / GTM posts** (technical-founder-sales, selling-before-building, event-marketing-roi): lead with the buyer outcome and the business mechanism. Use technical detail as proof of credibility, not as the lead.
-- **Founder-narrative posts** (raising-seed-round, mvp-three-months, zero-to-one-bain, snowflake-cost-optimization): show both sides. Decisions framed as engineering tradeoffs and as commercial bets. Numbers with public-safe provenance.
+- **Founder-narrative posts** (raising-seed-round, mvp-three-months, zero-to-one-bain, snowflake-cost-optimization): show both sides. Decisions framed as engineering tradeoffs and as commercial bets. Numbers with provenance that is safe for this public repo.
 
 Avoid the "hardcore engineer" trap. Plain language wins. A VP Marketing or a CMO should be able to follow the post even if the topic is technical. A staff engineer should still find it credible.
 
@@ -198,7 +198,7 @@ Apply this at the post level, the section level, and the section-of-a-section le
 Examples:
 
 - ❌ "By April 2026, Luminik had enough recurring agent work that my normal development setup was carrying too many jobs." (setup voice)
-- ✅ "I moved Luminik's recurring agent work off my development machine and onto a small always-on box at home. The decision sounds like an infrastructure detail. It was actually about boundaries." (answer first)
+- ✅ "I moved Luminik's recurring agent work out of my interactive development workspace and into a dedicated environment. The decision sounds like an infrastructure detail. It was actually about boundaries." (answer first)
 
 ## 80/20 discipline: the 20% that gives 80% of the value
 
@@ -213,11 +213,11 @@ If a paragraph would not change the reader's mind or hand them a tool, cut it. W
 
 ## Credibility: how to stack proof without bragging
 
-Top-0.1% founder writing earns trust through specifics. Use logos, names, numbers, and public artifacts when they are public-safe. The line is "this strengthens the founder narrative" vs "this leaks the operating manual."
+Strong founder writing earns trust through specifics. Use logos, names, numbers, and public artifacts when they are safe for a public repo. The line is "this strengthens the founder narrative" vs "this leaks the operating manual."
 
 Public-safe credibility plays:
 
-- **Approved numbers**: Aura `$3.6M ARR` in `18 months`, Mainteny `$2.7M seed`, first MVP solo in `3 months`, SnowOptix `40%` savings identified, `50` inbound DMs, and `top-3 global consulting firm` adoption. These are pre-cleared.
+- **Approved numbers and validation**: Aura `$3.6M ARR` in `18 months`, Mainteny `$2.7M seed`, first MVP solo in `3 months`, SnowOptix `40%` savings identified, and SnowOptix entry into Snowflake's Native App Accelerator with support from Snowflake's startups team.
 - **Public companies and platforms**: Bain & Company, Mainteny, SnowOptix, Luminik, GitHub, Cursor, Claude Code, CodeRabbit, Quicksand, Astro. Real, public, verifiable.
 - **Public artifacts**: link to public PRs, public repos (luminik-io/event-outbound-skill, luminik-io/claude-plugins, prasadus92/prasadus92.github.io), public docs, public talks.
 - **Real category vocabulary**: "event pipeline platform", "source, enrich, sequence, capture, attribute". This is locked Luminik positioning.
@@ -225,7 +225,7 @@ Public-safe credibility plays:
 
 Out of bounds:
 
-- Customer names (Series C cyber, Series A IDV, Series B regtech). The category is the public-safe shape; the name is private.
+- Customer names (Series C cyber, Series A IDV, Series B regtech). The category is the safe public shape; the name is private.
 - Private pipeline numbers, private revenue, fundraising specifics not already public.
 - Internal Slack channels, agent dispatch routing, private cloud identities, internal schedules.
 - Phrases like "obsessed with", "passionate about", "I'm thrilled to share". They look like LinkedIn theatre.
@@ -251,7 +251,7 @@ When a post uses a React island, document the data shape in the component file. 
 
 Private voice and positioning sources may exist outside this public repo. Do not name those local paths, copy private excerpts, or publish internal canon text here.
 
-When a private source is needed, ask Prasad for a public-safe excerpt or restate the rule from first principles. This guide is the public repo copy; private sources can tighten it, but they must not leak into committed files.
+When a private source is needed, ask Prasad for an excerpt that is safe for this repo or restate the rule from first principles. This guide is the public repo copy; private sources can tighten it, but they must not leak into committed files.
 
 ## The Specificity Test
 
