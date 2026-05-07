@@ -1,0 +1,104 @@
+---
+const GA_ID = 'G-XG5LVE538S';
+const CONSENT_KEY = 'prasad-consent-v1';
+---
+
+<script is:inline define:vars={{ GA_ID, CONSENT_KEY }}>
+  (function () {
+    if (window.__prasadAnalyticsBootstrapped) return;
+    window.__prasadAnalyticsBootstrapped = true;
+    window.__prasadAnalyticsAllowed = false;
+    window.__prasadGALoaded = false;
+    window.dataLayer = window.dataLayer || [];
+
+    function readConsent() {
+      try {
+        var raw = localStorage.getItem(CONSENT_KEY);
+        if (!raw) return null;
+        var parsed = JSON.parse(raw);
+        return parsed && parsed.version === 1 ? parsed : null;
+      } catch (e) {
+        return null;
+      }
+    }
+
+    function pushGtag() {
+      window.dataLayer.push(arguments);
+    }
+
+    function gatedGtag() {
+      if (!window.__prasadAnalyticsAllowed) return;
+      pushGtag.apply(null, arguments);
+    }
+
+    window.gtag = window.gtag || gatedGtag;
+
+    function eraseAnalyticsCookies() {
+      try {
+        document.cookie.split(';').forEach(function (cookie) {
+          var name = cookie.split('=')[0].trim();
+          if (!/^_ga/.test(name) && name !== '_gid') return;
+          document.cookie = name + '=; Max-Age=0; path=/; SameSite=Lax';
+          document.cookie = name + '=; Max-Age=0; path=/; domain=' + location.hostname + '; SameSite=Lax';
+          if (location.hostname.split('.').length > 2) {
+            document.cookie = name + '=; Max-Age=0; path=/; domain=.' + location.hostname.split('.').slice(-2).join('.') + '; SameSite=Lax';
+          }
+        });
+      } catch (e) {}
+    }
+
+    function denyGA() {
+      window.__prasadAnalyticsAllowed = false;
+      window.gtag = gatedGtag;
+      if (window.__prasadGALoaded) {
+        pushGtag('consent', 'update', {
+          ad_storage: 'denied',
+          ad_user_data: 'denied',
+          ad_personalization: 'denied',
+          analytics_storage: 'denied'
+        });
+      }
+      eraseAnalyticsCookies();
+    }
+
+    function loadGA() {
+      window.__prasadAnalyticsAllowed = true;
+      window.gtag = pushGtag;
+      pushGtag('consent', 'default', {
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        analytics_storage: 'granted'
+      });
+
+      if (window.__prasadGALoaded) {
+        pushGtag('consent', 'update', { analytics_storage: 'granted' });
+        return;
+      }
+
+      window.__prasadGALoaded = true;
+
+      var script = document.createElement('script');
+      script.async = true;
+      script.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+      document.head.appendChild(script);
+
+      pushGtag('js', new Date());
+      pushGtag('config', GA_ID, { anonymize_ip: true });
+    }
+
+    function applyConsent(consent) {
+      var state = consent || readConsent() || window.PrasadConsent;
+      if (state && state.analytics) {
+        loadGA();
+      } else {
+        denyGA();
+      }
+    }
+
+    applyConsent();
+    window.addEventListener('prasad:consent-changed', function (event) {
+      applyConsent(event.detail);
+    });
+  })();
+</script>

@@ -16,7 +16,7 @@ Personal portfolio and blog for Prasad Subrahmanya, built with Astro.
 - Progressive reveal/parallax effects with reduced-motion support
 - RSS feed, generated sitemap, `robots.txt`, `llms.txt`, canonical URLs, and JSON-LD schema
 - Content focused on Luminik, solo-builder operating systems, founder-led sales, event pipeline, and zero-to-one lessons
-- Google Analytics integration
+- Google Analytics integration gated by an opt-in cookie banner
 
 ## Local Development
 
