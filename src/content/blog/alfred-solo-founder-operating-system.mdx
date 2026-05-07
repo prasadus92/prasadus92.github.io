@@ -3,7 +3,7 @@ slug: "alfred-solo-founder-operating-system"
 title: "Alfred: How I Structure Recurring Work as a Solo Founder"
 description: "The role contracts, review gates, approved context, and source-linked outputs behind the agent layer I use while building Luminik."
 date: "2026-05-06"
-modified: "2026-05-06"
+modified: "2026-05-07"
 category: "Solo Builder OS"
 readTime: "12 min read"
 tags: ["Alfred", "solo founder", "AI agents", "operating system", "open source"]
@@ -15,7 +15,7 @@ faqs:
   - question: "What runs in production today?"
     answer: "A small set of role-based agents covers recurring company functions and engineering workflows. The public pattern is useful to describe; the private runtime, channels, and schedules stay private."
   - question: "What might be open sourced?"
-    answer: "The reusable patterns: role contracts, repo instruction templates, the five-question gate, output formats, and a small local runner shape. Luminik-specific connectors and customer data stay private."
+    answer: "An OSS version is in progress around the reusable parts: role contracts, repo instruction templates, the five-question gate, output formats, and a small local runner shape. Luminik-specific connectors and customer data stay private."
 ---
 import Callout from '../../components/post/Callout.astro';
 import KeyTakeaway from '../../components/post/KeyTakeaway.astro';
@@ -28,17 +28,17 @@ import StatRow from '../../components/post/StatRow.astro';
 </div>
 
 <div class="reveal">
-  Alfred is my answer. It is a small fleet of role contracts around work that needs to happen repeatedly, with a review surface where outputs land and one founder who still owns every consequential decision. This post explains the reusable shape: what each role needs to know, what it can produce, and which parts I am preparing to open source.
+  Alfred is my answer. It is a small fleet of role contracts around work that needs to happen repeatedly, with a review surface where outputs land and one founder who still owns every consequential decision. This post explains the reusable shape: what each role needs to know, what it can produce, and the parts I am turning into an OSS version.
 </div>
 
 <KeyTakeaway label="The model in one paragraph">
-  Alfred is a set of role contracts around recurring company work: operations, content, community, sales, finance, product health, engineering implementation, review, testing, and coordination. The private runtime is less important than the contract. Each role reads approved context, produces reviewable output, cites its sources, and waits for human approval before anything ships.
+  Alfred is a set of role contracts around recurring company work. The public lesson is the contract: approved context, reviewable output, source-linked claims, and human approval before anything consequential ships. The private runtime, exact surfaces, schedules, and routing stay out of the public version.
 </KeyTakeaway>
 
 <StatRow stats={[
-  { value: "12", label: "Role contracts", caption: "Recurring company functions and engineering workflows, each with a written boundary." },
-  { value: "0", label: "Autonomous publishes", caption: "Drafts, PRs, and digests only. Every ship is a human click." },
-  { value: "5", label: "Questions a role must answer", caption: "Context. Action. Output. Evidence. Approval." }
+  { value: "Written", label: "Role contracts", caption: "Each recurring job has a context, output, evidence, and approval boundary." },
+  { value: "Human", label: "Approval gate", caption: "Consequential output stays reviewable before anything ships." },
+  { value: "Source", label: "Evidence trail", caption: "Claims point back to approved context." }
 ]} />
 
 <h2 class="reveal">The Two Layers</h2>
@@ -60,81 +60,23 @@ import StatRow from '../../components/post/StatRow.astro';
   ]}
 />
 
-<h2 class="reveal">Layer One: Six Departments</h2>
+<h2 class="reveal">Layer One: Company Work</h2>
 
 <div class="reveal">
-  Each department is the agent equivalent of one recurring job I would otherwise have to remember manually. The contract is small: read approved context, prepare reviewable output, and surface the decision without taking it.
+  Each company-work role maps to one recurring job I would otherwise have to remember manually. The public version is deliberately generic: keep the recurring shape, remove the private wiring.
 </div>
 
-<div class="role-grid">
-  <RoleCard
-    name="Chief of staff"
-    role="Personal assistant"
-    trigger="Calendar and inbox signals"
-    cadence="Scheduled and event-triggered"
-    reads="Approved personal-ops context"
-    writes="Digest, conflict notes, and follow-up prompts"
-    guardrail="Never replies on my behalf"
-  >
-    <p>Turns scattered operational context into one reviewable brief. The point is reducing the chance that small coordination work disappears.</p>
-  </RoleCard>
-
-  <RoleCard
-    name="Content"
-    role="Writer"
-    trigger="Planned themes and publishing backlog"
-    cadence="Scheduled drafts"
-    reads="Approved voice rules, recent posts, launch context"
-    writes="Drafts for review"
-    guardrail="No publishing. Drafts only."
-  >
-    <p>Reads the voice rules and recent real writing before drafting anything. Output includes the post body, distribution notes, and a short proof check. Posting still happens by hand.</p>
-  </RoleCard>
-
-  <RoleCard
-    name="Community"
-    role="Listener"
-    trigger="Scheduled public-community scan"
-    reads="Reddit, Slack communities, Exit Five, public newsletters"
-    writes="Digest of threads worth reading or replying to"
-    guardrail="Never quotes private channels. Always cites the source URL."
-  >
-    <p>Filters signal from public spaces where solo founders and B2B operators talk. The output is a short source-linked digest that keeps me from refreshing feeds.</p>
-  </RoleCard>
-
-  <RoleCard
-    name="Sales"
-    role="SDR"
-    trigger="Approved sales review window"
-    reads="Approved CRM fields, calendar context, event context"
-    writes="Follow-up brief, draft outbound, reply suggestions"
-    guardrail="Replies still go from my inbox, in my voice"
-  >
-    <p>Turns customer and prospect context into a small set of suggested next moves. Sales is where the temptation to automate too much is highest. Replies still need founder judgment.</p>
-  </RoleCard>
-
-  <RoleCard
-    name="Finance ops"
-    role="CFO"
-    trigger="Scheduled finance hygiene"
-    reads="Approved finance exports and invoice context"
-    writes="Reconciliation notes, invoice prep, checklist updates"
-    guardrail="Never moves money. Flags drift; I approve and act."
-  >
-    <p>Catches small finance drift before it becomes founder debt. The useful output is a checklist I can verify.</p>
-  </RoleCard>
-
-  <RoleCard
-    name="Product ops"
-    role="SRE plus CS"
-    trigger="Scheduled product-health review"
-    reads="Operational health signals and merged changes"
-    writes="Health summaries, customer-impact flags, release-note drafts"
-    guardrail="Never mutates production. Reports only."
-  >
-    <p>Watches the parts of the product customers feel and turns merged work into release-note drafts. It reports and proposes. It does not mutate production.</p>
-  </RoleCard>
-</div>
+<CompareTable
+  caption="The public shape of the company-work layer. The private schedules, channels, and source systems stay out of the post."
+  leftLabel="Recurring job"
+  rightLabel="Safe public contract"
+  rows={[
+    { dimension: "Coordination", left: "Small tasks that disappear when they stay in my head.", right: "Produce a reviewable brief with the decision points called out." },
+    { dimension: "Drafting", left: "Content, notes, replies, or summaries that need my voice and judgment.", right: "Prepare drafts and cite the source material. Publishing stays manual." },
+    { dimension: "Commercial follow-up", left: "Customer or prospect context that needs a thoughtful next step.", right: "Suggest next moves without sending anything on its own." },
+    { dimension: "Operating hygiene", left: "Recurring checks across finance, product health, and documentation.", right: "Surface drift as a checklist or issue I can verify." }
+  ]}
+/>
 
 <h2 class="reveal">Layer Two: Engineering Workflows</h2>
 
@@ -144,69 +86,47 @@ import StatRow from '../../components/post/StatRow.astro';
 
 <div class="role-grid">
   <RoleCard
-    name="Coordinator"
+    name="Coordination"
     role="Cross-repo contract"
-    trigger="Cross-repo coordination request"
-    reads="Issue, specs, public API contracts, affected repos"
-    writes="Coordination plan and reviewable PR sequence"
+    trigger="Approved engineering task"
+    reads="Scoped context"
+    writes="Plan for review"
     guardrail="No merge or deploy without human approval"
   >
-    <p>The coordination contract inside Alfred for features that touch more than one repo. It makes contract drift visible before implementation work spreads.</p>
+    <p>Makes contract drift visible before implementation work spreads.</p>
   </RoleCard>
 
   <RoleCard
-    name="Lucius"
-    role="Feature development"
-    trigger="Scoped implementation issue"
-    reads="The repo's CLAUDE.md, the issue body, linked specs"
-    writes="A feature branch and a draft PR"
-    guardrail="Single-repo only. Multi-repo work bounces to Alfred."
+    name="Implementation"
+    role="Feature work"
+    trigger="Scoped issue"
+    reads="Repo instructions and linked specs"
+    writes="Reviewable branch"
+    guardrail="Bounded scope"
   >
-    <p>The implementer. Reads the repo's instruction file every time, then opens a branch for review. Stays inside one repo by design so contract changes do not sneak in.</p>
+    <p>Turns a scoped task into work a human can inspect.</p>
   </RoleCard>
 
   <RoleCard
-    name="Bane"
-    role="Test coverage"
-    trigger="Scheduled code-quality check"
-    reads="Recently changed code and test history"
-    writes="A small test PR"
-    guardrail="Test code only unless a reviewer approves a supporting change."
-  >
-    <p>Looks for tests that would catch a real regression. Coverage for its own sake is not useful; reviewable risk reduction is.</p>
-  </RoleCard>
-
-  <RoleCard
-    name="Oracle"
-    role="Production monitor"
-    trigger="Scheduled operational check"
-    reads="Operational health summaries and surfaced logs"
-    writes="Issue with prioritized findings and proposed fixes"
-    guardrail="Reports and proposes. Never deploys."
-  >
-    <p>Turns health signals into prioritized findings with evidence. When nothing is wrong, it stays quiet. When something is wrong, it makes the next human review faster.</p>
-  </RoleCard>
-
-  <RoleCard
-    name="Ra's al Ghul"
-    role="Code review"
+    name="Review"
+    role="Separate reviewer"
     trigger="Review request"
-    reads="The diff, the issue, the spec, the prior code"
-    writes="Inline review comments and a structured summary"
-    guardrail="Comments only. Never approves on its own."
+    reads="Diff, issue, and relevant spec"
+    writes="Comments and summary"
+    guardrail="Comments only"
   >
-    <p>The separate review voice. It cares about correctness, security, data integrity, and concurrency. It comments. It never approves its own work.</p>
+    <p>Looks for behavior, security, and data-integrity risks from a separate context.</p>
   </RoleCard>
 
   <RoleCard
-    name="Bat-Signal"
-    role="Review notifier"
-    trigger="End of an approved run"
-    reads="A status payload from the calling agent"
-    writes="One concise status note"
-    guardrail="Relays only. No analysis, no decisions."
+    name="Health"
+    role="Product-health review"
+    trigger="Approved check"
+    reads="Approved health signals"
+    writes="Prioritized findings"
+    guardrail="Reports and proposes"
   >
-    <p>The thinnest role in the fleet. Its job is to make review work visible in one place without adding another analysis layer.</p>
+    <p>Turns surfaced signals into reviewable follow-up work.</p>
   </RoleCard>
 </div>
 
@@ -242,8 +162,8 @@ import StatRow from '../../components/post/StatRow.astro';
 </figure>
 
 <figure class="post-figure-image reveal">
-  <img src="/assets/images/blog/alfred-luminik-differentiators.png" width="590" height="448" alt="Slack screenshot of Alfred answering a Luminik positioning question with source-linked claims." loading="lazy" decoding="async" />
-  <figcaption>A real Alfred answer from my founder workflow. The useful pattern is source-linked reasoning before a positioning decision; the private wiring is incidental.</figcaption>
+  <img src="/assets/images/blog/alfred-luminik-differentiators.png" width="590" height="448" alt="Screenshot of Alfred answering with source-linked claims." loading="lazy" decoding="async" />
+  <figcaption>A real Alfred answer from my founder workflow. The useful pattern is source-linked reasoning before a decision.</figcaption>
 </figure>
 
 <h2 class="reveal">The Five Questions a Role Has to Answer</h2>
@@ -283,17 +203,17 @@ import StatRow from '../../components/post/StatRow.astro';
 <h2 class="reveal">Why Solo Builders Need This More</h2>
 
 <div class="reveal">
-  A team has imperfect but real safeguards. Standups, code reviews, review threads, shared calendars, peer correction. A solo builder has none of those by default. The upside is speed. The downside is that every gap routes back to one person.
+  A team has imperfect safeguards that still help: standups, code reviews, review threads, shared calendars, peer correction. A solo builder has none of those by default. The upside is speed. The downside is that every gap routes back to one person.
 </div>
 
 <div class="reveal">
   Agents do not remove the need for operating design. They make operating design more important. When the work gets cheaper to generate, the review queue becomes the scarce resource.
 </div>
 
-<h2 class="reveal">What I Plan to Open Source</h2>
+<h2 class="reveal">What the OSS Version Should Contain</h2>
 
 <div class="reveal">
-  Alfred itself will not be open source soon. Role contracts, company context, and private adapters are entangled in ways that would leak company internals. The reusable parts are different. Other solo founders are rebuilding the same scaffolding I did. There is no reason to keep that scaffolding private.
+  Alfred is getting an OSS version around the parts that transfer cleanly to other solo founders. The private version has company context, customer data, and adapters that stay private. The public version should focus on the reusable scaffolding: contracts, review gates, output shapes, and a small runner pattern.
 </div>
 
 <ul class="reveal">
@@ -305,7 +225,7 @@ import StatRow from '../../components/post/StatRow.astro';
 </ul>
 
 <div class="reveal">
-  The release will be patterns first, code second. A solo founder can adopt the role contracts and run them inside Claude Code, Cursor, or any agent harness they prefer. The harness is replaceable. The contracts are what stay.
+  The release should be useful before it is complete. A solo founder should be able to adopt the role contracts inside Claude Code, Cursor, or any agent harness they prefer, without taking my private adapters with them.
 </div>
 
 <KeyTakeaway label="The standard I use now">

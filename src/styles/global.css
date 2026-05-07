@@ -542,15 +542,15 @@ img {
 
 .proof-strip {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 18px;
   margin: 14px 0 8px;
 }
 
 .proof-strip-card {
   padding: 22px;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: minmax(1rem, auto) minmax(2.35rem, auto) 1fr;
   gap: 12px;
   border-radius: var(--radius);
   position: relative;
@@ -580,6 +580,7 @@ img {
 }
 
 .proof-strip-value {
+  align-self: start;
   color: var(--text);
   font-family: var(--font-display);
   font-size: clamp(1.7rem, 2.4vw, 2.1rem);
@@ -871,7 +872,7 @@ img {
 
 .stat-row {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
   gap: 14px;
   margin: 28px 0;
 }
@@ -879,10 +880,13 @@ img {
 .stat-row-item {
   padding: 18px 20px;
   display: grid;
-  gap: 6px;
+  grid-template-rows: minmax(2.25rem, auto) minmax(1.9rem, auto) 1fr;
+  align-content: start;
+  gap: 8px;
 }
 
 .stat-row-value {
+  align-self: start;
   color: var(--text);
   font-family: var(--font-display);
   font-size: clamp(1.5rem, 2.6vw, 2rem);
@@ -892,16 +896,19 @@ img {
 }
 
 .stat-row-label {
+  display: flex;
+  align-items: flex-start;
   color: var(--green);
   font-family: var(--font-mono);
   font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0.08em;
+  line-height: 1.35;
   text-transform: uppercase;
 }
 
 .stat-row-caption {
-  margin: 4px 0 0;
+  margin: 0;
   color: var(--text-2);
   font-size: 0.86rem;
   line-height: 1.5;
@@ -971,7 +978,6 @@ img {
   font-size: 0.85rem;
 }
 
-.proof-source-note,
 .proof-note {
   max-width: 780px;
   margin: 22px 0 0;
@@ -1003,6 +1009,21 @@ img {
 .ledger-card,
 .path-card {
   padding: 22px;
+  display: grid;
+  align-content: start;
+  gap: 10px;
+}
+
+.stat-card {
+  grid-template-rows: minmax(2.5rem, auto) minmax(1.9rem, auto) 1fr;
+}
+
+.ledger-card {
+  grid-template-rows: minmax(1.9rem, auto) minmax(2.7rem, auto) 1fr;
+}
+
+.path-card {
+  grid-template-rows: minmax(2.7rem, auto) 1fr;
 }
 
 .stat-value {
@@ -1011,7 +1032,7 @@ img {
   font-size: clamp(1.75rem, 3vw, 2.35rem);
   font-weight: 800;
   line-height: 1;
-  margin-bottom: 10px;
+  margin-bottom: 0;
 }
 
 .stat-label,
@@ -1022,13 +1043,13 @@ img {
   font-weight: 750;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  margin-bottom: 10px;
+  margin-bottom: 0;
 }
 
 .ledger-card h3,
 .path-card h3 {
   font-size: 1.05rem;
-  margin-bottom: 10px;
+  margin-bottom: 0;
 }
 
 .ledger-card p,
@@ -1048,6 +1069,10 @@ img {
 .artifact-node {
   padding: 16px;
   min-height: 132px;
+  display: grid;
+  grid-template-rows: minmax(1.1rem, auto) minmax(2.65rem, auto) 1fr;
+  align-content: start;
+  gap: 8px;
 }
 
 .artifact-node span {
@@ -1055,7 +1080,7 @@ img {
   color: var(--muted);
   font-family: var(--font-mono);
   font-size: 0.72rem;
-  margin-bottom: 8px;
+  margin-bottom: 0;
 }
 
 .artifact-node strong {
@@ -1063,7 +1088,7 @@ img {
   color: var(--text);
   font-size: 0.98rem;
   line-height: 1.35;
-  margin-bottom: 8px;
+  margin-bottom: 0;
 }
 
 .artifact-node p {
@@ -1188,9 +1213,10 @@ img {
 }
 
 .blog-card-content {
-  display: flex;
+  display: grid;
   flex: 1;
-  flex-direction: column;
+  grid-template-rows: minmax(1.1rem, auto) minmax(4.35rem, auto) 1fr auto;
+  align-content: start;
 }
 
 .blog-category {
@@ -1200,20 +1226,20 @@ img {
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  margin-bottom: 12px;
+  margin-bottom: 0;
 }
 
 .blog-card h3 {
   font-size: 1.18rem;
   line-height: 1.25;
-  margin-bottom: 12px;
+  margin: 12px 0 0;
 }
 
 .blog-card p {
   color: var(--text-2);
   font-size: 0.92rem;
   line-height: 1.65;
-  margin-bottom: 20px;
+  margin: 0 0 20px;
 }
 
 .blog-meta {
@@ -1478,6 +1504,10 @@ img {
   overflow: hidden;
   min-height: 112px;
   padding: 14px;
+  display: grid;
+  grid-template-rows: minmax(1.55rem, auto) minmax(4.15rem, auto) 1fr;
+  align-content: start;
+  gap: 8px;
 }
 
 .visual-step-label {
@@ -1492,7 +1522,7 @@ img {
   color: var(--muted);
   font-family: var(--font-mono);
   font-size: 0.72rem;
-  margin-bottom: 8px;
+  margin-bottom: 0;
 }
 
 @media (hover: hover) {
@@ -1523,7 +1553,7 @@ img {
   color: var(--text-2);
   font-size: 0.84rem;
   line-height: 1.55;
-  margin-top: 7px;
+  margin-top: 0;
 }
 
 .visual-timeline {
@@ -1797,7 +1827,9 @@ img {
   border: 0;
   background: transparent;
   cursor: pointer;
-  font: inherit;
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  line-height: inherit;
 }
 
 .footer-links a:hover,
@@ -2128,6 +2160,10 @@ img {
   .swimlane-cells,
   .ledger-row {
     grid-template-columns: 1fr;
+  }
+
+  .visual-step {
+    grid-template-rows: auto;
   }
 
   .proof-item {

@@ -11,7 +11,7 @@ export const GET: APIRoute = () => {
     '',
     'Prasad Subrahmanya is the founder of Luminik and writes for solo technical builders about product engineering, founder-led sales, AI-agent workflows, event pipeline systems, and zero-to-one company building.',
     '',
-    '## Public Proof Points',
+    '## Track Record',
     '',
     '- Aura reached $3.6M ARR in 18 months.',
     '- Mainteny raised a $2.7M seed round.',

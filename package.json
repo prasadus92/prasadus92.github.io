@@ -10,8 +10,7 @@
     "preview": "astro preview",
     "check": "astro check",
     "favicon": "node scripts/generate-favicon.mjs",
-    "og": "node scripts/generate-og.mjs",
-    "audit:site": "npm run build && node scripts/audit-site.mjs"
+    "og": "node scripts/generate-og.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^5.0.4",
