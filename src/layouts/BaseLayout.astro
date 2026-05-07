@@ -1,5 +1,7 @@
 ---
 import '../styles/global.css';
+import Analytics from '../components/Analytics.astro';
+import CookieConsent from '../components/CookieConsent.astro';
 import Icon from '../components/Icon.astro';
 import Seo from '../components/Seo.astro';
 
@@ -94,13 +96,7 @@ const claudePrompt =
     <link rel="help" type="text/plain" title="AI agent guidance" href="/agents.txt" />
     {preloadImage && <link rel="preload" as="image" href="/assets/images/header/prasad.jpeg" imagesizes="76px" />}
 
-    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-XG5LVE538S"></script>
-    <script is:inline>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-XG5LVE538S');
-    </script>
+    <Analytics />
 
     <slot name="head" />
   </head>
@@ -148,6 +144,8 @@ const claudePrompt =
           <a href="/intro-chat/">Intro chat</a>
           <a href="https://linkedin.com/in/prasadus" target="_blank" rel="noopener">LinkedIn</a>
           <a href="https://github.com/prasadus92" target="_blank" rel="noopener">GitHub</a>
+          <a href="/privacy/">Privacy</a>
+          <button class="footer-link-button" type="button" data-open-cookie-settings>Cookie settings</button>
           <a href="/llms.txt">llms.txt</a>
           <a href="/agents.txt">agents.txt</a>
         </div>
@@ -165,6 +163,7 @@ const claudePrompt =
         <p class="copy-status" aria-live="polite" data-copy-status></p>
       </div>
     </footer>
+    <CookieConsent />
 
     <script>
       import '../scripts/site';

@@ -19,35 +19,33 @@ const directBookingUrl = 'https://cal.com/meet-prasad/intro-chat';
     { name: 'Intro Chat', url: '/intro-chat/' }
   ]}
 >
-  <section class="section booking-hero">
-    <div class="container booking-hero-inner">
-      <div class="section-header center">
+  <section class="section booking-page">
+    <div class="container booking-page-inner">
+      <div class="section-header center booking-intro">
         <div class="eyebrow reveal">Intro chat</div>
-        <h1 class="reveal">Bring a real product or GTM problem.</h1>
+        <h1 class="reveal">Book a focused intro chat.</h1>
         <p class="lead reveal">
-          Twenty minutes to compare notes on Luminik, event pipeline, solo-builder systems, founder-led sales, or zero-to-one B2B product work. Specific context makes the call useful.
+          Twenty minutes to compare notes on Luminik, event pipeline, solo-builder systems, founder-led sales, or zero-to-one B2B product work. A specific problem makes the conversation useful.
         </p>
         <div class="hero-actions reveal">
-          <a class="button primary" href="#book"><Icon name="calendar" size={16} /> Pick a time</a>
           <a class="button" href="mailto:prasadus92@gmail.com"><Icon name="envelope" size={16} /> Email context</a>
+          <a class="button" href={directBookingUrl} target="_blank" rel="noopener"><Icon name="arrow-up-right" size={16} /> Open Cal.com</a>
         </div>
       </div>
-    </div>
-  </section>
 
-  <section class="section tight" id="book">
-    <div class="container booking-shell">
-      <div class="section-header center">
-        <div class="eyebrow reveal">Calendar</div>
-        <h2 class="reveal">Pick a time that works in your timezone</h2>
-        <p class="lead reveal">
-          You will get a calendar invite after booking. You can also open Cal.com directly.
+      <div class="booking-shell reveal" id="book">
+        <div class="booking-panel-header">
+          <div>
+            <div class="eyebrow">Calendar</div>
+            <h2>Pick a time that works</h2>
+          </div>
+          <p>Timezone adjusts automatically.</p>
+        </div>
+        <CalEmbed />
+        <p class="booking-fallback">
+          Open the <a href={directBookingUrl} target="_blank" rel="noopener">booking page directly</a>.
         </p>
       </div>
-      <CalEmbed class="reveal" />
-      <p class="booking-fallback reveal">
-        Open the <a href={directBookingUrl} target="_blank" rel="noopener">booking page directly</a>.
-      </p>
     </div>
   </section>
 </BaseLayout>
