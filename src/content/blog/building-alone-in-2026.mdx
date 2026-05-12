@@ -1,10 +1,10 @@
 ---
 slug: "building-alone-in-2026"
-title: "The Real Cost of Solo Product Engineering in 2026"
+title: "The real cost of solo product engineering in 2026"
 description: "The cost structure of solo product engineering in 2026. Tools, instruction files, parallel agent work, and the judgment work that replaced what a five-person team used to do in 2014."
 date: "2026-02-10"
 modified: "2026-05-07"
-category: "Solo Builder OS"
+category: "Solo builder OS"
 readTime: "15 min read"
 tags: ["solo founder","AI tools","product engineering"]
 ---
@@ -26,7 +26,7 @@ import PullQuote from '../../components/post/PullQuote.astro';
   The cost shifted. Mechanical work compressed by an order of magnitude. The judgment work, deciding what to build, encoding conventions, maintaining specs, reviewing parallel agent output, stayed intact. Solo product engineering in 2026 is the work of running a tight operating system around a founder who still owns taste.
 </KeyTakeaway>
 
-<h2 class="reveal">2014 vs 2026: Where the Cost Lives</h2>
+<h2 class="reveal">2014 vs 2026: where the cost lives</h2>
 
 <CompareTable
   caption="Twelve years of building software products. The team got smaller. The judgment work got bigger."
@@ -41,7 +41,7 @@ import PullQuote from '../../components/post/PullQuote.astro';
   ]}
 />
 
-<h2 class="reveal">The Solo-Builder Operating System</h2>
+<h2 class="reveal">The solo-builder operating system</h2>
 
 <div class="reveal">
   The replacement for the old five-person baseline is a tighter operating system around a founder who still owns judgment.
@@ -58,10 +58,10 @@ import PullQuote from '../../components/post/PullQuote.astro';
 </Callout>
 
 <div class="reveal">
-  Two months after writing the first draft of this post I added a sixth piece: the operating boundary around recurring agent work, separated from my interactive development loop. I wrote about that in <a href="dedicated-mac-mini-solo-startup.html">Separating Agent Work from Founder Work</a>.
+  Two months after writing the first draft of this post I added a sixth piece: the operating boundary around recurring agent work, separated from my interactive development loop. I wrote about that in <a href="dedicated-mac-mini-solo-startup.html">Separating agent work from founder work</a>.
 </div>
 
-<h2 class="reveal">A Working Day, Tool by Tool</h2>
+<h2 class="reveal">A working day, tool by tool</h2>
 
 <CompareTable
   caption="Tools picked for the work they do best. Most days I am running two of them in parallel on different parts of the codebase."
@@ -76,7 +76,7 @@ import PullQuote from '../../components/post/PullQuote.astro';
   ]}
 />
 
-<h2 class="reveal">Where Compression Actually Shows Up</h2>
+<h2 class="reveal">Where compression actually shows up</h2>
 
 <div class="reveal">
   Categories of work that used to take weeks now take hours or days. The pattern is consistent across the last few months.
@@ -89,7 +89,7 @@ import PullQuote from '../../components/post/PullQuote.astro';
   { value: "Review", label: "Quality checks", caption: "Static findings and review comments become reviewable patches with the same final standard as any human-written change." }
 ]} />
 
-<h2 class="reveal">Instruction Files: Encoding Judgment</h2>
+<h2 class="reveal">Instruction files: encoding judgment</h2>
 
 <div class="reveal">
   This is the part most people skip when they talk about AI-assisted development, and it is the part that makes the biggest difference. I maintain CLAUDE.md files for Claude Code and .cursorrules for Cursor. Project-level instruction files tuned to my codebase and my preferences.
@@ -120,7 +120,7 @@ import PullQuote from '../../components/post/PullQuote.astro';
   Encoding work, capturing decisions, conventions, patterns, and preferences in a format agents can consume, is a genuinely new category of engineering labor. In 2014, the team carried that context socially. In 2026, the system needs it written down.
 </PullQuote>
 
-<h2 class="reveal">Workspace Architecture: Single Project, Multiple Repos</h2>
+<h2 class="reveal">Workspace architecture: single project, multiple repos</h2>
 
 <div class="reveal">
   All my repos live in a single project workspace: backend, frontend, mobile, integrations, specs. Separate repos, shared context. This is deliberately different from a monorepo. I want agents to see the full system without coupling deployment pipelines. Release workflows stay independent per repo.
@@ -134,7 +134,7 @@ import PullQuote from '../../components/post/PullQuote.astro';
   The new failure mode: everything is visible, so drift shows up immediately. An inconsistency between backend and frontend that might have lived undetected for a sprint in a team environment surfaces the moment context is loaded. That is a good kind of discomfort.
 </div>
 
-<h2 class="reveal">Specs Driven Development: The Most Important Repo</h2>
+<h2 class="reveal">Specs driven development: the most important repo</h2>
 
 <div class="reveal">
   No Jira. No Linear. No Trello. The specs repo is the roadmap, the plan, and the coordination layer. Detailed business requirements broken into workflows, specific tasks with implementation details, data model specs, integration contracts, UI/UX requirements, testing criteria. All written detailed enough to be directly consumable by humans and agents.
@@ -151,7 +151,7 @@ import PullQuote from '../../components/post/PullQuote.astro';
   </ul>
 </Callout>
 
-<h2 class="reveal">Parallel Agents and Review Queues</h2>
+<h2 class="reveal">Parallel agents and review queues</h2>
 
 <div class="reveal">
   The useful unit of autonomous work is not "go build the product." It is a scoped task with a clear boundary and a reviewable output. The key constraint is isolation. If you task two agents on overlapping parts of the codebase overnight, you wake up to merge conflicts and divergent assumptions. Each agent gets its own branch, its own scope, its own discrete PR.
@@ -161,7 +161,7 @@ import PullQuote from '../../components/post/PullQuote.astro';
   Too small and the output is not worth the coordination cost. Too broad and the agent makes structural decisions you should have made yourself. The art is carving work at the size where an agent can produce momentum without smuggling in architecture.
 </div>
 
-<h2 class="reveal">Where Things Still Break Down</h2>
+<h2 class="reveal">Where things still break down</h2>
 
 <CompareTable
   caption="Failure modes I run into every week. None of them get caught by the agent itself."
@@ -177,7 +177,7 @@ import PullQuote from '../../components/post/PullQuote.astro';
   ]}
 />
 
-<h2 class="reveal">Where Agents Help and Where Judgment Stays</h2>
+<h2 class="reveal">Where agents help and where judgment stays</h2>
 
 <div class="reveal">
   Agents operate on what you give them. Leave out the decorator pattern for a specific use case and they choose their own shape. Leave out error handling conventions and each module handles failures differently. Leave out module boundaries and the agent makes locally optimal choices that create globally messy architecture.
@@ -191,7 +191,7 @@ import PullQuote from '../../components/post/PullQuote.astro';
   This is the actual job now. Writing code is a shrinking fraction of my day. Deciding what agents should build, reviewing what they produced, and updating the instruction files and specs that keep the system coherent is where the hours go.
 </PullQuote>
 
-<h2 class="reveal">The Cost Structure Shifted</h2>
+<h2 class="reveal">The cost structure shifted</h2>
 
 <div class="reveal">
   The mechanical parts compressed dramatically. Boilerplate generation, API integration scaffolding, data seeding, documentation lookup, test writing, static checks. All of these are faster by an order of magnitude. The judgment parts stayed expensive. What to build. How to structure it. When to stop adding and start removing. How to keep the system coherent as it grows. How to maintain quality when an agent can ship something that technically works and aesthetically drifts.
@@ -205,7 +205,7 @@ import PullQuote from '../../components/post/PullQuote.astro';
   I can experiment faster than at any point in twelve years of building software. I can also introduce structural mistakes faster. The only reliable counterweight is discipline about specs, instruction files, standards, and manual verification. The total cost is different from 2014. Lower in some dimensions, higher in others. The amount of care required did not change.
 </KeyTakeaway>
 
-<h2 class="reveal">The Toolchain Categories</h2>
+<h2 class="reveal">The toolchain categories</h2>
 
 <CompareTable
   caption="The exact tools change fast. The categories last longer."

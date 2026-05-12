@@ -15,12 +15,12 @@ const proofPoints: ProofPoint[] = [
     caption: 'Built a PE due diligence platform inside Bain and took it from concept to revenue in 18 months.'
   },
   {
-    label: 'Mainteny seed',
+    label: 'Mainteny',
     value: '$2.7M raised',
     numericValue: 2.7,
     prefix: '$',
     suffix: 'M seed',
-    caption: 'Co-founded the company, built the first MVP solo in 3 months, and helped close the seed round.'
+    caption: 'Co-founded Mainteny, built the first field-service product version in 3 months, and helped make the seed story concrete with a live product and customer evidence.'
   },
   {
     label: 'Solo builder',
@@ -32,7 +32,7 @@ const proofPoints: ProofPoint[] = [
 ];
 
 const title = 'Prasad Subrahmanya';
-const description = 'Founder of Luminik, solo B2B builder. Field notes on product, founder-led sales, AI agents, and zero-to-one execution. Built Aura at Bain to $3.6M ARR. Co-founded Mainteny ($2.7M seed).';
+const description = 'Founder of Luminik. I write about doing painful customer work first, then turning the repeated parts into B2B software. Built Aura at Bain to $3.6M ARR and co-founded Mainteny through its $2.7M seed.';
 ---
 
 <BaseLayout
@@ -42,21 +42,20 @@ const description = 'Founder of Luminik, solo B2B builder. Field notes on produc
   active="home"
   preloadImage
   image="/og/prasad-og.png"
-  imageAlt="Prasad Subrahmanya | Founder of Luminik. B2B software from real workflow pain to paying customers."
+  imageAlt="Prasad Subrahmanya | Founder of Luminik. Do the customer's work first."
 >
 
   <section class="hero">
     <div class="container hero-grid">
       <div class="hero-copy">
-        <div class="eyebrow reveal">Founder, builder, operator</div>
-        <h1 class="reveal">B2B software from real workflow pain to paying customers.</h1>
+        <div class="eyebrow reveal">Customer work first</div>
+        <h1 class="reveal">Do the customer's work first.</h1>
         <p class="lead reveal">
-          I'm Prasad Subrahmanya. I build close to the customer: first by doing the work manually, then by turning the repeated parts into product. Today I run <a href="https://www.luminik.io" target="_blank" rel="noopener">Luminik</a>, an event pipeline platform for B2B teams, and I write for solo technical founders building close to customers.
+          I'm Prasad Subrahmanya. I enter the customer's workflow, do the painful manual work myself, and turn repeated pain into software. Today I run <a href="https://www.luminik.io" target="_blank" rel="noopener">Luminik</a>, an event pipeline platform for B2B teams.
         </p>
         <div class="hero-actions reveal">
           <a href="/blog/" class="button primary"><Icon name="book-open" size={16} /> Read the field notes</a>
-          <a href="https://www.luminik.io" target="_blank" rel="noopener" class="button"><Icon name="arrow-up-right" size={16} /> Visit Luminik</a>
-          <a href="https://github.com/prasadus92" target="_blank" rel="noopener" class="button"><Icon name="github" size={16} /> GitHub</a>
+          <a href="https://www.luminik.io" target="_blank" rel="noopener" class="text-link">Visit Luminik <Icon name="arrow-up-right" size={15} /></a>
         </div>
       </div>
 
@@ -76,24 +75,24 @@ const description = 'Founder of Luminik, solo B2B builder. Field notes on produc
           </div>
           <div class="proof-item">
             <div class="proof-number">02</div>
-            <p>Built with explicit specs, repo instruction files, agent workflows, and human review gates that keep founder judgment close to the work.</p>
+            <p>Specs, repo rules, and PR review queues keep agent-written work tied to customer workflows and product decisions.</p>
           </div>
           <div class="proof-item">
             <div class="proof-number">03</div>
-            <p>Founder-led sales, customer-driven roadmap. I sell early because the sales call often changes the product before the product gets expensive to change.</p>
+            <p>Sales calls are product work. I sell early because a good buyer question can change the product before the wrong thing gets expensive.</p>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="section tight" id="proof" aria-labelledby="proof-heading">
+  <section class="section tight" id="track-record" aria-labelledby="track-record-heading">
     <div class="container">
       <div class="section-header">
         <div class="eyebrow reveal">Track record</div>
-        <h2 class="reveal" id="proof-heading">A few outcomes from shipped work</h2>
+        <h2 class="reveal" id="track-record-heading">A few outcomes from shipped work</h2>
         <p class="lead reveal">
-          The short version: I have built revenue-generating software inside Bain, co-founded a venture-backed company, and shipped the first product myself before the team existed.
+          I have built revenue-generating software inside Bain, co-founded a venture-backed company, and shipped the first product myself before the team existed.
         </p>
       </div>
       <ProofStrip points={proofPoints} client:visible />
@@ -104,14 +103,14 @@ const description = 'Founder of Luminik, solo B2B builder. Field notes on produc
     <div class="container two-column">
       <div class="section-header" style="margin-bottom: 0;">
         <div class="eyebrow reveal">About</div>
-        <h2 class="reveal">A public operating record for serious solo builders</h2>
+        <h2 class="reveal">The work before software becomes obvious</h2>
       </div>
       <div>
         <p class="lead reveal">
-          I care about the work between the first customer problem and software customers keep using: manual delivery, narrow MVPs, sales calls that change the roadmap, architecture choices that save future work, and review gates that keep agents accountable.
+          Good B2B software often starts as work someone is doing by hand: chasing updates, reconciling data, explaining status, fixing edge cases. I care about that stretch: manual delivery, narrow first versions, sales calls that change the product, architecture choices that save future work, and review gates that keep agents accountable.
         </p>
         <p class="lead reveal">
-          Right now I am building Luminik. Before that I built SnowOptix, Aura at Bain, and Mainteny. Each one started in a different context. The useful habit stayed the same: get close to the workflow, ship the smallest useful system, then make the operating model clear enough that customers, teammates, and investors can trust it.
+          Right now I am building Luminik. Before that I built SnowOptix, Aura at Bain, and Mainteny. Each one started in a different context. The useful habit stayed the same: enter the workflow, do enough of it by hand to know where it hurts, ship the smallest useful system, then make it clear enough that customers, teammates, and investors can trust it.
         </p>
       </div>
     </div>
@@ -120,23 +119,23 @@ const description = 'Founder of Luminik, solo B2B builder. Field notes on produc
   <section class="section" id="operating-areas">
     <div class="container">
       <div class="section-header center">
-        <div class="eyebrow reveal">Operating Areas</div>
-        <h2 class="reveal">What I write about and build around</h2>
-        <p class="lead reveal">The common thread is practical: what a solo technical founder can use in their own operating system tomorrow.</p>
+        <div class="eyebrow reveal">Operating areas</div>
+        <h2 class="reveal">What I build and write about</h2>
+        <p class="lead reveal">Useful notes for technical founders turning customer work into software.</p>
       </div>
 
       <div class="path-grid">
         <div class="path-card card interactive reveal">
           <h3>Solo product engineering</h3>
-          <p>Keep scope narrow, ship the first useful workflow, and know when the product needs architecture instead of more features.</p>
+          <p>Ship the first useful workflow. Keep scope small until the product earns more architecture.</p>
         </div>
         <div class="path-card card interactive reveal">
           <h3>Founder-led GTM</h3>
-          <p>Discovery as diagnosis, sales calls as workflow mapping, and customer proof before the story gets too polished.</p>
+          <p>Use sales calls to understand how buyers already work, what hurts, and what they will change for.</p>
         </div>
         <div class="path-card card interactive reveal">
           <h3>Agent-assisted work</h3>
-          <p>Specs, instruction files, review queues, source attribution, and the boundary between automation and founder judgment.</p>
+          <p>Use specs, repo rules, and PR review queues to keep agent-written work tied to product decisions.</p>
         </div>
         <div class="path-card card interactive reveal">
           <h3>Event pipeline systems</h3>
@@ -147,18 +146,18 @@ const description = 'Founder of Luminik, solo B2B builder. Field notes on produc
       <div class="artifact-map" style="margin-top: 34px;">
         <div class="artifact-node card reveal">
           <span>01</span>
-          <strong>Customer pain</strong>
-          <p>Start with a workflow a buyer already cares about.</p>
+          <strong>Customer work</strong>
+          <p>Start with the task the buyer is already doing by hand.</p>
         </div>
         <div class="artifact-node card reveal">
           <span>02</span>
           <strong>Manual delivery</strong>
-          <p>Do the work before locking the product shape.</p>
+          <p>Do it yourself before freezing the product shape.</p>
         </div>
         <div class="artifact-node card reveal">
           <span>03</span>
           <strong>Narrow software</strong>
-          <p>Automate the repeated parts, keep judgment close.</p>
+          <p>Automate the repeated pain. Leave the rare cases visible.</p>
         </div>
         <div class="artifact-node card reveal">
           <span>04</span>
@@ -167,8 +166,8 @@ const description = 'Founder of Luminik, solo B2B builder. Field notes on produc
         </div>
         <div class="artifact-node card reveal">
           <span>05</span>
-          <strong>Repeatability</strong>
-          <p>Keep the operating model legible enough to scale.</p>
+          <strong>Trust</strong>
+          <p>Make the model clear enough for customers, teammates, and investors.</p>
         </div>
       </div>
     </div>
@@ -179,7 +178,7 @@ const description = 'Founder of Luminik, solo B2B builder. Field notes on produc
       <div class="section-header">
         <div class="eyebrow reveal">Experience</div>
         <h2 class="reveal">Where I have built and shipped</h2>
-        <p class="lead reveal">From founder-led startups to venture building inside Bain, the work has sat at the intersection of product, engineering, sales, and operating discipline.</p>
+        <p class="lead reveal">Different settings, same job: understand the business, build the product, sell the early version, and keep the operating model honest.</p>
       </div>
 
       <div class="experience-grid">
@@ -187,11 +186,11 @@ const description = 'Founder of Luminik, solo B2B builder. Field notes on produc
           <div class="experience-top">
             <div>
               <p class="experience-company">Luminik</p>
-              <h3>Founder and CEO</h3>
+              <h3>Founder</h3>
             </div>
             <span class="experience-date">Oct 2024 - Present</span>
           </div>
-          <p>Building an event pipeline platform that helps B2B teams source, enrich, sequence, capture, and attribute event-sourced pipeline.</p>
+          <p>Building an event pipeline platform for B2B teams that need one record from source to attribution: source, enrich, sequence, capture, and attribute.</p>
           <div class="tag-row">
             <span class="tag">Event pipeline</span>
             <span class="tag">B2B GTM</span>
@@ -208,7 +207,7 @@ const description = 'Founder of Luminik, solo B2B builder. Field notes on produc
             </div>
             <span class="experience-date">Jan 2024 - Oct 2024</span>
           </div>
-          <p>A Snowflake cost optimization side project that entered Snowflake's Native App Accelerator with support from the startups team. The customer discovery showed where the category was constrained and pointed me toward Luminik.</p>
+          <p>A Snowflake cost optimization side project that entered Snowflake's Native App Accelerator with support from the startups team. The conversations showed the pain was real, but the market I wanted to build in was events.</p>
           <div class="tag-row">
             <span class="tag">Snowflake</span>
             <span class="tag">Data engineering</span>
@@ -240,10 +239,11 @@ const description = 'Founder of Luminik, solo B2B builder. Field notes on produc
             </div>
             <span class="experience-date">Aug 2020 - Oct 2022</span>
           </div>
-          <p>Built the first MVP solo in 3 months, then helped lead the company through a $2.7M seed round and team growth.</p>
+          <p>Built the first field-service product version solo in 3 months, joined early customer and sales work, and helped make the seed story concrete with a live product and customer evidence.</p>
           <div class="tag-row">
-            <span class="tag">CRM</span>
-            <span class="tag">MVP</span>
+            <span class="tag">Field service</span>
+            <span class="tag">Elevator maintenance</span>
+            <span class="tag">First product</span>
             <span class="tag">Fundraising</span>
           </div>
         </div>
@@ -255,8 +255,8 @@ const description = 'Founder of Luminik, solo B2B builder. Field notes on produc
     <div class="container">
       <div class="section-header center">
         <div class="eyebrow reveal">Writing</div>
-        <h2 class="reveal">Operating notes for solo builders</h2>
-        <p class="lead reveal">Essays on building, selling, coding with agents, and turning customer work into software. Written from shipped work and live operating constraints.</p>
+        <h2 class="reveal">Notes from the work</h2>
+        <p class="lead reveal">Essays on building, selling, agent-written work, and the moment manual customer work becomes software.</p>
       </div>
 
       <div class="blog-grid">
@@ -276,7 +276,7 @@ const description = 'Founder of Luminik, solo B2B builder. Field notes on produc
       </div>
 
       <div class="reveal" style="text-align: center; margin-top: 42px;">
-        <a class="button" href="/blog/">View All Articles <Icon name="arrow-right" size={16} /></a>
+        <a class="button" href="/blog/">View all articles <Icon name="arrow-right" size={16} /></a>
       </div>
     </div>
   </section>
@@ -288,7 +288,7 @@ const description = 'Founder of Luminik, solo B2B builder. Field notes on produc
         <h2 class="reveal">Bring a concrete product or GTM problem</h2>
       </div>
       <div class="contact-box card reveal">
-        <p class="lead">Reach out if you want to compare notes on Luminik, event pipeline, solo-builder operating systems, or founder-led product work.</p>
+        <p class="lead">Reach out if you want to compare notes on Luminik, event pipeline, founder-led sales, or turning a painful workflow into product.</p>
         <div class="hero-actions">
           <a class="button primary" href="mailto:prasadus92@gmail.com"><Icon name="envelope" size={16} /> Email</a>
           <a class="button" href="/intro-chat/"><Icon name="calendar" size={16} /> Intro chat</a>

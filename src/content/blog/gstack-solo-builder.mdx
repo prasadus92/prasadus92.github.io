@@ -1,10 +1,10 @@
 ---
 slug: "gstack-solo-builder"
-title: "gstack, CLAUDE.md, and Founder Coordination"
+title: "gstack, CLAUDE.md, and founder coordination"
 description: "I have run a workflow similar to gstack since mid-2025. Role-based agents, instruction files, a specs repo. What gstack solves, where the coordination gap begins, and what stays a founder's problem."
 date: "2026-03-15"
 modified: "2026-05-06"
-category: "Solo Builder OS"
+category: "Solo builder OS"
 readTime: "13 min read"
 tags: ["gstack","CLAUDE.md","specs","AI agents"]
 ---
@@ -26,7 +26,7 @@ import PullQuote from '../../components/post/PullQuote.astro';
   gstack is a good starting point. So is building your own system. Either way you end up dealing with the same three unsolved problems: encoding domain judgment, coordinating across sessions, and isolating parallel agent work. None of these are framework problems. They are operating discipline problems.
 </KeyTakeaway>
 
-<h2 class="reveal">Where the Approaches Overlap</h2>
+<h2 class="reveal">Where the approaches overlap</h2>
 
 <div class="reveal">
   gstack's core idea: when you give an AI agent a specific persona with constrained responsibilities (a reviewer who only reviews, a planner who only plans), the output improves. This is correct. It maps to how engineering organizations actually work. A QA engineer thinks differently from a product lead. gstack codifies the separation into slash commands like <code>/build</code>, <code>/review</code>, <code>/ship</code>.
@@ -63,7 +63,7 @@ import PullQuote from '../../components/post/PullQuote.astro';
   <p class="post-visual-caption">gstack helps most with the first layer. My setup spends more effort on the later layers.</p>
 </figure>
 
-<h2 class="reveal">Where gstack's Scope Stops</h2>
+<h2 class="reveal">Where gstack's scope stops</h2>
 
 <div class="reveal">
   gstack covers the development lifecycle: think, plan, build, review, test, ship, reflect. Within that scope it is well-designed. <code>/plan-ceo-review</code> asking "what is the 10-star product hiding inside this request" is a genuinely useful forcing function. The engineering workflow is roughly 40% of what agents do for me. The other 60% is domain-specific work no generic framework can anticipate.
@@ -82,7 +82,7 @@ import PullQuote from '../../components/post/PullQuote.astro';
   ]}
 />
 
-<h2 class="reveal">1. Domain Context Is Harder to Encode Than Code Conventions</h2>
+<h2 class="reveal">1. Domain context is harder to encode than code conventions</h2>
 
 <div class="reveal">
   My CLAUDE.md files do not just encode engineering patterns. They encode business logic. For Luminik that means event-pipeline vocabulary, workflow boundaries, data-model assumptions, and the rules that keep source, enrich, sequence, capture, and attribute from drifting into five disconnected features. None of that is engineering knowledge. It is domain judgment, and it changes as the product learns.
@@ -92,7 +92,7 @@ import PullQuote from '../../components/post/PullQuote.astro';
   Engineering conventions are relatively stable. Error handling patterns do not change week to week. Domain context does. Keeping instruction files current is significant ongoing work that any framework-level approach leaves to the user.
 </div>
 
-<h2 class="reveal">2. Cross-Session Coordination Needs a Specs Repo</h2>
+<h2 class="reveal">2. Cross-session coordination needs a specs repo</h2>
 
 <div class="reveal">
   gstack's slash commands are stateless. Each one runs in its own context. That works for a single feature cycle. It does not work for a product under continuous development for months, where decisions made in November constrain what is possible in March.
@@ -103,10 +103,10 @@ import PullQuote from '../../components/post/PullQuote.astro';
 </div>
 
 <Callout tone="info" title="The operating-boundary update I added later">
-  Part of the answer turned out to be a runtime shift, not a framework one. Moving approved context into a queryable layer shrinks the drift window from "whenever I remember to look" to "the next scheduled check." That setup lives in <a href="dedicated-mac-mini-solo-startup.html">Separating Agent Work from Founder Work</a>.
+  Part of the answer turned out to be a runtime shift, not a framework one. Moving approved context into a queryable layer shrinks the drift window from "whenever I remember to look" to "the next scheduled check." That setup lives in <a href="dedicated-mac-mini-solo-startup.html">Separating agent work from founder work</a>.
 </Callout>
 
-<h2 class="reveal">3. Parallel Agents Need Isolation and Roles</h2>
+<h2 class="reveal">3. Parallel agents need isolation and roles</h2>
 
 <div class="reveal">
   gstack's model is sequential: one agent, switching roles. My workflow runs multiple agents in parallel. On a typical evening, Cursor on a frontend feature, Claude Code on a backend refactor, a cloud-hosted agent on test cleanup. Each works in a separate repo or branch. Each produces a discrete PR by morning.
@@ -116,7 +116,7 @@ import PullQuote from '../../components/post/PullQuote.astro';
   The constraint that matters most is isolation. If two agents touch overlapping parts of the codebase, I wake up to merge conflicts and divergent assumptions. The biggest time compression I have found in solo development comes from running three or four agents simultaneously on well-separated work, not from making one agent cycle through roles faster.
 </div>
 
-<h2 class="reveal">A Note on Output Metrics</h2>
+<h2 class="reveal">A note on output metrics</h2>
 
 <div class="reveal">
   gstack's README reports impressive output numbers. 10,000 to 20,000 lines per day. 600,000-plus lines in 60 days. These numbers are plausible with AI agents. I have had similar volume weeks.
@@ -130,7 +130,7 @@ import PullQuote from '../../components/post/PullQuote.astro';
   Deciding what to build, maintaining system coherence, encoding domain judgment, manually testing UI flows that agents consistently get wrong. That is where my hours go. None of it shows up in LOC counters.
 </div>
 
-<h2 class="reveal">What I Would Recommend to Someone Starting This Workflow</h2>
+<h2 class="reveal">What I would recommend to someone starting this workflow</h2>
 
 <Callout tone="note" title="Four things I would name earlier next time">
   <ul>

@@ -11,7 +11,7 @@
 
 const SITE_URL = 'https://prasad.tech';
 const SITE_TITLE = 'Prasad Subrahmanya';
-const SITE_DESCRIPTION = 'Founder of Luminik, B2B builder, solo operator. Field notes for serious solo founders on product, founder-led sales, AI agents, and zero-to-one execution.';
+const SITE_DESCRIPTION = "Founder of Luminik. Field notes on doing painful customer work first, then turning the repeated parts into B2B software.";
 const PERSON_ID = `${SITE_URL}/#person`;
 const WEBSITE_ID = `${SITE_URL}/#website`;
 const LOGO_URL = `${SITE_URL}/assets/images/header/prasad.jpeg`;
@@ -56,7 +56,7 @@ const {
 } = Astro.props;
 
 const canonical = canonicalProp ?? new URL(Astro.url.pathname, SITE_URL).toString();
-const fullTitle = title === SITE_TITLE ? `${title} | Founder, Builder, Operator` : `${title} | ${SITE_TITLE}`;
+const fullTitle = title === SITE_TITLE ? `${title} | Do the customer's work first` : `${title} | ${SITE_TITLE}`;
 const ogImageUrl = ogImage.startsWith('http') ? ogImage : new URL(ogImage, SITE_URL).toString();
 
 const WEBPAGE_ID = `${canonical}#webpage`;
@@ -74,7 +74,7 @@ const personNode = {
   familyName: 'Subrahmanya',
   url: `${SITE_URL}/`,
   image: LOGO_URL,
-  jobTitle: 'Founder and CEO',
+  jobTitle: 'Founder',
   worksFor: {
     '@type': 'Organization',
     name: 'Luminik',
