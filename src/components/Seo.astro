@@ -11,7 +11,7 @@
 
 const SITE_URL = 'https://prasad.tech';
 const SITE_TITLE = 'Prasad Subrahmanya';
-const SITE_DESCRIPTION = "Founder of Luminik. Field notes on building and selling B2B products from real demand.";
+const SITE_DESCRIPTION = "Founder of Luminik. Field notes on building and selling B2B products from demand seen in real work.";
 const PERSON_ID = `${SITE_URL}/#person`;
 const WEBSITE_ID = `${SITE_URL}/#website`;
 const LOGO_URL = `${SITE_URL}/assets/images/header/prasad.jpeg`;
@@ -56,8 +56,8 @@ const {
 } = Astro.props;
 
 const canonical = canonicalProp ?? new URL(Astro.url.pathname, SITE_URL).toString();
-const fullTitle = title === SITE_TITLE ? `${title} | B2B products from real demand` : `${title} | ${SITE_TITLE}`;
-const OG_IMAGE_VERSION = '2026-05-12-real-demand';
+const fullTitle = title === SITE_TITLE ? `${title} | B2B products from real work` : `${title} | ${SITE_TITLE}`;
+const OG_IMAGE_VERSION = '2026-05-12-real-work';
 
 function absoluteImageUrl(image: string): string {
   const url = image.startsWith('http') ? new URL(image) : new URL(image, SITE_URL);

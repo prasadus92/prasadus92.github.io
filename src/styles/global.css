@@ -1597,6 +1597,17 @@ img {
   font-size: 1rem;
 }
 
+.visual-column ul {
+  margin: 10px 0 0;
+  padding-left: 18px;
+}
+
+.visual-column li {
+  color: var(--text-2);
+  font-size: 0.88rem;
+  line-height: 1.6;
+}
+
 .swimlane {
   display: grid;
   gap: 14px;

@@ -9,7 +9,7 @@ export const GET: APIRoute = () => {
     '',
     '## About',
     '',
-    'Prasad Subrahmanya is the founder of Luminik, an event pipeline platform for B2B teams. He writes about solo technical founding, founder-led sales, spec-driven agent workflows, reviewable PRs, source-linked outputs, event pipeline systems, and zero-to-one product work.',
+    'Prasad Subrahmanya is the founder of Luminik, an event pipeline platform for B2B teams. He writes about solo technical founding, founder-led sales, AI-agent workflows, PRs to inspect, summaries with sources, event pipeline systems, and zero-to-one product work.',
     '',
     '## Site Structure',
     '',

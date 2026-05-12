@@ -325,12 +325,12 @@ async function main() {
 
   await renderCard({
     eyebrow: 'Founder · CTO · Operator',
-    title: "Prasad Subrahmanya. I build and sell B2B products from real demand.",
+    title: "Prasad Subrahmanya. I build and sell B2B products from work I know firsthand.",
     titleLines: [
       'Prasad Subrahmanya.',
       'I build and sell',
-      'B2B products',
-      'from real demand.'
+      'B2B products from',
+      'work I know firsthand.'
     ],
     footer: 'Luminik · Aura at Bain · Mainteny',
     portrait
