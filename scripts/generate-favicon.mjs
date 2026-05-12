@@ -1,12 +1,9 @@
 #!/usr/bin/env node
 /**
- * Generate favicon and web app icons from Prasad's headshot.
- *
- * The small sizes use a tighter crop than the homepage image so the face
- * remains readable in browser tabs and mobile home-screen icons.
+ * Generate favicon and web app icons from the Prasad brand mark.
  */
 
-import { mkdir, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
@@ -14,10 +11,9 @@ import sharp from 'sharp';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
-const SOURCE = join(ROOT, 'public/assets/images/header/prasad.jpeg');
+const SOURCE = join(ROOT, 'public/assets/brand/prasad-mark.svg');
 const OUT_DIR = join(ROOT, 'public/assets/favicon');
 
-const CROP = { left: 205, top: 42, width: 390, height: 390 };
 const PNG_SIZES = [
   ['favicon-16x16.png', 16],
   ['favicon-32x32.png', 32],
@@ -33,8 +29,7 @@ async function ensureDir(path) {
 
 async function iconPng(size) {
   return sharp(SOURCE)
-    .extract(CROP)
-    .resize(size, size, { fit: 'cover' })
+    .resize(size, size, { fit: 'contain' })
     .png({ compressionLevel: 9, adaptiveFiltering: true })
     .toBuffer();
 }
@@ -66,17 +61,7 @@ function icoBuffer(entries) {
 }
 
 async function svgIcon() {
-  const image = await iconPng(128);
-  const href = `data:image/png;base64,${image.toString('base64')}`;
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 96 96">
-  <defs>
-    <clipPath id="avatar"><rect x="6" y="6" width="84" height="84" rx="22"/></clipPath>
-  </defs>
-  <rect width="96" height="96" rx="24" fill="#0b0d10"/>
-  <image href="${href}" x="6" y="6" width="84" height="84" preserveAspectRatio="xMidYMid slice" clip-path="url(#avatar)"/>
-  <rect x="6" y="6" width="84" height="84" rx="22" fill="none" stroke="#6ee7b7" stroke-opacity="0.55" stroke-width="2"/>
-</svg>
-`;
+  return readFile(SOURCE, 'utf8');
 }
 
 async function main() {
