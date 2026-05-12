@@ -92,7 +92,7 @@ const article = {
         <img src="/assets/images/header/prasad.jpeg" width="72" height="72" alt="Prasad Subrahmanya" loading="lazy" decoding="async" />
         <div>
           <h2 style="font-size: 1.2rem; margin-bottom: 6px;">Prasad Subrahmanya</h2>
-          <p style="margin-bottom: 10px;">Founder of Luminik. Built Aura at Bain to $3.6M ARR, co-founded Mainteny through its $2.7M seed, and shipped the first MVP solo in 3 months.</p>
+          <p style="margin-bottom: 10px;">Founder of Luminik. Built Aura at Bain to $3.6M ARR, co-founded Mainteny through its $2.7M seed, and shipped the first field-service product version solo in 3 months.</p>
           <div class="tag-row">
             <a class="tag" href="https://linkedin.com/in/prasadus" target="_blank" rel="noopener">LinkedIn</a>
             <a class="tag" href="https://github.com/prasadus92" target="_blank" rel="noopener">GitHub</a>
@@ -101,13 +101,13 @@ const article = {
       </div>
 
       <div class="reveal" style="margin-top: 36px; text-align: center;">
-        <a class="button" href="/blog/"><Icon name="arrow-left" size={16} /> Back to Blog</a>
+        <a class="button" href="/blog/"><Icon name="arrow-left" size={16} /> Back to blog</a>
       </div>
     </article>
 
     <aside class="post-aside" aria-label="Post sidebar">
       <div class="aside-card card">
-        <h2>Filed Under</h2>
+        <h2>Filed under</h2>
         <div class="tag-row">
           <span class="tag">{post.category}</span>
           {post.tags.map((tag) => <span class="tag">{tag}</span>)}
@@ -115,7 +115,7 @@ const article = {
       </div>
 
       <div class="aside-card card">
-        <h2>Related Notes</h2>
+        <h2>Related notes</h2>
         {related.map((item) => (
           <a class="related-link" href={item.url}><strong>{item.title}</strong><span>{item.description}</span></a>
         ))}
