@@ -11,7 +11,7 @@
 
 const SITE_URL = 'https://prasad.tech';
 const SITE_TITLE = 'Prasad Subrahmanya';
-const SITE_DESCRIPTION = "Founder of Luminik. Field notes on doing painful customer work first, then turning the repeated parts into B2B software.";
+const SITE_DESCRIPTION = "Founder of Luminik. Field notes on building and selling B2B products from demand seen in real work.";
 const PERSON_ID = `${SITE_URL}/#person`;
 const WEBSITE_ID = `${SITE_URL}/#website`;
 const LOGO_URL = `${SITE_URL}/assets/images/header/prasad.jpeg`;
@@ -56,8 +56,18 @@ const {
 } = Astro.props;
 
 const canonical = canonicalProp ?? new URL(Astro.url.pathname, SITE_URL).toString();
-const fullTitle = title === SITE_TITLE ? `${title} | Do the customer's work first` : `${title} | ${SITE_TITLE}`;
-const ogImageUrl = ogImage.startsWith('http') ? ogImage : new URL(ogImage, SITE_URL).toString();
+const fullTitle = title === SITE_TITLE ? `${title} | B2B products from real work` : `${title} | ${SITE_TITLE}`;
+const OG_IMAGE_VERSION = '2026-05-12-real-work';
+
+function absoluteImageUrl(image: string): string {
+  const url = image.startsWith('http') ? new URL(image) : new URL(image, SITE_URL);
+  if (url.origin === SITE_URL && url.pathname.startsWith('/og/')) {
+    url.searchParams.set('v', OG_IMAGE_VERSION);
+  }
+  return url.toString();
+}
+
+const ogImageUrl = absoluteImageUrl(ogImage);
 
 const WEBPAGE_ID = `${canonical}#webpage`;
 const BREADCRUMB_ID = `${canonical}#breadcrumb`;
@@ -157,7 +167,7 @@ const articleNode = article
       mainEntityOfPage: { '@id': WEBPAGE_ID },
       headline: article.headline,
       description: article.description ?? description,
-      image: article.image ? new URL(article.image, SITE_URL).toString() : ogImageUrl,
+      image: article.image ? absoluteImageUrl(article.image) : ogImageUrl,
       author: { '@id': PERSON_ID },
       publisher: { '@id': PERSON_ID },
       datePublished: article.datePublished,

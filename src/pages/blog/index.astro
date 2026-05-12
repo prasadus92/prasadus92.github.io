@@ -4,7 +4,7 @@ import Icon from '../../components/Icon.astro';
 import { formatMonth, posts } from '../../lib/posts';
 
 const title = 'Field notes for solo technical founders';
-const description = 'Field notes on product engineering, founder-led sales, agent-written work, and zero-to-one execution. Drawn from Luminik, Aura at Bain, Mainteny ($2.7M seed), and SnowOptix.';
+const description = 'Field notes on product engineering, founder-led sales, specs, PRs to inspect, agent-assisted code, and zero-to-one execution. Drawn from Luminik, Aura at Bain, Mainteny ($2.7M seed), and SnowOptix.';
 const breadcrumbs = [
   { name: 'Home', url: '/' },
   { name: 'Blog', url: '/blog/' }
@@ -13,12 +13,12 @@ const breadcrumbs = [
 const paths = [
   {
     title: 'Solo builder OS',
-    body: 'Specs, PR review queues, context boundaries, and the recurring work a small company has to keep visible.',
+    body: 'Alfred, CLAUDE.md files, isolated PRs, approval rules, and the recurring work a small company has to keep visible.',
     href: '/blog/alfred-solo-founder-operating-system.html'
   },
   {
     title: 'Founder-led sales',
-    body: 'Sales as workflow diagnosis first. Useful for builders who need customer truth before hiring a sales motion.',
+    body: 'Sales starts by understanding how the buyer does the work today. Useful before hiring a sales motion.',
     href: '/blog/selling-before-building.html'
   },
   {
@@ -67,7 +67,7 @@ const collectionSchema = {
       <div class="eyebrow reveal">Blog</div>
       <h1 class="reveal">Field notes for solo technical founders</h1>
       <p class="lead reveal" style="max-width: 760px; margin: 0 auto;">
-        Notes from building Luminik and earlier products: product, sales, agent-written work, event pipeline systems, and the decisions that still need a founder in the loop.
+        Notes from building Luminik and earlier products: product, sales, AI-agent workflows, event pipeline systems, and the decisions that still need a founder in the loop.
       </p>
     </div>
   </section>
@@ -83,14 +83,14 @@ const collectionSchema = {
             <a class="button primary" href={posts[0].url}>Start here <Icon name="arrow-right" size={16} /></a>
           </div>
         </div>
-        <div class="featured-diagram" aria-label="Alfred operating contract preview">
+        <div class="featured-diagram" aria-label="Alfred work preview">
           <div class="featured-diagram-row">
             <strong>Context</strong>
-            <span>Approved docs, repo rules, and clear positioning.</span>
+            <span>CLAUDE.md files, specs, voice rules, and public positioning.</span>
           </div>
           <div class="featured-diagram-row">
             <strong>Work</strong>
-            <span>Drafts, PRs, summaries, and checks that stay reviewable.</span>
+            <span>Digests with links, PRs to inspect, draft copy, and drift checks.</span>
           </div>
           <div class="featured-diagram-row">
             <strong>Gate</strong>

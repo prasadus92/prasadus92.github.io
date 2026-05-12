@@ -1,21 +1,21 @@
 ---
 slug: "alfred-solo-founder-operating-system"
-title: "Alfred: how I structure recurring work as a solo founder"
-description: "The role contracts, review gates, approved context, and source-linked outputs behind the agent layer I use while building Luminik."
+title: "Alfred: how I run repeated work as a solo founder"
+description: "Alfred turns repeated company work into plans, summaries, PR notes, and drafts I can review. This is how I keep the work short, sourced, and in my hands."
 date: "2026-05-06"
-modified: "2026-05-07"
+modified: "2026-05-12"
 category: "Solo builder OS"
-readTime: "12 min read"
-tags: ["Alfred", "solo founder", "AI agents", "operating system", "open source"]
+readTime: "16 min read"
+tags: ["Alfred", "solo founder", "AI-agent workflows", "digital employees", "open source"]
 faqs:
   - question: "What is Alfred?"
-    answer: "Alfred is the public name I use for the agent layer around recurring company work. The important parts are role contracts, approved context, source-linked output, and human approval before anything consequential ships."
+    answer: "Alfred is the public name I use for a set of named agents around repeated company work. It turns that work into plans, digests, PR notes, drafts, and alerts I can review."
   - question: "Does Alfred ship code or content without my review?"
-    answer: "No. Every consequential output is a draft, a pull request, or a digest. The approval gate is explicit so the agent layer never outruns founder judgment."
+    answer: "No. Alfred can draft, summarize, open work for review, and ask for approval. Publishing, sending, paying, merging, and deploying stay manual."
   - question: "What runs in production today?"
-    answer: "A small set of role-based agents covers recurring company functions and engineering workflows. The public pattern is useful to describe; the private runtime, channels, and schedules stay private."
+    answer: "A small set of named agents covers repeated company jobs and engineering work. Each one has a job, a source list, evidence, and a clear approval rule."
   - question: "What might be open sourced?"
-    answer: "An OSS version is in progress around the reusable parts: role contracts, repo instruction templates, the five-question gate, output formats, and a small local runner shape. Luminik-specific connectors and customer data stay private."
+    answer: "The reusable parts: job-description templates, repo instruction templates, review rules, summary formats, and a small local runner. Luminik-specific connectors and customer data stay private."
 ---
 import Callout from '../../components/post/Callout.astro';
 import KeyTakeaway from '../../components/post/KeyTakeaway.astro';
@@ -24,210 +24,327 @@ import CompareTable from '../../components/post/CompareTable.astro';
 import StatRow from '../../components/post/StatRow.astro';
 
 <div class="reveal">
-  I run Luminik on my own. The product, the customers, the GTM, and the operating model all live in one head. That works at low scope. It stops working the moment "recurring company work" becomes a real category of its own.
+  A solo founder loses time in small places. You reopen the same pull requests. You check the same issue list. You read the same logs twice because you forgot what changed overnight. You carry little pieces of the company in your head until they start bumping into each other.
 </div>
 
 <div class="reveal">
-  Alfred is my answer. It is a small fleet of role contracts around work that needs to happen repeatedly, with a review surface where outputs land and one founder who still owns every consequential decision. This post explains the reusable shape: what each role needs to know, what it can produce, and the parts I am turning into an OSS version.
+  Alfred exists to reduce that waste. It turns repeated work into the things I can actually use: a plan, a summary, a draft, a PR note, or a short list of decisions.
 </div>
 
+<div class="reveal">
+  The screenshots in this post are real examples from my Alfred Slack channel. I am using them because they show the shape of work I want from agents: concrete, bounded, sourced, and waiting for a human decision.
+</div>
+
+<figure class="post-figure-image reveal">
+  <img src="/assets/images/blog/alfred-solo-founder-operating-system/alfred-plan-drafted-multi-repo-feature.png" width="1018" height="468" alt="Slack screenshot of Alfred drafting a multi-repo feature plan with affected repos and rollout order." loading="lazy" decoding="async" />
+  <figcaption>A plan for a multi-repo feature. The important parts are the affected repos, rollout order, and approval state.</figcaption>
+</figure>
+
 <KeyTakeaway label="The model in one paragraph">
-  Alfred is a set of role contracts around recurring company work. The public lesson is the contract: approved context, reviewable output, source-linked claims, and human approval before anything consequential ships. The private runtime, exact surfaces, schedules, and routing stay out of the public version.
+  Alfred is useful when it acts like a good chief of staff for repeated work: short, specific, sourced, and aware of what it is allowed to do. It can summarize, draft, plan, open work for review, and ask for approval. It does not publish, send, pay, merge, or deploy.
 </KeyTakeaway>
 
 <StatRow stats={[
-  { value: "Written", label: "Role contracts", caption: "Each recurring job has a context, output, evidence, and approval boundary." },
-  { value: "Human", label: "Approval gate", caption: "Consequential output stays reviewable before anything ships." },
-  { value: "Source", label: "Evidence trail", caption: "Claims point back to approved context." }
+  { value: "One job", label: "Per role", caption: "Each role gets a narrow task it can repeat without inventing new authority." },
+  { value: "Review", label: "Default state", caption: "The work lands as plans, digests, drafts, PRs, or notes I can inspect." },
+  { value: "Sources", label: "For claims", caption: "A claim with no file, link, PR, issue, or log line is treated as a bug." }
 ]} />
 
-<h2 class="reveal">The two layers</h2>
+<h2 class="reveal">What Alfred is</h2>
 
 <div class="reveal">
-  Alfred splits into two layers, and the split matters because it lines up with how a real company is actually built.
+  Alfred is my public name for a group of named agents around Luminik and my own work. Some act like company functions: chief of staff, content, sales, finance ops, and product ops. Some sit inside engineering: planner, implementer, reviewer, health checker, and notifier.
+</div>
+
+<div class="reveal">
+  The names can be playful. The job descriptions have to be boring. Every role has to answer five questions before I trust it with repeated work.
+</div>
+
+<ol class="reveal">
+  <li><strong>What can it read?</strong> Specific repos, files, public docs, approved notes, or logs required for the job.</li>
+  <li><strong>What can it do?</strong> Search, summarize, draft, open a PR, comment, or post a message for me to read.</li>
+  <li><strong>Where does the work show up?</strong> A pull request, a review note, a markdown file, a Slack message, or a digest.</li>
+  <li><strong>What evidence does it provide?</strong> Source links, PR numbers, issue numbers, log lines, file paths, or screenshots approved for public use.</li>
+  <li><strong>What requires my approval?</strong> Anything external, irreversible, expensive, customer-facing, or reputation-bearing.</li>
+</ol>
+
+<div class="reveal">
+  If an answer is fuzzy, the role gets smaller. If the role cannot get smaller and still be useful, I delete it.
+</div>
+
+<h2 class="reveal">A job description is different from a prompt</h2>
+
+<div class="reveal">
+  A prompt asks a model to do something right now. A job description tells the agent what it owns, what it may read, and where the work should go. That distinction sounds minor until the work repeats.
 </div>
 
 <CompareTable
-  caption="Two-layer split. One layer maps to company functions. The other maps to engineering workflows."
-  leftLabel="Departmental layer"
-  rightLabel="Engineering workflow layer"
+  caption="The job description matters more than the exact prompt wording once the role, sources, answer, and approval rule are clear."
+  leftLabel="Prompt"
+  rightLabel="Job description"
   rows={[
-    { dimension: "Maps to", left: "Functional roles in a company", right: "Tasks inside the engineering function" },
-    { dimension: "Boundary", left: "Company work that should recur without being remembered manually", right: "Code work that needs isolation, review, or cross-repo coordination" },
-    { dimension: "Cadence", left: "Scheduled or event-triggered, with exact timing kept private", right: "Triggered by reviewable engineering work, with exact routing kept private" },
-    { dimension: "Output", left: "Briefs, drafts, digests, summaries", right: "PRs, comments, alerts, status posts" },
-    { dimension: "Guardrail", left: "Draft and summarize only. Publishing, sending, paying, merging, and deploying stay human.", right: "Open reviewable work only. Approval, merge, and deploy stay human." }
+    { dimension: "Job", left: "A request written for this moment", right: "One repeated job the agent can do again" },
+    { dimension: "Sources", left: "Whatever the chat currently contains", right: "Named files, repos, notes, tools, and source limits" },
+    { dimension: "Output", left: "An answer in the chat", right: "A summary, evidence, recommendation, and next action" },
+    { dimension: "Permission", left: "Often implied by the instruction", right: "Written down before the role runs" },
+    { dimension: "When it fails", left: "The answer sounds plausible", right: "It takes action when it should have asked" }
   ]}
 />
 
-<h2 class="reveal">Layer one: company work</h2>
+<h2 class="reveal">What I want back</h2>
 
 <div class="reveal">
-  Each company-work role maps to one recurring job I would otherwise have to remember manually. The public version is deliberately generic: keep the recurring shape, remove the private wiring.
+  I do not want long agent transcripts. I want something I can inspect quickly. If the plan is good, I can approve it. If the summary is weak, the gap should be obvious.
 </div>
 
-<CompareTable
-  caption="The public shape of the company-work layer. The private schedules, channels, and source systems stay out of the post."
-  leftLabel="Recurring job"
-  rightLabel="Safe public contract"
-  rows={[
-    { dimension: "Coordination", left: "Small tasks that disappear when they stay in my head.", right: "Produce a reviewable brief with the decision points called out." },
-    { dimension: "Drafting", left: "Content, notes, replies, or summaries that need my voice and judgment.", right: "Prepare drafts and cite the source material. Publishing stays manual." },
-    { dimension: "Commercial follow-up", left: "Customer or prospect context that needs a thoughtful next step.", right: "Suggest next moves without sending anything on its own." },
-    { dimension: "Operating hygiene", left: "Recurring checks across finance, product health, and documentation.", right: "Surface drift as a checklist or issue I can verify." }
-  ]}
-/>
+<figure class="post-visual reveal">
+  <div class="post-visual-title">What Alfred gives me</div>
+  <div class="visual-flow">
+    <div class="visual-step">
+      <span class="visual-step-label">Role</span>
+      <strong>One job</strong>
+      <span>Planner, reviewer, writer, finance check, sales follow-up, or product-health note.</span>
+    </div>
+    <div class="visual-step">
+      <span class="visual-step-label">Sources</span>
+      <strong>Allowed sources</strong>
+      <span>The role reads from a named set of repos, docs, notes, logs, or public sources.</span>
+    </div>
+    <div class="visual-step">
+      <span class="visual-step-label">Work</span>
+      <strong>Work I can read</strong>
+      <span>A plan, PR, digest, draft, checklist, or comment that can be accepted or rejected.</span>
+    </div>
+    <div class="visual-step">
+      <span class="visual-step-label">Evidence</span>
+      <strong>Proof trail</strong>
+      <span>Links, file paths, issue numbers, PRs, screenshots, or log lines.</span>
+    </div>
+    <div class="visual-step">
+      <span class="visual-step-label">Decision</span>
+      <strong>Human decision</strong>
+      <span>I approve, reject, edit, merge, send, publish, pay, or deploy.</span>
+    </div>
+  </div>
+  <p class="post-visual-caption">This is the part I care about most. A good summary makes the next decision easier without pretending Alfred owns the decision.</p>
+</figure>
 
-<h2 class="reveal">Layer two: engineering workflows</h2>
+<Callout tone="info" title="My rule">
+  Alfred can make repeated work visible. It cannot take responsibility for my judgment. I know it is working when I spend less time gathering context and more time deciding what the company should do.
+</Callout>
+
+<h2 class="reveal">Why I run it on real work</h2>
 
 <div class="reveal">
-  Engineering is dense enough that the role contracts split again. Each one owns one slice of the engineering function: coordination, implementation, tests, monitoring, review, and notification. The public lesson is the boundary, not the private dispatch wiring.
+  Agent demos often look impressive because the task is isolated. Company work is messier. The answer depends on old decisions, repo conventions, customer language, investor-safe wording, product limits, and what changed yesterday.
+</div>
+
+<div class="reveal">
+  A single chat window cannot hold that for long. Alfred makes repeated work easier to run: one role for the job, one source list, one format for the answer, and one approval path.
+</div>
+
+<div class="reveal">
+  This matters more when you are building alone. A small team has imperfect guardrails that still help: another person in the PR, a teammate who remembers a customer call, a manager who asks why the task matters. A solo founder has speed and silence. Alfred gives me a way to replace some of the reminders without pretending I have replaced the judgment.
+</div>
+
+<h2 class="reveal">How the engineering side works</h2>
+
+<div class="reveal">
+  Engineering is where Alfred became most concrete first. Luminik has separate repos for backend, frontend, mobile, data acquisition, specs, integrations, and agents. A feature often touches more than one of them. The failure mode is obvious: one repo moves, the others drift.
+</div>
+
+<div class="reveal">
+  That is why I split the engineering work into named roles. Batman coordinates multi-repo work. Lucius and Robin can take bounded implementation tasks. Ra's al Ghul and Bane are useful as reviewers and pressure-testers. Nightwing watches the status and turns changed work into summaries.
 </div>
 
 <div class="role-grid">
   <RoleCard
-    name="Coordination"
-    role="Cross-repo contract"
-    trigger="Approved engineering task"
-    reads="Scoped context"
+    name="Batman"
+    role="Multi-repo coordinator"
+    trigger="Approved feature or launch blocker"
+    reads="Issue, specs, affected repos"
     writes="Plan for review"
-    guardrail="No merge or deploy without human approval"
+    guardrail="Plan waits for approval"
   >
-    <p>Makes contract drift visible before implementation work spreads.</p>
+    <p>Names the repos, order, risk, and acceptance checks before implementation spreads.</p>
   </RoleCard>
 
   <RoleCard
-    name="Implementation"
-    role="Feature work"
-    trigger="Scoped issue"
+    name="Lucius"
+    role="Implementation"
+    trigger="Scoped engineering task"
     reads="Repo instructions and linked specs"
     writes="Reviewable branch"
-    guardrail="Bounded scope"
+    guardrail="Bounded write scope"
   >
-    <p>Turns a scoped task into work a human can inspect.</p>
+    <p>Turns one scoped task into code I can inspect through a normal PR.</p>
   </RoleCard>
 
   <RoleCard
-    name="Review"
-    role="Separate reviewer"
+    name="Ra's al Ghul"
+    role="Review"
     trigger="Review request"
     reads="Diff, issue, and relevant spec"
-    writes="Comments and summary"
+    writes="Comments and risk summary"
     guardrail="Comments only"
   >
-    <p>Looks for behavior, security, and data-integrity risks from a separate context.</p>
+    <p>Looks for behavior, security, data-shape, and integration risks from a separate context.</p>
   </RoleCard>
 
   <RoleCard
-    name="Health"
-    role="Product-health review"
-    trigger="Approved check"
-    reads="Approved health signals"
-    writes="Prioritized findings"
+    name="Nightwing"
+    role="Status and health"
+    trigger="Changed work"
+    reads="PRs, issues, checks, safe logs"
+    writes="Digest"
     guardrail="Reports and proposes"
   >
-    <p>Turns surfaced signals into reviewable follow-up work.</p>
+    <p>Turns the changed work into a short summary so I can see what needs attention.</p>
   </RoleCard>
 </div>
 
-<Callout tone="info" title="The useful boundary">
-  Alfred has a private runtime and private review surfaces. The reusable point is the contract: every useful answer has to cite approved context before it can influence a decision.
-</Callout>
+<div class="reveal">
+  The names are less important than the separation. The coordinator should not quietly become the implementer. The implementer should not be the final reviewer. The reviewer should not merge. The status role should not turn a weak signal into a decision.
+</div>
 
-<figure class="post-visual reveal">
-  <div class="post-visual-title">The source-linked answer path</div>
-  <div class="visual-flow">
-    <div class="visual-step">
-      <span class="visual-step-label">Ask</span>
-      <strong>Founder question</strong>
-      <span>A request enters through an approved surface.</span>
-    </div>
-    <div class="visual-step">
-      <span class="visual-step-label">Read</span>
-      <strong>Approved context</strong>
-      <span>The agent reads only the context allowed for that role.</span>
-    </div>
-    <div class="visual-step">
-      <span class="visual-step-label">Cite</span>
-      <strong>Source-linked answer</strong>
-      <span>Claims carry links, file references, or log lines.</span>
-    </div>
-    <div class="visual-step">
-      <span class="visual-step-label">Decide</span>
-      <strong>Human gate</strong>
-      <span>The founder approves the action or sends it back.</span>
-    </div>
-  </div>
-  <p class="post-visual-caption">The public lesson is the contract: approved context, source-linked answers, and a human gate before any decision changes the company.</p>
-</figure>
+<h2 class="reveal">Slack is where Alfred reports</h2>
+
+<div class="reveal">
+  I use Slack because it forces compression. The message has to be readable. It has a timestamp. It can link out to GitHub, logs, docs, or a draft. It can sit next to my approval instead of being buried inside a long agent transcript.
+</div>
+
+<div class="reveal">
+  It also gives me a record. A normal morning summary tells me which agents ran, which PRs opened, which PRs merged, and which issues need attention. I can still go to GitHub for the full truth. Slack tells me where to look first.
+</div>
 
 <figure class="post-figure-image reveal">
-  <img src="/assets/images/blog/alfred-luminik-differentiators.png" width="590" height="448" alt="Screenshot of Alfred answering with source-linked claims." loading="lazy" decoding="async" />
-  <figcaption>A real Alfred answer from my founder workflow. The useful pattern is source-linked reasoning before a decision.</figcaption>
+  <img src="/assets/images/blog/alfred-solo-founder-operating-system/alfred-engineering-overnight-summary.png" width="1020" height="398" alt="Slack screenshot of Alfred posting an engineering overnight summary with agent status and pull request links." loading="lazy" decoding="async" />
+  <figcaption>A useful digest tells me what changed and where to inspect it.</figcaption>
 </figure>
-
-<h2 class="reveal">The five questions a role has to answer</h2>
-
-<div class="reveal">
-  Before any role goes live, it has to answer five questions in writing. The questions live as the role's instruction file. If any answer is vague, the role is not ready.
-</div>
-
-<ol class="reveal">
-  <li><strong>What context can it read?</strong> Specific files, repos, public docs, and approved private notes required for the task.</li>
-  <li><strong>What action can it take?</strong> Search, summarize, draft, open a PR, or post to a review surface. Never publish, send, pay, merge, or deploy.</li>
-  <li><strong>Where does the output land?</strong> A pull request, a review note, a markdown file, or a digest. Everything has a path I can find without asking.</li>
-  <li><strong>What evidence does it provide?</strong> Source links, PR numbers, log lines, file paths. A claim with no provenance is a bug.</li>
-  <li><strong>What requires my approval?</strong> The line between draft and ship. I want this line obvious enough that a tired founder cannot accidentally cross it.</li>
-</ol>
-
-<div class="reveal">
-  I use the same five questions to retire roles. Two early agents got cut because I could not write a clean answer to question two. They were doing too much.
-</div>
 
 <h2 class="reveal">What has worked</h2>
 
 <CompareTable
-  caption="Recurring-work lessons from the same operating pattern."
-  leftLabel="What works"
-  rightLabel="What did not"
+  caption="The useful roles are narrow, cite their sources, and stop before the final decision."
+  leftLabel="Works"
+  rightLabel="Breaks"
   leftTone="pass"
   rightTone="fail"
   rows={[
-    { dimension: "Code review", left: "Separate reviewer role with no approval power. It catches behavior bugs when my attention is tired.", right: "The implementer reviewing its own work. Same context, same blind spots." },
-    { dimension: "Content drafts", left: "Content role reading the voice rules and recent real writing before drafting.", right: "Cached style profile. It drifted the moment the topic changed." },
-    { dimension: "Customer support", left: "Personal handling. Reading the thread well enough to approve a draft costs about as much as writing the reply.", right: "Drafting customer-facing replies. Retired the role and the workflow improved." },
-    { dimension: "Runtime", left: "Separate always-on environment. Continuity does not depend on my interactive machine.", right: "Recurring jobs on the daily machine. Easy to start, easy to forget." }
+    { dimension: "Job size", left: "One recurring job with a written boundary.", right: "A general helper that can drift into any task." },
+    { dimension: "Engineering", left: "Separate planner, builder, reviewer, and status roles.", right: "One agent doing the work and grading its own work." },
+    { dimension: "Content", left: "Drafts grounded in voice rules and recent real writing.", right: "A cached style profile that slowly becomes generic." },
+    { dimension: "Sales", left: "Suggestions and notes I can review before any human receives them.", right: "Outbound or replies leaving the system without my approval." },
+    { dimension: "Support", left: "Personal handling when the relationship matters.", right: "Drafting customer-facing replies when reading the thread costs as much as writing the answer." }
   ]}
 />
 
-<h2 class="reveal">Why solo builders need this more</h2>
-
 <div class="reveal">
-  A team has imperfect safeguards that still help: standups, code reviews, review threads, shared calendars, peer correction. A solo builder has none of those by default. The upside is speed. The downside is that every gap routes back to one person.
+  Sales is important here. I like agents for preparation: summarizing context, finding the last conversation, reminding me what a buyer cared about, and drafting a next step. I do not want them to pretend they can own the relationship. A founder-led sale depends on hearing the buyer's world clearly. If an agent removes that contact, it is hurting the company.
 </div>
 
 <div class="reveal">
-  Agents do not remove the need for operating design. They make operating design more important. When the work gets cheaper to generate, the review queue becomes the scarce resource.
+  This is also where <a href="https://riffon.com/insight/ins_4x3awd818syf">Rob Snyder's demand-side thinking</a> fits my own experience. The job is to find demand that already exists in the customer's world: a project, a blocked priority, a bad workaround, a to-do item someone is already trying to move. Alfred can help me prepare for those conversations. It cannot manufacture demand, and I do not want it trying.
 </div>
 
-<h2 class="reveal">What the OSS version should contain</h2>
+<h2 class="reveal">Where Alfred goes wrong</h2>
 
 <div class="reveal">
-  Alfred is getting an OSS version around the parts that transfer cleanly to other solo founders. The private version has company context, customer data, and adapters that stay private. The public version should focus on the reusable scaffolding: contracts, review gates, output shapes, and a small runner pattern.
+  Alfred gets worse when the role is allowed to be vague. "Help with engineering" is too wide. "Review the changed backend files in this PR for data-contract risk and return comments only" is narrow enough to be useful.
+</div>
+
+<div class="reveal">
+  It also gets worse when old context stays alive. A stale spec is dangerous because the agent follows it with confidence. The fix is boring and necessary: update the source docs, make agents cite them, and treat unsupported claims as defects.
+</div>
+
+<div class="reveal">
+  The third mistake is too much automation. Some tasks are expensive because they require judgment, taste, trust, or a relationship. Customer replies are the obvious example. If I need to read the whole thread before approving the draft, I may as well write the reply myself.
+</div>
+
+<figure class="post-visual reveal">
+  <div class="post-visual-title">What Alfred can do, what I do</div>
+  <div class="visual-split">
+    <div class="visual-column">
+      <span class="visual-step-label">Alfred can prepare</span>
+      <ul>
+        <li>Summaries</li>
+        <li>Plans</li>
+        <li>Drafts</li>
+        <li>PRs</li>
+        <li>Review comments</li>
+        <li>Checklists</li>
+      </ul>
+    </div>
+    <div class="visual-column">
+      <span class="visual-step-label">I keep the decision</span>
+      <ul>
+        <li>Publish</li>
+        <li>Send</li>
+        <li>Pay</li>
+        <li>Merge</li>
+        <li>Deploy</li>
+        <li>Commit the company to a promise</li>
+      </ul>
+    </div>
+  </div>
+  <p class="post-visual-caption">The split is deliberately simple. The moment a role needs exceptions to this rule, I slow down and rewrite the job description.</p>
+</figure>
+
+<h2 class="reveal">The rest of the company</h2>
+
+<div class="reveal">
+  Engineering is only one part of the system. The same pattern applies to the rest of the company: coordination, content, commercial follow-up, finance checks, and product-health notes.
+</div>
+
+<div class="reveal">
+  I use Alfred to keep repeated work from relying on my memory. It can keep the brief warm. I still decide what gets acted on.
+</div>
+
+<CompareTable
+  caption="The public shape. Private schedules, channels, and source systems stay out of the post."
+  leftLabel="Recurring job"
+  rightLabel="What I review"
+  rows={[
+    { dimension: "Coordination", left: "Tasks and decisions that get lost when they live in my head.", right: "A short brief with the decision points called out." },
+    { dimension: "Content", left: "Ideas, outlines, and drafts that need my voice.", right: "A draft grounded in source notes and voice rules." },
+    { dimension: "Commercial follow-up", left: "Buyer context that needs a thoughtful next step.", right: "A suggested move with the last source attached." },
+    { dimension: "Finance and ops", left: "Recurring checks across invoices, bank records, docs, and product health.", right: "A checklist, issue, or summary I can verify." }
+  ]}
+/>
+
+<h2 class="reveal">The OSS version should start small</h2>
+
+<div class="reveal">
+  I want to open-source the reusable parts of Alfred. The private version has company context, customer data, and adapters that stay private. The public version should be useful without any of that.
 </div>
 
 <ul class="reveal">
-  <li><strong>Role contracts.</strong> Markdown templates that answer the five questions for chief of staff, content, sales, ops, and engineering subagent roles.</li>
-  <li><strong>Repo instruction templates.</strong> Example CLAUDE.md, AGENTS.md, and content-guide files for solo product teams.</li>
-  <li><strong>Review rules.</strong> The approval gates I use for shipping code, content, sales replies, and finance actions.</li>
-  <li><strong>Output formats.</strong> Concise summaries, source-linked digests, PR notes, and the morning briefing shape.</li>
-  <li><strong>A local runner shape.</strong> Enough structure for scheduled jobs and reviewable output without my private adapters.</li>
+  <li><strong>Job-description templates.</strong> Markdown templates for chief of staff, content, sales, ops, and engineering roles.</li>
+  <li><strong>Repo instruction templates.</strong> Example AGENTS.md, CLAUDE.md, and content-guide files for a solo product team.</li>
+  <li><strong>Review rules.</strong> Approval rules for code, content, sales replies, finance actions, and deployments.</li>
+  <li><strong>Summary formats.</strong> Plans, digests, PR notes, risk summaries, and morning briefs.</li>
+  <li><strong>A small local runner.</strong> Enough structure for scheduled jobs and work I can review without my private adapters.</li>
 </ul>
 
 <div class="reveal">
-  The release should be useful before it is complete. A solo founder should be able to adopt the role contracts inside Claude Code, Cursor, or any agent harness they prefer, without taking my private adapters with them.
+  A founder should be able to borrow the job descriptions even if they use Claude Code, Cursor, gstack, Codex, or a homegrown harness. The role matters more than the current tool.
+</div>
+
+<figure class="post-figure-image reveal">
+  <img src="/assets/images/blog/alfred-solo-founder-operating-system/alfred-shipped-work-summary.png" width="1014" height="482" alt="Slack screenshot of Alfred posting a shipped-work summary with merged pull requests and closed issues." loading="lazy" decoding="async" />
+  <figcaption>The format is intentionally plain. If a founder cannot verify the summary, the summary is decoration.</figcaption>
+</figure>
+
+<h2 class="reveal">Start with one repeated job</h2>
+
+<div class="reveal">
+  If you are building alone, start with one job you already repeat every week. Write the five questions. Keep the answer short and sourced. Keep approval with you.
+</div>
+
+<div class="reveal">
+  Run it for a week. If it saves attention, automate the trigger. If it creates another thing to review, delete it. The goal is simple: spend less of your day rebuilding context you already paid to learn.
 </div>
 
 <KeyTakeaway label="The standard I use now">
-  Alfred is good when its work is reviewable, source-linked, and bounded. It is bad when I notice it deciding things I should be deciding. Solo builders need recurring work to stay visible and reviewable while the founder remains responsible for the decisions that matter.
+  Alfred is good when repeated work becomes visible, sourced, and easy to reject. It is bad when the system hides uncertainty or asks for trust it has not earned. I keep working on that line.
 </KeyTakeaway>
