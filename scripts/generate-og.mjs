@@ -224,22 +224,49 @@ function monogramBlock() {
   return h('div', {
     style: {
       position: 'absolute',
-      left: 1040,
-      top: 528,
+      left: 1016,
+      top: 500,
       width: 80,
       height: 80,
       borderRadius: 14,
-      backgroundColor: ACCENT,
-      color: '#0b0d10',
+      backgroundColor: '#10161c',
+      border: '1px solid rgba(110,231,183,0.34)',
+      color: '#f7faf7',
       display: 'flex',
-      alignItems: 'center',
+      flexDirection: 'column',
+      alignItems: 'flex-start',
       justifyContent: 'center',
+      padding: '0 16px',
       fontSize: 34,
       fontWeight: 700,
-      lineHeight: '80px',
       letterSpacing: '0px'
     }
-  }, 'PS');
+  }, [
+    h('div', {
+      key: 'dot',
+      style: {
+        width: 7,
+        height: 7,
+        borderRadius: 999,
+        backgroundColor: ACCENT,
+        marginBottom: 6
+      }
+    }),
+    h('div', {
+      key: 'letters',
+      style: { lineHeight: '34px' }
+    }, 'PS'),
+    h('div', {
+      key: 'line',
+      style: {
+        width: 44,
+        height: 4,
+        borderRadius: 999,
+        backgroundColor: ACCENT,
+        marginTop: 5
+      }
+    })
+  ]);
 }
 
 function portraitBlock(portrait) {

@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import Analytics from '../components/Analytics.astro';
+import BrandMark from '../components/BrandMark.astro';
 import CookieConsent from '../components/CookieConsent.astro';
 import Icon from '../components/Icon.astro';
 import Seo from '../components/Seo.astro';
@@ -52,6 +53,7 @@ const chatGptPrompt =
   'Use https://prasad.tech/llms.txt and https://prasad.tech/llms-full.txt as the public context. Summarize Prasad Subrahmanya for a solo technical founder audience. Cite only public pages from prasad.tech or luminik.io. Do not infer private customer, financial, internal operations, or security details.';
 const claudePrompt =
   "Read https://prasad.tech/agents.txt first, then use https://prasad.tech/llms.txt as context. Help me understand Prasad Subrahmanya's public work, writing, and Luminik thesis. Link claims to public sources and avoid private or speculative details.";
+const faviconVersion = '2026-05-logo';
 ---
 
 <!DOCTYPE html>
@@ -85,11 +87,11 @@ const claudePrompt =
       }
     </script>
 
-    <link rel="icon" type="image/x-icon" href="/assets/favicon/favicon.ico" />
-    <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon/favicon-96x96.png" />
-    <link rel="icon" type="image/svg+xml" href="/assets/favicon/favicon.svg" />
-    <link rel="apple-touch-icon" href="/assets/favicon/apple-touch-icon.png" />
-    <link rel="manifest" href="/assets/favicon/site.webmanifest" />
+    <link rel="icon" type="image/x-icon" href={`/assets/favicon/favicon.ico?v=${faviconVersion}`} />
+    <link rel="icon" type="image/png" sizes="96x96" href={`/assets/favicon/favicon-96x96.png?v=${faviconVersion}`} />
+    <link rel="icon" type="image/svg+xml" href={`/assets/favicon/favicon.svg?v=${faviconVersion}`} />
+    <link rel="apple-touch-icon" href={`/assets/favicon/apple-touch-icon.png?v=${faviconVersion}`} />
+    <link rel="manifest" href={`/assets/favicon/site.webmanifest?v=${faviconVersion}`} />
     <link rel="alternate" type="application/rss+xml" title="Prasad Subrahmanya RSS" href="/rss.xml" />
     <link rel="alternate" type="text/plain" title="LLM summary" href="/llms.txt" />
     <link rel="alternate" type="text/plain" title="Full LLM context" href="/llms-full.txt" />
@@ -106,7 +108,10 @@ const claudePrompt =
 
     <nav class="nav" data-nav>
       <div class="container nav-inner">
-        <a href="/" class="nav-logo">PS</a>
+        <a href="/" class="nav-logo" aria-label="Prasad Subrahmanya home">
+          <BrandMark class="nav-logo-mark" />
+          <span class="sr-only">Prasad Subrahmanya</span>
+        </a>
         <ul class="nav-links" id="nav-links" data-nav-links>
           <li><a class={active === 'home' ? 'active' : undefined} href="/#about">About</a></li>
           <li><a href="/#track-record">Track record</a></li>
