@@ -1485,6 +1485,10 @@ img {
   grid-template-columns: repeat(auto-fit, minmax(128px, 1fr));
 }
 
+.wide-visual-flow {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr));
+}
+
 .visual-matrix,
 .visual-split {
   grid-template-columns: repeat(2, minmax(0, 1fr));
