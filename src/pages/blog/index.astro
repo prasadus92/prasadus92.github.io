@@ -3,8 +3,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Icon from '../../components/Icon.astro';
 import { formatMonth, posts } from '../../lib/posts';
 
-const title = 'Field Notes for Solo Technical Founders';
-const description = 'Operating notes on product engineering, founder-led sales, AI-agent workflows, and zero-to-one execution. Drawn from Luminik, Aura at Bain, Mainteny ($2.7M seed), and SnowOptix.';
+const title = 'Field notes for solo technical founders';
+const description = 'Field notes on product engineering, founder-led sales, agent-written work, and zero-to-one execution. Drawn from Luminik, Aura at Bain, Mainteny ($2.7M seed), and SnowOptix.';
 const breadcrumbs = [
   { name: 'Home', url: '/' },
   { name: 'Blog', url: '/blog/' }
@@ -12,22 +12,22 @@ const breadcrumbs = [
 
 const paths = [
   {
-    title: 'Solo Builder OS',
-    body: 'Agents, specs, review gates, context boundaries, and the recurring work a small company has to keep visible.',
+    title: 'Solo builder OS',
+    body: 'Specs, PR review queues, context boundaries, and the recurring work a small company has to keep visible.',
     href: '/blog/alfred-solo-founder-operating-system.html'
   },
   {
-    title: 'Founder-Led Sales',
+    title: 'Founder-led sales',
     body: 'Sales as workflow diagnosis first. Useful for builders who need customer truth before hiring a sales motion.',
     href: '/blog/selling-before-building.html'
   },
   {
-    title: 'Event Pipeline',
+    title: 'Event pipeline',
     body: 'How event ROI breaks across handoffs, and why the answer starts with one event operating record.',
     href: '/blog/event-marketing-roi.html'
   },
   {
-    title: 'Zero to One',
+    title: 'Zero to one',
     body: 'Mainteny, Aura, SnowOptix, and the product decisions that changed what I built next.',
     href: '/blog/mvp-three-months.html'
   }
@@ -65,9 +65,9 @@ const collectionSchema = {
   <section class="blog-hero">
     <div class="container">
       <div class="eyebrow reveal">Blog</div>
-      <h1 class="reveal">Operating notes for solo builders</h1>
+      <h1 class="reveal">Field notes for solo technical founders</h1>
       <p class="lead reveal" style="max-width: 760px; margin: 0 auto;">
-        Notes from building Luminik and earlier products: product, sales, AI-agent workflows, event pipeline systems, and the judgment that cannot be outsourced.
+        Notes from building Luminik and earlier products: product, sales, agent-written work, event pipeline systems, and the decisions that still need a founder in the loop.
       </p>
     </div>
   </section>
@@ -80,7 +80,7 @@ const collectionSchema = {
           <h2>{posts[0].title}</h2>
           <p>{posts[0].description}</p>
           <div class="hero-actions">
-            <a class="button primary" href={posts[0].url}>Start Here <Icon name="arrow-right" size={16} /></a>
+            <a class="button primary" href={posts[0].url}>Start here <Icon name="arrow-right" size={16} /></a>
           </div>
         </div>
         <div class="featured-diagram" aria-label="Alfred operating contract preview">

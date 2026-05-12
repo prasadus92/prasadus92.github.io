@@ -1,10 +1,10 @@
 ---
 slug: "alfred-solo-founder-operating-system"
-title: "Alfred: How I Structure Recurring Work as a Solo Founder"
+title: "Alfred: how I structure recurring work as a solo founder"
 description: "The role contracts, review gates, approved context, and source-linked outputs behind the agent layer I use while building Luminik."
 date: "2026-05-06"
 modified: "2026-05-07"
-category: "Solo Builder OS"
+category: "Solo builder OS"
 readTime: "12 min read"
 tags: ["Alfred", "solo founder", "AI agents", "operating system", "open source"]
 faqs:
@@ -41,7 +41,7 @@ import StatRow from '../../components/post/StatRow.astro';
   { value: "Source", label: "Evidence trail", caption: "Claims point back to approved context." }
 ]} />
 
-<h2 class="reveal">The Two Layers</h2>
+<h2 class="reveal">The two layers</h2>
 
 <div class="reveal">
   Alfred splits into two layers, and the split matters because it lines up with how a real company is actually built.
@@ -60,7 +60,7 @@ import StatRow from '../../components/post/StatRow.astro';
   ]}
 />
 
-<h2 class="reveal">Layer One: Company Work</h2>
+<h2 class="reveal">Layer one: company work</h2>
 
 <div class="reveal">
   Each company-work role maps to one recurring job I would otherwise have to remember manually. The public version is deliberately generic: keep the recurring shape, remove the private wiring.
@@ -78,7 +78,7 @@ import StatRow from '../../components/post/StatRow.astro';
   ]}
 />
 
-<h2 class="reveal">Layer Two: Engineering Workflows</h2>
+<h2 class="reveal">Layer two: engineering workflows</h2>
 
 <div class="reveal">
   Engineering is dense enough that the role contracts split again. Each one owns one slice of the engineering function: coordination, implementation, tests, monitoring, review, and notification. The public lesson is the boundary, not the private dispatch wiring.
@@ -166,7 +166,7 @@ import StatRow from '../../components/post/StatRow.astro';
   <figcaption>A real Alfred answer from my founder workflow. The useful pattern is source-linked reasoning before a decision.</figcaption>
 </figure>
 
-<h2 class="reveal">The Five Questions a Role Has to Answer</h2>
+<h2 class="reveal">The five questions a role has to answer</h2>
 
 <div class="reveal">
   Before any role goes live, it has to answer five questions in writing. The questions live as the role's instruction file. If any answer is vague, the role is not ready.
@@ -184,7 +184,7 @@ import StatRow from '../../components/post/StatRow.astro';
   I use the same five questions to retire roles. Two early agents got cut because I could not write a clean answer to question two. They were doing too much.
 </div>
 
-<h2 class="reveal">What Has Worked</h2>
+<h2 class="reveal">What has worked</h2>
 
 <CompareTable
   caption="Recurring-work lessons from the same operating pattern."
@@ -200,7 +200,7 @@ import StatRow from '../../components/post/StatRow.astro';
   ]}
 />
 
-<h2 class="reveal">Why Solo Builders Need This More</h2>
+<h2 class="reveal">Why solo builders need this more</h2>
 
 <div class="reveal">
   A team has imperfect safeguards that still help: standups, code reviews, review threads, shared calendars, peer correction. A solo builder has none of those by default. The upside is speed. The downside is that every gap routes back to one person.
@@ -210,7 +210,7 @@ import StatRow from '../../components/post/StatRow.astro';
   Agents do not remove the need for operating design. They make operating design more important. When the work gets cheaper to generate, the review queue becomes the scarce resource.
 </div>
 
-<h2 class="reveal">What the OSS Version Should Contain</h2>
+<h2 class="reveal">What the OSS version should contain</h2>
 
 <div class="reveal">
   Alfred is getting an OSS version around the parts that transfer cleanly to other solo founders. The private version has company context, customer data, and adapters that stay private. The public version should focus on the reusable scaffolding: contracts, review gates, output shapes, and a small runner pattern.

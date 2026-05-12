@@ -37,7 +37,7 @@ These are the only recurring numerical proof points currently approved for this 
 
 - Aura reached `$3.6M ARR` in `18 months`.
 - Mainteny raised a `$2.7M seed round`.
-- Prasad built the first Mainteny MVP solo in `3 months`.
+- Prasad built the first Mainteny field-service product version solo in `3 months`.
 - SnowOptix identified `40%` savings on the bill that started the project and entered Snowflake's Native App Accelerator with support from Snowflake's startups team. Avoid unsourced demand counts, customer adoption claims, large paying contracts, or recurring revenue claims from SnowOptix.
 
 Do not add new revenue, pipeline, customer, fundraising, runway, security, or internal operating numbers without explicit approval and a source note that is safe for this public repo.
@@ -144,7 +144,7 @@ Use visuals when they reduce cognitive load or add evidence.
 
 Good visual candidates:
 
-- Timelines for fundraising, MVP builds, or customer development.
+- Timelines for fundraising, first-product builds, or customer development.
 - Architecture diagrams for agent systems, repo maps, product stacks, and data flows.
 - Tables for tradeoffs, toolchain categories, or decision criteria that are safe for this public repo.
 - Workflow diagrams for sales processes, event-pipeline stages, and customer handoffs.
@@ -217,7 +217,7 @@ Strong founder writing earns trust through specifics. Use logos, names, numbers,
 
 Public-safe credibility plays:
 
-- **Approved numbers and validation**: Aura `$3.6M ARR` in `18 months`, Mainteny `$2.7M seed`, first MVP solo in `3 months`, SnowOptix `40%` savings identified, and SnowOptix entry into Snowflake's Native App Accelerator with support from Snowflake's startups team.
+- **Approved numbers and validation**: Aura `$3.6M ARR` in `18 months`, Mainteny `$2.7M seed`, first Mainteny field-service product version solo in `3 months`, SnowOptix `40%` savings identified, and SnowOptix entry into Snowflake's Native App Accelerator with support from Snowflake's startups team.
 - **Public companies and platforms**: Bain & Company, Mainteny, SnowOptix, Luminik, GitHub, Cursor, Claude Code, CodeRabbit, Quicksand, Astro. Real, public, verifiable.
 - **Public artifacts**: link to public PRs, public repos (luminik-io/event-outbound-skill, luminik-io/claude-plugins, prasadus92/prasadus92.github.io), public docs, public talks.
 - **Real category vocabulary**: "event pipeline platform", "source, enrich, sequence, capture, attribute". This is locked Luminik positioning.
