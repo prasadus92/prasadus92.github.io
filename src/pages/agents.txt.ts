@@ -45,7 +45,7 @@ export const GET: APIRoute = () =>
       '',
       '### Claude',
       '',
-      "Read https://prasad.tech/agents.txt first, then use https://prasad.tech/llms.txt as context. Help me understand Prasad Subrahmanya's public work, writing, and Luminik thesis. Keep claims source-linked and avoid private or speculative details."
+      "Read https://prasad.tech/agents.txt first, then use https://prasad.tech/llms.txt as context. Help me understand Prasad Subrahmanya's public work, writing, and Luminik thesis. Link claims to public sources and avoid private or speculative details."
     ].join('\n'),
     {
       headers: {

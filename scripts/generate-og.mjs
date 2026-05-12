@@ -324,14 +324,15 @@ async function main() {
   const portrait = await portraitDataUri();
 
   await renderCard({
-    eyebrow: 'Founder · Builder · Operator',
-    title: "Prasad Subrahmanya. Do the customer's work first.",
+    eyebrow: 'Founder · CTO · Operator',
+    title: "Prasad Subrahmanya. I build and sell B2B products from work I know firsthand.",
     titleLines: [
       'Prasad Subrahmanya.',
-      "Do the customer's",
-      'work first.'
+      'I build and sell',
+      'B2B products from',
+      'work I know firsthand.'
     ],
-    footer: 'Field notes for solo technical founders',
+    footer: 'Luminik · Aura at Bain · Mainteny',
     portrait
   }, join(OUT_DIR, 'prasad-og.png'), fonts);
   console.log('  ✓ public/og/prasad-og.png');

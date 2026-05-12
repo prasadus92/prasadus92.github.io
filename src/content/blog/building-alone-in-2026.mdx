@@ -36,7 +36,7 @@ import PullQuote from '../../components/post/PullQuote.astro';
     { dimension: "Headcount baseline", left: "Five to six engineers minimum for a B2B product with a customer-facing surface", right: "One founder with explicit specs, instruction files, and AI-agent workflows" },
     { dimension: "Mechanical cost", left: "Days for setup, weeks for integrations, sprints for seeding", right: "Compressed by an order of magnitude" },
     { dimension: "Judgment cost", left: "Distributed across a team. Implicit, social, transmitted in hallways.", right: "Centralized on the founder. Explicit, written, versioned." },
-    { dimension: "Coordination", left: "Standups, code reviews, whiteboards", right: "Specs repo, instruction files, PR review queue" },
+    { dimension: "Coordination", left: "Standups, code reviews, whiteboards", right: "Specs repo, instruction files, PRs I inspect" },
     { dimension: "Failure mode", left: "Slow to ship, fast to align", right: "Fast to ship, slow to notice when conventions drift" }
   ]}
 />
@@ -137,7 +137,7 @@ import PullQuote from '../../components/post/PullQuote.astro';
 <h2 class="reveal">Specs driven development: the most important repo</h2>
 
 <div class="reveal">
-  No Jira. No Linear. No Trello. The specs repo is the roadmap, the plan, and the coordination layer. Detailed business requirements broken into workflows, specific tasks with implementation details, data model specs, integration contracts, UI/UX requirements, testing criteria. All written detailed enough to be directly consumable by humans and agents.
+  No Jira. No Linear. No Trello. The specs repo holds the roadmap, the plan, and the decisions that keep parallel work pointed in the same direction. Detailed business requirements broken into workflows, specific tasks with implementation details, data model specs, integration contracts, UI/UX requirements, testing criteria. All written detailed enough to be directly consumable by humans and agents.
 </div>
 
 <div class="reveal">
@@ -151,10 +151,10 @@ import PullQuote from '../../components/post/PullQuote.astro';
   </ul>
 </Callout>
 
-<h2 class="reveal">Parallel agents and review queues</h2>
+<h2 class="reveal">Parallel agents and PRs to inspect</h2>
 
 <div class="reveal">
-  The useful unit of autonomous work is not "go build the product." It is a scoped task with a clear boundary and a reviewable output. The key constraint is isolation. If you task two agents on overlapping parts of the codebase overnight, you wake up to merge conflicts and divergent assumptions. Each agent gets its own branch, its own scope, its own discrete PR.
+  The useful unit of autonomous work is not "go build the product." It is a scoped task with a clear boundary and work I can inspect. The key constraint is isolation. If you task two agents on overlapping parts of the codebase overnight, you wake up to merge conflicts and divergent assumptions. Each agent gets its own branch, its own scope, its own discrete PR.
 </div>
 
 <div class="reveal">
