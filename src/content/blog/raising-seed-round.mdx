@@ -60,35 +60,54 @@ import PullQuote from '../../components/post/PullQuote.astro';
 </div>
 
 <div class="reveal">
-  One note that worked came from that shape. The investor had a visible connection to an adjacent data company. The email used that bridge, explained the product in normal language, gave concrete progress, named the commercial goal, and asked for advice rather than pretending the decision was obvious.
+  The exact note changes by stage. Before metrics are clean, the note has to prove that demand is real and the product exists. Once metrics exist, the note should put those metrics where an investor will see them fast.
 </div>
 
-<Callout tone="info" title="A strong anonymized version of the note">
-  <p><strong>Subject:</strong> Data infrastructure control layer, 5 design partners, $8K first MRR path</p>
+<CompareTable
+  caption="The shape of the investor note changes once there are real metrics to share."
+  leftLabel="Early stage"
+  rightLabel="Metrics stage"
+  rows={[
+    { dimension: "Subject", left: "Specific buyer, workflow, first product evidence", right: "Specific buyer, one headline metric, growth signal" },
+    { dimension: "Proof", left: "Live product, customer calls, first workflow, founder-market fit", right: "Revenue, retention, conversion, usage, sales cycle, pipeline quality" },
+    { dimension: "Risk to name", left: "Which first customer workflow becomes repeatable", right: "Which motion scales without the founder doing every step" },
+    { dimension: "Ask", left: "Advice on wedge, buyer, pricing, and first closes", right: "Advice on scaling GTM, hiring, expansion, and next milestone" }
+  ]}
+/>
+
+<div class="reveal">
+  The subject line should carry the most relevant signal. For an early note, that is usually the buyer plus the live workflow. For a metrics note, it is the buyer plus the one metric that makes the note worth opening.
+</div>
+
+<Callout tone="info" title="Example 1: early stage, closer to Mainteny">
+  <p><strong>Subject:</strong> Elevator maintenance software, first workflow live in 3 months</p>
   <p>Hi <em>[Name]</em>,</p>
-  <p>Thanks for writing back on LinkedIn. I saw that one of your data-infrastructure companies went through your program. That caught my attention because we are building for the same buyer from the day-to-day operations side.</p>
-  <p>Data leaders can usually see cost, reliability, and governance problems before they can act on them.</p>
+  <p>I saw your work in vertical software for services businesses. This may be close: we are building field-service software for elevator maintenance companies.</p>
+  <p>The first wedge is the request-to-invoice workflow. A service call becomes a technician visit, quotation, follow-up job, invoice, and customer update. Today that work still leaks into spreadsheets, WhatsApp, paper, and memory.</p>
+  <p>Where we are:</p>
   <ul>
-    <li>Spend reviews live in one place.</li>
-    <li>Reliability signals live in another.</li>
-    <li>Access cleanup and governance reviews become separate projects.</li>
-    <li>Someone has to stitch the story together before every planning cycle or leadership meeting.</li>
+    <li>First product version built in 3 months.</li>
+    <li>Live workflow: work orders, scheduling, technician mobile updates, quotations, invoice PDFs, and basic customer visibility.</li>
+    <li>Customer calls are already changing scheduling rules, invoice formatting, and technician context.</li>
+    <li>The demo is real enough that buyers ask operational edge-case questions instead of category questions.</li>
   </ul>
-  <p>We are building a control layer for data teams. It connects to the tools they already use and gives a data or engineering lead one place to see where spend drifted, what changed, who owns the fix, and what action should happen next.</p>
-  <p>Where we are now:</p>
+  <p>We are raising <em>[amount]</em> to convert the first customers and make this workflow repeatable. If field-service or vertical SaaS is close to your thesis, could we compare notes for 20 minutes?</p>
+</Callout>
+
+<Callout tone="success" title="Example 2: metrics stage, closer to Luminik">
+  <p><strong>Subject:</strong> Luminik: <em>[$X MRR]</em>, <em>[Y]</em> events processed for B2B GTM teams</p>
+  <p>Hi <em>[Name]</em>,</p>
+  <p>I saw your work around B2B GTM infrastructure, especially <em>[specific company or thesis]</em>. Luminik may fit that map.</p>
+  <p>B2B teams spend heavily on events, but the pipeline record breaks across attendee lists, enrichment, pre-event outreach, meeting capture, and CRM attribution. Luminik gives teams one event-sourced record across source, enrich, sequence, capture, and attribute.</p>
+  <p>Current traction:</p>
   <ul>
-    <li>Live prototype in use for demos and product discovery, with the first customer-facing UI underway.</li>
-    <li>Five design-partner conversations across enterprise collaboration, consumer marketplace, Nordic banking, consulting, and gaming.</li>
-    <li>If the first design partners convert, the initial path is roughly $8K MRR.</li>
-    <li>Product development is focused on integrations, backend workflows, and the first screen a buyer will use.</li>
+    <li><em>[$MRR or ARR]</em> across <em>[paid customers or pilots]</em>, growing <em>[growth rate]</em>.</li>
+    <li><em>[X]</em> events processed for <em>[customer segment]</em>.</li>
+    <li><em>[Y]</em> attendee or account records sourced and enriched, with <em>[Z%]</em> CRM match rate.</li>
+    <li><em>[N]</em> meetings, opportunities, or pipeline records attributed.</li>
+    <li><em>[retention, sales-cycle, or expansion signal]</em>.</li>
   </ul>
-  <p>Why we think we can move quickly:</p>
-  <ul>
-    <li>I previously built the first version of a field-service product that helped make a seed round possible.</li>
-    <li>My co-founder was an early architect on a large company data lake and helped scale that platform team from the first few engineers to a much larger organization.</li>
-    <li>We are both technical founders, so the first sales calls go straight back into product decisions.</li>
-  </ul>
-  <p>We are raising $500K pre-seed to reach more than $20K MRR within 15 months. The risk we are working through now is GTM: which buyer owns the first budget, how much founder-led sales can carry, and where the first repeatable wedge sits. If this is close to your thesis, I would value 20 minutes of your perspective.</p>
+  <p>We are raising <em>[amount]</em> to reach <em>[next revenue or customer milestone]</em> by <em>[timeframe]</em>. The question now is which GTM buyer repeats first and which parts of the event workflow the product should own next. If this is close to your thesis, could we compare notes for 20 minutes?</p>
 </Callout>
 
 <div class="reveal">
