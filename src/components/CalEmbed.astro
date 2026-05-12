@@ -7,12 +7,18 @@ interface Props {
 const { hostId = 'my-cal-inline-intro-chat', class: className = '' } = Astro.props;
 const namespace = 'intro-chat';
 const calLink = 'meet-prasad/intro-chat';
+const inlineConfig = {
+  layout: 'month_view',
+  useSlotsViewOnSmallScreen: 'true',
+  duration: '20',
+  hideEventTypeDetails: 'true'
+};
 ---
 
 <div class={`cal-embed ${className}`}>
   <div id={hostId} class="cal-embed-frame" aria-label="Intro chat calendar"></div>
 </div>
-<script is:inline define:vars={{ HOST_ID: hostId, NS: namespace, CAL_LINK: calLink }}>
+<script is:inline define:vars={{ HOST_ID: hostId, NS: namespace, CAL_LINK: calLink, INLINE_CONFIG: inlineConfig }}>
   (function () {
     if (!window.__prasadCalLoaded) {
       window.__prasadCalLoaded = true;
@@ -58,10 +64,49 @@ const calLink = 'meet-prasad/intro-chat';
           window.Cal.ns[NS]("ui", {
             theme: currentTheme(),
             cssVarsPerTheme: {
-              light: { "cal-brand": "#f63e8c" },
-              dark: { "cal-brand": "#f63e8c" }
+              light: {
+                "cal-brand": "#5ee7b5",
+                "cal-brand-emphasis": "#22c997",
+                "cal-brand-text": "#07100d",
+                "cal-bg": "#f7f8f5",
+                "cal-bg-emphasis": "#edf2ed",
+                "cal-bg-muted": "#e5ebe5",
+                "cal-bg-subtle": "#f2f5f1",
+                "cal-text": "#18211d",
+                "cal-text-emphasis": "#07100d",
+                "cal-text-muted": "#647067",
+                "cal-border": "#d6ded7",
+                "cal-border-default": "#d6ded7",
+                "cal-border-emphasis": "#b9c6bd",
+                "cal-border-subtle": "#e5ebe5",
+                "cal-border-booker": "#d6ded7",
+                "cal-radius": "8px",
+                "cal-radius-md": "8px",
+                "cal-radius-lg": "8px"
+              },
+              dark: {
+                "cal-brand": "#5ee7b5",
+                "cal-brand-emphasis": "#7df0c7",
+                "cal-brand-text": "#07100d",
+                "cal-bg": "#12171f",
+                "cal-bg-emphasis": "#1b2230",
+                "cal-bg-muted": "#0b0d10",
+                "cal-bg-subtle": "#171d27",
+                "cal-text": "#f8fafc",
+                "cal-text-emphasis": "#ffffff",
+                "cal-text-muted": "#a8b3b9",
+                "cal-border": "#2d3745",
+                "cal-border-default": "#2d3745",
+                "cal-border-emphasis": "#3a4658",
+                "cal-border-subtle": "#202836",
+                "cal-border-booker": "#2d3745",
+                "cal-radius": "8px",
+                "cal-radius-md": "8px",
+                "cal-radius-lg": "8px"
+              }
             },
-            hideEventTypeDetails: false,
+            hideEventTypeDetails: true,
+            showTimezoneWhenEventDetailsHidden: true,
             layout: "month_view"
           });
         } catch (e) {}
@@ -69,7 +114,7 @@ const calLink = 'meet-prasad/intro-chat';
 
       window.Cal.ns[NS]("inline", {
         elementOrSelector: "#" + HOST_ID,
-        config: { layout: "month_view", useSlotsViewOnSmallScreen: "true" },
+        config: INLINE_CONFIG,
         calLink: CAL_LINK
       });
 
