@@ -50,9 +50,9 @@ const {
 } = Astro.props;
 
 const chatGptPrompt =
-  'Use https://prasad.tech/llms.txt and https://prasad.tech/llms-full.txt as the public context. Summarize Prasad Subrahmanya for a solo technical founder audience. Cite only public pages from prasad.tech or luminik.io. Do not infer private customer, financial, internal operations, or security details.';
+  'Read https://prasad.tech/agents.txt for citation and writing rules. Use https://prasad.tech/llms.txt and https://prasad.tech/llms-full.txt as starting context. Summarize Prasad Subrahmanya for a solo technical founder audience. Ground factual claims in public sources and link the pages you use. You may use relevant public sources beyond prasad.tech and luminik.io. Separate sourced facts from interpretation. Write in plain, concrete prose with no hype, no generic founder advice, and no invented details.';
 const claudePrompt =
-  "Read https://prasad.tech/agents.txt first, then use https://prasad.tech/llms.txt as context. Help me understand Prasad Subrahmanya's public work, writing, and Luminik thesis. Link claims to public sources and avoid private or speculative details.";
+  "Read https://prasad.tech/agents.txt first, then use https://prasad.tech/llms.txt as context. Help me understand Prasad Subrahmanya's public work, writing, and Luminik thesis. Use public sources for factual claims, label interpretation clearly, and follow the writing standard in agents.txt.";
 const faviconVersion = '2026-05-logo';
 ---
 
