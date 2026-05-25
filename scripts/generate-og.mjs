@@ -351,13 +351,13 @@ async function main() {
   const portrait = await portraitDataUri();
 
   await renderCard({
-    eyebrow: 'Founder · CTO · Operator',
-    title: "Prasad Subrahmanya. I build and sell B2B products from work I know firsthand.",
+    eyebrow: 'Builder · Operator',
+    title: "Prasad Subrahmanya. I build B2B products from customer work.",
     titleLines: [
       'Prasad Subrahmanya.',
-      'I build and sell',
-      'B2B products from',
-      'work I know firsthand.'
+      'I build B2B',
+      'products from',
+      'customer work.'
     ],
     footer: 'Luminik · Aura at Bain · Mainteny',
     portrait

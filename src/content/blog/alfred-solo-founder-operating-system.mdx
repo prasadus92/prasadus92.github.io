@@ -1,7 +1,7 @@
 ---
 slug: "alfred-solo-founder-operating-system"
 title: "Alfred: how I run repeated work as a solo founder"
-description: "Alfred turns repeated company work into plans, summaries, PR notes, and drafts I can review. This is how I keep the work short, sourced, and in my hands."
+description: "Alfred turns repeated company work into plans, summaries, draft replies, and pull requests I can review. This is how I keep the work short, sourced, and in my hands."
 date: "2026-05-06"
 modified: "2026-05-12"
 category: "Solo builder OS"
@@ -9,13 +9,13 @@ readTime: "16 min read"
 tags: ["Alfred", "solo founder", "AI-agent workflows", "digital employees", "open source"]
 faqs:
   - question: "What is Alfred?"
-    answer: "Alfred is the public name I use for a set of named agents around repeated company work. It turns that work into plans, digests, PR notes, drafts, and alerts I can review."
+    answer: "Alfred is the public name I use for a set of named agents around repeated company work. It turns that work into plans, digests, draft replies, pull requests, and alerts I can review."
   - question: "Does Alfred ship code or content without my review?"
     answer: "No. Alfred can draft, summarize, open work for review, and ask for approval. Publishing, sending, paying, merging, and deploying stay manual."
   - question: "What runs in production today?"
     answer: "A small set of named agents covers repeated company jobs and engineering work. Each one has a job, a source list, evidence, and a clear approval rule."
-  - question: "What might be open sourced?"
-    answer: "The reusable parts: job-description templates, repo instruction templates, review rules, summary formats, and a small local runner. Luminik-specific connectors and customer data stay private."
+  - question: "What is public now?"
+    answer: "Alfred OS is the public runtime: a single-operator framework for scheduled Claude Code and Codex agents that run in isolated git worktrees with locks, preflight checks, spend caps, and review gates. Luminik-specific connectors and customer data stay private."
 ---
 import Callout from '../../components/post/Callout.astro';
 import KeyTakeaway from '../../components/post/KeyTakeaway.astro';
@@ -28,7 +28,7 @@ import StatRow from '../../components/post/StatRow.astro';
 </div>
 
 <div class="reveal">
-  Alfred exists to reduce that waste. It turns repeated work into the things I can actually use: a plan, a summary, a draft, a PR note, or a short list of decisions.
+  Alfred exists to reduce that waste. It turns repeated work into the things I can actually use: a plan, a summary, a draft, a pull request summary, or a short list of decisions.
 </div>
 
 <div class="reveal">
@@ -36,7 +36,9 @@ import StatRow from '../../components/post/StatRow.astro';
 </div>
 
 <figure class="post-figure-image reveal">
-  <img src="/assets/images/blog/alfred-solo-founder-operating-system/alfred-plan-drafted-multi-repo-feature.png" width="1018" height="468" alt="Slack screenshot of Alfred drafting a multi-repo feature plan with affected repos and rollout order." loading="lazy" decoding="async" />
+  <button class="post-image-zoom" type="button" data-image-lightbox-trigger data-image-lightbox-src="/assets/images/blog/alfred-solo-founder-operating-system/alfred-plan-drafted-multi-repo-feature.png" data-image-lightbox-alt="Slack screenshot of Alfred drafting a multi-repo feature plan with affected repos and rollout order." data-image-lightbox-caption="A plan for a multi-repo feature. The important parts are the affected repos, rollout order, and approval state.">
+    <img src="/assets/images/blog/alfred-solo-founder-operating-system/alfred-plan-drafted-multi-repo-feature.png" width="1018" height="468" alt="Slack screenshot of Alfred drafting a multi-repo feature plan with affected repos and rollout order." loading="lazy" decoding="async" />
+  </button>
   <figcaption>A plan for a multi-repo feature. The important parts are the affected repos, rollout order, and approval state.</figcaption>
 </figure>
 
@@ -46,8 +48,8 @@ import StatRow from '../../components/post/StatRow.astro';
 
 <StatRow stats={[
   { value: "One job", label: "Per role", caption: "Each role gets a narrow task it can repeat without inventing new authority." },
-  { value: "Review", label: "Default state", caption: "The work lands as plans, digests, drafts, PRs, or notes I can inspect." },
-  { value: "Sources", label: "For claims", caption: "A claim with no file, link, PR, issue, or log line is treated as a bug." }
+  { value: "Review", label: "Default state", caption: "The work lands as plans, digests, drafts, pull requests, or notes I can review." },
+  { value: "Sources", label: "For claims", caption: "A claim with no file, link, pull request, issue, or log line is treated as a bug." }
 ]} />
 
 <h2 class="reveal">What Alfred is</h2>
@@ -62,9 +64,9 @@ import StatRow from '../../components/post/StatRow.astro';
 
 <ol class="reveal">
   <li><strong>What can it read?</strong> Specific repos, files, public docs, approved notes, or logs required for the job.</li>
-  <li><strong>What can it do?</strong> Search, summarize, draft, open a PR, comment, or post a message for me to read.</li>
+  <li><strong>What can it do?</strong> Search, summarize, draft, open a pull request, comment, or post a message for me to read.</li>
   <li><strong>Where does the work show up?</strong> A pull request, a review note, a markdown file, a Slack message, or a digest.</li>
-  <li><strong>What evidence does it provide?</strong> Source links, PR numbers, issue numbers, log lines, file paths, or screenshots approved for public use.</li>
+  <li><strong>What evidence does it provide?</strong> Source links, pull request numbers, issue numbers, log lines, file paths, or screenshots approved for public use.</li>
   <li><strong>What requires my approval?</strong> Anything external, irreversible, expensive, customer-facing, or reputation-bearing.</li>
 </ol>
 
@@ -94,7 +96,7 @@ import StatRow from '../../components/post/StatRow.astro';
 <h2 class="reveal">What I want back</h2>
 
 <div class="reveal">
-  I do not want long agent transcripts. I want something I can inspect quickly. If the plan is good, I can approve it. If the summary is weak, the gap should be obvious.
+  I do not want long agent transcripts. I want something I can read quickly. If the plan is good, I can approve it. If the summary is weak, the gap should be obvious.
 </div>
 
 <figure class="post-visual reveal">
@@ -113,12 +115,12 @@ import StatRow from '../../components/post/StatRow.astro';
     <div class="visual-step">
       <span class="visual-step-label">Work</span>
       <strong>Work I can read</strong>
-      <span>A plan, PR, digest, draft, checklist, or comment that can be accepted or rejected.</span>
+      <span>A plan, pull request, digest, draft, checklist, or comment that can be accepted or rejected.</span>
     </div>
     <div class="visual-step">
       <span class="visual-step-label">Evidence</span>
       <strong>Proof trail</strong>
-      <span>Links, file paths, issue numbers, PRs, screenshots, or log lines.</span>
+      <span>Links, file paths, issue numbers, pull requests, screenshots, or log lines.</span>
     </div>
     <div class="visual-step">
       <span class="visual-step-label">Decision</span>
@@ -130,7 +132,7 @@ import StatRow from '../../components/post/StatRow.astro';
 </figure>
 
 <Callout tone="info" title="My rule">
-  Alfred can make repeated work visible. It cannot take responsibility for my judgment. I know it is working when I spend less time gathering context and more time deciding what the company should do.
+  Alfred can prepare work. I still decide what gets sent, merged, published, paid, or deployed. I know it is working when I spend less time gathering context and more time making the actual decision.
 </Callout>
 
 <h2 class="reveal">Why I run it on real work</h2>
@@ -144,7 +146,7 @@ import StatRow from '../../components/post/StatRow.astro';
 </div>
 
 <div class="reveal">
-  This matters more when you are building alone. A small team has imperfect guardrails that still help: another person in the PR, a teammate who remembers a customer call, a manager who asks why the task matters. A solo founder has speed and silence. Alfred gives me a way to replace some of the reminders without pretending I have replaced the judgment.
+  This matters more when you are building alone. In a team, someone else may remember a customer call, question a pull request, or ask why a task matters. When I am the only operator, those reminders have to be built into the system.
 </div>
 
 <h2 class="reveal">How the engineering side works</h2>
@@ -177,7 +179,7 @@ import StatRow from '../../components/post/StatRow.astro';
     writes="Reviewable branch"
     guardrail="Bounded write scope"
   >
-    <p>Turns one scoped task into code I can inspect through a normal PR.</p>
+    <p>Turns one scoped task into code I can review through a normal pull request.</p>
   </RoleCard>
 
   <RoleCard
@@ -195,7 +197,7 @@ import StatRow from '../../components/post/StatRow.astro';
     name="Nightwing"
     role="Status and health"
     trigger="Changed work"
-    reads="PRs, issues, checks, safe logs"
+    reads="pull requests, issues, checks, safe logs"
     writes="Digest"
     guardrail="Reports and proposes"
   >
@@ -214,12 +216,14 @@ import StatRow from '../../components/post/StatRow.astro';
 </div>
 
 <div class="reveal">
-  It also gives me a record. A normal morning summary tells me which agents ran, which PRs opened, which PRs merged, and which issues need attention. I can still go to GitHub for the full truth. Slack tells me where to look first.
+  It also gives me a record. A normal morning summary tells me which agents ran, which pull requests opened, which pull requests merged, and which issues need attention. I can still go to GitHub for the full truth. Slack tells me where to look first.
 </div>
 
 <figure class="post-figure-image reveal">
-  <img src="/assets/images/blog/alfred-solo-founder-operating-system/alfred-engineering-overnight-summary.png" width="1020" height="398" alt="Slack screenshot of Alfred posting an engineering overnight summary with agent status and pull request links." loading="lazy" decoding="async" />
-  <figcaption>A useful digest tells me what changed and where to inspect it.</figcaption>
+  <button class="post-image-zoom" type="button" data-image-lightbox-trigger data-image-lightbox-src="/assets/images/blog/alfred-solo-founder-operating-system/alfred-engineering-overnight-summary.png" data-image-lightbox-alt="Slack screenshot of Alfred posting an engineering overnight summary with agent status and pull request links." data-image-lightbox-caption="A useful digest tells me what changed and which links need review.">
+    <img src="/assets/images/blog/alfred-solo-founder-operating-system/alfred-engineering-overnight-summary.png" width="1020" height="398" alt="Slack screenshot of Alfred posting an engineering overnight summary with agent status and pull request links." loading="lazy" decoding="async" />
+  </button>
+  <figcaption>A useful digest tells me what changed and which links need review.</figcaption>
 </figure>
 
 <h2 class="reveal">What has worked</h2>
@@ -250,7 +254,7 @@ import StatRow from '../../components/post/StatRow.astro';
 <h2 class="reveal">Where Alfred goes wrong</h2>
 
 <div class="reveal">
-  Alfred gets worse when the role is allowed to be vague. "Help with engineering" is too wide. "Review the changed backend files in this PR for data-contract risk and return comments only" is narrow enough to be useful.
+  Alfred gets worse when the role is allowed to be vague. "Help with engineering" is too wide. "Review the changed backend files in this pull request for data-contract risk and return comments only" is narrow enough to be useful.
 </div>
 
 <div class="reveal">
@@ -258,7 +262,7 @@ import StatRow from '../../components/post/StatRow.astro';
 </div>
 
 <div class="reveal">
-  The third mistake is too much automation. Some tasks are expensive because they require judgment, taste, trust, or a relationship. Customer replies are the obvious example. If I need to read the whole thread before approving the draft, I may as well write the reply myself.
+  The third mistake is too much automation. Some tasks are expensive because they require taste, trust, or a relationship. Customer replies are the obvious example. If I need to read the whole thread before approving the draft, I may as well write the reply myself.
 </div>
 
 <figure class="post-visual reveal">
@@ -270,7 +274,7 @@ import StatRow from '../../components/post/StatRow.astro';
         <li>Summaries</li>
         <li>Plans</li>
         <li>Drafts</li>
-        <li>PRs</li>
+        <li>pull requests</li>
         <li>Review comments</li>
         <li>Checklists</li>
       </ul>
@@ -312,17 +316,17 @@ import StatRow from '../../components/post/StatRow.astro';
   ]}
 />
 
-<h2 class="reveal">The OSS version should start small</h2>
+<h2 class="reveal">The OSS version starts small</h2>
 
 <div class="reveal">
-  I want to open-source the reusable parts of Alfred. The private version has company context, customer data, and adapters that stay private. The public version should be useful without any of that.
+  I extracted the reusable runtime as <a href="https://github.com/luminik-io/alfred-os" target="_blank" rel="noopener">Alfred OS</a>. The private version has company context, customer data, and adapters that stay private. The public version is useful without any of that.
 </div>
 
 <ul class="reveal">
   <li><strong>Job-description templates.</strong> Markdown templates for chief of staff, content, sales, ops, and engineering roles.</li>
   <li><strong>Repo instruction templates.</strong> Example AGENTS.md, CLAUDE.md, and content-guide files for a solo product team.</li>
   <li><strong>Review rules.</strong> Approval rules for code, content, sales replies, finance actions, and deployments.</li>
-  <li><strong>Summary formats.</strong> Plans, digests, PR notes, risk summaries, and morning briefs.</li>
+  <li><strong>Summary formats.</strong> Plans, digests, pull request summaries, risk summaries, and morning briefs.</li>
   <li><strong>A small local runner.</strong> Enough structure for scheduled jobs and work I can review without my private adapters.</li>
 </ul>
 
@@ -331,7 +335,9 @@ import StatRow from '../../components/post/StatRow.astro';
 </div>
 
 <figure class="post-figure-image reveal">
-  <img src="/assets/images/blog/alfred-solo-founder-operating-system/alfred-shipped-work-summary.png" width="1014" height="482" alt="Slack screenshot of Alfred posting a shipped-work summary with merged pull requests and closed issues." loading="lazy" decoding="async" />
+  <button class="post-image-zoom" type="button" data-image-lightbox-trigger data-image-lightbox-src="/assets/images/blog/alfred-solo-founder-operating-system/alfred-shipped-work-summary.png" data-image-lightbox-alt="Slack screenshot of Alfred posting a shipped-work summary with merged pull requests and closed issues." data-image-lightbox-caption="The format is intentionally plain. If a founder cannot verify the summary, the summary is decoration.">
+    <img src="/assets/images/blog/alfred-solo-founder-operating-system/alfred-shipped-work-summary.png" width="1014" height="482" alt="Slack screenshot of Alfred posting a shipped-work summary with merged pull requests and closed issues." loading="lazy" decoding="async" />
+  </button>
   <figcaption>The format is intentionally plain. If a founder cannot verify the summary, the summary is decoration.</figcaption>
 </figure>
 

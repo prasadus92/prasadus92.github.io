@@ -5,6 +5,11 @@
     "src/**/*",
     "astro.config.mjs"
   ],
+  "compilerOptions": {
+    "types": [
+      "node"
+    ]
+  },
   "exclude": [
     "dist",
     "node_modules",

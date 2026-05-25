@@ -11,7 +11,7 @@
 
 const SITE_URL = 'https://prasad.tech';
 const SITE_TITLE = 'Prasad Subrahmanya';
-const SITE_DESCRIPTION = "Founder of Luminik. Field notes on building and selling B2B products from demand seen in real work.";
+const SITE_DESCRIPTION = "Builder and operator at Luminik. Field notes on building and selling B2B products from customer work.";
 const PERSON_ID = `${SITE_URL}/#person`;
 const WEBSITE_ID = `${SITE_URL}/#website`;
 const LOGO_URL = `${SITE_URL}/assets/brand/prasad-mark.svg`;
@@ -46,7 +46,7 @@ const {
   title = SITE_TITLE,
   description = SITE_DESCRIPTION,
   ogImage = '/og/prasad-og.png',
-  ogImageAlt = 'Prasad Subrahmanya | Founder of Luminik, solo builder field notes',
+  ogImageAlt = 'Prasad Subrahmanya | Builder and operator, B2B products from customer work',
   type = 'website',
   canonical: canonicalProp,
   noindex = false,
@@ -68,6 +68,14 @@ function absoluteImageUrl(image: string): string {
 }
 
 const ogImageUrl = absoluteImageUrl(ogImage);
+function markdownPath(pathname: string): string {
+  const clean = pathname.replace(/\/+$/, '');
+  if (!clean) return '/index.md';
+  if (clean.endsWith('.html')) return clean.replace(/\.html$/, '.md');
+  return `${clean}.md`;
+}
+
+const mdMirrorUrl = new URL(markdownPath(new URL(canonical).pathname), SITE_URL).toString();
 
 const WEBPAGE_ID = `${canonical}#webpage`;
 const BREADCRUMB_ID = `${canonical}#breadcrumb`;
@@ -84,7 +92,7 @@ const personNode = {
   familyName: 'Subrahmanya',
   url: `${SITE_URL}/`,
   image: LOGO_URL,
-  jobTitle: 'Founder',
+  jobTitle: 'Builder and operator',
   worksFor: {
     '@type': 'Organization',
     name: 'Luminik',
@@ -201,6 +209,7 @@ const robots = noindex ? 'noindex, follow' : 'index, follow, max-image-preview:l
 <meta name="author" content="Prasad Subrahmanya" />
 <meta name="robots" content={robots} />
 <link rel="canonical" href={canonical} />
+{!noindex && <link rel="alternate" type="text/markdown" title="Markdown version of this page" href={mdMirrorUrl} />}
 
 <meta property="og:type" content={type} />
 <meta property="og:url" content={canonical} />

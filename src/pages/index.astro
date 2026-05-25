@@ -32,7 +32,7 @@ const proofPoints: ProofPoint[] = [
 ];
 
 const title = 'Prasad Subrahmanya';
-const description = 'Founder of Luminik. I build and sell B2B products from demand I can see in real work: first product, early sales, and AI-agent workflows that keep the work under review.';
+const description = 'Builder and operator at Luminik. I build B2B products from customer work: first product, founder-led sales, and agent-assisted product engineering.';
 ---
 
 <BaseLayout
@@ -42,44 +42,40 @@ const description = 'Founder of Luminik. I build and sell B2B products from dema
   active="home"
   preloadImage
   image="/og/prasad-og.png"
-  imageAlt="Prasad Subrahmanya | Founder and CTO. B2B products from demand in real work."
+  imageAlt="Prasad Subrahmanya | Builder and operator. B2B products from customer work."
 >
 
   <section class="hero">
     <div class="container hero-grid">
       <div class="hero-copy">
-        <div class="eyebrow reveal">Founder of Luminik</div>
-        <h1 class="reveal">I build and sell B2B products from work I know firsthand.</h1>
+        <div class="eyebrow reveal">Builder and operator</div>
+        <h1 class="reveal">I build B2B products from customer work.</h1>
         <p class="lead reveal">
-          I'm Prasad Subrahmanya. I start inside the buyer's current process, do enough manual delivery to see what repeats, then build around the repeated part. Today I run <a href="https://www.luminik.io" target="_blank" rel="noopener">Luminik</a>, an event pipeline platform for B2B teams.
+          I'm Prasad Subrahmanya. I build <a href="https://www.luminik.io" target="_blank" rel="noopener">Luminik</a>, an event pipeline platform for B2B teams. I sell before I build, work alongside customers, and turn repeated workflows into product.
         </p>
         <div class="hero-actions reveal">
-          <a href="/blog/" class="button primary"><Icon name="book-open" size={16} /> Read the field notes</a>
+          <a href="/blog/" class="button primary"><Icon name="book-open" size={16} /> Read the blog</a>
           <a href="https://www.luminik.io" target="_blank" rel="noopener" class="text-link">Visit Luminik <Icon name="arrow-up-right" size={15} /></a>
         </div>
       </div>
 
-      <div class="proof-card card reveal">
-        <div class="proof-head">
-          <img src="/assets/images/header/prasad.jpeg" width="76" height="76" alt="Prasad Subrahmanya" decoding="async" fetchpriority="high" />
-          <div>
-            <div class="eyebrow" style="margin-bottom: 4px;">Current work</div>
-            <h2 style="font-size: 1.35rem; margin-bottom: 4px;">Luminik</h2>
-            <p style="margin: 0; color: var(--text-3);">Event pipeline platform for B2B</p>
-          </div>
+      <div class="hero-portrait-card card reveal">
+        <div class="hero-portrait-frame">
+          <img src="/assets/images/header/prasad.jpeg" width="800" height="800" alt="Prasad Subrahmanya" decoding="async" fetchpriority="high" />
+        </div>
+        <div class="hero-current">
+          <div class="eyebrow">Current focus</div>
+          <h2>Luminik and Alfred OS</h2>
+          <p>I am building Luminik and maintaining Alfred OS, an open-source runner for agent work in isolated git worktrees.</p>
         </div>
         <div class="proof-list">
           <div class="proof-item">
             <div class="proof-number">01</div>
-            <p>Source, enrich, sequence, capture, and attribute event-sourced pipeline in the systems B2B teams already use.</p>
+            <p>Luminik helps B2B teams source, enrich, sequence, capture, and attribute event-sourced pipeline.</p>
           </div>
           <div class="proof-item">
             <div class="proof-number">02</div>
-            <p><a href="https://github.com/luminik-io/alfred-os" target="_blank" rel="noopener">Alfred OS</a> is the agent harness I built and open-sourced to run that work: it schedules a fleet of named agents, isolates each run in its own git worktree, and opens PRs I inspect before anything ships.</p>
-          </div>
-          <div class="proof-item">
-            <div class="proof-number">03</div>
-            <p>I sell early because a buyer's question about event follow-up, CRM ownership, or attribution can change the product before the wrong thing gets expensive.</p>
+            <p><a href="https://github.com/luminik-io/alfred-os" target="_blank" rel="noopener">Alfred OS</a> runs Claude Code and Codex tasks in separate git worktrees.</p>
           </div>
         </div>
       </div>
@@ -103,14 +99,14 @@ const description = 'Founder of Luminik. I build and sell B2B products from dema
     <div class="container two-column">
       <div class="section-header" style="margin-bottom: 0;">
         <div class="eyebrow reveal">About</div>
-        <h2 class="reveal">The work before software becomes obvious</h2>
+        <h2 class="reveal">How I usually build</h2>
       </div>
       <div>
         <p class="lead reveal">
-          Good B2B software usually starts with a buyer already trying to get something done. The useful question is not "does this hurt?" It is "who owns this project, why now, what have they tried, and why are those options failing?" I like that stage: manual delivery, narrow first versions, sales calls that change the product, and architecture choices that keep future work cheap.
+          Good B2B software usually starts with work someone already owns. I want to know who is responsible for it, why it matters now, what they tried already, where the handoff breaks, and what would make the next decision easier. That usually means manual delivery first, a narrow first version, and sales calls that change the roadmap.
         </p>
         <p class="lead reveal">
-          Right now I am building Luminik. Before that I built SnowOptix, Aura at Bain, and Mainteny. The settings changed. The job stayed similar: find demand in the buyer's current work, build the first useful system, sell through the workflow, and make the work clear enough that customers, teammates, and investors can trust it.
+          Right now I am building Luminik. Before that I built SnowOptix, Aura at Bain, and Mainteny. The setting changed each time. The work stayed similar: find demand in existing work, build the first useful version, sell through the workflow, and explain the tradeoffs plainly.
         </p>
       </div>
     </div>
@@ -127,15 +123,15 @@ const description = 'Founder of Luminik. I build and sell B2B products from dema
       <div class="path-grid">
         <div class="path-card card interactive reveal">
           <h3>Solo product engineering</h3>
-          <p>Ship the first useful workflow before the company has enough people to hide behind process.</p>
+          <p>Turn first-hand workflow knowledge into usable software before the full team exists.</p>
         </div>
         <div class="path-card card interactive reveal">
           <h3>Founder-led GTM</h3>
-          <p>Look for the live project, the urgency, the options tried, and the gap that makes a buyer move.</p>
+          <p>Look for the live project, the urgency, the options tried, and the gap that makes a team move.</p>
         </div>
         <div class="path-card card interactive reveal">
           <h3>AI-agent workflows</h3>
-          <p>Build harnesses for digital employees: specs, repo rules, context, evals, and approval rules.</p>
+          <p>Use agents for scoped work: specs, repo rules, isolated branches, tests, and pull requests.</p>
         </div>
         <div class="path-card card interactive reveal">
           <h3>Event pipeline systems</h3>
@@ -147,7 +143,7 @@ const description = 'Founder of Luminik. I build and sell B2B products from dema
         <div class="artifact-node card reveal">
           <span>01</span>
           <strong>Demand</strong>
-          <p>Start with a project someone already owns and cannot keep ignoring.</p>
+          <p>Start with a project someone already owns and has to make visible.</p>
         </div>
         <div class="artifact-node card reveal">
           <span>02</span>
@@ -157,17 +153,17 @@ const description = 'Founder of Luminik. I build and sell B2B products from dema
         <div class="artifact-node card reveal">
           <span>03</span>
           <strong>Narrow software</strong>
-          <p>Automate the repeated work. Leave the judgment calls visible.</p>
+          <p>Automate the repeated steps. Keep ambiguous decisions with a person.</p>
         </div>
         <div class="artifact-node card reveal">
           <span>04</span>
-          <strong>Agent harness</strong>
+          <strong>Agent workflow</strong>
           <p>Let agents draft, code, check, and summarize inside explicit boundaries.</p>
         </div>
         <div class="artifact-node card reveal">
           <span>05</span>
           <strong>Trust</strong>
-          <p>Make the model clear enough for customers, teammates, and investors.</p>
+          <p>Explain the tradeoffs clearly enough for customers, teammates, and investors.</p>
         </div>
       </div>
     </div>
@@ -178,7 +174,7 @@ const description = 'Founder of Luminik. I build and sell B2B products from dema
       <div class="section-header">
         <div class="eyebrow reveal">Experience</div>
         <h2 class="reveal">Where I have built and shipped</h2>
-        <p class="lead reveal">Different settings, same job: understand the business, build the product, sell the early version, and keep the operating model honest.</p>
+        <p class="lead reveal">Different settings, same job: understand the business, build the product, sell the early version, and keep decisions tied to customer evidence.</p>
       </div>
 
       <div class="experience-grid">
@@ -288,7 +284,7 @@ const description = 'Founder of Luminik. I build and sell B2B products from dema
         <h2 class="reveal">Bring a concrete product or GTM problem</h2>
       </div>
       <div class="contact-box card reveal">
-        <p class="lead">Reach out if you want to compare notes on Luminik, event pipeline, founder-led sales, or turning a painful workflow into product.</p>
+        <p class="lead">Reach out if you want to compare notes on Luminik, event pipeline, founder-led sales, or turning repeated customer work into product.</p>
         <div class="hero-actions">
           <a class="button primary" href="mailto:prasadus92@gmail.com"><Icon name="envelope" size={16} /> Email</a>
           <a class="button" href="/intro-chat/"><Icon name="calendar" size={16} /> Intro chat</a>

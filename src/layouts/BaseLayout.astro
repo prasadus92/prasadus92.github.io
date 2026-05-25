@@ -3,6 +3,7 @@ import '../styles/global.css';
 import Analytics from '../components/Analytics.astro';
 import BrandMark from '../components/BrandMark.astro';
 import CookieConsent from '../components/CookieConsent.astro';
+import ImageLightbox from '../components/ImageLightbox.astro';
 import Icon from '../components/Icon.astro';
 import Seo from '../components/Seo.astro';
 
@@ -96,7 +97,7 @@ const faviconVersion = '2026-05-logo';
     <link rel="alternate" type="text/plain" title="LLM summary" href="/llms.txt" />
     <link rel="alternate" type="text/plain" title="Full LLM context" href="/llms-full.txt" />
     <link rel="help" type="text/plain" title="AI agent guidance" href="/agents.txt" />
-    {preloadImage && <link rel="preload" as="image" href="/assets/images/header/prasad.jpeg" imagesizes="76px" />}
+    {preloadImage && <link rel="preload" as="image" href="/assets/images/header/prasad.jpeg" imagesizes="(min-width: 1024px) 380px, 72vw" />}
 
     <Analytics />
 
@@ -158,7 +159,7 @@ const faviconVersion = '2026-05-logo';
       <div class="container ai-context" aria-labelledby="ai-context-heading">
         <div>
           <h2 class="footer-kicker" id="ai-context-heading">AI context</h2>
-          <p>Use these files and prompts when asking an assistant about my public work. They give assistants source links and the boundaries I want them to follow.</p>
+          <p>Use these files and prompts when asking an assistant about my public work. They list the public pages and citation rules.</p>
         </div>
         <div class="ai-actions">
           <a class="button" href="/llms-full.txt"><Icon name="file-lines" size={16} /> Full context</a>
@@ -169,6 +170,7 @@ const faviconVersion = '2026-05-logo';
       </div>
     </footer>
     <CookieConsent />
+    <ImageLightbox />
 
     <script>
       import '../scripts/site';

@@ -10,6 +10,13 @@ const staticPages = [
   { loc: '/privacy/', priority: '0.3', changefreq: 'yearly' }
 ];
 
+function mdMirrorPath(loc: string) {
+  if (loc === '/') return '/index.md';
+  if (loc.endsWith('.html')) return loc.replace(/\.html$/, '.md');
+  const clean = loc.replace(/^\/+|\/+$/g, '');
+  return `/${clean}.md`;
+}
+
 function entry(url: string, lastmod: string, changefreq: string, priority: string) {
   return [
     '  <url>',
@@ -25,7 +32,9 @@ export const GET: APIRoute = () => {
   const today = new Date().toISOString().slice(0, 10);
   const urls = [
     ...staticPages.map((page) => entry(page.loc, today, page.changefreq, page.priority)),
-    ...posts.map((post) => entry(post.url, post.modified ?? post.date, 'monthly', '0.8'))
+    ...staticPages.map((page) => entry(mdMirrorPath(page.loc), today, page.changefreq, page.priority)),
+    ...posts.map((post) => entry(post.url, post.modified ?? post.date, 'monthly', '0.8')),
+    ...posts.map((post) => entry(mdMirrorPath(post.url), post.modified ?? post.date, 'monthly', '0.8'))
   ];
 
   return new Response(

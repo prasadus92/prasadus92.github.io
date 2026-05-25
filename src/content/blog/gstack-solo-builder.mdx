@@ -1,7 +1,7 @@
 ---
 slug: "gstack-solo-builder"
 title: "gstack, CLAUDE.md, and founder coordination"
-description: "I have run my own agent harness since mid-2025: role prompts, CLAUDE.md files, a specs repo, isolated branches, and PR review. What gstack solves, where the coordination gap begins, and what stays a founder's problem."
+description: "I have run my own agent workflow since mid-2025: role prompts, CLAUDE.md files, a specs repo, isolated branches, and pull request review. What gstack solves, where the coordination gap begins, and what stays a founder's problem."
 date: "2026-03-15"
 modified: "2026-05-06"
 category: "Solo builder OS"
@@ -23,7 +23,7 @@ import PullQuote from '../../components/post/PullQuote.astro';
 </div>
 
 <KeyTakeaway label="The argument in one paragraph">
-  gstack is a good starting point. So is building your own system. Either way you end up dealing with the same three unsolved problems: encoding domain judgment, coordinating across sessions, and isolating parallel agent work. None of these are framework problems. They are operating discipline problems.
+  gstack is a good starting point. So is building your own system. Either way you end up dealing with the same three unsolved problems: writing down product rules, coordinating across sessions, and isolating parallel agent work. None of these are framework problems. They are operating discipline problems.
 </KeyTakeaway>
 
 <h2 class="reveal">Where the approaches overlap</h2>
@@ -37,7 +37,7 @@ import PullQuote from '../../components/post/PullQuote.astro';
 </div>
 
 <figure class="post-visual reveal">
-  <div class="post-visual-title">Where the agent gets its judgment</div>
+  <div class="post-visual-title">Where the agent gets its rules</div>
   <div class="visual-flow">
     <div class="visual-step">
       <span class="visual-step-label">Role</span>
@@ -85,7 +85,7 @@ import PullQuote from '../../components/post/PullQuote.astro';
 <h2 class="reveal">1. Domain context is harder to encode than code conventions</h2>
 
 <div class="reveal">
-  My CLAUDE.md files do not just encode engineering patterns. They encode business logic. For Luminik that means event-pipeline vocabulary, workflow boundaries, data-model assumptions, and the rules that keep source, enrich, sequence, capture, and attribute from drifting into five disconnected features. None of that is engineering knowledge. It is domain judgment, and it changes as the product learns.
+  My CLAUDE.md files do not just encode engineering patterns. They encode business logic. For Luminik that means event-pipeline vocabulary, workflow boundaries, data-model assumptions, and the rules that keep source, enrich, sequence, capture, and attribute from drifting into five disconnected features. None of that is generic engineering knowledge. It is product-specific and changes as the product learns.
 </div>
 
 <div class="reveal">
@@ -99,7 +99,7 @@ import PullQuote from '../../components/post/PullQuote.astro';
 </div>
 
 <div class="reveal">
-  I maintain a dedicated specs repo: business requirements broken into workflows, data model definitions, integration contracts, UI/UX requirements, testing criteria. Every agent session references it. After every PR merge, specs get updated. The moment specs drift from the codebase, agents start making decisions on outdated assumptions. Features still ship. Then something breaks because the agent was building against a system that no longer exists.
+  I maintain a dedicated specs repo: business requirements broken into workflows, data model definitions, integration contracts, UI/UX requirements, testing criteria. Every agent session references it. After every pull request merge, specs get updated. The moment specs drift from the codebase, agents start making decisions on outdated assumptions. Features still ship. Then something breaks because the agent was building against a system that no longer exists.
 </div>
 
 <Callout tone="info" title="The operating-boundary update I added later">
@@ -109,7 +109,7 @@ import PullQuote from '../../components/post/PullQuote.astro';
 <h2 class="reveal">3. Parallel agents need isolation and roles</h2>
 
 <div class="reveal">
-  gstack's model is sequential: one agent, switching roles. My workflow runs multiple agents in parallel. On a typical evening, Cursor on a frontend feature, Claude Code on a backend refactor, a cloud-hosted agent on test cleanup. Each works in a separate repo or branch. Each produces a discrete PR by morning.
+  gstack's model is sequential: one agent, switching roles. My workflow runs multiple agents in parallel. On a typical evening, Cursor on a frontend feature, Claude Code on a backend refactor, a cloud-hosted agent on test cleanup. Each works in a separate repo or branch. Each produces a discrete pull request by morning.
 </div>
 
 <div class="reveal">
@@ -127,7 +127,7 @@ import PullQuote from '../../components/post/PullQuote.astro';
 </PullQuote>
 
 <div class="reveal">
-  Deciding what to build, maintaining system coherence, encoding domain judgment, manually testing UI flows that agents consistently get wrong. That is where my hours go. None of it shows up in LOC counters.
+  Deciding what to build, maintaining system coherence, writing down product rules, manually testing UI flows that agents consistently get wrong. That is where my hours go. None of it shows up in LOC counters.
 </div>
 
 <h2 class="reveal">What I would recommend to someone starting this workflow</h2>
@@ -142,5 +142,5 @@ import PullQuote from '../../components/post/PullQuote.astro';
 </Callout>
 
 <KeyTakeaway label="Where this leaves us">
-  gstack is well-packaged, open source, and validates a pattern that works. The problems I described here (domain context encoding, cross-session coordination, parallel orchestration) exist regardless of which framework you use. They are the unsolved parts of this workflow. I expect them to get easier as tooling matures, but the founder's job, encoding judgment so the system stays coherent, is not going anywhere.
+  gstack is well-packaged, open source, and validates a pattern that works. The problems I described here (domain context encoding, cross-session coordination, parallel orchestration) exist regardless of which framework you use. They are the unsolved parts of this workflow. I expect them to get easier as tooling matures, but the founder still has to decide what the system should preserve.
 </KeyTakeaway>
