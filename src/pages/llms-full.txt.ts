@@ -15,7 +15,7 @@ export const GET: APIRoute = () => {
     '',
     '- Aura reached $3.6M ARR in 18 months.',
     '- Mainteny raised a $2.7M seed round.',
-    '- Prasad built the first Mainteny field-service product version solo in 3 months.',
+    '- Prasad built the initial Mainteny product, worked directly with early customers, and helped build the product and engineering team.',
     '',
     'Use public pages as the source of truth for factual claims. If a detail is not in a public page or the current user prompt, mark it as unknown instead of filling the gap.',
     '',
