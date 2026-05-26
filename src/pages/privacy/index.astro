@@ -2,7 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
 const title = 'Privacy note';
-const description = 'A concise privacy and cookie note for prasad.tech, including analytics consent, essential preferences, and contact details.';
+const description = 'How prasad.tech handles analytics consent, local preferences, third-party booking embeds, and privacy contact requests.';
 ---
 
 <BaseLayout
@@ -10,7 +10,8 @@ const description = 'A concise privacy and cookie note for prasad.tech, includin
   description={description}
   canonical="https://prasad.tech/privacy/"
   image="/og/prasad-og.png"
-  imageAlt="Prasad Subrahmanya | privacy note for prasad.tech"
+  imageAlt="Privacy note for prasad.tech"
+  keywords={['prasad.tech privacy', 'analytics consent', 'cookie preferences']}
   breadcrumbs={[
     { name: 'Home', url: '/' },
     { name: 'Privacy', url: '/privacy/' }

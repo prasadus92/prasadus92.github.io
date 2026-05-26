@@ -1,6 +1,7 @@
 import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import mdx from '@astrojs/mdx';
+import mdMirror from './src/integrations/md-mirror';
 
 export default defineConfig({
   site: 'https://prasad.tech',
@@ -9,5 +10,5 @@ export default defineConfig({
   build: {
     format: 'preserve'
   },
-  integrations: [mdx(), react()]
+  integrations: [mdx(), react(), mdMirror()]
 });
