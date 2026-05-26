@@ -1341,6 +1341,15 @@ img {
   height: auto;
 }
 
+.post-image-inline-zoom {
+  cursor: zoom-in;
+}
+
+.post-image-inline-zoom:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 4px;
+}
+
 .post-image-zoom::after {
   content: "Click to enlarge";
   position: absolute;
@@ -2831,19 +2840,9 @@ img {
   }
 
   .image-lightbox__viewport {
-    overflow: auto;
+    overflow: hidden;
     touch-action: pinch-zoom pan-x pan-y;
     -webkit-overflow-scrolling: touch;
-  }
-
-  .image-lightbox__stage {
-    min-width: min(860px, 220vw);
-  }
-
-  .image-lightbox__image {
-    max-width: none;
-    max-height: none;
-    width: 100%;
   }
 
   .image-lightbox__caption {

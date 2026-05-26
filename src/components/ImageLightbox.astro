@@ -22,10 +22,45 @@
       return Math.min(max, Math.max(min, value));
     }
 
+    function triggerImage(trigger: Element) {
+      if (trigger instanceof HTMLImageElement) return trigger;
+      return trigger.querySelector<HTMLImageElement>('img');
+    }
+
     function activeSrc(trigger: Element) {
-      const image = trigger.querySelector<HTMLImageElement>('img');
+      const image = triggerImage(trigger);
       if (image?.currentSrc && image.complete && image.naturalWidth > 0) return image.currentSrc;
-      return trigger.getAttribute('data-image-lightbox-src');
+      return trigger.getAttribute('data-image-lightbox-src') || image?.getAttribute('src');
+    }
+
+    function triggerAlt(trigger: Element) {
+      const image = triggerImage(trigger);
+      return trigger.getAttribute('data-image-lightbox-alt') || image?.alt || '';
+    }
+
+    function triggerCaption(trigger: Element) {
+      const explicit = trigger.getAttribute('data-image-lightbox-caption');
+      if (explicit) return explicit;
+      const figure = trigger.closest('figure');
+      return figure?.querySelector('figcaption')?.textContent?.trim() || '';
+    }
+
+    function isInlinePostImage(target: Element): target is HTMLImageElement {
+      if (!(target instanceof HTMLImageElement)) return false;
+      if (!target.closest('article.post-content')) return false;
+      if (target.closest('.author-card, a, button, [data-image-lightbox-disabled], [data-image-lightbox-trigger]')) return false;
+      return true;
+    }
+
+    function enhanceInlineImages() {
+      const images = document.querySelectorAll<HTMLImageElement>('article.post-content img');
+      images.forEach((image) => {
+        if (!isInlinePostImage(image)) return;
+        image.classList.add('post-image-inline-zoom');
+        image.tabIndex = 0;
+        image.setAttribute('role', 'button');
+        image.setAttribute('aria-label', image.alt ? `Enlarge image: ${image.alt}` : 'Enlarge image');
+      });
     }
 
     function closeViewer() {
@@ -116,13 +151,13 @@
       const image = document.createElement('img');
       image.className = 'image-lightbox__image';
       image.src = src;
-      image.alt = trigger.getAttribute('data-image-lightbox-alt') || '';
+      image.alt = triggerAlt(trigger);
       image.decoding = 'async';
       image.draggable = false;
       stage.appendChild(image);
       viewport.appendChild(stage);
 
-      const captionText = trigger.getAttribute('data-image-lightbox-caption');
+      const captionText = triggerCaption(trigger);
       if (captionText) {
         const caption = document.createElement('div');
         caption.className = 'image-lightbox__caption';
@@ -237,12 +272,38 @@
       close.focus({ preventScroll: true });
     }
 
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', enhanceInlineImages, { once: true });
+    } else {
+      enhanceInlineImages();
+    }
+
+    new MutationObserver(enhanceInlineImages).observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+
     document.addEventListener('click', (event) => {
       if (!(event.target instanceof Element)) return;
       const trigger = event.target.closest('[data-image-lightbox-trigger]');
-      if (!trigger) return;
+      if (trigger) {
+        event.preventDefault();
+        openViewer(trigger);
+        return;
+      }
+
+      if (isInlinePostImage(event.target)) {
+        event.preventDefault();
+        openViewer(event.target);
+      }
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (!(event.target instanceof Element)) return;
+      if (event.key !== 'Enter' && event.key !== ' ') return;
+      if (!isInlinePostImage(event.target)) return;
       event.preventDefault();
-      openViewer(trigger);
+      openViewer(event.target);
     });
   })();
 </script>
