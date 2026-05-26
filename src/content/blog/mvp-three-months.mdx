@@ -1,12 +1,12 @@
 ---
 slug: "mvp-three-months"
-title: "Mainteny's first version took three months"
-description: "How Mainteny's first field-service version reached customer use: one workflow, direct sales calls, a practical stack, and enough field learning."
+title: "How to build the first version of a startup product"
+description: "A practical lesson from Mainteny: pick one market, make one daily workflow work, sell while building, and keep the stack easy to change."
 date: "2025-08-15"
-modified: "2026-05-12"
+modified: "2026-05-26"
 category: "Zero to one"
 readTime: "9 min read"
-tags: ["first product","customer delivery","Mainteny"]
+tags: ["first product","startup product","customer delivery","Mainteny"]
 ---
 import Callout from '../../components/post/Callout.astro';
 import KeyTakeaway from '../../components/post/KeyTakeaway.astro';
@@ -15,19 +15,55 @@ import StatRow from '../../components/post/StatRow.astro';
 import PullQuote from '../../components/post/PullQuote.astro';
 
 <div class="reveal">
-  Mainteny was field service management software for elevator maintenance companies. The first useful version was built in three months because we made it live inside one daily workflow: office teams needed to schedule jobs, send technicians, issue quotations, invoice customers, and keep job history intact.
+  The first version of a startup product has one job: make one important workflow better for one specific kind of customer. That gives you a useful test. You can see whether the customer uses it, where it breaks, and which parts of the company story still need evidence.
 </div>
 
 <div class="reveal">
-  I wrote the first product myself and joined the commercial work. I sat in customer calls, watched objections turn into product decisions, and learned which parts of the workflow buyers cared about enough to change their habits.
+  Mainteny taught me this in a useful way. We were building field service management software for elevator maintenance companies. The first useful version was built in three months because we made it live inside one daily workflow: office teams needed to schedule jobs, send technicians, issue quotations, invoice customers, and keep job history intact.
+</div>
+
+<div class="reveal">
+  I wrote the first product myself and joined the commercial work. I sat in customer calls, watched objections turn into product decisions, and learned which parts of the workflow buyers cared about enough to change.
 </div>
 
 <KeyTakeaway label="The argument in one paragraph">
-  The first version had one job: make a real elevator maintenance company better at daily work. That meant choosing one market, one workflow, and one practical architecture. The product that came out of that work made the company easier to understand: here was the workflow, here was the software, here were the limits, and here was what customers were teaching us.
+  A first product gets useful when the scope is concrete: one market, one workflow, one practical architecture. Mainteny's first product made the company easier to understand. Here was the workflow, here was the software, here were the limits, and here was what customers were teaching us.
 </KeyTakeaway>
 
+<figure class="post-visual reveal">
+  <div class="post-visual-title">The first-version decision map</div>
+  <div class="visual-flow wide-visual-flow animated-flow">
+    <div class="visual-step">
+      <span class="visual-step-label">01</span>
+      <strong>Choose one customer type</strong>
+      <span>Elevator maintenance companies with office teams, technicians, and job history that had to stay intact.</span>
+    </div>
+    <div class="visual-step">
+      <span class="visual-step-label">02</span>
+      <strong>Map one daily path</strong>
+      <span>Request, schedule, dispatch, quotation, technician update, invoice, and customer record.</span>
+    </div>
+    <div class="visual-step">
+      <span class="visual-step-label">03</span>
+      <strong>Build the narrow version</strong>
+      <span>Enough product for a customer to run live jobs, with the deferred list visible instead of hidden.</span>
+    </div>
+    <div class="visual-step">
+      <span class="visual-step-label">04</span>
+      <strong>Sell through the workflow</strong>
+      <span>Use buyer questions to test the product model, the demo, the pricing, and the next scope decision.</span>
+    </div>
+    <div class="visual-step">
+      <span class="visual-step-label">05</span>
+      <strong>Only expand what repeats</strong>
+      <span>When the same pain appears in customer calls and daily use, it earns a place in the product.</span>
+    </div>
+  </div>
+  <p class="post-visual-caption">The hard part is not making the first version large. It is making the first version specific enough to teach you something.</p>
+</figure>
+
 <StatRow stats={[
-  { value: "3 months", label: "First customer version", caption: "From early build to software an elevator maintenance company could try on real work." },
+  { value: "3 months", label: "First customer version", caption: "From early build to software an elevator maintenance company could try on live jobs." },
   { value: "1 workflow", label: "Request to invoice", caption: "Job intake, technician assignment, quotations, status updates, customer records, and invoicing." },
   { value: "$2.7M", label: "Round that followed", caption: "The round was supported by a live product, customer conversations, and clearer evidence from the field." }
 ]} />

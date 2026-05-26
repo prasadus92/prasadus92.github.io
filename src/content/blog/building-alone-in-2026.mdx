@@ -3,7 +3,7 @@ slug: "building-alone-in-2026"
 title: "The real cost of solo product engineering in 2026"
 description: "The tools got cheaper and faster. The harder work is still product direction, instruction files, review, and knowing what needs a human decision."
 date: "2026-02-10"
-modified: "2026-05-07"
+modified: "2026-05-26"
 category: "Solo builder OS"
 readTime: "15 min read"
 tags: ["solo founder","AI tools","product engineering"]
@@ -25,6 +25,43 @@ import PullQuote from '../../components/post/PullQuote.astro';
 <KeyTakeaway label="The argument in one paragraph">
   The cost shifted. Mechanical work compressed by an order of magnitude. The hard parts stayed: deciding what to build, writing down conventions, maintaining specs, reviewing parallel agent output, and manually checking the product.
 </KeyTakeaway>
+
+<figure class="post-visual reveal">
+  <div class="post-visual-title">The boundary around agent work</div>
+  <div class="visual-flow wide-visual-flow animated-flow">
+    <div class="visual-step">
+      <span class="visual-step-label">01</span>
+      <strong>Decision</strong>
+      <span>I decide what is worth changing and what should stay untouched.</span>
+    </div>
+    <div class="visual-step">
+      <span class="visual-step-label">02</span>
+      <strong>Spec</strong>
+      <span>The repo rules, task scope, and acceptance checks are written before work starts.</span>
+    </div>
+    <div class="visual-step">
+      <span class="visual-step-label">03</span>
+      <strong>Agent branch</strong>
+      <span>The agent works in an isolated branch or worktree with a narrow assignment.</span>
+    </div>
+    <div class="visual-step">
+      <span class="visual-step-label">04</span>
+      <strong>Checks</strong>
+      <span>Tests, browser checks, and static review catch the mechanical failures.</span>
+    </div>
+    <div class="visual-step">
+      <span class="visual-step-label">05</span>
+      <strong>Review</strong>
+      <span>I review the product behavior, the code, and the tradeoff before anything ships.</span>
+    </div>
+    <div class="visual-step">
+      <span class="visual-step-label">06</span>
+      <strong>Evidence</strong>
+      <span>Customer work and product use decide the next change.</span>
+    </div>
+  </div>
+  <p class="post-visual-caption">Agents can move implementation forward in parallel. Product direction still comes from customer evidence and review.</p>
+</figure>
 
 <h2 class="reveal">2014 vs 2026: where the cost lives</h2>
 

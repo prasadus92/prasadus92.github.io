@@ -1387,6 +1387,12 @@ img {
   font-size: 0.85rem;
 }
 
+.mermaid-figure pre.mermaid svg {
+  width: max(720px, 100%) !important;
+  max-width: none !important;
+  height: auto;
+}
+
 .proof-note {
   max-width: 780px;
   margin: 22px 0 0;
@@ -1919,6 +1925,58 @@ img {
   grid-template-rows: minmax(1.55rem, auto) minmax(4.15rem, auto) 1fr;
   align-content: start;
   gap: 8px;
+}
+
+.animated-flow .visual-step::after {
+  content: "";
+  position: absolute;
+  right: 16px;
+  bottom: 0;
+  left: 16px;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, var(--green), transparent);
+  opacity: 0;
+  transform: translateX(-80%);
+  animation: visual-step-scan 5.6s ease-in-out infinite;
+}
+
+.animated-flow .visual-step:nth-child(2)::after {
+  animation-delay: 260ms;
+}
+
+.animated-flow .visual-step:nth-child(3)::after {
+  animation-delay: 520ms;
+}
+
+.animated-flow .visual-step:nth-child(4)::after {
+  animation-delay: 780ms;
+}
+
+.animated-flow .visual-step:nth-child(5)::after {
+  animation-delay: 1040ms;
+}
+
+@keyframes visual-step-scan {
+  0%,
+  42% {
+    opacity: 0;
+    transform: translateX(-80%);
+  }
+
+  52% {
+    opacity: 0.72;
+  }
+
+  74% {
+    opacity: 0;
+    transform: translateX(80%);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(80%);
+  }
 }
 
 .visual-step-label {
@@ -2737,6 +2795,11 @@ img {
     grid-template-rows: auto;
   }
 
+  .animated-flow .visual-step::after {
+    right: 14px;
+    left: 14px;
+  }
+
   .proof-item {
     grid-template-columns: 1fr;
   }
@@ -2785,6 +2848,13 @@ img {
 
   .image-lightbox__caption {
     font-size: 0.82rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animated-flow .visual-step::after {
+    animation: none;
+    opacity: 0;
   }
 }
 

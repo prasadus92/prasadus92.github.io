@@ -118,6 +118,10 @@ function editorialBackgroundDataUri() {
         <stop offset="62%" stop-color="#f0eee8"/>
         <stop offset="100%" stop-color="#e6ece8"/>
       </linearGradient>
+      <linearGradient id="panel" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#17313b"/>
+        <stop offset="100%" stop-color="#101827"/>
+      </linearGradient>
       <pattern id="grid" width="42" height="42" patternUnits="userSpaceOnUse">
         <path d="M 42 0 L 0 0 0 42" fill="none" stroke="#101827" stroke-opacity="0.045" stroke-width="1"/>
       </pattern>
@@ -128,16 +132,17 @@ function editorialBackgroundDataUri() {
     <rect width="${WIDTH}" height="${HEIGHT}" fill="url(#paper)"/>
     <rect width="${WIDTH}" height="${HEIGHT}" fill="url(#grid)"/>
     <rect x="0" y="0" width="410" height="630" fill="url(#fine)" opacity="0.34"/>
-    <path d="M 724 0 L 1200 0 L 1200 630 L 802 630 Z" fill="#111827" fill-opacity="0.96"/>
-    <path d="M 764 0 L 1200 0 L 1200 630 L 842 630 Z" fill="#0d9488" fill-opacity="0.10"/>
-    <path d="M 88 548 L 696 548" stroke="#101827" stroke-opacity="0.18" stroke-width="1"/>
-    <path d="M 735 80 L 735 548" stroke="#0d9488" stroke-opacity="0.85" stroke-width="4" stroke-linecap="round"/>
+    <rect x="768" y="0" width="432" height="630" fill="url(#panel)"/>
+    <rect x="722" y="0" width="46" height="630" fill="#101827" fill-opacity="0.96"/>
+    <rect x="708" y="0" width="14" height="630" fill="#0d9488" fill-opacity="0.18"/>
+    <rect x="88" y="548" width="594" height="1" fill="#101827" fill-opacity="0.18"/>
+    <rect x="722" y="78" width="4" height="474" rx="2" fill="#0d9488" fill-opacity="0.9"/>
   </svg>`);
 }
 
 async function portraitDataUri() {
   const portrait = await sharp(HEADSHOT_PATH)
-    .resize(520, 520, { fit: 'cover', position: 'center' })
+    .resize(520, 640, { fit: 'cover', position: 'top' })
     .jpeg({ quality: 90, mozjpeg: true })
     .toBuffer();
   return `data:image/jpeg;base64,${portrait.toString('base64')}`;
@@ -352,47 +357,30 @@ function cardElement({ eyebrow, title, titleLines, footer, portrait }) {
   ]);
 }
 
-function homeBadge({ text, left, top, width }) {
+function homeBridgeCard({ label, value, top }) {
   return h('div', {
     style: {
       position: 'absolute',
-      left,
+      left: 610,
       top,
-      width,
-      height: 40,
-      borderRadius: 999,
+      width: 160,
+      height: 86,
+      borderRadius: 16,
       border: '1px solid rgba(16,24,39,0.16)',
-      backgroundColor: 'rgba(255,255,255,0.48)',
+      backgroundColor: '#f8fafc',
       color: '#162033',
       display: 'flex',
+      flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center',
-      fontSize: 20,
-      fontWeight: 600,
-      lineHeight: '24px',
-      letterSpacing: '0px'
-    }
-  }, text);
-}
-
-function homeMetric({ label, value, left }) {
-  return h('div', {
-    style: {
-      position: 'absolute',
-      left,
-      top: 452,
-      width: 170,
-      display: 'flex',
-      flexDirection: 'column',
-      borderTop: '1px solid rgba(16,24,39,0.18)',
-      paddingTop: 16
+      padding: '0 14px'
     }
   }, [
     h('div', {
       key: 'label',
       style: {
         color: '#0f766e',
-        fontSize: 18,
+        fontSize: 17,
         fontWeight: 700,
         lineHeight: '22px'
       }
@@ -401,10 +389,11 @@ function homeMetric({ label, value, left }) {
       key: 'value',
       style: {
         color: '#101827',
-        fontSize: 22,
-        fontWeight: 600,
-        lineHeight: '28px',
-        marginTop: 6
+        fontSize: 21,
+        fontWeight: 700,
+        lineHeight: '27px',
+        marginTop: 6,
+        textAlign: 'center'
       }
     }, value)
   ]);
@@ -479,13 +468,13 @@ function homeOgElement(portrait) {
         position: 'absolute',
         left: 88,
         top: 176,
-        width: 650,
+        width: 500,
         display: 'flex',
         flexDirection: 'column',
         color: '#101827',
-        fontSize: 78,
+        fontSize: 72,
         fontWeight: 700,
-        lineHeight: '84px',
+        lineHeight: '78px',
         letterSpacing: '0px'
       }
     }, [
@@ -498,25 +487,24 @@ function homeOgElement(portrait) {
         position: 'absolute',
         left: 92,
         top: 348,
-        width: 560,
+        width: 470,
         color: 'rgba(16,24,39,0.74)',
-        fontSize: 30,
+        fontSize: 29,
         fontWeight: 500,
-        lineHeight: '42px'
+        lineHeight: '40px'
       }
-    }, 'I build Luminik and write about product, sales, agents, and building teams.'),
-    homeMetric({ label: 'Now', value: 'Luminik', left: 88 }),
-    homeMetric({ label: 'Before', value: 'Aura, Mainteny', left: 282 }),
-    homeMetric({ label: 'Writing', value: 'Product and GTM', left: 500 }),
-    homeBadge({ text: 'Event pipeline platform', left: 790, top: 78, width: 260 }),
+    }, 'Building Luminik. Writing from the work of building, selling, and operating software.'),
+    homeBridgeCard({ label: 'Now', value: 'Luminik', top: 164 }),
+    homeBridgeCard({ label: 'Before', value: 'Aura, Mainteny', top: 272 }),
+    homeBridgeCard({ label: 'Writing', value: 'Product and AI', top: 380 }),
     h('div', {
       key: 'portrait-frame',
       style: {
         position: 'absolute',
-        left: 794,
-        top: 140,
-        width: 310,
-        height: 368,
+        left: 830,
+        top: 96,
+        width: 296,
+        height: 404,
         borderRadius: 34,
         backgroundColor: '#f8fafc',
         border: '1px solid rgba(248,250,252,0.34)',
@@ -527,29 +515,39 @@ function homeOgElement(portrait) {
       }
     }, h('img', {
       src: portrait,
-      width: 290,
-      height: 348,
+      width: 276,
+      height: 384,
       style: {
-        width: 290,
-        height: 348,
+        width: 276,
+        height: 384,
         borderRadius: 26,
         objectFit: 'cover',
         border: '1px solid rgba(16,24,39,0.20)'
       }
     })),
     h('div', {
-      key: 'right-copy',
+      key: 'right-rule',
       style: {
         position: 'absolute',
-        left: 794,
-        top: 524,
-        width: 318,
-        color: 'rgba(248,250,252,0.76)',
-        fontSize: 19,
-        fontWeight: 500,
+        left: 832,
+        top: 534,
+        width: 294,
+        height: 1,
+        backgroundColor: 'rgba(248,250,252,0.24)'
+      }
+    }),
+    h('div', {
+      key: 'right-domain',
+      style: {
+        position: 'absolute',
+        left: 834,
+        top: 556,
+        color: 'rgba(248,250,252,0.78)',
+        fontSize: 22,
+        fontWeight: 600,
         lineHeight: '28px'
       }
-    }, 'Product work, founder-led sales, and practical AI agent workflows.')
+    }, 'prasad.tech')
   ]);
 }
 
