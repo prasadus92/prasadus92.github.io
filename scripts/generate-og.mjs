@@ -110,9 +110,39 @@ function backgroundDataUri(accent = ACCENT) {
   </svg>`);
 }
 
+function editorialBackgroundDataUri() {
+  return svgDataUri(`<svg xmlns="http://www.w3.org/2000/svg" width="${WIDTH}" height="${HEIGHT}" viewBox="0 0 ${WIDTH} ${HEIGHT}">
+    <defs>
+      <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#f7f5ef"/>
+        <stop offset="62%" stop-color="#f0eee8"/>
+        <stop offset="100%" stop-color="#e6ece8"/>
+      </linearGradient>
+      <linearGradient id="panel" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#17313b"/>
+        <stop offset="100%" stop-color="#101827"/>
+      </linearGradient>
+      <pattern id="grid" width="42" height="42" patternUnits="userSpaceOnUse">
+        <path d="M 42 0 L 0 0 0 42" fill="none" stroke="#101827" stroke-opacity="0.045" stroke-width="1"/>
+      </pattern>
+      <pattern id="fine" width="7" height="7" patternUnits="userSpaceOnUse">
+        <circle cx="1" cy="1" r="0.6" fill="#101827" fill-opacity="0.08"/>
+      </pattern>
+    </defs>
+    <rect width="${WIDTH}" height="${HEIGHT}" fill="url(#paper)"/>
+    <rect width="${WIDTH}" height="${HEIGHT}" fill="url(#grid)"/>
+    <rect x="0" y="0" width="410" height="630" fill="url(#fine)" opacity="0.34"/>
+    <rect x="768" y="0" width="432" height="630" fill="url(#panel)"/>
+    <rect x="722" y="0" width="46" height="630" fill="#101827" fill-opacity="0.96"/>
+    <rect x="708" y="0" width="14" height="630" fill="#0d9488" fill-opacity="0.18"/>
+    <rect x="88" y="548" width="594" height="1" fill="#101827" fill-opacity="0.18"/>
+    <rect x="722" y="78" width="4" height="474" rx="2" fill="#0d9488" fill-opacity="0.9"/>
+  </svg>`);
+}
+
 async function portraitDataUri() {
   const portrait = await sharp(HEADSHOT_PATH)
-    .resize(520, 520, { fit: 'cover', position: 'center' })
+    .resize(520, 640, { fit: 'cover', position: 'top' })
     .jpeg({ quality: 90, mozjpeg: true })
     .toBuffer();
   return `data:image/jpeg;base64,${portrait.toString('base64')}`;
@@ -327,8 +357,202 @@ function cardElement({ eyebrow, title, titleLines, footer, portrait }) {
   ]);
 }
 
-async function renderCard(card, outPath, fonts) {
-  const svg = await satori(cardElement(card), {
+function homeBridgeCard({ label, value, top }) {
+  return h('div', {
+    style: {
+      position: 'absolute',
+      left: 610,
+      top,
+      width: 160,
+      height: 86,
+      borderRadius: 16,
+      border: '1px solid rgba(16,24,39,0.16)',
+      backgroundColor: '#f8fafc',
+      color: '#162033',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: '0 14px'
+    }
+  }, [
+    h('div', {
+      key: 'label',
+      style: {
+        color: '#0f766e',
+        fontSize: 17,
+        fontWeight: 700,
+        lineHeight: '22px'
+      }
+    }, label),
+    h('div', {
+      key: 'value',
+      style: {
+        color: '#101827',
+        fontSize: 21,
+        fontWeight: 700,
+        lineHeight: '27px',
+        marginTop: 6,
+        textAlign: 'center'
+      }
+    }, value)
+  ]);
+}
+
+function homeOgElement(portrait) {
+  return h('div', {
+    style: {
+      position: 'relative',
+      width: WIDTH,
+      height: HEIGHT,
+      display: 'flex',
+      overflow: 'hidden',
+      backgroundColor: '#f7f5ef',
+      fontFamily: 'Quicksand'
+    }
+  }, [
+    h('img', {
+      key: 'background',
+      src: editorialBackgroundDataUri(),
+      width: WIDTH,
+      height: HEIGHT,
+      style: { position: 'absolute', inset: 0, width: WIDTH, height: HEIGHT }
+    }),
+    h('div', {
+      key: 'mark',
+      style: {
+        position: 'absolute',
+        left: 88,
+        top: 74,
+        width: 58,
+        height: 58,
+        borderRadius: 14,
+        backgroundColor: '#101827',
+        color: '#f8fafc',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontSize: 23,
+        fontWeight: 700,
+        letterSpacing: '0px',
+        border: '1px solid rgba(13,148,136,0.45)'
+      }
+    }, 'PS'),
+    h('div', {
+      key: 'eyebrow',
+      style: {
+        position: 'absolute',
+        left: 168,
+        top: 82,
+        color: '#0f766e',
+        fontSize: 20,
+        fontWeight: 700,
+        lineHeight: '26px'
+      }
+    }, 'Builder and operator'),
+    h('div', {
+      key: 'domain',
+      style: {
+        position: 'absolute',
+        left: 168,
+        top: 108,
+        color: 'rgba(16,24,39,0.62)',
+        fontSize: 18,
+        fontWeight: 600,
+        lineHeight: '24px'
+      }
+    }, 'prasad.tech'),
+    h('div', {
+      key: 'title',
+      style: {
+        position: 'absolute',
+        left: 88,
+        top: 176,
+        width: 500,
+        display: 'flex',
+        flexDirection: 'column',
+        color: '#101827',
+        fontSize: 72,
+        fontWeight: 700,
+        lineHeight: '78px',
+        letterSpacing: '0px'
+      }
+    }, [
+      h('div', { key: 'name' }, 'Prasad'),
+      h('div', { key: 'surname' }, 'Subrahmanya')
+    ]),
+    h('div', {
+      key: 'subtitle',
+      style: {
+        position: 'absolute',
+        left: 92,
+        top: 348,
+        width: 470,
+        color: 'rgba(16,24,39,0.74)',
+        fontSize: 29,
+        fontWeight: 500,
+        lineHeight: '40px'
+      }
+    }, 'Building Luminik. Writing from the work of building, selling, and operating software.'),
+    homeBridgeCard({ label: 'Now', value: 'Luminik', top: 164 }),
+    homeBridgeCard({ label: 'Before', value: 'Aura, Mainteny', top: 272 }),
+    homeBridgeCard({ label: 'Writing', value: 'Product and AI', top: 380 }),
+    h('div', {
+      key: 'portrait-frame',
+      style: {
+        position: 'absolute',
+        left: 830,
+        top: 96,
+        width: 296,
+        height: 404,
+        borderRadius: 34,
+        backgroundColor: '#f8fafc',
+        border: '1px solid rgba(248,250,252,0.34)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 10
+      }
+    }, h('img', {
+      src: portrait,
+      width: 276,
+      height: 384,
+      style: {
+        width: 276,
+        height: 384,
+        borderRadius: 26,
+        objectFit: 'cover',
+        border: '1px solid rgba(16,24,39,0.20)'
+      }
+    })),
+    h('div', {
+      key: 'right-rule',
+      style: {
+        position: 'absolute',
+        left: 832,
+        top: 534,
+        width: 294,
+        height: 1,
+        backgroundColor: 'rgba(248,250,252,0.24)'
+      }
+    }),
+    h('div', {
+      key: 'right-domain',
+      style: {
+        position: 'absolute',
+        left: 834,
+        top: 556,
+        color: 'rgba(248,250,252,0.78)',
+        fontSize: 22,
+        fontWeight: 600,
+        lineHeight: '28px'
+      }
+    }, 'prasad.tech')
+  ]);
+}
+
+async function renderElement(element, outPath, fonts) {
+  const svg = await satori(element, {
     width: WIDTH,
     height: HEIGHT,
     fonts
@@ -337,6 +561,10 @@ async function renderCard(card, outPath, fonts) {
     fitTo: { mode: 'width', value: WIDTH }
   }).render().asPng();
   await sharp(png).png({ quality: 92 }).toFile(outPath);
+}
+
+async function renderCard(card, outPath, fonts) {
+  await renderElement(cardElement(card), outPath, fonts);
 }
 
 async function ensureDir(path) {
@@ -350,18 +578,7 @@ async function main() {
   const fonts = await loadFonts();
   const portrait = await portraitDataUri();
 
-  await renderCard({
-    eyebrow: 'Founder · CTO · Operator',
-    title: "Prasad Subrahmanya. I build and sell B2B products from work I know firsthand.",
-    titleLines: [
-      'Prasad Subrahmanya.',
-      'I build and sell',
-      'B2B products from',
-      'work I know firsthand.'
-    ],
-    footer: 'Luminik · Aura at Bain · Mainteny',
-    portrait
-  }, join(OUT_DIR, 'prasad-og.png'), fonts);
+  await renderElement(homeOgElement(portrait), join(OUT_DIR, 'prasad-og.png'), fonts);
   console.log('  ✓ public/og/prasad-og.png');
 
   const files = (await readdir(BLOG_DIR)).filter((file) => file.endsWith('.md') || file.endsWith('.mdx'));

@@ -88,7 +88,7 @@ Assume every post is read by a VC, competitor, future employer, recruiter, custo
 
 Publish:
 - Founder judgment, taste, and operating discipline.
-- Technical depth that explains tradeoffs without exposing private systems.
+- Technical depth that explains tradeoffs while staying inside public boundaries.
 - Customer-safe scenes that reveal buyer pain without identifying the buyer.
 - Public artifacts such as PRs, public issues, public docs, and already-approved metrics.
 

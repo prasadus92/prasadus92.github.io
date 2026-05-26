@@ -1,7 +1,7 @@
 ---
 slug: "dedicated-mac-mini-solo-startup"
 title: "Separating agent work from founder work"
-description: "Why I moved Luminik's recurring agent work into a dedicated environment, the rules that keep it under control, and what it took three upstream bug reports to learn."
+description: "Why I moved recurring agent work out of my daily workspace, what the boundary controls, and which approvals still stay with me."
 date: "2026-04-18"
 modified: "2026-05-07"
 category: "Solo builder OS"
@@ -52,7 +52,7 @@ import PullQuote from '../../components/post/PullQuote.astro';
     <li><strong>Context.</strong> Specs, repo instructions, positioning, and architectural notes that agents can query with citations.</li>
     <li><strong>Router.</strong> A resident orchestration process that decides whether a request is a lookup, a draft, a code task, or a scheduled check.</li>
     <li><strong>Worker.</strong> Coding and analysis tools that operate in isolated branches or bounded workspaces.</li>
-    <li><strong>Gate.</strong> Human review, PR review, and explicit approval before anything material changes.</li>
+    <li><strong>Gate.</strong> Human review, pull request review, and explicit approval before anything material changes.</li>
   </ul>
 </Callout>
 
@@ -82,7 +82,7 @@ import PullQuote from '../../components/post/PullQuote.astro';
     <div class="visual-step">
       <span class="visual-step-label">Gate</span>
       <strong>Human review</strong>
-      <span>The founder stays accountable for final judgment.</span>
+      <span>I keep the final decision.</span>
     </div>
   </div>
 </figure>
@@ -129,11 +129,11 @@ import PullQuote from '../../components/post/PullQuote.astro';
 <h3 class="reveal">Operational visibility</h3>
 
 <div class="reveal">
-  Recurring agents should be able to inspect more than they can change. That one rule eliminates a large class of bad outcomes. The agent helps me notice drift, stale assumptions, and forgotten follow-up. It does not silently mutate infrastructure or product behavior. The first useful run produced a cleanup list: live state that needed reconciliation with declared state, old artifacts from past experiments, reminders I had let sit too long. The fixes were small PRs. The operating effect was larger.
+  Recurring agents should be able to read more than they can change. That one rule eliminates a large class of bad outcomes. The agent helps me notice drift, stale assumptions, and forgotten follow-up. It does not silently mutate infrastructure or product behavior. The first useful run produced a cleanup list: live state that needed reconciliation with declared state, old artifacts from past experiments, reminders I had let sit too long. The fixes were small pull requests. The operating effect was larger.
 </div>
 
 <PullQuote>
-  I want recurring agents to inspect more than they can change. That rule has prevented more bad outcomes than any model choice.
+  I want recurring agents to read more than they can change. That rule has prevented more bad outcomes than any model choice.
 </PullQuote>
 
 <h3 class="reveal">Scheduled maintenance</h3>
@@ -153,9 +153,9 @@ import PullQuote from '../../components/post/PullQuote.astro';
   leftLabel="Issue"
   rightLabel="What I did"
   rows={[
-    { dimension: "Provider integration regression", left: "An integration change in Hermes Agent broke a path I needed", right: "Reproduced outside local env. Compared with recent upstream changes. Verified the existing community PR. Maintainer shipped a cleaner fix the same day." },
+    { dimension: "Provider integration regression", left: "An integration change in Hermes Agent broke a path I needed", right: "Reproduced outside local env. Compared with recent upstream changes. Verified the existing community pull request. Maintainer shipped a cleaner fix the same day." },
     { dimension: "Prompt assumption that leaked into product behavior", left: "Tool-level instruction inside a platform prompt contradicted intended behavior", right: "Filed an issue with the reproduction and suggested correction. Small bug, revealing one: with agents, product behavior often lives in prompt assembly as much as in code." },
-    { dimension: "Default that constrained the knowledge layer", left: "A default made one provider path the only practical path", right: "Tested an existing community PR in a local setup. Left confirmation. Next user got a better default." }
+    { dimension: "Default that constrained the knowledge layer", left: "A default made one provider path the only practical path", right: "Tested an existing community pull request in a local setup. Left confirmation. Next user got a better default." }
   ]}
 />
 

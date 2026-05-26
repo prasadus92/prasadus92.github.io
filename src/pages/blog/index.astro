@@ -3,8 +3,18 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Icon from '../../components/Icon.astro';
 import { formatMonth, posts } from '../../lib/posts';
 
-const title = 'Field notes for solo technical founders';
-const description = 'Field notes on product engineering, founder-led sales, specs, PRs to inspect, agent-assisted code, and zero-to-one execution. Drawn from Luminik, Aura at Bain, Mainteny ($2.7M seed), and SnowOptix.';
+const title = 'Notes on product, sales, and agent work';
+const description = 'Essays from building Luminik and earlier products: B2B product engineering, founder-led sales, agent workflows, event pipeline systems, and zero-to-one work.';
+const keywords = [
+  'technical founder writing',
+  'B2B product engineering',
+  'founder-led sales',
+  'agent workflows',
+  'event pipeline systems',
+  'zero-to-one product',
+  'Luminik',
+  'Alfred OS'
+];
 const breadcrumbs = [
   { name: 'Home', url: '/' },
   { name: 'Blog', url: '/blog/' }
@@ -13,7 +23,7 @@ const breadcrumbs = [
 const paths = [
   {
     title: 'Solo builder OS',
-    body: 'Alfred, CLAUDE.md files, isolated PRs, approval rules, and the recurring work a small company has to keep visible.',
+    body: 'Alfred, CLAUDE.md files, isolated branches, approval rules, and the recurring checks I run while building Luminik.',
     href: '/blog/alfred-solo-founder-operating-system.html'
   },
   {
@@ -57,7 +67,8 @@ const collectionSchema = {
   canonical="https://prasad.tech/blog/"
   active="blog"
   image="/og/prasad-og.png"
-  imageAlt="Prasad Subrahmanya | field notes for solo technical founders"
+  imageAlt="Prasad Subrahmanya, notes on product, sales, and agent work"
+  keywords={keywords}
   breadcrumbs={breadcrumbs}
 >
   <script is:inline slot="head" type="application/ld+json" set:html={JSON.stringify(collectionSchema)} />
@@ -65,9 +76,9 @@ const collectionSchema = {
   <section class="blog-hero">
     <div class="container">
       <div class="eyebrow reveal">Blog</div>
-      <h1 class="reveal">Field notes for solo technical founders</h1>
+      <h1 class="reveal">Notes on product, sales, and agent work</h1>
       <p class="lead reveal" style="max-width: 760px; margin: 0 auto;">
-        Notes from building Luminik and earlier products: product, sales, AI-agent workflows, event pipeline systems, and the decisions that still need a founder in the loop.
+        Notes from building Luminik and earlier products: product decisions, sales calls, agent workflows, event pipeline systems, and zero-to-one work.
       </p>
     </div>
   </section>
@@ -90,7 +101,7 @@ const collectionSchema = {
           </div>
           <div class="featured-diagram-row">
             <strong>Work</strong>
-            <span>Digests with links, PRs to inspect, draft copy, and drift checks.</span>
+            <span>Digests with links, pull requests, draft copy, and drift checks.</span>
           </div>
           <div class="featured-diagram-row">
             <strong>Gate</strong>
@@ -98,15 +109,6 @@ const collectionSchema = {
           </div>
         </div>
       </article>
-
-      <div class="path-grid" style="margin-bottom: 44px;">
-        {paths.map((path) => (
-          <a class="path-card card interactive reveal" href={path.href} style="color: inherit; text-decoration: none;">
-            <h3>{path.title}</h3>
-            <p>{path.body}</p>
-          </a>
-        ))}
-      </div>
 
       <div class="blog-grid">
         {posts.map((post) => (
@@ -120,6 +122,15 @@ const collectionSchema = {
                 <span><Icon name="clock" size={14} /> {post.readTime}</span>
               </div>
             </div>
+          </a>
+        ))}
+      </div>
+
+      <div class="path-grid blog-path-grid" style="margin-top: 44px;">
+        {paths.map((path) => (
+          <a class="path-card card interactive reveal" href={path.href} style="color: inherit; text-decoration: none;">
+            <h3>{path.title}</h3>
+            <p>{path.body}</p>
           </a>
         ))}
       </div>

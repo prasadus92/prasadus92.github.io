@@ -5,7 +5,7 @@ import { posts } from '../lib/posts';
 export const GET: APIRoute = () =>
   rss({
     title: 'Prasad Subrahmanya',
-    description: 'Operating notes for solo technical builders.',
+    description: 'Notes on B2B product work, founder-led sales, agent workflows, event pipeline systems, and zero-to-one building.',
     site: 'https://prasad.tech',
     items: posts.map((post) => ({
       title: post.title,

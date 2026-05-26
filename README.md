@@ -15,7 +15,9 @@ Personal portfolio and blog for Prasad Subrahmanya, built with Astro.
 - Native diagrams for workflows, matrices, ledgers, timelines, and system maps
 - Progressive reveal/parallax effects with reduced-motion support
 - RSS feed, generated sitemap, `robots.txt`, `llms.txt`, canonical URLs, and JSON-LD schema
-- Content focused on Luminik, solo-builder operating systems, founder-led sales, event pipeline, and zero-to-one lessons
+- Per-page Markdown mirrors advertised from the HTML head for AI crawlers and assistants
+- Content focused on Luminik, solo product engineering, founder-led sales, event pipeline, and zero-to-one lessons
+- Public Alfred OS references, with private Luminik operating details kept out of the repo
 - Google Analytics integration gated by an opt-in cookie banner
 
 ## Local Development
