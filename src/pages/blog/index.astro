@@ -3,8 +3,18 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Icon from '../../components/Icon.astro';
 import { formatMonth, posts } from '../../lib/posts';
 
-const title = 'Writing for technical founders';
-const description = 'Essays on product engineering, founder-led sales, specs, agent-assisted code review, and zero-to-one execution. Drawn from Luminik, Aura at Bain, Mainteny ($2.7M seed), and SnowOptix.';
+const title = 'Notes on product, sales, and agent work';
+const description = 'Essays from building Luminik and earlier products: B2B product engineering, founder-led sales, agent workflows, event pipeline systems, and zero-to-one work.';
+const keywords = [
+  'technical founder writing',
+  'B2B product engineering',
+  'founder-led sales',
+  'agent workflows',
+  'event pipeline systems',
+  'zero-to-one product',
+  'Luminik',
+  'Alfred OS'
+];
 const breadcrumbs = [
   { name: 'Home', url: '/' },
   { name: 'Blog', url: '/blog/' }
@@ -57,7 +67,8 @@ const collectionSchema = {
   canonical="https://prasad.tech/blog/"
   active="blog"
   image="/og/prasad-og.png"
-  imageAlt="Prasad Subrahmanya | writing for technical founders"
+  imageAlt="Prasad Subrahmanya, notes on product, sales, and agent work"
+  keywords={keywords}
   breadcrumbs={breadcrumbs}
 >
   <script is:inline slot="head" type="application/ld+json" set:html={JSON.stringify(collectionSchema)} />
@@ -65,9 +76,9 @@ const collectionSchema = {
   <section class="blog-hero">
     <div class="container">
       <div class="eyebrow reveal">Blog</div>
-      <h1 class="reveal">Writing for technical founders</h1>
+      <h1 class="reveal">Notes on product, sales, and agent work</h1>
       <p class="lead reveal" style="max-width: 760px; margin: 0 auto;">
-        Notes from building Luminik and earlier products: product, sales, AI-agent workflows, event pipeline systems, and the parts of the work I still do myself.
+        Notes from building Luminik and earlier products: product decisions, sales calls, agent workflows, event pipeline systems, and zero-to-one work.
       </p>
     </div>
   </section>

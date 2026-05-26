@@ -3,13 +3,13 @@ import { posts } from '../lib/posts';
 
 export const GET: APIRoute = () => {
   const lines = [
-    '# Prasad Subrahmanya - Personal Portfolio & Blog',
+    '# Prasad Subrahmanya - Builder and Operator at Luminik',
     '',
-    '> Public portfolio and notes for solo technical builders.',
+    '> Public portfolio and notes on B2B product work, founder-led sales, agent workflows, and zero-to-one building.',
     '',
     '## About',
     '',
-    'Prasad Subrahmanya builds Luminik, an event pipeline platform for B2B teams. He writes about solo technical founding, founder-led sales, agent-assisted engineering, source-linked summaries, event pipeline systems, and zero-to-one product work.',
+    'Prasad Subrahmanya builds Luminik, an event pipeline platform for B2B teams. He writes about B2B product work, founder-led sales, agent workflows, event pipeline systems, engineering leadership, and zero-to-one company building.',
     '',
     '## Site Structure',
     '',

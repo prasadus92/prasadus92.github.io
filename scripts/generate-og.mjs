@@ -352,14 +352,14 @@ async function main() {
 
   await renderCard({
     eyebrow: 'Builder · Operator',
-    title: "Prasad Subrahmanya. I build B2B products from customer work.",
+    title: 'Prasad Subrahmanya. Builder and operator at Luminik.',
     titleLines: [
       'Prasad Subrahmanya.',
-      'I build B2B',
-      'products from',
-      'customer work.'
+      'Builder and',
+      'operator at',
+      'Luminik.'
     ],
-    footer: 'Luminik · Aura at Bain · Mainteny',
+    footer: 'B2B product work · founder-led sales · agent workflows',
     portrait
   }, join(OUT_DIR, 'prasad-og.png'), fonts);
   console.log('  ✓ public/og/prasad-og.png');

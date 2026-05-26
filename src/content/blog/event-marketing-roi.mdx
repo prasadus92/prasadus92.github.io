@@ -1,7 +1,7 @@
 ---
 slug: "event-marketing-roi"
 title: "Event ROI is a handoff problem"
-description: "B2B event ROI is fuzzy because the evidence breaks across attendee lists, enrichment, sequencer, booth, and CRM. The fix is one event record that keeps evidence attached through every handoff."
+description: "Event ROI breaks when attendee, outreach, booth, and CRM evidence split apart. The fix starts with one event record through every handoff."
 date: "2026-01-15"
 modified: "2026-05-07"
 category: "Event pipeline"
@@ -67,7 +67,7 @@ import PullQuote from '../../components/post/PullQuote.astro';
     role="Stage two"
     trigger="Target list ready"
     reads="Customer-approved enrichment source"
-    writes="ICP-scored contact records inside the buyer's CRM"
+    writes="ICP-scored contact records in the CRM"
     guardrail="Use only tools and data sources the customer has approved."
   >
     <p>Names who matters. ICP fit, role, seniority, account state in CRM. The cost of enriching the wrong list is everything that comes after.</p>

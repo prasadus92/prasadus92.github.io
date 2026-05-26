@@ -30,6 +30,7 @@ type Props = {
   noindex?: boolean;
   type?: 'website' | 'article';
   active?: 'home' | 'blog';
+  keywords?: string[];
   faqs?: Faq[];
   article?: Article;
   breadcrumbs?: Breadcrumb[];
@@ -45,6 +46,7 @@ const {
   noindex = false,
   type = 'website',
   active,
+  keywords,
   faqs,
   article,
   breadcrumbs
@@ -73,6 +75,7 @@ const faviconVersion = '2026-05-logo';
       type={type}
       canonical={canonical}
       noindex={noindex}
+      keywords={keywords}
       faqs={faqs}
       article={article}
       breadcrumbs={breadcrumbs}

@@ -11,10 +11,23 @@
 
 const SITE_URL = 'https://prasad.tech';
 const SITE_TITLE = 'Prasad Subrahmanya';
-const SITE_DESCRIPTION = "Builder and operator at Luminik. Field notes on building and selling B2B products from customer work.";
+const DEFAULT_TITLE_SUFFIX = 'Builder and operator at Luminik';
+const SITE_DESCRIPTION = 'I build Luminik and write about B2B product work, founder-led sales, agent workflows, and building teams from the first version.';
 const PERSON_ID = `${SITE_URL}/#person`;
 const WEBSITE_ID = `${SITE_URL}/#website`;
 const LOGO_URL = `${SITE_URL}/assets/brand/prasad-mark.svg`;
+const GLOBAL_KEYWORDS = [
+  'Prasad Subrahmanya',
+  'Luminik',
+  'event pipeline platform',
+  'B2B product engineering',
+  'founder-led sales',
+  'agent workflows',
+  'AI-assisted software development',
+  'engineering leadership',
+  'technical founder',
+  'zero-to-one product'
+];
 
 type Faq = { question: string; answer: string };
 type Article = {
@@ -37,6 +50,7 @@ type Props = {
   type?: 'website' | 'article';
   canonical?: string;
   noindex?: boolean;
+  keywords?: string[];
   faqs?: Faq[];
   article?: Article;
   breadcrumbs?: Breadcrumb[];
@@ -46,18 +60,25 @@ const {
   title = SITE_TITLE,
   description = SITE_DESCRIPTION,
   ogImage = '/og/prasad-og.png',
-  ogImageAlt = 'Prasad Subrahmanya | Builder and operator, B2B products from customer work',
+  ogImageAlt = 'Prasad Subrahmanya, builder and operator at Luminik',
   type = 'website',
   canonical: canonicalProp,
   noindex = false,
+  keywords = [],
   faqs,
   article,
   breadcrumbs
 } = Astro.props;
 
 const canonical = canonicalProp ?? new URL(Astro.url.pathname, SITE_URL).toString();
-const fullTitle = title === SITE_TITLE ? `${title} | B2B products from real work` : `${title} | ${SITE_TITLE}`;
-const OG_IMAGE_VERSION = '2026-05-12-real-work';
+const fullTitle = title === SITE_TITLE
+  ? `${title} | ${DEFAULT_TITLE_SUFFIX}`
+  : title.includes(SITE_TITLE)
+    ? title
+    : `${title} | ${SITE_TITLE}`;
+const OG_IMAGE_VERSION = '2026-05-26-builder-operator';
+const mergedKeywords = Array.from(new Set([...GLOBAL_KEYWORDS, ...keywords, ...(article?.keywords ?? [])]));
+const keywordContent = mergedKeywords.join(', ');
 
 function absoluteImageUrl(image: string): string {
   const url = image.startsWith('http') ? new URL(image) : new URL(image, SITE_URL);
@@ -118,6 +139,8 @@ const personNode = {
     'solo technical founding',
     'AI-assisted software development',
     'founder-led sales',
+    'engineering leadership',
+    'team building',
     'B2B SaaS',
     'product engineering',
     'zero-to-one execution'
@@ -140,6 +163,7 @@ const webpageNode = {
   url: canonical,
   name: fullTitle,
   description,
+  keywords: keywordContent,
   isPartOf: { '@id': WEBSITE_ID },
   about: { '@id': PERSON_ID },
   inLanguage: 'en-US',
@@ -206,6 +230,7 @@ const robots = noindex ? 'noindex, follow' : 'index, follow, max-image-preview:l
 ---
 <title>{fullTitle}</title>
 <meta name="description" content={description} />
+<meta name="keywords" content={keywordContent} />
 <meta name="author" content="Prasad Subrahmanya" />
 <meta name="robots" content={robots} />
 <link rel="canonical" href={canonical} />

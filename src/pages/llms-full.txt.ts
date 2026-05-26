@@ -9,7 +9,7 @@ export const GET: APIRoute = () => {
     '',
     '## Entity Summary',
     '',
-    'Prasad Subrahmanya builds Luminik and writes for solo technical builders about product engineering, founder-led sales, agent-assisted engineering, source-linked summaries, event pipeline systems, and zero-to-one company building.',
+    'Prasad Subrahmanya builds Luminik and writes about B2B product work, founder-led sales, agent workflows, event pipeline systems, engineering leadership, and zero-to-one company building.',
     '',
     '## Track Record',
     '',
