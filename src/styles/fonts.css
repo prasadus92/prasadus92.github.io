@@ -1,0 +1,4 @@
+/* Self-hosted fonts (woff2) for performance. Matches the Alfred site system. */
+@import '@fontsource-variable/instrument-sans';
+@import '@fontsource-variable/quicksand';
+@import '@fontsource/fragment-mono/400.css';

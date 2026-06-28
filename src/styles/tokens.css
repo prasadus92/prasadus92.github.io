@@ -1,0 +1,159 @@
+/* ============================================================
+   Design tokens, prasad.tech
+   Premium glass (giga.ai) + structured grid (revyl.com)
+   ============================================================ */
+
+:root {
+  /* --- Type families --- */
+  --font-display: 'Instrument Sans Variable', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-body: 'Quicksand Variable', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'Fragment Mono', 'SFMono-Regular', ui-monospace, Menlo, Consolas, monospace;
+
+  /* --- Type scale (fluid) --- */
+  --fs-display: clamp(2.6rem, 1.6rem + 4.4vw, 5.2rem);
+  --fs-h1: clamp(2.1rem, 1.4rem + 3.1vw, 3.9rem);
+  --fs-h2: clamp(1.7rem, 1.25rem + 1.9vw, 2.7rem);
+  --fs-h3: clamp(1.25rem, 1.05rem + 0.85vw, 1.6rem);
+  --fs-h4: clamp(1.05rem, 0.97rem + 0.4vw, 1.25rem);
+  --fs-lead: clamp(1.1rem, 1.0rem + 0.5vw, 1.4rem);
+  --fs-body: 1.0625rem;
+  --fs-sm: 0.9rem;
+  --fs-xs: 0.78rem;
+
+  --lh-tight: 1.06;
+  --lh-snug: 1.22;
+  --lh-body: 1.72;
+  --tracking-tight: -0.022em;
+  --tracking-snug: -0.012em;
+  --tracking-wide: 0.05em;
+
+  /* --- Spacing scale (8pt-ish) --- */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 24px;
+  --sp-6: 32px;
+  --sp-7: 48px;
+  --sp-8: 64px;
+  --sp-9: 96px;
+  --sp-10: 128px;
+  --sp-11: 176px;
+
+  /* --- Radii (revyl-style: minimal/sharp) --- */
+  --r-xs: 3px;
+  --r-sm: 5px;
+  --r-md: 7px;
+  --r-lg: 10px;
+  --r-xl: 12px;
+  --r-pill: 6px;
+  --r-btn: 6px;
+
+  /* --- Layout --- */
+  --container: 1200px;
+  --container-narrow: 920px;
+  --container-prose: 760px;
+  --gutter: clamp(20px, 5vw, 40px);
+
+  /* --- Motion --- */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --dur-1: 0.18s;
+  --dur-2: 0.32s;
+  --dur-3: 0.55s;
+  --dur-4: 0.9s;
+
+  --z-bg: 0;
+  --z-base: 1;
+  --z-nav: 60;
+  --z-overlay: 80;
+}
+
+/* ===================== DARK (default) ===================== */
+:root,
+[data-theme='dark'] {
+  color-scheme: dark;
+
+  --bg: #06080d;
+  --bg-2: #090c13;
+  --bg-elevated: #0d111b;
+
+  --ink: #eef2f8;
+  --text-secondary: #a7b2c4;
+  --text-tertiary: #6c7689;
+
+  --accent: #f63e8c;        /* Luminik magenta, signature */
+  --accent-2: #7c6cff;      /* indigo-violet */
+  --accent-3: #ffb15c;      /* warm amber, used sparingly */
+  --accent-ink: #ffffff;    /* text on solid accent */
+  --accent-rgb: 246, 62, 140;
+
+  --grad-brand: linear-gradient(120deg, #ff7eb6 0%, #f63e8c 44%, #7c6cff 100%);
+  --grad-text: linear-gradient(100deg, #ffd0e4 0%, #ff5fa2 44%, #a98bff 100%);
+  --grad-halo: radial-gradient(60% 60% at 50% 0%, rgba(246, 62, 140, 0.2), transparent 70%);
+
+  --glow: rgba(246, 62, 140, 0.35);
+  --glow-soft: rgba(246, 62, 140, 0.14);
+  --glow-line: rgba(246, 62, 140, 0.12);
+
+  /* Glass surface recipe */
+  --glass-bg: rgba(255, 255, 255, 0.035);
+  --glass-bg-strong: rgba(255, 255, 255, 0.06);
+  --glass-border: rgba(255, 255, 255, 0.09);
+  --glass-border-strong: rgba(255, 255, 255, 0.16);
+  --glass-blur: 16px;
+  --glass-highlight: rgba(255, 255, 255, 0.12);
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 12px 30px -12px rgba(0, 0, 0, 0.65);
+  --shadow-lg: 0 30px 70px -28px rgba(0, 0, 0, 0.8);
+  --shadow-glow: 0 0 0 1px var(--glow-line), 0 20px 60px -24px var(--glow);
+
+  /* Grid / square motif */
+  --grid-line: rgba(255, 255, 255, 0.045);
+  --grid-line-strong: rgba(255, 255, 255, 0.08);
+  --grid-cell: 56px;
+}
+
+/* ===================== LIGHT ===================== */
+[data-theme='light'] {
+  color-scheme: light;
+
+  --bg: #f7f8fb;
+  --bg-2: #eef1f7;
+  --bg-elevated: #ffffff;
+
+  --ink: #101522;
+  --text-secondary: #455064;
+  --text-tertiary: #707a8c;
+
+  --accent: #d81b6e;
+  --accent-2: #6a4cff;
+  --accent-3: #c2740a;
+  --accent-ink: #ffffff;
+  --accent-rgb: 216, 27, 110;
+
+  --grad-brand: linear-gradient(120deg, #ff6aa8 0%, #d81b6e 44%, #6a4cff 100%);
+  --grad-text: linear-gradient(100deg, #d81b6e 0%, #c01a8e 45%, #6a4cff 100%);
+  --grad-halo: radial-gradient(60% 60% at 50% 0%, rgba(216, 27, 110, 0.12), transparent 70%);
+
+  --glow: rgba(216, 27, 110, 0.22);
+  --glow-soft: rgba(216, 27, 110, 0.1);
+  --glow-line: rgba(216, 27, 110, 0.1);
+
+  --glass-bg: rgba(255, 255, 255, 0.6);
+  --glass-bg-strong: rgba(255, 255, 255, 0.8);
+  --glass-border: rgba(16, 21, 34, 0.08);
+  --glass-border-strong: rgba(16, 21, 34, 0.14);
+  --glass-blur: 18px;
+  --glass-highlight: rgba(255, 255, 255, 0.7);
+
+  --shadow-sm: 0 1px 2px rgba(16, 21, 34, 0.06);
+  --shadow-md: 0 16px 40px -18px rgba(16, 21, 34, 0.22);
+  --shadow-lg: 0 34px 80px -30px rgba(16, 21, 34, 0.28);
+  --shadow-glow: 0 0 0 1px var(--glow-line), 0 20px 60px -24px var(--glow);
+
+  --grid-line: rgba(16, 21, 34, 0.05);
+  --grid-line-strong: rgba(16, 21, 34, 0.09);
+}

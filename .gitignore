@@ -1,1 +1,22 @@
+# build output
+dist/
+.astro/
+
+# dependencies
+node_modules/
+
+# editor / OS
 .idea
+.vscode
+.DS_Store
+**/.DS_Store
+
+# env
+.env
+.env.production
+
+# legacy static site (kept locally for reference, not deployed)
+_legacy_site/
+
+# misc archives
+*.zip

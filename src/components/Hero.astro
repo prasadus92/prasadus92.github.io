@@ -1,0 +1,248 @@
+---
+import { site, heroStats, heroChips } from '../data/site';
+import Icon from './Icon.astro';
+---
+
+<section class="hero" id="top">
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <p class="eyebrow reveal">{site.role} · {site.location}</p>
+
+      <h1 class="hero-title reveal reveal-d1">
+        I'm Prasad. I turn expensive, repetitive work into
+        <span class="grad-text">products people pay for.</span>
+      </h1>
+
+      <p class="hero-lead reveal reveal-d2">
+        Three-time technical co-founder. I spot the work people already pay to do, prove the demand,
+        then build and ship the product that captures it. Today I'm building
+        <a href={site.links.luminik} target="_blank" rel="noopener">Luminik</a>, and
+        <a href={site.links.alfred} target="_blank" rel="noopener">Alfred</a> in the open.
+      </p>
+
+      <div class="hero-cta reveal reveal-d3">
+        <a href="#contact" class="btn btn-primary">
+          Get in touch <Icon name="arrowRight" size={17} />
+        </a>
+        <a href="#work" class="btn btn-ghost">See the work</a>
+      </div>
+
+      <dl class="hero-stats reveal reveal-d4">
+        {
+          heroStats.map((s) => (
+            <div class="hstat">
+              <dt>{s.value}</dt>
+              <dd>{s.label}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+
+    <div class="hero-visual reveal reveal-d2">
+      <div class="portrait-frame glass card" data-tilt="off">
+        <img
+          src="/assets/images/header/prasad.jpeg"
+          width="520"
+          height="620"
+          alt={site.name}
+          fetchpriority="high"
+        />
+        <div class="portrait-grad"></div>
+      </div>
+
+      <div class="chip-float chip glass" data-float="22" style="--top:8%; --left:-8%;">
+        <Icon name={heroChips[0].icon} size={15} />{heroChips[0].text}
+      </div>
+      <div class="chip-float chip glass" data-float="34" style="--top:46%; --right:-12%;">
+        <Icon name={heroChips[1].icon} size={15} />{heroChips[1].text}
+      </div>
+      <div class="chip-float chip glass" data-float="16" style="--bottom:6%; --left:2%;">
+        <Icon name={heroChips[2].icon} size={15} />{heroChips[2].text}
+      </div>
+    </div>
+  </div>
+
+  <a href="#impact" class="scroll-hint reveal reveal-d5" aria-label="Scroll to impact">
+    <span>Scroll to impact</span>
+    <span class="scroll-chevron"><Icon name="chevronDown" size={16} /></span>
+  </a>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: clamp(108px, 13vh, 150px);
+    padding-bottom: clamp(28px, 4vw, 52px);
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.32fr 0.68fr;
+    gap: clamp(28px, 5vw, 64px);
+    align-items: center;
+  }
+  .hero-title {
+    font-size: clamp(2.4rem, 1.5rem + 3.4vw, 4.3rem);
+    line-height: 1.04;
+    letter-spacing: var(--tracking-tight);
+    margin: 18px 0 0;
+    max-width: 18ch;
+  }
+  .hero-lead {
+    margin-top: 24px;
+    max-width: 56ch;
+    font-size: var(--fs-lead);
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+  .hero-lead a {
+    color: var(--ink);
+    border-bottom: 1px solid var(--glass-border-strong);
+    transition: color var(--dur-1) var(--ease-out), border-color var(--dur-1) var(--ease-out);
+  }
+  .hero-lead a:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+  .hero-cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 32px;
+  }
+  .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    gap: clamp(20px, 4vw, 48px);
+    margin: 44px 0 0;
+    padding-top: 28px;
+    border-top: 1px solid var(--glass-border);
+    width: fit-content;
+  }
+  .hstat dt {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 1.1rem + 1.4vw, 2.1rem);
+    font-weight: 600;
+    letter-spacing: var(--tracking-tight);
+    background: var(--grad-text);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .hstat dd {
+    margin: 4px 0 0;
+    font-size: 0.86rem;
+    color: var(--text-tertiary);
+  }
+
+  /* Visual */
+  .hero-visual {
+    position: relative;
+    justify-self: center;
+    width: 100%;
+    max-width: 360px;
+    aspect-ratio: 4 / 5;
+  }
+  .portrait-frame {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: var(--r-xl);
+    overflow: hidden;
+    padding: 0;
+  }
+  .portrait-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: saturate(1.02) contrast(1.02);
+  }
+  .portrait-grad {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 50%, color-mix(in srgb, var(--bg) 78%, transparent));
+    mix-blend-mode: normal;
+  }
+  .chip-float {
+    position: absolute;
+    top: var(--top, auto);
+    left: var(--left, auto);
+    right: var(--right, auto);
+    bottom: var(--bottom, auto);
+    z-index: 3;
+    font-family: var(--font-display);
+    font-size: 0.82rem;
+    color: var(--ink);
+    padding: 9px 13px;
+    box-shadow: var(--shadow-md);
+    animation: floaty 6s var(--ease-in-out) infinite;
+  }
+  .chip-float:nth-of-type(2) {
+    animation-delay: -2s;
+  }
+  .chip-float:nth-of-type(3) {
+    animation-delay: -4s;
+  }
+  @keyframes floaty {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-9px);
+    }
+  }
+
+  /* Scroll hint */
+  .scroll-hint {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: fit-content;
+    margin: clamp(36px, 5vw, 64px) auto 0;
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    letter-spacing: var(--tracking-wide);
+    color: var(--text-tertiary);
+  }
+  .scroll-chevron {
+    display: grid;
+    place-items: center;
+    color: var(--text-secondary);
+    animation: bob 2.4s var(--ease-in-out) infinite;
+  }
+  @keyframes bob {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(4px);
+    }
+  }
+
+  @media (max-width: 940px) {
+    .hero-grid {
+      grid-template-columns: 1fr;
+      text-align: left;
+    }
+    .hero-visual {
+      grid-row: 1;
+      max-width: 320px;
+      justify-self: start;
+    }
+    .hero-title {
+      max-width: 18ch;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .chip-float,
+    .scroll-chevron {
+      animation: none;
+    }
+  }
+</style>

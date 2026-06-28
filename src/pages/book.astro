@@ -1,0 +1,93 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../data/site';
+---
+
+<BaseLayout
+  title={`Book a call - ${site.name}`}
+  description="Book a 15-minute call with Prasad Subrahmanya."
+>
+  <section class="book">
+    <div class="container--prose book-head">
+      <p class="eyebrow reveal">Booking</p>
+      <h1 class="reveal reveal-d1">Book a call.</h1>
+      <p class="book-lead muted reveal reveal-d2">
+        Fifteen minutes, no deck. If you're building something hard in AI or hiring for it, grab a
+        time that works.
+      </p>
+    </div>
+    <div class="container book-embed reveal reveal-d2">
+      <div id="cal-inline" aria-label="Cal.com booking calendar"></div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script is:inline>
+  (function (C, A, L) {
+    let p = function (a, ar) {
+      a.q.push(ar);
+    };
+    let d = C.document;
+    C.Cal =
+      C.Cal ||
+      function () {
+        let cal = C.Cal;
+        let ar = arguments;
+        if (!cal.loaded) {
+          cal.ns = {};
+          cal.q = cal.q || [];
+          d.head.appendChild(d.createElement('script')).src = A;
+          cal.loaded = true;
+        }
+        if (ar[0] === L) {
+          const api = function () {
+            p(api, arguments);
+          };
+          const namespace = ar[1];
+          api.q = api.q || [];
+          if (typeof namespace === 'string') {
+            cal.ns[namespace] = cal.ns[namespace] || api;
+            p(cal.ns[namespace], ar);
+            p(cal, ['initNamespace', namespace]);
+          } else p(cal, ar);
+          return;
+        }
+        p(cal, ar);
+      };
+  })(window, 'https://app.cal.com/embed/embed.js', 'init');
+
+  const theme = document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+  Cal('init', 'meet', { origin: 'https://cal.com' });
+  Cal.ns.meet('inline', {
+    elementOrSelector: '#cal-inline',
+    config: { layout: 'month_view', theme: theme },
+    calLink: 'meet-prasad',
+  });
+  Cal.ns.meet('ui', { hideEventTypeDetails: false, layout: 'month_view', theme: theme });
+</script>
+
+<style>
+  .book {
+    padding-top: clamp(116px, 14vh, 156px);
+  }
+  .book-head h1 {
+    margin-top: 14px;
+    font-size: clamp(2.2rem, 1.5rem + 3vw, 3.4rem);
+  }
+  .book-lead {
+    margin-top: 18px;
+    font-size: var(--fs-lead);
+    line-height: 1.6;
+  }
+  .book-embed {
+    margin-top: clamp(28px, 4vw, 44px);
+  }
+  #cal-inline {
+    width: 100%;
+    min-height: 600px;
+    border: 1px solid var(--glass-border);
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    background: var(--glass-bg);
+  }
+</style>

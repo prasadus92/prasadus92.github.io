@@ -1,0 +1,28 @@
+{
+  "name": "prasad-tech",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "og": "node scripts/render-og.mjs",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.2.1",
+    "@fontsource-variable/instrument-sans": "^5.2.8",
+    "@fontsource-variable/quicksand": "^5.2.10",
+    "@fontsource/fragment-mono": "^5.2.8",
+    "@iconify-json/lucide": "^1.2.114",
+    "@iconify-json/simple-icons": "^1.2.87",
+    "astro": "^5.6.1",
+    "astro-icon": "^1.1.5",
+    "motion": "^11.13.1"
+  },
+  "devDependencies": {
+    "playwright": "^1.61.1"
+  }
+}

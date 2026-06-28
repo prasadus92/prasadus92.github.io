@@ -1,0 +1,37 @@
+---
+export interface Props {
+  eyebrow: string;
+  title: string;
+  lead?: string;
+  align?: 'left' | 'center';
+}
+const { eyebrow, title, lead, align = 'left' } = Astro.props;
+---
+
+<header class={`sec-head ${align}`}>
+  <p class="eyebrow reveal">{eyebrow}</p>
+  <h2 class="reveal reveal-d1" set:html={title}></h2>
+  {lead && <p class="sec-lead muted reveal reveal-d2">{lead}</p>}
+</header>
+
+<style>
+  .sec-head {
+    max-width: 60ch;
+    margin-bottom: clamp(36px, 5vw, 64px);
+  }
+  .sec-head.center {
+    margin-inline: auto;
+    text-align: center;
+  }
+  .sec-head h2 {
+    margin-top: 14px;
+  }
+  .sec-lead {
+    margin-top: 18px;
+    font-size: var(--fs-lead);
+    line-height: 1.6;
+  }
+  .sec-head.center .eyebrow {
+    justify-content: center;
+  }
+</style>

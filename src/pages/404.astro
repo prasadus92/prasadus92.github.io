@@ -1,0 +1,55 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+---
+
+<BaseLayout title="Page not found - Prasad Subrahmanya" description="That page does not exist.">
+  <section class="nf">
+    <div class="container nf-inner">
+      <p class="nf-code grad-text">404</p>
+      <h1>This page took a different path.</h1>
+      <p class="muted">
+        The link is broken or the page moved. Here is the way back.
+      </p>
+      <div class="nf-cta">
+        <a href="/" class="btn btn-primary"><Icon name="arrowLeft" size={16} /> Home</a>
+        <a href="/blog" class="btn btn-ghost">Read the writing</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .nf {
+    min-height: 76vh;
+    display: grid;
+    place-items: center;
+    padding-top: 100px;
+    text-align: center;
+  }
+  .nf-inner {
+    max-width: 50ch;
+  }
+  .nf-code {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(5rem, 10vw, 9rem);
+    line-height: 1;
+    letter-spacing: var(--tracking-tight);
+  }
+  .nf h1 {
+    margin-top: 8px;
+    font-size: clamp(1.6rem, 1.2rem + 1.6vw, 2.4rem);
+  }
+  .nf p.muted {
+    margin-top: 16px;
+    font-size: var(--fs-lead);
+  }
+  .nf-cta {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 32px;
+    flex-wrap: wrap;
+  }
+</style>
