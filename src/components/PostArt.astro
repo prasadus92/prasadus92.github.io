@@ -1,0 +1,66 @@
+---
+// Deterministic, on-brand generative art for a post, seeded by slug.
+export interface Props {
+  seed?: string;
+  height?: string;
+  compact?: boolean;
+}
+const { seed = 'post', height = '200px', compact = false } = Astro.props;
+
+let h = 0;
+for (let i = 0; i < seed.length; i++) h = (h * 31 + seed.charCodeAt(i)) >>> 0;
+const x1 = 8 + (h % 46);
+const y1 = 6 + ((h >> 3) % 42);
+const x2 = 48 + ((h >> 6) % 44);
+const y2 = 28 + ((h >> 9) % 52);
+const rot = (h % 44) - 22;
+const useAmber = h % 3 === 0;
+const second = useAmber ? '255, 177, 92' : '124, 108, 255';
+---
+
+<div
+  class={`post-art ${compact ? 'compact' : ''}`}
+  style={`--x1:${x1}%;--y1:${y1}%;--x2:${x2}%;--y2:${y2}%;--rot:${rot}deg;--h:${height};--c2:${second}`}
+  aria-hidden="true"
+>
+  <div class="pa-grid"></div>
+  <div class="pa-ring"></div>
+</div>
+
+<style>
+  .post-art {
+    position: relative;
+    height: var(--h);
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    border: 1px solid var(--glass-border);
+    background:
+      radial-gradient(55% 85% at var(--x1) var(--y1), rgba(var(--accent-rgb), 0.55), transparent 60%),
+      radial-gradient(50% 80% at var(--x2) var(--y2), rgba(var(--c2), 0.5), transparent 62%),
+      var(--bg-elevated);
+  }
+  .pa-grid {
+    position: absolute;
+    inset: -20%;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+    background-size: 38px 38px;
+    transform: rotate(var(--rot)) scale(1.4);
+    opacity: 0.55;
+    -webkit-mask-image: radial-gradient(ellipse at center, #000, transparent 72%);
+    mask-image: radial-gradient(ellipse at center, #000, transparent 72%);
+  }
+  .pa-ring {
+    position: absolute;
+    width: 60%;
+    aspect-ratio: 1;
+    right: -10%;
+    top: -40%;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: inset 0 0 60px rgba(255, 255, 255, 0.04);
+  }
+  .compact .pa-grid {
+    background-size: 30px 30px;
+  }
+</style>

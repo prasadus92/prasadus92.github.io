@@ -2,14 +2,14 @@
 
 [![Build Status](https://github.com/prasadus92/prasadus92.github.io/actions/workflows/deploy.yml/badge.svg)](https://github.com/prasadus92/prasadus92.github.io/actions/workflows/deploy.yml)
 
-A clean, modern, and responsive personal website built with HTML5, CSS3, and JavaScript.
+A premium, responsive personal website built with Astro.
 
 ## Overview
 - **URL**: [prasad.tech](https://prasad.tech)
-- **Stack**: HTML5, CSS3, JavaScript
-- **Theme**: Dark/Light mode with automatic theme switching
-- **Responsive**: Optimized for desktop, tablet, and mobile devices
-- **Performance**: Optimized for fast loading and smooth transitions
+- **Stack**: Astro (static output), TypeScript, self-hosted fonts, near-zero client JS
+- **Theme**: Dark/Light mode, follows the system preference
+- **Responsive**: Optimized for desktop, tablet, and mobile
+- **Performance**: Static HTML, lazy images, minimal JavaScript
 
 ## Features
 - Modern, minimalist design
@@ -25,15 +25,20 @@ A clean, modern, and responsive personal website built with HTML5, CSS3, and Jav
 - OpenGraph meta tags for better social sharing
 - Custom favicons for various platforms
 
-## Local Development
-To run the site locally:
+## Local development
 ```bash
-python3 -m http.server 8000
+npm install
+npm run dev      # http://localhost:4321
+npm run build    # static output in dist/
 ```
-Then visit `http://localhost:8000` in your browser.
+Regenerate assets when content changes:
+```bash
+npm run og       # social/OG images (Playwright)
+node scripts/render-favicon.mjs
+```
 
 ## Deployment
-The site is automatically deployed to GitHub Pages when changes are pushed to the main branch. The deployment process is managed through GitHub Actions.
+Deployed to GitHub Pages on every push to `master` via GitHub Actions (`.github/workflows/deploy.yml`), which builds the Astro site and publishes `dist/`. The Pages source must be set to "GitHub Actions" in the repo settings.
 
 ## Contact
 For any inquiries, please reach out via:

@@ -1,0 +1,165 @@
+---
+import { site } from '../data/site';
+import Icon from './Icon.astro';
+import CopyPage from './CopyPage.astro';
+const { mdPath } = Astro.props as { mdPath?: string };
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <a href="/" class="brand-mark">PS</a>
+      <p class="muted">
+        Three-time technical co-founder building AI-native products from Oslo, Norway.
+      </p>
+    </div>
+    <div class="footer-cols">
+      <div>
+        <span class="foot-label">Navigate</span>
+        <a href="/#impact">Impact</a>
+        <a href="/#work">Work</a>
+        <a href="/story">Story</a>
+        <a href="/blog">Writing</a>
+        <a href="/book">Book a call</a>
+        <a href="/#contact">Contact</a>
+      </div>
+      <div>
+        <span class="foot-label">Building</span>
+        <a href={site.links.luminik} target="_blank" rel="noopener">Luminik</a>
+        <a href={site.links.alfred} target="_blank" rel="noopener">Alfred</a>
+      </div>
+      <div>
+        <span class="foot-label">Elsewhere</span>
+        <a href={site.links.linkedin} target="_blank" rel="noopener">LinkedIn</a>
+        <a href={site.links.github} target="_blank" rel="noopener">GitHub</a>
+        <a href={`mailto:${site.email}`}>Email</a>
+      </div>
+    </div>
+  </div>
+  {
+    mdPath && (
+      <div class="container footer-ai">
+        <span class="foot-label">For AI</span>
+        <CopyPage mdPath={mdPath} />
+      </div>
+    )
+  }
+  <div class="container footer-base">
+    <p class="muted">© {year} {site.name}. Built in Oslo, Norway.</p>
+    <div class="footer-social">
+      <a href={site.links.linkedin} target="_blank" rel="noopener" aria-label="LinkedIn"
+        ><Icon name="linkedin" size={18} /></a
+      >
+      <a href={site.links.github} target="_blank" rel="noopener" aria-label="GitHub"
+        ><Icon name="github" size={18} /></a
+      >
+      <a href={`mailto:${site.email}`} aria-label="Email"><Icon name="mail" size={18} /></a>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    position: relative;
+    z-index: 1;
+    margin-top: clamp(64px, 10vw, 140px);
+    padding-top: clamp(48px, 6vw, 80px);
+    border-top: 1px solid var(--glass-border);
+  }
+  .footer-inner {
+    display: grid;
+    grid-template-columns: 1.2fr 2fr;
+    gap: clamp(32px, 6vw, 80px);
+    padding-bottom: 48px;
+  }
+  .footer-brand .brand-mark {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 11px;
+    font-family: var(--font-display);
+    font-weight: 600;
+    color: var(--accent-ink);
+    background: var(--grad-brand);
+    margin-bottom: 16px;
+  }
+  .footer-brand p {
+    max-width: 32ch;
+    font-size: 0.95rem;
+  }
+  .footer-cols {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .footer-cols > div {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .foot-label {
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    letter-spacing: var(--tracking-wide);
+    color: var(--text-tertiary);
+    margin-bottom: 4px;
+  }
+  .footer-cols a {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    width: fit-content;
+    transition: color var(--dur-1) var(--ease-out);
+  }
+  .footer-cols a:hover {
+    color: var(--ink);
+  }
+  .footer-ai {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    padding-top: 20px;
+  }
+  .footer-base {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 24px 0 40px;
+    border-top: 1px solid var(--glass-border);
+    font-size: 0.88rem;
+  }
+  .footer-social {
+    display: flex;
+    gap: 8px;
+  }
+  .footer-social a {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    color: var(--text-secondary);
+    border: 1px solid var(--glass-border);
+    background: var(--glass-bg);
+    transition: color var(--dur-1) var(--ease-out), border-color var(--dur-1) var(--ease-out),
+      transform var(--dur-1) var(--ease-out);
+  }
+  .footer-social a:hover {
+    color: var(--ink);
+    border-color: var(--glass-border-strong);
+    transform: translateY(-2px);
+  }
+  @media (max-width: 720px) {
+    .footer-inner {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+    .footer-base {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>

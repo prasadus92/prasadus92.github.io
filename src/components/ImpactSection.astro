@@ -1,0 +1,209 @@
+---
+import SectionHeader from './SectionHeader.astro';
+import Icon from './Icon.astro';
+import { impact, brands } from '../data/site';
+---
+
+<section class="section" id="impact">
+  <div class="container">
+    <SectionHeader
+      eyebrow="Impact"
+      title="<span class='grad-text'>Outcomes</span>."
+      lead="The numbers behind the work."
+    />
+
+    <div class="impact-grid">
+      {
+        impact.map((c, i) => (
+          <article class={`icard glass card reveal reveal-d${i + 1}`} data-accent={c.accent}>
+            <div class="icard-grid" aria-hidden="true" />
+            <span class="icard-kicker mono">{c.kicker}</span>
+            <div class="icard-metric">
+              <span class="metric-num">{c.metric}</span>
+              <span class="metric-unit">{c.unit}</span>
+            </div>
+            <p class="icard-body">{c.body}</p>
+            <div class="icard-tags">
+              {c.tags.map((t) => (
+                <span class="chip">{t}</span>
+              ))}
+            </div>
+          </article>
+        ))
+      }
+    </div>
+
+    <div class="brands reveal">
+      <span class="brands-label mono">Pipeline sourced at</span>
+      <div class="brands-row">
+        {brands.map((b) => <span class="brand-name">{b}</span>)}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .impact-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: clamp(16px, 1.6vw, 22px);
+  }
+  .icard {
+    position: relative;
+    overflow: hidden;
+    padding: clamp(26px, 2.6vw, 40px);
+    display: flex;
+    flex-direction: column;
+    min-height: 280px;
+  }
+  .icard:nth-child(1) {
+    grid-column: span 7;
+  }
+  .icard:nth-child(2) {
+    grid-column: span 5;
+  }
+  .icard:nth-child(3) {
+    grid-column: span 12;
+    display: grid;
+    grid-template-columns: minmax(220px, 320px) 1fr;
+    grid-template-areas:
+      'kicker kicker'
+      'metric body'
+      'metric tags';
+    column-gap: clamp(32px, 6vw, 80px);
+    row-gap: 18px;
+    align-items: start;
+    min-height: auto;
+  }
+  .icard:nth-child(3) .icard-kicker {
+    grid-area: kicker;
+  }
+  .icard:nth-child(3) .icard-metric {
+    grid-area: metric;
+    margin-top: 4px;
+    padding-top: 0;
+    align-self: start;
+  }
+  .icard:nth-child(3) .icard-body {
+    grid-area: body;
+    margin-top: 0;
+    max-width: 60ch;
+  }
+  .icard:nth-child(3) .icard-tags {
+    grid-area: tags;
+    margin-top: 0;
+  }
+
+  .icard-grid {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(120% 120% at 100% 0%, var(--glow-soft), transparent 55%);
+    opacity: 0.9;
+    pointer-events: none;
+    transition: opacity var(--dur-3) var(--ease-out);
+  }
+  .icard-kicker {
+    position: relative;
+    font-size: var(--fs-xs);
+    letter-spacing: 0.05em;
+    color: var(--text-tertiary);
+  }
+  .icard-metric {
+    position: relative;
+    margin-top: auto;
+    padding-top: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .metric-num {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(2.6rem, 1.6rem + 4vw, 4.6rem);
+    line-height: 0.95;
+    letter-spacing: var(--tracking-tight);
+    background: var(--grad-text);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .metric-unit {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+  }
+  .icard-body {
+    position: relative;
+    margin-top: 18px;
+    color: var(--text-secondary);
+    font-size: 1rem;
+    line-height: 1.65;
+  }
+  .icard-tags {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 22px;
+  }
+  .icard:nth-child(3) .icard-tags {
+    margin-top: 0;
+  }
+
+  /* per-card accent tint on the glow */
+  .icard[data-accent='violet'] {
+    --glow-soft: rgba(124, 108, 255, 0.16);
+  }
+  .icard[data-accent='amber'] {
+    --glow-soft: rgba(255, 177, 92, 0.16);
+  }
+
+  /* brand row */
+  .brands {
+    margin-top: clamp(40px, 5vw, 64px);
+    display: flex;
+    align-items: center;
+    gap: clamp(16px, 3vw, 40px);
+    flex-wrap: wrap;
+    padding-top: 28px;
+    border-top: 1px solid var(--glass-border);
+  }
+  .brands-label {
+    font-size: var(--fs-xs);
+    letter-spacing: 0.05em;
+    color: var(--text-tertiary);
+    white-space: nowrap;
+  }
+  .brands-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: clamp(18px, 3vw, 40px);
+  }
+  .brand-name {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1rem, 0.9rem + 0.5vw, 1.3rem);
+    color: var(--text-secondary);
+    opacity: 0.75;
+    transition: opacity var(--dur-2) var(--ease-out), color var(--dur-2) var(--ease-out);
+  }
+  .brand-name:hover {
+    opacity: 1;
+    color: var(--ink);
+  }
+
+  @media (max-width: 900px) {
+    .icard:nth-child(1),
+    .icard:nth-child(2),
+    .icard:nth-child(3) {
+      grid-column: span 12;
+    }
+    .icard:nth-child(3) {
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        'kicker'
+        'metric'
+        'body'
+        'tags';
+    }
+  }
+</style>

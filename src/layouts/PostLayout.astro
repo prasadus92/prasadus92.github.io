@@ -1,0 +1,177 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import PostArt from '../components/PostArt.astro';
+import AlfredFiringDemo from '../components/AlfredFiringDemo.astro';
+import { site } from '../data/site';
+import '../styles/prose.css';
+
+export interface Props {
+  title: string;
+  description: string;
+  pubDate: Date;
+  category?: string;
+  readingTime?: string;
+  tags?: string[];
+  image?: string;
+  seed?: string;
+  mdPath?: string;
+  demo?: string;
+}
+const { title, description, pubDate, category, readingTime, tags = [], image, seed, mdPath, demo } =
+  Astro.props;
+const dateStr = pubDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+---
+
+<BaseLayout title={`${title} - ${site.name}`} description={description} type="article" image={image}>
+  <article class="post">
+    <div class="container--prose post-art-wrap reveal">
+      <PostArt seed={seed ?? title} height="200px" />
+    </div>
+    <div class="container--prose post-head">
+      <a href="/blog" class="back reveal"><Icon name="arrowLeft" size={15} /> All writing</a>
+      <div class="post-meta reveal reveal-d1">
+        {category && <span class="chip">{category}</span>}
+        <span>{dateStr}</span>
+        {readingTime && <span>· {readingTime}</span>}
+      </div>
+      <h1 class="reveal reveal-d1">{title}</h1>
+      <p class="post-lead muted reveal reveal-d2">{description}</p>
+    </div>
+
+    <div class="container post-body">
+      <div class="prose reveal reveal-d2">
+        {demo === 'alfred-firing' && <AlfredFiringDemo />}
+        <slot />
+      </div>
+    </div>
+
+    <div class="container--prose post-foot reveal">
+      <div class="author glass card" data-tilt="off">
+        <img src="/assets/images/header/prasad.jpeg" alt={site.name} width="64" height="64" loading="lazy" decoding="async" />
+        <div>
+          <strong>{site.name}</strong>
+          <p class="muted">
+            Founder & CEO at Luminik. Three-time technical co-founder building AI-native products and
+            taking them to production.
+          </p>
+          <div class="author-links">
+            <a href={site.links.linkedin} target="_blank" rel="noopener" aria-label="LinkedIn"
+              ><Icon name="linkedin" size={16} /></a
+            >
+            <a href={site.links.github} target="_blank" rel="noopener" aria-label="GitHub"
+              ><Icon name="github" size={16} /></a
+            >
+            <a href={`mailto:${site.email}`} aria-label="Email"><Icon name="mail" size={16} /></a>
+          </div>
+        </div>
+      </div>
+      <a href="/blog" class="btn btn-ghost"><Icon name="arrowLeft" size={15} /> Back to all writing</a>
+    </div>
+  </article>
+</BaseLayout>
+
+<script is:inline type="module">
+  const nodes = document.querySelectorAll('pre.mermaid');
+  if (nodes.length) {
+    const mermaid = (
+      await import('https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs')
+    ).default;
+    const dark = document.documentElement.getAttribute('data-theme') !== 'light';
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: dark ? 'dark' : 'neutral',
+      securityLevel: 'strict',
+      fontFamily: "'Space Grotesk', system-ui, sans-serif",
+    });
+    try {
+      await mermaid.run({ nodes });
+    } catch (e) {
+      /* leave source visible if a diagram fails */
+    }
+  }
+</script>
+
+<style>
+  .post {
+    padding-top: clamp(110px, 14vh, 150px);
+  }
+  .post-art-wrap {
+    margin-bottom: clamp(28px, 4vw, 44px);
+  }
+  .post-head {
+    text-align: center;
+  }
+  .back {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.9rem;
+    color: var(--text-tertiary);
+    transition: color var(--dur-1) var(--ease-out);
+  }
+  .back:hover {
+    color: var(--accent);
+  }
+  .post-meta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 22px;
+    font-size: var(--fs-sm);
+    color: var(--text-tertiary);
+  }
+  .post-head h1 {
+    margin-top: 18px;
+    font-size: clamp(2rem, 1.4rem + 2.6vw, 3.2rem);
+  }
+  .post-lead {
+    margin-top: 20px;
+    font-size: var(--fs-lead);
+    line-height: 1.6;
+    max-width: 60ch;
+    margin-inline: auto;
+  }
+  .post-body {
+    margin-top: clamp(40px, 6vw, 72px);
+  }
+  .post-foot {
+    margin-top: 64px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: center;
+  }
+  .author {
+    display: flex;
+    gap: 18px;
+    align-items: center;
+    padding: 24px;
+    width: 100%;
+  }
+  .author img {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex: 0 0 auto;
+  }
+  .author strong {
+    font-family: var(--font-display);
+  }
+  .author p {
+    margin-top: 4px;
+    font-size: 0.92rem;
+    line-height: 1.5;
+  }
+  .author-links {
+    display: flex;
+    gap: 12px;
+    margin-top: 12px;
+    color: var(--text-tertiary);
+  }
+  .author-links a:hover {
+    color: var(--accent);
+  }
+</style>

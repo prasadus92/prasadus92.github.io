@@ -1,0 +1,90 @@
+---
+import Icon from './Icon.astro';
+import { about } from '../data/site';
+const edu = about.education;
+---
+
+<section class="section" id="about">
+  <div class="container about-grid">
+    <div class="about-copy">
+      <p class="eyebrow reveal">About</p>
+      <h2 class="reveal reveal-d1">{about.heading}</h2>
+      <div class="about-prose reveal reveal-d2">
+        {about.paragraphs.map((p) => <p>{p}</p>)}
+      </div>
+    </div>
+
+    <aside class="edu glass card reveal reveal-d2" data-tilt="off">
+      <span class="edu-label mono"><Icon name="cap" size={15} /> Education</span>
+      <h3>{edu.degree}</h3>
+      <p class="edu-school">{edu.school}</p>
+      <div class="edu-meta">
+        <span class="chip">{edu.period}</span>
+        <span class="chip">{edu.result}</span>
+      </div>
+      <p class="edu-note muted">{edu.note}</p>
+    </aside>
+  </div>
+</section>
+
+<style>
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 0.9fr;
+    gap: clamp(28px, 5vw, 72px);
+    align-items: start;
+  }
+  .about-copy h2 {
+    margin-top: 14px;
+  }
+  .about-prose {
+    margin-top: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    max-width: 60ch;
+    color: var(--text-secondary);
+    font-size: var(--fs-lead);
+    line-height: 1.7;
+  }
+  .edu {
+    padding: clamp(24px, 2.4vw, 32px);
+    position: sticky;
+    top: 100px;
+  }
+  .edu-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: var(--fs-xs);
+    letter-spacing: 0.05em;
+    color: var(--accent);
+  }
+  .edu h3 {
+    margin-top: 16px;
+    font-size: 1.4rem;
+  }
+  .edu-school {
+    margin-top: 6px;
+    color: var(--text-secondary);
+  }
+  .edu-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 18px;
+  }
+  .edu-note {
+    margin-top: 18px;
+    font-size: 0.92rem;
+    line-height: 1.55;
+  }
+  @media (max-width: 860px) {
+    .about-grid {
+      grid-template-columns: 1fr;
+    }
+    .edu {
+      position: static;
+    }
+  }
+</style>

@@ -1,0 +1,253 @@
+---
+import '../styles/global.css';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import { site } from '../data/site';
+
+export interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  type?: 'website' | 'article';
+  noBackdrop?: boolean;
+}
+
+const {
+  title = `${site.name} - ${site.role}`,
+  description = site.description,
+  image = '/assets/images/header/prasad.jpeg',
+  type = 'website',
+  noBackdrop = false,
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site ?? `https://${site.domain}`).href;
+
+// Markdown route for the current page (for the footer AI helpers), where one exists.
+const _p = Astro.url.pathname.replace(/\/$/, '');
+const mdPath =
+  _p === '' ? '/index.md' : _p.startsWith('/blog/') ? `${_p}.md` : undefined;
+const ogImage = new URL(image, Astro.site ?? `https://${site.domain}`).href;
+const origin = (Astro.site ?? new URL(`https://${site.domain}`)).origin;
+
+const personLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: site.name,
+  url: origin,
+  image: ogImage,
+  jobTitle: 'Founder & CEO',
+  worksFor: { '@type': 'Organization', name: 'Luminik', url: site.links.luminik },
+  address: { '@type': 'PostalAddress', addressLocality: 'Oslo', addressCountry: 'NO' },
+  sameAs: [site.links.linkedin, site.links.github, site.links.luminik],
+  knowsAbout: [
+    'AI-native engineering',
+    'LLM agents',
+    'Multi-agent systems',
+    'AI in production',
+    'Durable workflows',
+    'Software architecture',
+    'Startup engineering leadership',
+  ],
+};
+const siteLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: site.name,
+  url: origin,
+};
+---
+
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="author" content={site.name} />
+
+    <!-- OpenGraph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content={type} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="theme-color" content="#06080d" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f7f8fb" media="(prefers-color-scheme: light)" />
+
+    <!-- Structured data -->
+    <script type="application/ld+json" set:html={JSON.stringify(personLd)} />
+    <script type="application/ld+json" set:html={JSON.stringify(siteLd)} />
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/favicon/favicon.ico" />
+    <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon/favicon-96x96.png" />
+    <link rel="apple-touch-icon" href="/favicon/apple-touch-icon.png" />
+    <link rel="manifest" href="/favicon/site.webmanifest" />
+
+    <!-- No-flash theme init -->
+    <script is:inline>
+      (() => {
+        const root = document.documentElement;
+        root.classList.add('js');
+        const saved = localStorage.getItem('theme');
+        const sys = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        root.setAttribute('data-theme', saved || sys);
+      })();
+    </script>
+
+    <!-- Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XG5LVE538S"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+      gtag('config', 'G-XG5LVE538S');
+    </script>
+  </head>
+  <body>
+    <a href="#main" class="skip-link">Skip to content</a>
+
+    {
+      !noBackdrop && (
+        <div class="ambient" aria-hidden="true">
+          <div class="aurora a1" />
+          <div class="aurora a2" />
+          <div class="aurora a3" />
+          <div class="shimmer" />
+          <div class="noise" />
+        </div>
+      )
+    }
+
+    <Nav />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer mdPath={mdPath} />
+
+    <style>
+      .ambient {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        overflow: hidden;
+        pointer-events: none;
+        transition: transform 0.5s var(--ease-out);
+      }
+      .aurora {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(100px);
+        opacity: 0.55;
+        will-change: transform;
+        mix-blend-mode: screen;
+      }
+      .a1 {
+        width: 62vw;
+        height: 62vw;
+        max-width: 760px;
+        max-height: 760px;
+        top: -22vh;
+        left: -8vw;
+        background: radial-gradient(circle, rgba(var(--accent-rgb), 0.55), transparent 62%);
+        animation: drift1 28s var(--ease-in-out) infinite;
+      }
+      .a2 {
+        width: 52vw;
+        height: 52vw;
+        max-width: 640px;
+        max-height: 640px;
+        top: 12%;
+        right: -14vw;
+        background: radial-gradient(circle, rgba(124, 108, 255, 0.5), transparent 62%);
+        animation: drift2 34s var(--ease-in-out) infinite;
+      }
+      .a3 {
+        width: 44vw;
+        height: 44vw;
+        max-width: 540px;
+        max-height: 540px;
+        bottom: -18vh;
+        left: 34%;
+        background: radial-gradient(circle, rgba(255, 177, 92, 0.3), transparent 62%);
+        animation: drift3 40s var(--ease-in-out) infinite;
+      }
+      .shimmer {
+        position: absolute;
+        inset: -30%;
+        background: conic-gradient(
+          from 0deg,
+          transparent 0%,
+          rgba(var(--accent-rgb), 0.07) 12%,
+          transparent 30%,
+          rgba(124, 108, 255, 0.06) 55%,
+          transparent 72%,
+          rgba(var(--accent-rgb), 0.05) 90%,
+          transparent 100%
+        );
+        -webkit-mask-image: radial-gradient(ellipse 70% 55% at 50% 8%, #000, transparent 72%);
+        mask-image: radial-gradient(ellipse 70% 55% at 50% 8%, #000, transparent 72%);
+        animation: spin 70s linear infinite;
+        will-change: transform;
+      }
+      [data-theme='light'] .aurora {
+        opacity: 0.42;
+        mix-blend-mode: multiply;
+      }
+      [data-theme='light'] .shimmer {
+        opacity: 0.5;
+      }
+      .noise {
+        position: absolute;
+        inset: 0;
+        opacity: 0.04;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      }
+      @keyframes drift1 {
+        0%, 100% { transform: translate(0, 0) scale(1); }
+        50% { transform: translate(8vw, 6vh) scale(1.12); }
+      }
+      @keyframes drift2 {
+        0%, 100% { transform: translate(0, 0) scale(1); }
+        50% { transform: translate(-7vw, 9vh) scale(1.08); }
+      }
+      @keyframes drift3 {
+        0%, 100% { transform: translate(0, 0) scale(1); }
+        50% { transform: translate(5vw, -7vh) scale(1.15); }
+      }
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .aurora,
+        .shimmer {
+          animation: none;
+        }
+      }
+      main {
+        position: relative;
+        z-index: 1;
+      }
+    </style>
+
+    <script>
+      import { initMotion } from '../scripts/motion';
+      initMotion();
+    </script>
+  </body>
+</html>

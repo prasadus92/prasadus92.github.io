@@ -1,0 +1,63 @@
+---
+import { getCollection } from 'astro:content';
+import SectionHeader from './SectionHeader.astro';
+import BlogCard from './BlogCard.astro';
+import Icon from './Icon.astro';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+---
+
+<section class="section" id="writing">
+  <div class="container">
+    <div class="writing-head">
+      <SectionHeader
+        eyebrow="Writing"
+        title="Notes from the <span class='grad-text'>build</span>."
+        lead="Hands-on writing on AI-native engineering, evals, durable workflows, and the operator side of building companies."
+      />
+      <a href="/blog" class="btn btn-ghost reveal">All writing <Icon name="arrowRight" size={16} /></a>
+    </div>
+
+    <div class="writing-grid">
+      {
+        posts.map((p, i) => (
+          <BlogCard
+            slug={p.id}
+            title={p.data.title}
+            description={p.data.description}
+            pubDate={p.data.pubDate}
+            category={p.data.category}
+            readingTime={p.data.readingTime}
+            delay={(i % 3) + 1}
+          />
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .writing-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .writing-head :global(.sec-head) {
+    margin-bottom: 0;
+  }
+  .writing-grid {
+    margin-top: clamp(32px, 4vw, 48px);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(14px, 1.6vw, 20px);
+  }
+  @media (max-width: 860px) {
+    .writing-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,217 @@
+---
+import { Icon } from 'astro-icon/components';
+
+// One agent firing, start to finish. Auto-plays on a loop; the safety hook
+// catches a dangerous command before it runs.
+const steps = [
+  { icon: 'lucide:clock', label: 'Scheduler fires the agent', sub: 'launchd tick, on a fixed cadence' },
+  { icon: 'lucide:shield', label: 'Preflight + global-block check', sub: 'env, disk, shared rate-limit flag' },
+  { icon: 'lucide:git-branch', label: 'Spawn throwaway worktree', sub: 'isolated checkout for this firing' },
+  { icon: 'lucide:list-checks', label: 'Plan, then independent review', sub: 'a separate session critiques the plan' },
+  { icon: 'lucide:terminal', label: 'Execute in full-trust mode', sub: 'read, write, run, no prompts' },
+  { icon: 'lucide:shield-alert', label: 'Hook blocks rm -rf /', sub: 'deterministic backstop, fails open', danger: true },
+  { icon: 'lucide:save', label: 'Salvage to a draft PR', sub: 'never lose work on cleanup' },
+  { icon: 'lucide:check-check', label: 'Post to Slack, tear down', sub: 'sentinel logged, worktree pruned' },
+];
+---
+
+<figure class="afd" data-afd>
+  <div class="afd-head">
+    <span class="afd-kicker mono">Live: one agent firing</span>
+    <button class="afd-replay" type="button" data-afd-replay>
+      <Icon name="lucide:rotate-ccw" /> Replay
+    </button>
+  </div>
+
+  <ol class="afd-steps">
+    {
+      steps.map((s, i) => (
+        <li class={`afd-step ${s.danger ? 'is-danger' : ''}`} data-i={i}>
+          <span class="afd-icon"><Icon name={s.icon} /></span>
+          <span class="afd-text">
+            <strong>{s.label}</strong>
+            <span class="afd-sub">{s.sub}</span>
+          </span>
+          <span class="afd-state" aria-hidden="true" />
+        </li>
+      ))
+    }
+  </ol>
+</figure>
+
+<style>
+  .afd {
+    margin: 2em 0;
+    padding: clamp(18px, 2vw, 26px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--r-lg);
+    background: var(--bg-elevated);
+  }
+  .afd-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+  .afd-kicker {
+    font-size: var(--fs-xs);
+    letter-spacing: 0.06em;
+    color: var(--accent);
+  }
+  .afd-replay {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 11px;
+    border-radius: var(--r-sm);
+    border: 1px solid var(--glass-border);
+    background: var(--glass-bg);
+    color: var(--text-secondary);
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    cursor: pointer;
+  }
+  .afd-replay :global(svg) {
+    width: 13px;
+    height: 13px;
+  }
+  .afd-steps {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .afd-step {
+    position: relative;
+    display: grid;
+    grid-template-columns: 38px 1fr 18px;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    border-radius: var(--r-md);
+    border: 1px solid transparent;
+    opacity: 0.4;
+    transition: opacity 0.35s var(--ease-out), background 0.35s var(--ease-out),
+      border-color 0.35s var(--ease-out);
+  }
+  .afd-icon {
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    border-radius: var(--r-sm);
+    color: var(--text-secondary);
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    transition: color 0.35s var(--ease-out), background 0.35s var(--ease-out),
+      border-color 0.35s var(--ease-out);
+  }
+  .afd-icon :global(svg) {
+    width: 18px;
+    height: 18px;
+  }
+  .afd-text {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    min-width: 0;
+  }
+  .afd-text strong {
+    font-family: var(--font-display);
+    font-size: 0.98rem;
+    color: var(--ink);
+  }
+  .afd-sub {
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    color: var(--text-tertiary);
+  }
+  .afd-state {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 2px solid var(--glass-border-strong);
+  }
+
+  .afd-step.is-active {
+    opacity: 1;
+    background: var(--glass-bg);
+    border-color: var(--glass-border);
+  }
+  .afd-step.is-active .afd-icon {
+    color: var(--accent);
+    background: rgba(var(--accent-rgb), 0.12);
+    border-color: rgba(var(--accent-rgb), 0.3);
+  }
+  .afd-step.is-done {
+    opacity: 1;
+  }
+  .afd-step.is-done .afd-state {
+    border-color: var(--accent);
+    background: var(--accent);
+  }
+  .afd-step.is-active.is-danger {
+    background: rgba(239, 68, 68, 0.1);
+    border-color: rgba(239, 68, 68, 0.4);
+  }
+  .afd-step.is-active.is-danger .afd-icon {
+    color: #ef4444;
+    background: rgba(239, 68, 68, 0.14);
+    border-color: rgba(239, 68, 68, 0.4);
+  }
+  .afd-step.is-done.is-danger .afd-state {
+    border-color: #ef4444;
+    background: #ef4444;
+  }
+  @media (max-width: 520px) {
+    .afd-sub {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll<HTMLElement>('[data-afd]').forEach((root) => {
+    const steps = Array.from(root.querySelectorAll<HTMLElement>('.afd-step'));
+    const replay = root.querySelector<HTMLButtonElement>('[data-afd-replay]');
+    let timer: number | undefined;
+
+    const showAll = () => steps.forEach((s) => s.classList.add('is-done'));
+
+    const play = () => {
+      window.clearInterval(timer);
+      steps.forEach((s) => s.classList.remove('is-active', 'is-done'));
+      if (reduce) return showAll();
+      let i = 0;
+      const tick = () => {
+        steps.forEach((s) => s.classList.remove('is-active'));
+        if (i > 0) steps[i - 1].classList.add('is-done');
+        if (i >= steps.length) {
+          window.clearInterval(timer);
+          return;
+        }
+        steps[i].classList.add('is-active');
+        i++;
+      };
+      tick();
+      timer = window.setInterval(tick, 1050);
+    };
+
+    replay?.addEventListener('click', play);
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            play();
+            io.unobserve(root);
+          }
+        });
+      },
+      { threshold: 0.4 }
+    );
+    io.observe(root);
+  });
+</script>

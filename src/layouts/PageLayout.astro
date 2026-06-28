@@ -1,0 +1,41 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import { site } from '../data/site';
+import '../styles/prose.css';
+
+const fm = (Astro.props as any).frontmatter ?? Astro.props;
+const { title, description, eyebrow, lead } = fm;
+---
+
+<BaseLayout title={`${title} - ${site.name}`} description={description}>
+  <article class="page">
+    <header class="container--prose page-head">
+      {eyebrow && <p class="eyebrow reveal">{eyebrow}</p>}
+      <h1 class="reveal reveal-d1">{title}</h1>
+      {lead && <p class="page-lead muted reveal reveal-d2">{lead}</p>}
+    </header>
+    <div class="container--prose page-body">
+      <div class="prose reveal reveal-d2">
+        <slot />
+      </div>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .page {
+    padding-top: clamp(116px, 14vh, 156px);
+  }
+  .page-head h1 {
+    margin-top: 14px;
+    font-size: clamp(2.2rem, 1.5rem + 3vw, 3.4rem);
+  }
+  .page-lead {
+    margin-top: 18px;
+    font-size: var(--fs-lead);
+    line-height: 1.6;
+  }
+  .page-body {
+    margin-top: clamp(32px, 5vw, 56px);
+  }
+</style>

@@ -1,0 +1,23 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import ImpactSection from '../components/ImpactSection.astro';
+import WorkSection from '../components/WorkSection.astro';
+import ApproachSection from '../components/ApproachSection.astro';
+import SystemDiagram from '../components/SystemDiagram.astro';
+import SkillsSection from '../components/SkillsSection.astro';
+import WritingSection from '../components/WritingSection.astro';
+import ContactSection from '../components/ContactSection.astro';
+import { site } from '../data/site';
+---
+
+<BaseLayout title={site.metaTitle} image="/og/home.png">
+  <Hero />
+  <ImpactSection />
+  <WorkSection />
+  <ApproachSection />
+  <SystemDiagram />
+  <SkillsSection />
+  <WritingSection />
+  <ContactSection />
+</BaseLayout>

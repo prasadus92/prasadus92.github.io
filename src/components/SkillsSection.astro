@@ -1,0 +1,73 @@
+---
+import { Icon } from 'astro-icon/components';
+import SectionHeader from './SectionHeader.astro';
+import { skills } from '../data/site';
+---
+
+<section class="section" id="skills">
+  <div class="container">
+    <SectionHeader
+      eyebrow="Skills"
+      title="What I'm <span class='grad-text'>AI-native</span> at."
+      lead="The parts of building with AI I go deep on, drawn from what I'm shipping at Luminik and Alfred."
+    />
+
+    <div class="skills-grid">
+      {
+        skills.map((s, i) => (
+          <article class={`skill glass card reveal reveal-d${(i % 3) + 1}`} data-tilt="off">
+            <span class="skill-icon"><Icon name={s.icon} /></span>
+            <h3>{s.title}</h3>
+            <p>{s.items}</p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(14px, 1.5vw, 18px);
+  }
+  .skill {
+    padding: clamp(22px, 2.2vw, 30px);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .skill-icon {
+    display: grid;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    border-radius: var(--r-md);
+    color: var(--accent);
+    background: rgba(var(--accent-rgb), 0.1);
+    border: 1px solid rgba(var(--accent-rgb), 0.2);
+  }
+  .skill-icon :global(svg) {
+    width: 22px;
+    height: 22px;
+  }
+  .skill h3 {
+    font-size: 1.12rem;
+  }
+  .skill p {
+    color: var(--text-secondary);
+    font-size: 0.94rem;
+    line-height: 1.6;
+  }
+  @media (max-width: 900px) {
+    .skills-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  @media (max-width: 560px) {
+    .skills-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

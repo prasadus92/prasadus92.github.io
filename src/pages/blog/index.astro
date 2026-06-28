@@ -1,0 +1,76 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BlogCard from '../../components/BlogCard.astro';
+import { site } from '../../data/site';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+---
+
+<BaseLayout
+  title={`Writing - ${site.name}`}
+  description="Hands-on writing on AI-native engineering, evals, durable workflows, and building companies."
+  image="/og/blog.png"
+>
+  <section class="section blog-index">
+    <div class="container">
+      <header class="blog-hero">
+        <p class="eyebrow reveal">Writing</p>
+        <h1 class="reveal reveal-d1">
+          Notes from the <span class="grad-text">build</span>.
+        </h1>
+        <p class="muted reveal reveal-d2">
+          Hands-on writing on AI-native engineering, evals, durable workflows, and the operator side
+          of building companies. From what I have shipped.
+        </p>
+      </header>
+
+      <div class="blog-grid">
+        {
+          posts.map((p, i) => (
+            <BlogCard
+              slug={p.id}
+              title={p.data.title}
+              description={p.data.description}
+              pubDate={p.data.pubDate}
+              category={p.data.category}
+              readingTime={p.data.readingTime}
+              delay={(i % 3) + 1}
+            />
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .blog-index {
+    padding-top: clamp(120px, 15vh, 170px);
+  }
+  .blog-hero {
+    max-width: 62ch;
+    margin-bottom: clamp(40px, 5vw, 64px);
+  }
+  .blog-hero h1 {
+    margin-top: 14px;
+    font-size: clamp(2.2rem, 1.5rem + 3vw, 3.6rem);
+  }
+  .blog-hero p {
+    margin-top: 20px;
+    font-size: var(--fs-lead);
+    line-height: 1.6;
+  }
+  .blog-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(14px, 1.6vw, 20px);
+  }
+  @media (max-width: 760px) {
+    .blog-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
