@@ -38,7 +38,7 @@ export const nav = [
 export const heroStats = [
   { value: '$6M+', label: 'In customer pipeline' },
   { value: '0→$3.6M', label: 'ARR in 15 months' },
-  { value: '3×', label: 'Technical co-founder' },
+  { value: '3×', label: 'Technical founder' },
 ] as const;
 
 // Floating chips around the hero portrait

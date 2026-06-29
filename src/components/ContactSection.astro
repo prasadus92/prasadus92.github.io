@@ -17,32 +17,11 @@ import { site } from '../data/site';
             it.
           </p>
 
-          <a href="/book" class="btn btn-primary contact-book">
-            Book a 15-minute call <Icon name="arrowRight" size={16} />
-          </a>
-
-          <div class="contact-links">
-            <a href={`mailto:${site.email}`} class="contact-link card glass" data-tilt="off">
-              <Icon name="mail" size={18} />
-              <span>{site.email}</span>
-              <Icon name="arrowUpRight" size={15} class="trail" />
+          <div class="contact-cta-row">
+            <a href="/book" class="btn btn-primary contact-book">
+              Book a 15-minute call <Icon name="arrowRight" size={16} />
             </a>
-            <a href={`tel:${site.phoneHref}`} class="contact-link card glass" data-tilt="off">
-              <Icon name="phone" size={18} />
-              <span>{site.phone}</span>
-              <Icon name="arrowUpRight" size={15} class="trail" />
-            </a>
-            <a
-              href={site.links.linkedin}
-              target="_blank"
-              rel="noopener"
-              class="contact-link card glass"
-              data-tilt="off"
-            >
-              <Icon name="linkedin" size={18} />
-              <span>linkedin.com/in/prasadus</span>
-              <Icon name="arrowUpRight" size={15} class="trail" />
-            </a>
+            <a href="/contact" class="btn btn-ghost">All ways to reach me</a>
           </div>
         </div>
 
@@ -103,8 +82,11 @@ import { site } from '../data/site';
     font-size: var(--fs-lead);
     line-height: 1.6;
   }
-  .contact-book {
-    margin-top: 24px;
+  .contact-cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 26px;
   }
   .contact-links {
     display: flex;

@@ -133,7 +133,7 @@ export function llmsIndex(posts: PostMeta[]): string {
   L.push(`# ${site.name}`, '');
   L.push(`> ${site.description}`, '');
   L.push(
-    `${site.name} is a 3x technical co-founder and the founder & CEO of Luminik, based in ${site.location}. This site covers his work, background, and writing on AI-native engineering, evals, and building companies.`,
+    `${site.name} is a 3x technical founder and the founder & CEO of Luminik, based in ${site.location}. This site covers his work, background, and writing on AI-native engineering, evals, and building companies.`,
     ''
   );
   L.push('## Pages', '');

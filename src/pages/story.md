@@ -2,7 +2,7 @@
 layout: ../layouts/PageLayout.astro
 title: "My story"
 eyebrow: "About"
-description: "How Prasad Subrahmanya went from a small town in Karnataka with no path into engineering to a 3x technical co-founder building AI products in Oslo."
+description: "How Prasad Subrahmanya went from a small town in Karnataka with no path into engineering to a 3x technical founder building AI products in Oslo."
 lead: "From a small town in Karnataka with no path into engineering, to building companies from zero. The long version."
 ---
 
@@ -50,7 +50,7 @@ I joined BlueJeans, a video company with an odd name that few people had heard o
 
 ## How I learned to build
 
-I have been a technical co-founder three times. The way I work came out of that, and it is fairly consistent across all three.
+I have been a technical founder three times. The way I work came out of that, and it is fairly consistent across all three.
 
 Sell before you build. I would rather find out a thing is wanted before I spend six months making it than after. Then I look for the real, repetitive workflows people already grind through by hand, because that is where a product has somewhere to stand. The job is to turn those into something that works, ship it, and get it to deliver a commercial outcome, not a demo. Take it from 0 to 1, then past 1.
 
