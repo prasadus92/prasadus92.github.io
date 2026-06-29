@@ -7,6 +7,39 @@ import { site } from '../../data/site';
 const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
+
+// Two clusters, by slug membership (robust to category strings). Engineering
+// shows first. Anything not listed in either set falls under engineering.
+const engineeringSlugs = new Set([
+  'verifier-design-agent-rl',
+  'idempotent-ingestion',
+  'multi-model-proxy',
+  'cut-coding-agent-token-bill',
+  'durable-by-design',
+  'loops-harnesses-memory',
+  'deploying-a-customer-support-ai-agent-to-production',
+  'hotel-kpi-elt-pipeline',
+  'snowflake-cost-optimization',
+]);
+const companySlugs = new Set([
+  'zero-to-one-bain',
+  'raising-seed-round',
+  'technical-founder-sales',
+  'mvp-three-months',
+  'event-marketing-roi',
+]);
+
+// posts is already newest-first, so each cluster preserves that order.
+const companyPosts = posts.filter((p) => companySlugs.has(p.id));
+const engineeringPosts = posts.filter((p) => !companySlugs.has(p.id));
+
+const clusters = [
+  { title: 'AI-native engineering', posts: engineeringPosts },
+  { title: 'Building companies', posts: companyPosts },
+].filter((c) => c.posts.length > 0);
+
+// Suppress an unused-variable lint while keeping the explicit slug set for clarity.
+void engineeringSlugs;
 ---
 
 <BaseLayout
@@ -27,21 +60,26 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
         </p>
       </header>
 
-      <div class="blog-grid">
-        {
-          posts.map((p, i) => (
-            <BlogCard
-              slug={p.id}
-              title={p.data.title}
-              description={p.data.description}
-              pubDate={p.data.pubDate}
-              category={p.data.category}
-              readingTime={p.data.readingTime}
-              delay={(i % 3) + 1}
-            />
-          ))
-        }
-      </div>
+      {
+        clusters.map((cluster) => (
+          <section class="blog-cluster">
+            <h2 class="cluster-title reveal">{cluster.title}</h2>
+            <div class="blog-grid">
+              {cluster.posts.map((p, i) => (
+                <BlogCard
+                  slug={p.id}
+                  title={p.data.title}
+                  description={p.data.description}
+                  pubDate={p.data.pubDate}
+                  category={p.data.category}
+                  readingTime={p.data.readingTime}
+                  delay={(i % 3) + 1}
+                />
+              ))}
+            </div>
+          </section>
+        ))
+      }
     </div>
   </section>
 </BaseLayout>
@@ -62,6 +100,19 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
     margin-top: 20px;
     font-size: var(--fs-lead);
     line-height: 1.6;
+  }
+  .blog-cluster {
+    margin-bottom: clamp(48px, 6vw, 88px);
+  }
+  .blog-cluster:last-child {
+    margin-bottom: 0;
+  }
+  .cluster-title {
+    font-size: clamp(1.3rem, 1.1rem + 1vw, 1.7rem);
+    letter-spacing: var(--tracking-tight);
+    margin-bottom: clamp(20px, 2.4vw, 28px);
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--glass-border);
   }
   .blog-grid {
     display: grid;

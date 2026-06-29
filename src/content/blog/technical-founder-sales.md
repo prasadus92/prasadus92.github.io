@@ -7,6 +7,8 @@ tags: ["founder-sales"]
 readingTime: "11 min read"
 ---
 
+**TL;DR.** Engineers are told they cannot sell. The opposite is true in modern B2B, where buyers want to be helped, not pitched, and the person who understands the product deepest is the most credible voice in the room. I learned this selling at Mainteny, and most concretely when I signed a roughly \$48K contract with a 200-person identity-verification company in New York before the product was even finished. The move is to stop performing sales and start doing what engineers already do well: understand the problem, map an honest solution to it, and follow through.
+
 There's a persistent myth in startups that engineers can't sell. That we're too introverted, too technical, too focused on features instead of benefits. That we need to hire a "real salesperson" as soon as possible.
 
 I believed this for years. Then I tried selling.
@@ -44,6 +46,8 @@ He signed the contract that week. Later he told me the competitors' reps couldn'
 
 This is the advantage technical founders have. You don't need to check with anyone. You ARE the product team. You can go deeper on technical questions than any salesperson memorizing feature lists.
 
+The clearest version of this for me was the first real contract I closed. The customer was a roughly 200-person identity-verification company in New York, the kind of buyer with engineers of their own who ask hard questions and expect real answers. The contract was around \$48K, and I signed it before the product was finished. That sounds reckless until you see why it worked. I was not selling a finished thing, I was selling a credible account of exactly how the thing would work, because I was the one building it. When their technical people pushed on integration details and edge cases, I could answer from inside the design rather than deflect, and I was honest about what existed and what did not yet. Selling the design before the product exists is only possible when the seller is the builder. That is the whole edge.
+
 You can also have real conversations about architecture, integrations, and implementation. In B2B software, those conversations often decide the deal. Your buyer isn't buying software. They're buying a solution to a technical problem. Having someone who understands that problem on the other side of the table changes the conversation.
 
 ## Help, don't pitch
@@ -56,16 +60,11 @@ This feels natural to engineers because it's how we approach problem-solving any
 
 On a sales call, this means asking genuine questions about their situation, listening to the answers, and honestly mapping your solution to their needs, including being upfront about gaps.
 
-#### The Consultative Mindset
+#### The consultative mindset
 
-- **Instead of:** "Let me show you our features"
-- **Try:** "Tell me about what you're trying to accomplish"
-- 
-- **Instead of:** "Our product does X, Y, and Z"
-- **Try:** "Based on what you've described, here's how we could help with X. Y might not be the right fit, but let me explain why."
-- 
-- **Instead of:** "What would it take to close this deal today?"
-- **Try:** "Does it make sense to keep talking, or is this not a priority right now?"
+- **Instead of** "let me show you our features," **try** "tell me about what you're trying to accomplish."
+- **Instead of** "our product does X, Y, and Z," **try** "based on what you've described, here's how we could help with X. Y might not be the right fit, and let me explain why."
+- **Instead of** "what would it take to close this deal today," **try** "does it make sense to keep talking, or is this not a priority right now?"
 
 This has a counterintuitive benefit. It increases your close rate. When you give people permission to say no, they trust you more. When you're honest about limitations, they believe you about strengths. When you focus on helping rather than closing, the right prospects lean in and the wrong ones self-select out.
 
@@ -202,5 +201,14 @@ Trust compounds. The prospect you helped today, even if they didn't buy, remembe
 Sales is about building relationships with people who have problems you can solve. Engineers are good at solving problems. Turns out we can be good at building those relationships too.
 
 You have to stop trying to be a salesperson and start being yourself: an engineer who wants to help.
+
+## Key takeaways
+
+- Product depth beats sales technique. The founder who built the system can answer the edge-case question on the spot, and that answer is often what decides the deal.
+- Help, don't pitch. Give people permission to say no and your close rate goes up, because the honesty makes them believe you about the strengths too.
+- You can sell the design before the product exists, but only if you are the builder. That is how I signed a roughly \$48K contract with a 200-person IDV company before the product was finished.
+- "I don't know, but I'll find out" plus fast follow-through builds more trust than pretending to have every answer.
+- Demo less, talk more. A targeted 10-minute demo of the parts that fit their use case beats a 45-minute feature tour.
+- Don't rush to hire a rep. Keep founder-led sales until you have a repeatable process, a stable ICP and price, and roughly 10 to 15 closed deals of your own.
 
 These lessons come from my time at Mainteny, Bain, and now Luminik. If you're a technical founder figuring out sales for the first time, I'm happy to share what I've learned. Not a pitch, just a conversation between founders.

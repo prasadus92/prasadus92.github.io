@@ -1,3 +1,5 @@
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
 import {
   site,
   impact,
@@ -10,6 +12,49 @@ import {
 } from '../data/site';
 
 export const ORIGIN = 'https://prasad.tech';
+
+// Read a page .md file from src/pages and split frontmatter from body.
+// Resolved from the repo root (build runs with cwd at the repo root).
+function readPageMd(relFromRoot: string): { frontmatter: Record<string, string>; body: string } {
+  const raw = readFileSync(resolve(process.cwd(), relFromRoot), 'utf-8');
+  const match = raw.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
+  if (!match) return { frontmatter: {}, body: raw.trim() };
+  const frontmatter: Record<string, string> = {};
+  for (const line of match[1].split('\n')) {
+    const m = line.match(/^(\w+):\s*"?(.*?)"?$/);
+    if (m) frontmatter[m[1]] = m[2];
+  }
+  return { frontmatter, body: match[2].trim() };
+}
+
+// Markdown for the /story page (mirrors the rendered story.md page).
+export function storyMarkdown(): string {
+  const { frontmatter, body } = readPageMd('src/pages/story.md');
+  const L: string[] = [];
+  L.push(`# ${frontmatter.title ?? 'My story'}`, '');
+  if (frontmatter.lead) L.push(`> ${frontmatter.lead}`, '');
+  L.push(body);
+  return L.join('\n');
+}
+
+// Markdown for the /book page.
+export function bookMarkdown(): string {
+  const L: string[] = [];
+  L.push('# Book a call', '');
+  L.push(
+    '> A short intro call, no deck. If you are building something hard in AI or hiring for it, grab a time that works.',
+    ''
+  );
+  L.push(
+    `Book a 15-minute call with ${site.name}, ${site.role}.`,
+    '',
+    `- Booking page: ${ORIGIN}/book`,
+    `- Email: ${site.email}`,
+    `- LinkedIn: ${site.links.linkedin}`,
+    ''
+  );
+  return L.join('\n');
+}
 
 type PostMeta = {
   id: string;
@@ -72,7 +117,10 @@ export function llmsIndex(posts: PostMeta[]): string {
   );
   L.push('## Pages', '');
   L.push(`- [Home](${ORIGIN}/): work, impact, background, and how he works. Markdown: ${ORIGIN}/index.md`);
+  L.push(`- [Story](${ORIGIN}/story): the long version of his background, from rural Karnataka to founding companies. Markdown: ${ORIGIN}/story.md`);
+  L.push(`- [Book a call](${ORIGIN}/book): book a short intro call. Markdown: ${ORIGIN}/book.md`);
   L.push(`- [Writing](${ORIGIN}/blog): essays on AI-native engineering, durable workflows, and founding.`);
+  L.push(`- [Facts](${ORIGIN}/facts.md): machine-readable list of public claims and their evidence.`);
   L.push('');
   L.push('## Writing', '');
   for (const p of posts) {

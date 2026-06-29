@@ -10,6 +10,9 @@ function initReveal() {
     els.forEach((el) => el.classList.add('in'));
     return;
   }
+  // threshold 0 fires for any element regardless of height. A fixed
+  // percentage threshold silently fails on elements taller than the
+  // viewport (e.g. a full article body), leaving them stuck hidden.
   const io = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
@@ -19,7 +22,7 @@ function initReveal() {
         }
       });
     },
-    { threshold: 0.12, rootMargin: '0px 0px -8% 0px' }
+    { threshold: 0, rootMargin: '0px 0px -10% 0px' }
   );
   els.forEach((el) => io.observe(el));
 }

@@ -7,9 +7,11 @@ tags: ["fundraising"]
 readingTime: "12 min read"
 ---
 
+**TL;DR.** I co-founded Mainteny and ran the technical side of a seed raise that took six months, 87 investor conversations, and a lot of rejection. The work I did there helped raise a \$2.7M seed. Cold outreach got us a 15% response rate by researching every investor instead of mail-merging them, the live product demo did more than any deck, and term sheets arrived in a cluster at the end because no one wants to be first. The real lesson: fundraising is a filter on whether you built something worth funding, not an accomplishment in itself.
+
 Most fundraising advice comes from people who raised money in 2021, when VCs handed out term sheets freely. That advice is useless now.
 
-I raised a seed round as a CTO at Mainteny. The process took six months, 87 investor conversations, and more rejections than I want to count. Here is what I learned.
+I co-founded Mainteny and was the CTO through our seed raise. The process took six months, 87 investor conversations, and more rejections than I want to count. The work my co-founder and I did in that period helped raise a \$2.7M seed. I ran the technical half of it: the product demo, the technical due diligence, and the "why this team can build it" story. Here is what I learned.
 
 ## The time cost
 
@@ -71,7 +73,7 @@ We tracked everything. The data:
 - Subject lines under 7 words outperformed longer ones
 - Follow-ups sent 4-5 days after initial email converted best
 
-## What investors actually evaluate
+## What investors evaluate
 
 After 87 conversations, patterns emerge.
 
@@ -103,6 +105,8 @@ The most effective thing we did: demo the product. Not a slide about the product
 Ten minutes of watching a real workflow communicated more than any slides. It showed we could build. It showed we understood the user. It showed the problem was real because the solution was specific.
 
 One investor told us: "I see 20 decks a week. Maybe 2 include a product demo. You should always demo."
+
+The reason this works is first-principles simple. A deck is a claim. A working product is evidence. At seed stage an investor is mostly underwriting two risks, whether you can build and whether anyone wants it, and a live demo of a tool real customers already use collapses both risks in ten minutes. I demoed the actual production app, logged in as a real customer account with real jobs in it, not a sandbox. The few times a feature was rough, I said so on the spot, which bought more credibility than a clean script would have.
 
 ## The timeline
 
@@ -229,5 +233,15 @@ Fundraising is a filter, not an accomplishment.
 The hard part is not raising money. The hard part is building something worth investing in. If you have built real value, you will find capital. If you have not, no fundraising tactics will save you.
 
 The best thing you can do to make fundraising easier is to spend less time thinking about fundraising and more time building something people want.
+
+## Key takeaways
+
+- Treat fundraising as a filter, not a trophy. If you have built real value you will find capital; if you have not, no tactic saves you.
+- Research every investor before you send anything. That discipline is why our cold response rate was 15% against a 2 to 5% industry norm.
+- Demo the live product, not a slide about it. Evidence beats claims, and it collapses the two risks an investor underwrites at seed: can you build, and does anyone want it.
+- Block whole days for investor work and whole days for product work. The context-switching tax between the two is the hidden cost of a raise.
+- Have the data room ready before you start. Good opportunities move fast, and scrambling for contracts and a cap table mid-process loses a week you do not have.
+- Term sheets cluster. No one wants to be first, so the first commit creates urgency and the rest pile on within weeks.
+- As the technical co-founder, your job in the raise is to run the demo, own technical due diligence, and tell the "why this team can build it" story while keeping the product stable.
 
 If you are currently fundraising or thinking about it, I am happy to chat. Reach out on LinkedIn.

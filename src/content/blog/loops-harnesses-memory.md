@@ -8,7 +8,23 @@ readingTime: "14 min read"
 featured: true
 draft: false
 demo: "alfred-firing"
+related: ["durable-by-design", "deploying-a-customer-support-ai-agent-to-production"]
+faq:
+  - q: "What are the loop, the harness, and the memory?"
+    a: "Three deterministic layers around the model. The loop is the scheduling and stop-work logic: when an agent fires, how long it runs, when it trips a breaker, like an employee's shift schedule and stop rules. The harness is the safety container: per-role tool allowlists, throwaway worktrees, scoped identities, and a pre-tool-use hook, like a building with access badges and locked doors. The memory is the fleet's shared, sourced knowledge that stays reviewable and reversible. The model writes the code; these layers make it safe to run unattended."
+  - q: "Why do Alfred's agents fire and forget instead of holding long sessions?"
+    a: "A session that has to resume after a crash is the thing you end up debugging at the worst possible time. Each agent instead fires on a schedule, does one bounded run, and exits. State is re-derived from durable artifacts such as issues, branches, and PRs every firing, so a crash leaves nothing for the next run to interpret."
+  - q: "How do you safely run a coding model in full-trust mode?"
+    a: "Safety lives in the scaffolding, not the model. Each role gets a least-privilege tool allowlist, runs in a throwaway git worktree under a scoped cloud identity, and passes through a dependency-free pre-tool-use hook that blocks a small set of dangerous actions before any tool call."
+  - q: "Why does a fresh session review the agent's plan before code is written?"
+    a: "A model reviewing its own plan in the same session tends to agree with itself. An uncorrelated review session with a critique brief disagrees, and those disagreements catch the confident-but-wrong changes that look like success until you read closely."
+  - q: "How do you stop agent memory from turning into confident fabrication?"
+    a: "Canonicity is explicit: source code beats a recalled lesson, lessons carry confidence labels and linked evidence, and a separate judge can only lower confidence, never raise it. Promotions stay reversible through bi-temporal validity, so anything wrong can be reverted and stops surfacing."
 ---
+
+**TL;DR.** Running coding agents unattended in production is mostly not a prompting problem. Reliability lives in three deterministic layers around the model: the loop that decides when an agent fires and how it recovers, the harness that safely contains a model you have chosen to fully trust, and the memory that lets the fleet learn without becoming a second, unreviewed source of truth. The model writes the code. A few hundred lines of plain Python decide when it runs, what it can touch, and what it is allowed to remember. I learned this building Alfred, a self-hosted fleet of named agents on one Mac.
+
+A quick frame before the detail, since the three layers map onto something familiar. Think of each agent like an employee you cannot supervise in real time. The **loop** is their shift schedule and their stop-work rules: when they clock in, how long they work, when they down tools because something is wrong. The **harness** is the building and its access badges: which rooms they can enter, what they can touch, the locked doors no instruction can open. The **memory** is the team's shared, written knowledge: useful only if every entry is sourced and anyone can revert a bad one. Get those three right and you can walk away. Get any one wrong and the other two do not save you.
 
 A coding agent demo is easy to make and hard to trust. You wire a model to a few tools, hand it a clean repo and a tidy task, and it ships a pull request while the room nods. Then you run the same thing on a Tuesday afternoon with nobody watching, against a real backlog, sharing a rate limit with other agents, and you learn how little the demo told you.
 
@@ -22,7 +38,7 @@ I learned this building Alfred, a self-hosted fleet of named specialist roles th
 
 The first instinct is to model an agent as a long conversation: open a session, keep the thread alive, reconnect when something breaks. That works for a person at a keyboard and falls apart the moment the operator is asleep.
 
-Alfred agents hold no sessions. Each one fires on a schedule, does a single bounded run, exits, and forgets. Re-derive instead of resume is the load-bearing decision in the whole system. Resuming feels more efficient, but a resume protocol is a thing you debug at the worst possible time, when an agent crashed mid-task and left a half-written state for the next run to interpret. So I gave that up.
+Alfred agents hold no sessions. Each one fires on a schedule, does a single bounded run, exits, and forgets. [Re-derive instead of resume](/blog/durable-by-design) is the load-bearing decision in the whole system. Resuming feels more efficient, but a resume protocol is a thing you debug at the worst possible time, when an agent crashed mid-task and left a half-written state for the next run to interpret. So I gave that up.
 
 - **Re-derive every firing.** Inputs are read from scratch: open issues, queued requests, branch state. A crash is never a special case, because a crashed firing leaves nothing the next one has to understand.
 - **Pay for repeated work on purpose.** The cost is mostly re-reading state that has not changed. The benefit is that there is no resume protocol to debug.
@@ -41,7 +57,7 @@ An unbounded agent is a way to spend money and trust you do not have. Every firi
 
 Most firings find nothing to do. An agent wakes, reads its inputs, sees no matching work, and exits. I had to be deliberate that this counts as success. If you score "no work found" as an error, your fail-streak breakers trip constantly, your logs fill with noise, and you train yourself to ignore alerts. The non-event is the most common event, and a healthy fleet is quiet most of the time.
 
-### The war story: a hidden turn cap
+### A hidden turn cap
 
 The CLI applies a default turn cap when you do not specify one. My runner thought it was handing the model an open-ended task bounded only by my budget. The CLI was quietly capping turns far lower, and firings ended mid-task with no error. The agent stopped partway and looked like it had decided it was done. I lost an embarrassing amount of time treating this as a reasoning problem before I found the silent default.
 
@@ -127,8 +143,18 @@ flowchart TD
 
 ## Reliability is a system property
 
-None of these three layers is sufficient alone, and the discipline is in composing them. The loop without the harness does damage fast and unattended. The harness without the loop is a safe agent that never reliably fires or recovers. Both without memory make the same mistake every week. Memory without canonicity and the gate is a fabrication machine wearing the costume of institutional knowledge.
+None of these three layers is sufficient alone, and the discipline is in composing them. The loop without the harness does damage fast and unattended. The harness without the loop is a safe agent that never reliably fires or recovers. Both without memory make the same mistake every week. Memory without canonicity and the gate becomes a source of confident fabrications that look like institutional knowledge.
 
 Build the loop first. Get scheduled, bounded, idempotent firings that re-derive their state and treat silence as success, because everything else assumes that foundation. Then build the harness, because the moment agents run unattended you need safety that holds whether or not the model behaves. Memory comes last, and it can wait. A fleet that ships safely without learning beats one that learns fast and ships a fabrication.
 
 Almost none of this lived in a prompt. I expected the cleverness to be in what I told the model. I came out having written a few hundred lines of deterministic Python that decide when the model runs, what it can touch, and what the fleet is allowed to remember. The model does the coding. The system is what makes it safe to walk away.
+
+## Key takeaways
+
+- Reliability for unattended agents lives outside the prompt, in three deterministic layers: the loop, the harness, and memory.
+- Fire and forget, do not hold sessions. Each agent runs one bounded firing and re-derives state from durable artifacts, so a crash leaves nothing to interpret.
+- Bound every firing with a turn budget, a wall-clock timeout, a fail-streak breaker, a daily cap, and a fleet-wide rate-limit stop. Treat "no work found" as success, not an error.
+- Insert plan, then an uncorrelated review, then execute. The biggest quality jump came from catching confident-but-wrong plans before any code is written.
+- Safety cannot depend on the model. Enforce it in the scaffolding: per-role allowlists, throwaway worktrees, scoped identities, and a small dependency-free pre-tool-use hook as the last line.
+- Make memory reviewable: code beats a recalled lesson, lessons carry confidence and linked evidence, an LLM judge can only lower confidence, and promotions stay reversible.
+- Build the loop first, the harness second, memory last. A fleet that ships safely without learning beats one that learns fast and ships a fabrication.

@@ -413,6 +413,34 @@ Four things, honestly. The in-message marker, because I assumed a tag could not 
 
 ## Try it: a simulated run
 
+<div class="demo-card demo-sim" data-demo-sim>
+  <span class="demo-kicker">Interactive: one case through the pipeline</span>
+  <p class="demo-note">Runs entirely in your browser with hardcoded examples. Nothing touches the network and nothing runs against a real agent. It is a picture of the method, safe to click.</p>
+  <div class="sim-controls">
+    <select data-sim-select aria-label="Pick a test case"></select>
+    <button type="button" class="demo-btn" data-sim-run>Run case</button>
+    <span class="sim-meta" data-sim-meta aria-live="polite"></span>
+  </div>
+  <div class="sim-chat" data-sim-chat aria-live="polite"></div>
+  <div class="sim-grader">
+    <div class="sim-panel">
+      <h4>Layer 1: plain-code checks</h4>
+      <div data-sim-checks></div>
+    </div>
+    <div class="sim-panel">
+      <h4>Layer 2: routed AI judge</h4>
+      <div class="sim-judge" data-sim-judge aria-live="polite"></div>
+      <div data-sim-verdict aria-live="polite"></div>
+      <div class="sim-reason" data-sim-reason></div>
+    </div>
+  </div>
+  <div class="sim-legend">
+    <span><span class="sim-swatch" style="background:var(--st-pass)"></span>pass</span>
+    <span><span class="sim-swatch" style="background:var(--st-fail)"></span>real fail</span>
+    <span><span class="sim-swatch" style="background:var(--st-warn)"></span>reconciled: test too strict</span>
+  </div>
+</div>
+
 The companion page for this article includes a small interactive demo. Pick a sample case and watch it move through the pipeline: the agent types a reply, the plain-code checks tick through, the judge routes by risk and scores, and a verdict stamps in. It runs entirely in your browser with hardcoded examples. Nothing touches the network, and nothing runs against a real agent. It is a picture of the method, safe to click.
 
 ## The failures, grouped by cause

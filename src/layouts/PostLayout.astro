@@ -3,6 +3,7 @@ import BaseLayout from './BaseLayout.astro';
 import Icon from '../components/Icon.astro';
 import PostArt from '../components/PostArt.astro';
 import AlfredFiringDemo from '../components/AlfredFiringDemo.astro';
+import BlogDemos from '../components/BlogDemos.astro';
 import { site } from '../data/site';
 import '../styles/prose.css';
 
@@ -10,26 +11,98 @@ export interface Props {
   title: string;
   description: string;
   pubDate: Date;
+  updatedDate?: Date;
   category?: string;
   readingTime?: string;
   tags?: string[];
   image?: string;
   seed?: string;
+  slug?: string;
   mdPath?: string;
   demo?: string;
+  faq?: { q: string; a: string }[];
+  related?: { id: string; title: string; description: string }[];
 }
-const { title, description, pubDate, category, readingTime, tags = [], image, seed, mdPath, demo } =
-  Astro.props;
+const {
+  title,
+  description,
+  pubDate,
+  updatedDate,
+  category,
+  readingTime,
+  tags = [],
+  image,
+  seed,
+  slug,
+  mdPath,
+  demo,
+  faq = [],
+  related = [],
+} = Astro.props;
 const dateStr = pubDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+
+const origin = (Astro.site ?? new URL(`https://${site.domain}`)).origin;
+const postUrl = `${origin}/blog/${slug}`;
+
+const articleLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: title,
+  description,
+  datePublished: pubDate.toISOString(),
+  dateModified: (updatedDate ?? pubDate).toISOString(),
+  author: { '@type': 'Person', name: site.name, url: origin },
+  publisher: { '@type': 'Person', name: site.name, url: origin },
+  mainEntityOfPage: postUrl,
+  url: postUrl,
+  ...(image ? { image: new URL(image, origin).href } : {}),
+  ...(tags.length ? { keywords: tags.join(', ') } : {}),
+};
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: `${origin}/` },
+    { '@type': 'ListItem', position: 2, name: 'Writing', item: `${origin}/blog` },
+    { '@type': 'ListItem', position: 3, name: title, item: postUrl },
+  ],
+};
+const faqLd =
+  faq.length > 0
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: faq.map((f) => ({
+          '@type': 'Question',
+          name: f.q,
+          acceptedAnswer: { '@type': 'Answer', text: f.a },
+        })),
+      }
+    : null;
+const jsonLd = [articleLd, breadcrumbLd, faqLd].filter(Boolean) as Record<string, unknown>[];
 ---
 
-<BaseLayout title={`${title} - ${site.name}`} description={description} type="article" image={image}>
+<BaseLayout
+  title={`${title} - ${site.name}`}
+  description={description}
+  type="article"
+  image={image}
+  jsonLd={jsonLd}
+>
+  <div class="read-progress" aria-hidden="true"><span id="read-bar"></span></div>
+
   <article class="post">
     <div class="container--prose post-art-wrap reveal">
       <PostArt seed={seed ?? title} height="200px" />
     </div>
     <div class="container--prose post-head">
-      <a href="/blog" class="back reveal"><Icon name="arrowLeft" size={15} /> All writing</a>
+      <nav class="crumbs reveal" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <Icon name="chevronDown" size={13} class="crumb-sep" />
+        <a href="/blog">Writing</a>
+        <Icon name="chevronDown" size={13} class="crumb-sep" />
+        <span aria-current="page">{category ?? 'Essay'}</span>
+      </nav>
       <div class="post-meta reveal reveal-d1">
         {category && <span class="chip">{category}</span>}
         <span>{dateStr}</span>
@@ -45,6 +118,43 @@ const dateStr = pubDate.toLocaleDateString('en-US', { month: 'long', year: 'nume
         <slot />
       </div>
     </div>
+
+    <BlogDemos />
+
+    {
+      faq.length > 0 && (
+        <section class="container--prose post-faq reveal">
+          <h2>Common questions</h2>
+          <dl>
+            {faq.map((f) => (
+              <>
+                <dt>{f.q}</dt>
+                <dd>{f.a}</dd>
+              </>
+            ))}
+          </dl>
+        </section>
+      )
+    }
+
+    {
+      related.length > 0 && (
+        <section class="container--prose post-related reveal">
+          <h2>Keep reading</h2>
+          <ul>
+            {related.map((r) => (
+              <li>
+                <a href={`/blog/${r.id}`}>
+                  <strong>{r.title}</strong>
+                  <span class="muted">{r.description}</span>
+                  <Icon name="arrowRight" size={16} class="rel-arrow" />
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
 
     <div class="container--prose post-foot reveal">
       <div class="author glass card" data-tilt="off">
@@ -69,9 +179,37 @@ const dateStr = pubDate.toLocaleDateString('en-US', { month: 'long', year: 'nume
       <a href="/blog" class="btn btn-ghost"><Icon name="arrowLeft" size={15} /> Back to all writing</a>
     </div>
   </article>
+
+  <button class="to-top" id="to-top" type="button" aria-label="Back to top">
+    <Icon name="arrowUp" size={18} />
+  </button>
 </BaseLayout>
 
 <script is:inline type="module">
+  // Reading progress, bound to the article body.
+  const bar = document.getElementById('read-bar');
+  const body = document.querySelector('.post-body');
+  const toTop = document.getElementById('to-top');
+  if (bar && body) {
+    const update = () => {
+      const start = body.offsetTop;
+      const end = body.offsetTop + body.offsetHeight - window.innerHeight;
+      const p = end > start ? (window.scrollY - start) / (end - start) : 0;
+      bar.style.transform = `scaleX(${Math.min(Math.max(p, 0), 1)})`;
+      if (toTop) toTop.classList.toggle('show', window.scrollY > 700);
+    };
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update, { passive: true });
+  }
+  if (toTop) {
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    toTop.addEventListener('click', () =>
+      window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' })
+    );
+  }
+
+  // Mermaid render + click-to-enlarge lightbox.
   const nodes = document.querySelectorAll('pre.mermaid');
   if (nodes.length) {
     const mermaid = (
@@ -89,6 +227,60 @@ const dateStr = pubDate.toLocaleDateString('en-US', { month: 'long', year: 'nume
     } catch (e) {
       /* leave source visible if a diagram fails */
     }
+
+    // Lightbox (shared overlay, works across browsers/screens).
+    const overlay = document.createElement('div');
+    overlay.className = 'mm-overlay';
+    overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-modal', 'true');
+    overlay.innerHTML =
+      '<button class="mm-close" aria-label="Close diagram">✕</button><div class="mm-stage"></div>';
+    document.body.appendChild(overlay);
+    const stage = overlay.querySelector('.mm-stage');
+    const close = () => {
+      overlay.classList.remove('open');
+      stage.innerHTML = '';
+      document.body.style.overflow = '';
+    };
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay || e.target.classList.contains('mm-close')) close();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') close();
+    });
+
+    nodes.forEach((n) => {
+      const svg = n.querySelector('svg');
+      if (!svg) return;
+      n.classList.add('mm-zoomable');
+      n.setAttribute('role', 'button');
+      n.setAttribute('tabindex', '0');
+      n.setAttribute('aria-label', 'Enlarge diagram');
+      const hint = document.createElement('span');
+      hint.className = 'mm-hint';
+      hint.innerHTML =
+        '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>';
+      n.appendChild(hint);
+      const open = () => {
+        stage.innerHTML = '';
+        const clone = svg.cloneNode(true);
+        clone.removeAttribute('width');
+        clone.removeAttribute('height');
+        clone.style.width = 'min(90vw, 1100px)';
+        clone.style.maxWidth = 'none';
+        clone.style.height = 'auto';
+        stage.appendChild(clone);
+        overlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      };
+      n.addEventListener('click', open);
+      n.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          open();
+        }
+      });
+    });
   }
 </script>
 
@@ -96,29 +288,60 @@ const dateStr = pubDate.toLocaleDateString('en-US', { month: 'long', year: 'nume
   .post {
     padding-top: clamp(110px, 14vh, 150px);
   }
+  /* reading progress */
+  .read-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    z-index: 200;
+    background: transparent;
+    pointer-events: none;
+  }
+  .read-progress span {
+    display: block;
+    height: 100%;
+    width: 100%;
+    transform: scaleX(0);
+    transform-origin: 0 50%;
+    background: var(--grad-brand);
+    will-change: transform;
+  }
   .post-art-wrap {
     margin-bottom: clamp(28px, 4vw, 44px);
   }
   .post-head {
     text-align: center;
   }
-  .back {
+  .crumbs {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    font-size: 0.9rem;
+    gap: 8px;
+    justify-content: center;
+    font-size: 0.85rem;
+    color: var(--text-tertiary);
+  }
+  .crumbs a {
     color: var(--text-tertiary);
     transition: color var(--dur-1) var(--ease-out);
   }
-  .back:hover {
+  .crumbs a:hover {
     color: var(--accent);
+  }
+  .crumbs :global(.crumb-sep) {
+    transform: rotate(-90deg);
+    opacity: 0.5;
+  }
+  .crumbs [aria-current] {
+    color: var(--text-secondary);
   }
   .post-meta {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
-    margin-top: 22px;
+    margin-top: 18px;
     font-size: var(--fs-sm);
     color: var(--text-tertiary);
   }
@@ -136,6 +359,77 @@ const dateStr = pubDate.toLocaleDateString('en-US', { month: 'long', year: 'nume
   .post-body {
     margin-top: clamp(40px, 6vw, 72px);
   }
+
+  /* FAQ */
+  .post-faq {
+    margin-top: clamp(48px, 7vw, 80px);
+  }
+  .post-faq h2,
+  .post-related h2 {
+    font-size: var(--fs-h3);
+    margin-bottom: 22px;
+  }
+  .post-faq dt {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.05rem;
+    margin-top: 22px;
+  }
+  .post-faq dd {
+    margin: 8px 0 0;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+
+  /* Related */
+  .post-related {
+    margin-top: clamp(48px, 7vw, 80px);
+  }
+  .post-related ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 12px;
+  }
+  .post-related a {
+    display: grid;
+    gap: 4px;
+    /* reserve room on the right so long titles never run under the arrow */
+    padding: 20px 56px 20px 22px;
+    border-radius: var(--r-lg);
+    border: 1px solid var(--glass-border);
+    background: var(--glass-bg);
+    position: relative;
+    transition: border-color var(--dur-2) var(--ease-out), transform var(--dur-2) var(--ease-out),
+      background var(--dur-2) var(--ease-out);
+  }
+  .post-related a:hover {
+    border-color: var(--glass-border-strong);
+    background: var(--glass-bg-strong);
+    transform: translateY(-2px);
+  }
+  .post-related strong {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+  }
+  .post-related span.muted {
+    font-size: 0.92rem;
+    line-height: 1.5;
+    max-width: 70ch;
+  }
+  .post-related :global(.rel-arrow) {
+    position: absolute;
+    top: 22px;
+    right: 22px;
+    color: var(--text-tertiary);
+    transition: color var(--dur-1) var(--ease-out), transform var(--dur-1) var(--ease-out);
+  }
+  .post-related a:hover :global(.rel-arrow) {
+    color: var(--accent);
+    transform: translateX(3px);
+  }
+
   .post-foot {
     margin-top: 64px;
     display: flex;
@@ -173,5 +467,44 @@ const dateStr = pubDate.toLocaleDateString('en-US', { month: 'long', year: 'nume
   }
   .author-links a:hover {
     color: var(--accent);
+  }
+
+  /* back to top */
+  .to-top {
+    position: fixed;
+    right: clamp(16px, 3vw, 32px);
+    bottom: clamp(16px, 3vw, 32px);
+    z-index: 90;
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    color: var(--ink);
+    background: var(--glass-bg-strong);
+    border: 1px solid var(--glass-border-strong);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: var(--shadow-md);
+    opacity: 0;
+    transform: translateY(12px) scale(0.9);
+    pointer-events: none;
+    transition: opacity var(--dur-2) var(--ease-out), transform var(--dur-2) var(--ease-out),
+      border-color var(--dur-2) var(--ease-out), color var(--dur-1) var(--ease-out);
+  }
+  .to-top.show {
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+  }
+  .to-top:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .to-top {
+      transition: opacity var(--dur-1) var(--ease-out);
+    }
   }
 </style>

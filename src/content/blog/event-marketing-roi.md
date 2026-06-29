@@ -1,159 +1,95 @@
 ---
-title: "Why B2B event marketing ROI is broken (and how AI can fix it)"
-description: "Companies spend 20-30% of marketing budget on events but can't prove the ROI. Here's the systematic approach to change that."
+title: "How to measure B2B event ROI"
+description: "Events run 10-20% of a B2B marketing budget and most teams cannot prove the return. Here is a first-principles framework: sourced vs influenced pipeline, cost per opportunity, attribution windows, and payback."
 pubDate: 2025-01-26
 category: "Event marketing"
-tags: ["event-marketing"]
+tags: ["event-marketing", "gtm", "measurement"]
 readingTime: "12 min read"
+related: ["technical-founder-sales", "raising-seed-round"]
+faq:
+  - q: "What is the difference between sourced and influenced pipeline for an event?"
+    a: "Sourced pipeline is opportunities whose first qualifying touch was the event, the new logos the event created. Influenced pipeline is open opportunities that had any event touch along the way, including ones already in motion. Report both. Sourced answers 'did this event create new pipeline,' influenced answers 'did it help move existing deals,' and conflating them is how teams either overclaim or undersell the same event."
+  - q: "What is a reasonable cost per opportunity for a B2B event?"
+    a: "Divide fully loaded event cost by sourced opportunities. On a representative $170K conference that yields ~15 opportunities, that is around $11K per opportunity. Whether that is good depends on deal size and win rate: at a $50K average deal and a 20% win rate, you need roughly three closed deals to break even on sourced pipeline alone."
+  - q: "How long should the attribution window be for an event?"
+    a: "Match it to your sales cycle. A 90-day window on a 9-month cycle will systematically undercount event-sourced deals and make every event look like a failure. Set the window to roughly your median lead-to-close time, and report sourced pipeline at that horizon rather than at quarter-end."
+  - q: "Why does follow-up speed dominate event ROI?"
+    a: "Because most leads never get contacted and most of the rest get contacted late. Industry data puts un-followed-up trade show leads as high as 80%, and a large share of follow-ups arrive after six days. Leads contacted within 24 hours convert several times better. Speed is the cheapest lever on the whole funnel and the one most teams lose."
 ---
 
-Two questions. How much did your company spend on events last year? And how much pipeline can you directly attribute to that spend?
+**TL;DR.** B2B events run 10 to 20% of the marketing budget and most teams cannot prove the return, not because events fail but because the measurement is anecdotal. Use a first-principles framework: a fully loaded cost denominator, sourced and influenced pipeline reported separately, an attribution window matched to your sales cycle, and cost per opportunity rather than cost per lead. The biggest hidden lever is follow-up speed, since most trade-show leads are never contacted and most of the rest are contacted late.
 
-If you're like the B2B marketing leaders I've talked to, you know the first number precisely. The second one is fuzzy.
+Two numbers. How much did your company spend on events last year, and how much pipeline can you attribute to that spend? Most B2B teams know the first to the dollar and can only wave at the second. That gap is expensive, because events run 10 to 20% of a B2B marketing budget, and 70% of B2B marketers report pressure to prove ROI they cannot currently measure.
 
-That's an expensive gap. Events run 20-30% of a B2B marketing budget. Millions of dollars at mid-sized companies, tens of millions at enterprise scale. And 89% of marketers say measuring event ROI is one of their biggest challenges.
+The problem is not that events do not work. It is that most teams measure them with anecdotes. Here is the framework I use instead, built from first principles, with representative numbers you can swap for your own.
 
-The reason: we treat event marketing as an art when it should be a science.
+## Start with fully loaded cost
 
-## The problem is the process, not the events
+You cannot compute a return without an honest denominator, and most event cost accounting is dishonest by omission. A booth at a major conference is not the booth fee. A representative breakdown:
 
-Here's what happens at a typical B2B event. I've seen this pattern hundreds of times, and it's broken in a predictable way.
+- Booth space: $50,000
+- Booth design and build: $30,000
+- Sponsorship package: $40,000
+- Travel and accommodation, team of 8: $25,000
+- Materials and giveaways: $10,000
+- Dinners and entertainment: $15,000
+- **Total: $170,000**
 
-**Two weeks before the event:** Marketing scrambles to get the attendee list from the organizer. Sometimes it comes, sometimes it doesn't. When it does, it's incomplete: missing titles, companies, or contact info.
+Two costs people leave out and should not. First, the team's time: eight people for a week is real salary, and if you are comparing channels it belongs in the number. Second, the pre-event and post-event labor, which is where most of the hidden cost hides. Use fully loaded cost as the denominator for everything that follows.
 
-**One week before:** Sales finally gets the list. They're supposed to identify target accounts and book meetings. They're also trying to close deals for the quarter. Guess which wins.
+## Sourced vs influenced pipeline: report both
 
-**At the event:** People show up at the booth. Conversations happen. Business cards get collected. Notes get scribbled on napkins or typed into phones. Some leads get scanned, some don't.
+This is the distinction that decides whether your measurement is honest. They answer different questions and teams constantly conflate them.
 
-**After the event:** The team flies home exhausted. The business cards sit in a pile. The scanned leads sit in a spreadsheet. Follow-up emails go out eventually.
+**Sourced pipeline** is opportunities whose first qualifying touch was the event. These are the deals the event created that would not otherwise exist. This is the strict, conservative number, and it is the one to lead with because it is hardest to argue with.
 
-The numbers are brutal. Only 20% of exhibitors follow up with their trade show leads at all. Of those who do, 38% take longer than six days. By then your prospect has talked to three competitors and forgotten your conversation.
+**Influenced pipeline** is any open opportunity that had at least one event touch anywhere in its history, including deals already in motion before the event. This is a larger, softer number. It is legitimate, since a booth conversation can revive a stalled deal, but it is also where teams overclaim, because a single badge scan should not get full credit for a deal that was already closing.
 
-> "We spent \$200K on RSA last year. I have no idea if it was worth it."\
-> VP Marketing at a cybersecurity company
+Report both, labeled, every time. Sourced answers "did this event create new pipeline." Influenced answers "did it help move what we already had." A team that only reports influenced is flattering itself. A team that only reports sourced is underselling events that mostly accelerate existing deals, which many enterprise events do.
 
-This isn't laziness. It's a systems problem. The workflow is manual, fragmented across too many tools, and dependent on humans doing repetitive tasks perfectly under time pressure. That never works.
+> A team that only reports influenced pipeline is flattering itself; one that only reports sourced is underselling the same event.
 
-## The math
+## Pick an attribution window that matches your sales cycle
 
-Some arithmetic. Say you're exhibiting at a major conference: Money20/20, RSA, SaaStr, whatever fits your industry. Your spend might look like this:
+The most common way teams accidentally prove events do not work is measuring on the wrong clock. If your median lead-to-close is nine months and you judge an event at quarter-end, you are counting the deals that have not had time to close yet as zeros.
 
-- Booth space: \$50,000
-- Booth design/setup: \$30,000
-- Travel & accommodation (team of 8): \$25,000
-- Sponsorship package: \$40,000
-- Swag & materials: \$10,000
-- Dinners & entertainment: \$15,000
-- **Total: \$170,000**
+Set the attribution window to roughly your median sales cycle and report sourced pipeline at that horizon, not at the calendar boundary that happens to come next. A 90-day snapshot of a 9-month-cycle business systematically makes every event look like a failure, which then gets used to cut the events that were working. Decide the window before the event, write it down, and judge every event on the same clock so you are comparing like with like.
 
-Say you collect 200 leads. That's \$850 per lead, fine for enterprise B2B where deal sizes are large.
+Last-touch attribution makes this worse: 67% of B2B teams still credit only the final interaction before conversion, which erases the event entirely from any deal that had a later touch. If you can run multi-touch, do, even a simple even-weighted model across touches beats last-touch for crediting events fairly.
 
-Then it falls apart. Research shows 73% of leads never get contacted at all. Of the remaining 27%, most get a generic follow-up email days later. The conversion rate from event lead to opportunity is typically 5-10%.
+## The funnel, with realistic numbers
 
-So your 200 leads become maybe 15 opportunities. At \$170,000 total spend, that's over \$11,000 per opportunity. If your average deal size is \$50,000 and you close 20% of opportunities, you need 3 closed deals to break even.
+Take the $170K conference. Say you capture 200 leads, which is $850 per lead, fine for enterprise B2B where deals are large. Then the funnel does its damage, and the damage is mostly self-inflicted.
 
-Is that happening? Most marketing teams can't answer with confidence.
+Industry data is blunt here. Up to 80% of trade show leads never receive any follow-up at all. Of the leads that do get worked, a large share are contacted late: roughly 38% of exhibitors take longer than six days. Trade show lead-to-opportunity conversion ranges from about 1% to 10% depending almost entirely on follow-up execution.
 
-## What drives event ROI
+So 200 leads, worked well, become maybe 15 to 20 opportunities. Worked the industry-average way, far fewer. At 15 sourced opportunities, $170,000 of fully loaded cost is about **$11,000 per opportunity**. Whether that is good depends on the deal math: at a $50,000 average deal and a 20% win rate, those 15 opportunities yield 3 closed deals worth $150,000, which barely covers the event before you count influenced pipeline and renewals. Move the win rate to 30% or the deal size to $75,000 and the same event is clearly profitable. The point is not the specific numbers, which are representative. The point is that the funnel, not the event, is where the return is won or lost.
 
-After talking to dozens of marketing leaders and studying teams that consistently prove event ROI, four factors matter most.
+## Payback and the metrics that move it
 
-### 1. Pre-event targeting
+Roll it into one number per event: payback. Closed-won revenue attributable to the event, sourced first and influenced as a labeled second line, divided by fully loaded cost. Track it per event so you can compare a $170K flagship conference against a $20K regional show on the same basis, because the small show often wins on cost per opportunity and never gets credit for it.
 
-The best teams don't wait for the attendee list. They start with their ICP definition and work backward. Who are the companies we want to meet? Who are the decision-makers there? Are they registered for this event?
+Three levers move payback more than anything else, and the cheapest one is the one teams lose.
 
-This sounds obvious. It requires clean ICP data, matching it against attendee lists when available, and cross-referencing with your CRM so you don't waste time on existing customers or dead opportunities.
+- **Follow-up speed.** This is the highest-leverage and lowest-cost lever in the entire funnel. Most leads are never contacted and most of the rest are contacted late. Leads contacted within 24 hours convert several times better than those contacted a week later. Draft the follow-up before the event and send within hours, not days.
+- **Pre-booked meetings.** The teams with the best event ROI book a large share of their meetings before the event starts rather than hoping for booth traffic. That requires identifying target accounts attending and reaching out 4 to 6 weeks ahead, not 4 to 6 days.
+- **Lead quality over lead count.** Cost per lead flatters volume. Cost per opportunity rewards fit. A booth that captures 80 well-qualified leads beats one that scans 300 badges, and only the per-opportunity number shows it.
 
-The best teams I've seen start this 4-6 weeks before the event, not 4-6 days.
+## What to instrument
 
-### 2. Pre-booked meetings
+To run this framework you need three things wired up before the event, not improvised after:
 
-This surprised me: the teams with the best event ROI book 50-70% of their meetings before the event starts.
+1. A consistent way to tag every event lead at capture, so sourced and influenced are queryable later instead of reconstructed from memory.
+2. An attribution window and model decided in advance and applied uniformly, so events are compared on the same clock and the same credit rules.
+3. A follow-up process that starts within hours, because the measurement is only as good as the funnel it measures, and a fast funnel is the single change that most improves the number you are trying to prove.
 
-They're not hoping for good booth traffic. They're not relying on a chance encounter at the coffee station. They've locked in conversations with qualified prospects.
+Events deserve the same rigor as the other 80% of the budget. Most teams apply none of it, which is exactly why the ROI looks unprovable. It is not unprovable. It is unmeasured.
 
-This requires personalized outreach at scale. You can't do it manually for hundreds of prospects, but you can with the right systems.
+## Key takeaways
 
-### 3. Real-time lead intelligence
-
-At the event, speed matters. Follow up with a lead within 5 minutes and they're 21x more likely to convert than if you wait 30 minutes. Every 10-minute delay can cut conversion chances by up to 400%.
-
-So your booth staff need instant access to prospect information. Their role, their company's tech stack, recent funding, relevant pain points, and any previous interactions with your company.
-
-And leads need to sync to your CRM in real time, not get batch-uploaded after the event.
-
-### 4. Day-zero follow-up
-
-The follow-up email shouldn't be written after the event. It should be drafted before, personalized automatically from the conversation notes, and sent within hours.
-
-Companies that follow up within 24 hours are 7x more likely to qualify leads than those who wait. The industry average is 3-6 days. That gap is where deals die.
-
-## Why AI changes this
-
-I spent a year building SnowOptix, a Snowflake cost optimization tool. During that time I talked to dozens of GTM leaders at B2B companies. A pattern emerged: they all complained about event marketing.
-
-The complaint was never about events themselves. They knew events worked when done right. It was always the same thing: too much manual work, too many tools that don't talk to each other, too much falling through the cracks.
-
-That's a workflow problem. Workflow problems at scale are what AI is good at.
-
-Look at what's happening in the event marketing process:
-
-- **Data matching:** Comparing attendee lists against your ICP and CRM data
-- **Personalization:** Writing outreach relevant to each prospect's situation
-- **Research:** Gathering context about companies and individuals before conversations
-- **Note synthesis:** Turning conversation notes into follow-up tasks
-- **Follow-up drafting:** Writing emails that reference the conversation
-
-Every one of these is repetitive, time-consuming, and text-heavy. That's where AI fits.
-
-Modern LLMs can identify ICP matches from messy attendee data. They can draft personalized outreach at scale. They can summarize conversation notes and suggest next steps. They can write follow-up emails that reference what was discussed.
-
-The human still decides who to prioritize, what to say in the meeting, when to push for a next step. The mechanical work that eats 80% of the time can be automated.
-
-## The framework
-
-Here's the systematic approach that produces measurable ROI.
-
-### 4 weeks before: ICP identification
-
-- Get the attendee list, or build your target list from scratch
-- Match against your ICP criteria automatically
-- Cross-reference with CRM to identify existing relationships
-- Prioritize accounts based on fit score and buying signals
-
-### 2-3 weeks before: outreach campaign
-
-- Generate personalized meeting requests at scale
-- Send via email and LinkedIn
-- Track responses and book meetings directly into sales calendars
-- Aim for 50%+ of target meetings booked before the event
-
-### At the event: real-time intelligence
-
-- Instant prospect lookup for booth visitors
-- Real-time lead capture synced to CRM
-- AI-generated conversation briefs for meetings
-- Automatic alerts when high-priority prospects are nearby
-
-### Day zero: automated follow-up
-
-- AI drafts personalized follow-ups from conversation notes
-- Emails sent within hours, not days
-- All activity tracked in CRM for attribution
-- Sales team receives qualified leads with full context
-
-## The adoption gap
-
-Here's what I've learned after a year on this problem. Event marketing ROI isn't broken because events don't work. It's broken because the process around events is stuck in 2010.
-
-We have CRMs that track every email and call. We have marketing automation that nurtures leads over months. We have sales intelligence tools that tell us everything about a prospect.
-
-But for the \$170,000 conference, we still rely on business cards, spreadsheets, and good intentions.
-
-This is no longer a technology gap. The technology exists. It's an adoption gap.
-
-The teams that figure this out first will have an edge. While their competitors follow up on day 6, they'll have already had three conversations. While their competitors guess at ROI, they'll have direct attribution data.
-
-Events are 20-30% of your marketing budget. They deserve the same rigor you apply to the other 70-80%.
-
-This is what I'm working on with Luminik. If you're struggling with event marketing ROI and want to talk through your situation, reach out. No pitch, just a conversation about what might work for your team.
+- Use fully loaded cost as the denominator. Booth fee plus build, sponsorship, travel, team time, and pre- and post-event labor, not just the line item on the invoice.
+- Report sourced and influenced pipeline separately, labeled. Sourced answers "did the event create new pipeline," influenced answers "did it move existing deals," and conflating them either overclaims or undersells.
+- Match the attribution window to your sales cycle. Judging a 9-month-cycle business at quarter-end counts deals that have not had time to close as zeros.
+- Measure cost per opportunity, not cost per lead. Lead count flatters volume; per-opportunity cost rewards fit and is what ties to the deal math.
+- Follow-up speed is the cheapest, highest-leverage lever. Most leads are never contacted and many are contacted late, while leads worked within 24 hours convert several times better. Draft the follow-up before the event.
+- Instrument before the event, not after: consistent lead tagging at capture, a window and model decided in advance, and a follow-up process that starts within hours.

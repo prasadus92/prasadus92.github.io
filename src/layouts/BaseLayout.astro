@@ -10,6 +10,7 @@ export interface Props {
   image?: string;
   type?: 'website' | 'article';
   noBackdrop?: boolean;
+  jsonLd?: Record<string, unknown>[];
 }
 
 const {
@@ -18,14 +19,20 @@ const {
   image = '/assets/images/header/prasad.jpeg',
   type = 'website',
   noBackdrop = false,
+  jsonLd = [],
 } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site ?? `https://${site.domain}`).href;
 
 // Markdown route for the current page (for the footer AI helpers), where one exists.
 const _p = Astro.url.pathname.replace(/\/$/, '');
+const _mdRoutes = new Set(['/story', '/book']);
 const mdPath =
-  _p === '' ? '/index.md' : _p.startsWith('/blog/') ? `${_p}.md` : undefined;
+  _p === ''
+    ? '/index.md'
+    : _p.startsWith('/blog/') || _mdRoutes.has(_p)
+      ? `${_p}.md`
+      : undefined;
 const ogImage = new URL(image, Astro.site ?? `https://${site.domain}`).href;
 const origin = (Astro.site ?? new URL(`https://${site.domain}`)).origin;
 
@@ -49,6 +56,20 @@ const personLd = {
     'Startup engineering leadership',
   ],
 };
+const organizationLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Luminik',
+  url: 'https://luminik.io',
+  logo: 'https://luminik.io/luminik-logo.png',
+  description: 'AI co-pilot for event marketers that turns attendee lists into pipeline',
+  sameAs: ['https://www.linkedin.com/company/luminik/', 'https://github.com/luminik-io'],
+  founder: {
+    '@type': 'Person',
+    name: site.name,
+    url: origin,
+  },
+};
 const siteLd = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
@@ -66,6 +87,12 @@ const siteLd = {
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <meta name="author" content={site.name} />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title={`${site.name} - Writing`}
+      href="/rss.xml"
+    />
 
     <!-- OpenGraph -->
     <meta property="og:title" content={title} />
@@ -88,7 +115,13 @@ const siteLd = {
 
     <!-- Structured data -->
     <script type="application/ld+json" set:html={JSON.stringify(personLd)} />
+    <script type="application/ld+json" set:html={JSON.stringify(organizationLd)} />
     <script type="application/ld+json" set:html={JSON.stringify(siteLd)} />
+    {
+      jsonLd.map((ld) => (
+        <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+      ))
+    }
 
     <!-- Favicons -->
     <link rel="icon" type="image/x-icon" href="/favicon/favicon.ico" />
