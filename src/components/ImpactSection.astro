@@ -110,8 +110,7 @@ import { impact, brands } from '../data/site';
   }
   .icard-metric {
     position: relative;
-    margin-top: auto;
-    padding-top: 28px;
+    margin-top: clamp(22px, 3vw, 38px);
     display: flex;
     flex-direction: column;
     gap: 6px;
@@ -143,10 +142,13 @@ import { impact, brands } from '../data/site';
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
-    margin-top: 22px;
+    /* pin tags to the card bottom so both top cards align */
+    margin-top: auto;
+    padding-top: 24px;
   }
   .icard:nth-child(3) .icard-tags {
     margin-top: 0;
+    padding-top: 0;
   }
 
   /* per-card accent tint on the glow */

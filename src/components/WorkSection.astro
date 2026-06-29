@@ -1,6 +1,7 @@
 ---
 import SectionHeader from './SectionHeader.astro';
 import Icon from './Icon.astro';
+import { Icon as LIcon } from 'astro-icon/components';
 import { work, earlier } from '../data/site';
 ---
 
@@ -17,7 +18,9 @@ import { work, earlier } from '../data/site';
         work.map((job, i) => (
           <article class={`job glass card reveal reveal-d${(i % 4) + 1}`}>
             <div class="job-rail" aria-hidden="true">
-              <span class={`job-dot ${job.current ? 'now' : ''}`} />
+              <span class={`job-node ${job.current ? 'now' : ''}`}>
+                <LIcon name={job.icon} />
+              </span>
             </div>
             <div class="job-main">
               <div class="job-head">
@@ -71,27 +74,46 @@ import { work, earlier } from '../data/site';
   }
   .job {
     display: grid;
-    grid-template-columns: 40px 1fr;
-    gap: 8px;
+    grid-template-columns: 48px 1fr;
+    gap: 16px;
     padding: clamp(22px, 2.4vw, 34px);
     overflow: hidden;
   }
   .job-rail {
     display: flex;
     justify-content: center;
-    padding-top: 6px;
+    padding-top: 2px;
   }
-  .job-dot {
-    position: relative;
-    width: 12px;
-    height: 12px;
+  .job-node {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
-    background: var(--glass-border-strong);
-    border: 2px solid var(--bg-elevated);
+    flex: 0 0 auto;
+    color: var(--text-secondary);
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border-strong);
+    transition: color var(--dur-2) var(--ease-out), background var(--dur-2) var(--ease-out),
+      border-color var(--dur-2) var(--ease-out);
   }
-  .job-dot.now {
-    background: var(--accent);
-    box-shadow: 0 0 0 4px rgba(var(--accent-rgb), 0.16);
+  .job-node :global(svg) {
+    width: 19px;
+    height: 19px;
+  }
+  /* filled = current/latest, outline = past */
+  .job-node.now {
+    background: var(--grad-brand);
+    color: var(--accent-ink);
+    border-color: transparent;
+    /* crisp 1px ring + soft glow; avoids the muddy fringe a wide
+       semi-transparent spread shadow leaves on the circle's edges */
+    box-shadow: 0 0 0 1px rgba(var(--accent-rgb), 0.28),
+      0 8px 20px -8px rgba(var(--accent-rgb), 0.5);
+  }
+  .job:hover .job-node:not(.now) {
+    color: var(--ink);
+    border-color: var(--accent);
   }
   .job-head {
     display: flex;
@@ -175,13 +197,27 @@ import { work, earlier } from '../data/site';
 
   @media (max-width: 720px) {
     .job {
-      grid-template-columns: 1fr;
+      grid-template-columns: 38px 1fr;
+      gap: 12px;
     }
-    .job-rail {
-      display: none;
+    .job-node {
+      width: 36px;
+      height: 36px;
+    }
+    .job-node :global(svg) {
+      width: 17px;
+      height: 17px;
     }
     .earlier-grid {
       grid-template-columns: 1fr 1fr;
+    }
+  }
+  @media (max-width: 420px) {
+    .job {
+      grid-template-columns: 1fr;
+    }
+    .job-rail {
+      justify-content: flex-start;
     }
   }
 </style>

@@ -7,6 +7,8 @@ tags: ["startup-journey"]
 readingTime: "15 min read"
 ---
 
+**TL;DR.** I drove Aura, a PE due diligence platform, from \$0 to \$3.6M ARR in 15 months as its venture CTO inside Bain & Company. The team grew from 4 to 33, I built the data infrastructure myself, and the product eventually spun out of Bain as a separate entity. Building inside a large firm trades the startup's speed for distribution, trust, and funding you would otherwise spend years earning. The deciding factor is whether the problem genuinely rewards those assets.
+
 When people hear I built a product from zero to \$3.6M ARR inside Bain & Company, they react one of two ways.
 
 The startup crowd asks: "How did you move fast inside a big consulting firm? Didn't bureaucracy kill you?"
@@ -14,6 +16,8 @@ The startup crowd asks: "How did you move fast inside a big consulting firm? Did
 The corporate crowd asks: "How did you convince leadership to fund something so risky? Consulting firms hate uncertainty."
 
 Both questions miss the point. Building inside a large organization is different from building a traditional startup. Understanding those differences, really understanding them, determines whether you succeed or fail.
+
+I joined Aura as its venture CTO. My job was the whole technical surface: architecture, the team I hired, and the data infrastructure, which I built myself because it was the load-bearing part of the product and I wanted my hands on it. Over 15 months we went from 4 people to 33 and from no revenue to a \$3.6M ARR run rate. Aura later spun out of Bain as its own entity. What follows is what I learned about why a setting like that helps and where it fights you.
 
 ## Why consulting firms build products
 
@@ -30,6 +34,10 @@ Aura was a PE due diligence platform. The origin story is simple. Bain does hund
 The existing process was artisanal. Consultants manually gathered data from dozens of sources. They built one-off spreadsheets. They spent nights reformatting slides. Each project reinvented the wheel.
 
 The insight was obvious. Build a platform that systematizes this. Automate data collection. Standardize analyses. Make the repeatable parts instant so consultants can focus on the parts that require thinking.
+
+From first principles, a due diligence project is a data pipeline with a deadline. Pull data from many sources, clean and reconcile it, run a fixed set of analyses, and render the result under time pressure. Most of that work is mechanical and gets redone from scratch every project. The value a consultant adds is the judgment at the end, not the reformatting in the middle. So the product was really an argument about where the firm's time should go: stop paying expensive people to copy numbers between spreadsheets and let them spend the saved hours on the thinking.
+
+That framing is also why I built the data infrastructure myself. The ingestion and reconciliation layer was the part everything else stood on. If the data was wrong or slow, no amount of polish on top would matter, and a due diligence number that is confidently wrong is worse than no number at all. So I owned that layer directly rather than delegating it early.
 
 Easy to say. Making it happen inside a consulting firm is hard for reasons that aren't obvious from the outside.
 
@@ -135,7 +143,7 @@ People are surprised we went from zero to \$3.6M ARR in 15 months. Roughly how i
 
 **Months 13-15:** Scale. Standardized the platform. Built self-service capabilities. Expanded to multiple PE clients. Hit \$3.6M ARR run rate.
 
-We never had a big launch. We grew one project at a time, with each success creating demand for the next.
+We never had a big launch. We grew one project at a time, with each success creating demand for the next. The team grew the same way, from 4 to 33 over those 15 months, hired against pull from real usage rather than ahead of it. Aura later spun out of Bain as a separate entity, which is the clearest signal that what started as an internal tool had become a business in its own right.
 
 ## Lessons for both worlds
 
@@ -161,5 +169,14 @@ Would I do it again? It depends on the problem. For something like due diligence
 There's no universally right answer. The question isn't "startup or corporate?" It's "what does this specific problem require, and which setting gives me the best chance of solving it?"
 
 That's a harder question to answer. It's the right one to ask.
+
+## Key takeaways
+
+- A consulting firm's real asset is access. Hundreds of partners with live client relationships meant our go-to-market was walking down the hall, and the trust was inherited rather than earned from scratch.
+- The same immune system that rejects bad ideas attacks good ones. Budget the energy you will spend just earning the right to exist, and find executive air cover early.
+- Structure the venture as a business with revenue targets from day one. Corporate ventures funded as innovation theater die because nobody is on the hook for them succeeding.
+- Own the load-bearing layer yourself. I built Aura's data infrastructure directly because a due diligence number that is confidently wrong is worse than no number, and everything else stood on it.
+- Grow against pull, not ahead of it. We went 4 to 33 people and \$0 to \$3.6M ARR in 15 months by adding one project, and the headcount for it, only once the last one created demand.
+- Match the setting to the problem. Distribution-and-trust problems suit the corporate setting; rapid-pivot problems suit the startup. Aura spinning out of Bain showed the first kind can still become a standalone business.
 
 I'm now building Luminik as an independent startup. The problems are different, but many lessons from Bain still apply. If you're navigating similar decisions about where to build, reach out. Happy to share more specific experiences.

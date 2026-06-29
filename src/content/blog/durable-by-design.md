@@ -6,17 +6,33 @@ category: "Engineering"
 tags: ["ai-native", "durable-workflows", "distributed-systems", "idempotency", "ai-in-production"]
 readingTime: "12 min read"
 draft: false
+related: ["loops-harnesses-memory", "deploying-a-customer-support-ai-agent-to-production"]
+faq:
+  - q: "When should I use a durable-execution engine like Temporal instead of idempotent re-derivation?"
+    a: "Use an engine when a single workflow runs for hours or days, fans out into many dependent steps, carries state that is expensive to recompute, or includes steps you cannot make idempotent, such as sending money. Use idempotent re-derivation when the unit of work is small, its inputs are cheap to fetch, and you want durability to live in the Postgres you already run."
+  - q: "What does idempotency mean in a workflow?"
+    a: "Running a unit of work twice has the same effect as running it once. You give each piece of work a deterministic key from its inputs, upsert on that key, and guard external side effects so a retry never repeats a paid call."
+  - q: "What problem does the transactional outbox solve?"
+    a: "It removes the gap between writing a business row and publishing a message to a queue. You write both in one database transaction, then a separate poller publishes the outbox row. A crash can no longer leave you with accepted work that was never queued, or a queued task with no record behind it."
+  - q: "What makes a workflow durable, and why is it hard?"
+    a: "Durable means the end state survives a crash: stop the process at any point, start it again, and you arrive where you would have if nothing failed. It is hard because once work spans two systems, a database and a payment API, a queue and a worker, there is no instant where both are guaranteed consistent, and a crash can land in the gap. It is the same problem double-entry bookkeeping solves: a transfer is two events, and you must never end up with one without the other."
+  - q: "Why advance a watermark only after commit?"
+    a: "If you advance the watermark before every record up to it is committed, the records still in flight fall into a gap that no future run re-pulls, and they are lost without any error. Advancing only after commit means a partial failure simply re-pulls the window, which is safe when your upserts are idempotent."
 ---
 
-## The failure you cannot avoid
+**TL;DR.** Any AI-native workflow with more than one step, an external call, and enough runtime to be interrupted will fail partway through, and that is the normal case, not the rare one. There are two coherent ways to survive it: resume the work from a saved checkpoint with a durable-execution engine, or make every step idempotent and re-derivable so a crash means you run it again and land the same state. Resume optimizes for not repeating work; re-derive optimizes for not needing to remember. I run both. The choice comes down to how long a workflow lives, how much irrecoverable state it carries, and how much infrastructure you want to operate.
+
+A quick orientation if "durable workflow" is new. Durable here means the end state survives a crash: stop the process at any point, start it again, and you arrive where you would have if nothing had failed. The reason this is hard is that the moment work spans two systems, your database and a payment API, your queue and your worker, there is no instant where both are guaranteed consistent. A crash can land in the gap between them. This is the same reason double-entry bookkeeping exists: a transfer is not one event but two, money leaving one account and arriving in another, and the discipline is making sure you can never end up with one without the other. Durable workflows are that discipline applied to code that can die mid-step.
+
+## Failure is the normal case
 
 A sync pulled records from a customer's CRM, enriched each one through a provider, and ran an agent pass over the result. It worked in the demo and for two weeks. Then on a Tuesday the enrichment provider returned a 503 halfway through a batch of 4,000 records, the process retried the whole batch, and the customer woke up to duplicate work and a sync that reported "complete" after finishing a third of the job.
 
-That is the code meeting its real environment for the first time.
+That is the code meeting real traffic for the first time.
 
 The moment a workflow has more than one step, calls an external API, and runs long enough to be interrupted, it is a distributed system. The model call times out. The provider rate-limits you. The CRM returns a page and fails on the next. A deploy kills your process in the middle of step four of seven. At real volume these happen every day. **The job of a durable workflow is to make "something failed partway through" produce the same end state as "nothing failed at all."** There are two coherent ways to get there. I have built both, running side by side, and the choice between them comes down to constraints.
 
-## Two philosophies: resume vs. re-derive
+## Two approaches: resume vs re-derive
 
 - **Resume.** Record progress as you go, and on a crash, pick up where you left off. This is what a durable-execution engine gives you. Temporal is the well-known example. The engine checkpoints each step, persists workflow state, and replays from the last durable point. You write linear code and the engine makes the linearity survive crashes. The cost: you now operate a stateful orchestration system, and your logic is shaped by its execution model.
 - **Re-derive.** Make every unit of work idempotent and re-runnable from its inputs, so a crash means you run it again and get the same result. There is no saved position to resume from, because position does not matter. The work is a pure function of its inputs plus what is already in your database. The cost: you have to make that property true for every step, including the ones that touch the outside world.
@@ -32,21 +48,21 @@ flowchart LR
   D2 --> S
 ```
 
-Resume optimizes for not repeating work. Re-derive optimizes for not needing to remember. We run our high-volume data pipelines on re-derive, on plain Postgres and a queue, with no durable-execution engine. Parts of our agent fleet run on the same idea. The pieces below make re-derivation safe, and they are also what you need to reason about whether resume earns its weight.
+Resume optimizes for not repeating work. Re-derive optimizes for not needing to remember. We run our high-volume data pipelines on re-derive, on plain Postgres and a queue, with no durable-execution engine. Parts of our [agent fleet](/blog/loops-harnesses-memory) run on the same idea. The pieces below make re-derivation safe, and they are also what you need to reason about whether resume earns its weight.
 
-## Idempotency is the load-bearing wall
+## Idempotency is the foundation
 
-Everything in the re-derive model rests on one property: running a unit of work twice has the same effect as running it once. Get this wrong and every retry becomes a source of corruption.
+Everything in the re-derive model rests on one property: running a unit of work twice has the same effect as running it once. Get this wrong and every retry can create duplicate or inconsistent data.
 
 - **Deterministic key.** Every piece of work gets an identity computed from its inputs, not from when it ran or which worker picked it up. For a record-enrichment job, a pair like `(jobId, recordId)`. The same record in the same job always produces the same key.
 - **Upsert on the key.** A second attempt overwrites the first attempt's row instead of inserting a duplicate. In Postgres, `INSERT ... ON CONFLICT (key) DO UPDATE`. The database enforces that the work lands once.
 - **Guard external side effects.** A step that calls a paid provider must not pay twice on retry. Record an idempotency key for the outbound call and check for a completed result before re-issuing. Many APIs accept an idempotency key directly. Where they do not, record "about to call for key X" before and "result for key X is Y" after, so a retry sees the marker and does not fire again.
 
-The thing I underestimated: idempotency is not a property you add to a function. It is a property of the whole path from "work selected" to "result committed," including the network call in the middle and the commit at the end. We had a step that was idempotent in its database write but issued its external call before the write committed. A crash in that gap meant the call happened and the record never showed it. We had to make the side effect re-derivable from a committed marker. Idempotency lives at the boundaries, and the boundaries are where it is easiest to forget.
+The thing I underestimated: idempotency has to hold across the whole path from "work selected" to "result committed," including the network call in the middle and the commit at the end, not just inside a single function. We had a step that was idempotent in its database write but issued its external call before the write committed. A crash in that gap meant the call happened and the record never showed it. We had to make the side effect re-derivable from a committed marker. Idempotency lives at the boundaries, and the boundaries are where it is easiest to forget.
 
 ## The transactional outbox
 
-Here is a failure that looks impossible until it bites you. A request comes in, you write a row to Postgres saying "work accepted," then you publish a message to your queue. Two writes, two systems:
+Here is a failure that looks impossible until it happens. A request comes in, you write a row to Postgres saying "work accepted," then you publish a message to your queue. Two writes, two systems:
 
 - Process dies between them: you have accepted work no one will do.
 - Publish first and the DB write fails: you have a queued task with no backing record.
@@ -81,14 +97,14 @@ FOR UPDATE SKIP LOCKED;
 
 Pulling from a CRM is rarely one-shot. You sync incrementally: ask for everything changed since last time, process it, and remember where you stopped. That memory is a watermark, usually a timestamp or a monotonic cursor. This is how you avoid re-pulling a million records every hour.
 
-The watermark is where partial failure does its quietest damage. Pull a page of records modified after `T`, process some, then die. If you advance the watermark to the newest timestamp you saw before confirming every record committed, the unprocessed records fall into a gap no future run will ask for. They are silently lost. The data looks consistent. It is wrong.
+The watermark is where partial failure does its quietest damage. Pull a page of records modified after `T`, process some, then die. If you advance the watermark to the newest timestamp you saw before confirming every record committed, the unprocessed records fall into a gap no future run will ask for. Those records are lost without any error, and the data looks consistent even though it isn't.
 
 - **Advance only after commit.** The watermark advances only after every record up to it is durably committed. On partial failure it stays put, and the next run re-pulls the window. Idempotent upserts make re-pulling the committed records harmless. Only the missing ones change.
 - **Break timestamp ties.** Many records can share a modified-at value. A naive "greater than the watermark" query skips boundary records or reprocesses them forever. Use a `(timestamp, id)` cursor so resumption is exact even when a hundred records share a second.
 
-A watermark is not a progress bar. It is a promise that everything before it is done.
+A watermark means everything before it is durably done, nothing more and nothing less.
 
-## When work dies: dead-letter queues, quarantine, and salvage
+## Work that can't be retried: dead-letter queues and salvage
 
 Some work cannot be retried into success: a malformed field that crashes the parser, model output that fails validation every time, an API rejecting one specific id with a permanent error. If your retry logic treats these like transient failures, you get a poison message that fails, retries, and either spins forever or blocks the workers behind it.
 
@@ -108,7 +124,7 @@ flowchart TD
 - **Alert on depth.** A quarantine table no one looks at is where work disappears quietly. Every row increments a metric that feeds an alert. When depth crosses a threshold, a human finds out.
 - **Replay after the fix.** Most of what lands there is fixable: a parser handling a new shape, an input that needs sanitizing. Replay the rows back through the pipeline. Because it is idempotent, replaying the ones that would have succeeded anyway costs nothing.
 
-Quarantine plus salvage turns "we lost a batch" into "we delayed a batch and learned something."
+Quarantine plus salvage turns a lost batch into a delayed one you can fix and replay.
 
 ## Backoff, rate limits, and a fleet-wide stop
 
@@ -117,7 +133,7 @@ External APIs push back. The polite version is a 429 with a retry-after header.
 - **Per-request: back off with jitter.** Wait a bit, then twice as long, then four times, with randomness so a thousand retrying workers do not synchronize into a thundering herd. Most HTTP clients do this for you.
 - **Per-account: stop the fleet.** Most rate limits are per-account, not per-request. One API key, one quota, shared across every worker. When you hit that ceiling, individual backoff is the wrong instinct: a hundred workers each backing off is still a hundred workers slamming the same wall, burning quota on rejected calls and pushing recovery further out.
 
-So when a shared limit is hit, we stop the whole system, not the one worker that noticed. The worker that gets the hard signal trips a fleet-wide circuit: a flag in Postgres or the cache that every worker checks before an outbound call to that provider. Until it clears, no one calls. We back off once, globally, then resume. The unintuitive part is that the cheapest way to recover faster is to do less, together, on purpose.
+So when a shared limit is hit, we stop the whole system, not the one worker that noticed. The worker that gets the hard signal trips a fleet-wide circuit: a flag in Postgres or the cache that every worker checks before an outbound call to that provider. Until it clears, no one calls. We back off once, globally, then resume. The fastest way to recover is for the whole fleet to pause together rather than for each worker to back off on its own.
 
 ## Durable multi-agent orchestration
 
@@ -139,7 +155,7 @@ We model human approval as a first-class workflow state, with the same durabilit
 - **Time out to a safe default.** If no decision arrives within the window, the step resolves to a defined outcome, usually "do not proceed," rather than waiting forever.
 - **Define transport failure.** When the notification never reaches the human or their response never gets back, that resolves to an explicit verdict too, recorded durably.
 
-A person is the flakiest external dependency you have. They deserve the most careful timeout logic, not the least.
+A person is the least predictable dependency in the system, which is exactly why human steps need careful timeout logic.
 
 ## Choosing your strategy
 
@@ -161,4 +177,15 @@ Reach for **stateless re-derivation** when:
 
 The questions that decide it: how long one workflow lives and how much irrecoverable state it carries, how expensive it is to recompute a step versus resume past it, how many people operate this at three in the morning, and what your ceiling is on self-run infrastructure. Scale pushes the high-volume paths toward re-derivation. Statefulness and irreversibility push toward resume.
 
-What does not decide it is fashion. A durable-execution engine is a second distributed system you now own. Idempotent re-derivation is a discipline you hold at every boundary, forever. We chose re-derivation for the small, re-runnable paths, and we would choose an engine the day a workflow becomes long-lived, branchy, and full of state we cannot afford to recompute. Durability is not a library you install. It is a property you decide to guarantee, and then pay for in the currency the workflow charges.
+What should not decide it is fashion. A durable-execution engine is a second distributed system you now own. Idempotent re-derivation is a discipline you hold at every boundary. We chose re-derivation for the small, re-runnable paths, and we would choose an engine the day a workflow becomes long-lived, branchy, and full of state we cannot afford to recompute. Durability is not something you install. It is a property you decide to guarantee, and then pay for, either by running an engine or by holding the discipline at every boundary.
+
+## Key takeaways
+
+- A multi-step workflow that calls an external API and runs long enough to be interrupted is a distributed system, and failing partway through is the normal case.
+- Two coherent survival strategies: resume from a checkpoint with a durable-execution engine, or re-derive from inputs with idempotent steps. Resume avoids repeating work; re-derive avoids needing to remember.
+- Idempotency is the foundation of re-derivation: a deterministic key from the inputs, an upsert on that key, and a guard so a retry never repeats a paid side effect.
+- The transactional outbox removes the gap between writing a business row and queuing a message by making them one database transaction, with a separate poller publishing the outbox row.
+- Advance a watermark only after every record up to it is committed, or in-flight records fall into a gap no future run re-pulls and vanish without an error.
+- Bound retries, quarantine poison work instead of dropping it, alert on queue depth, and replay after the fix. Idempotency makes replay safe.
+- For shared rate limits, stop the whole fleet, not the one worker that noticed. A hundred workers each backing off still slams the same wall.
+- Pick by constraints, not fashion. Long-lived, branchy, irreversible-state work pushes toward an engine. Small, cheap-to-refetch, idempotent work pushes toward re-derivation on the Postgres you already run.

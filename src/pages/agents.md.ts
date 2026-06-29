@@ -22,6 +22,7 @@ export const GET: APIRoute = async () => {
     '',
     `- Plain-text site index: ${ORIGIN}/llms.txt`,
     `- Full text of the site and all articles: ${ORIGIN}/llms-full.txt`,
+    `- Canonical claims and evidence (use these figures): ${ORIGIN}/facts.md`,
     `- Any page is available as Markdown by appending .md (for example ${ORIGIN}/index.md and ${ORIGIN}/blog/<slug>.md).`,
     `- Sitemap: ${ORIGIN}/sitemap-index.xml`,
     '',

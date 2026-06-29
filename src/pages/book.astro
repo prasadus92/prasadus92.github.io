@@ -12,7 +12,7 @@ import { site } from '../data/site';
       <p class="eyebrow reveal">Booking</p>
       <h1 class="reveal reveal-d1">Book a call.</h1>
       <p class="book-lead muted reveal reveal-d2">
-        Fifteen minutes, no deck. If you're building something hard in AI or hiring for it, grab a
+        A short intro call, no deck. If you're building something hard in AI or hiring for it, grab a
         time that works.
       </p>
     </div>
@@ -56,14 +56,34 @@ import { site } from '../data/site';
       };
   })(window, 'https://app.cal.com/embed/embed.js', 'init');
 
-  const theme = document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
-  Cal('init', 'meet', { origin: 'https://cal.com' });
-  Cal.ns.meet('inline', {
-    elementOrSelector: '#cal-inline',
-    config: { layout: 'month_view', theme: theme },
-    calLink: 'meet-prasad',
-  });
-  Cal.ns.meet('ui', { hideEventTypeDetails: false, layout: 'month_view', theme: theme });
+  Cal('init', 'intro', { origin: 'https://cal.com' });
+
+  const root = document.documentElement;
+  const el = document.getElementById('cal-inline');
+  const getTheme = () => (root.getAttribute('data-theme') === 'light' ? 'light' : 'dark');
+
+  // Render the Intro Chat event directly (not the profile page), 20 min default.
+  function renderCal() {
+    const theme = getTheme();
+    el.innerHTML = '';
+    Cal.ns.intro('inline', {
+      elementOrSelector: '#cal-inline',
+      config: { layout: 'month_view', theme: theme, duration: '20' },
+      calLink: 'meet-prasad/intro-chat',
+    });
+    Cal.ns.intro('ui', { hideEventTypeDetails: false, layout: 'month_view', theme: theme });
+  }
+  renderCal();
+
+  // Keep the embed in sync with the site's light/dark theme (toggle or system).
+  let lastTheme = getTheme();
+  new MutationObserver(() => {
+    const t = getTheme();
+    if (t !== lastTheme) {
+      lastTheme = t;
+      renderCal();
+    }
+  }).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
 </script>
 
 <style>
@@ -84,7 +104,7 @@ import { site } from '../data/site';
   }
   #cal-inline {
     width: 100%;
-    min-height: 600px;
+    min-height: 680px;
     border: 1px solid var(--glass-border);
     border-radius: var(--r-lg);
     overflow: hidden;

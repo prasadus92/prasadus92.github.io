@@ -72,28 +72,30 @@ import Icon from './Icon.astro';
 <style>
   .hero {
     position: relative;
-    min-height: 90vh;
+    /* one full viewport; svh keeps it honest on mobile browser chrome */
+    min-height: 100svh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    padding-top: clamp(108px, 13vh, 150px);
-    padding-bottom: clamp(28px, 4vw, 52px);
+    padding-top: clamp(96px, 12vh, 132px);
+    padding-bottom: clamp(20px, 3vh, 36px);
   }
   .hero-grid {
     display: grid;
     grid-template-columns: 1.32fr 0.68fr;
     gap: clamp(28px, 5vw, 64px);
     align-items: center;
+    /* take the space between nav and the scroll hint, content centered */
+    flex: 1 1 auto;
   }
   .hero-title {
-    font-size: clamp(2.4rem, 1.5rem + 3.4vw, 4.3rem);
-    line-height: 1.04;
+    font-size: clamp(2.2rem, 1.3rem + 3vw, 3.85rem);
+    line-height: 1.05;
     letter-spacing: var(--tracking-tight);
-    margin: 18px 0 0;
+    margin: 16px 0 0;
     max-width: 18ch;
   }
   .hero-lead {
-    margin-top: 24px;
+    margin-top: 22px;
     max-width: 56ch;
     font-size: var(--fs-lead);
     color: var(--text-secondary);
@@ -112,14 +114,14 @@ import Icon from './Icon.astro';
     display: flex;
     flex-wrap: wrap;
     gap: 12px;
-    margin-top: 32px;
+    margin-top: 28px;
   }
   .hero-stats {
     display: grid;
     grid-template-columns: repeat(3, auto);
     gap: clamp(20px, 4vw, 48px);
-    margin: 44px 0 0;
-    padding-top: 28px;
+    margin: clamp(28px, 3.4vh, 40px) 0 0;
+    padding-top: clamp(20px, 2.6vh, 28px);
     border-top: 1px solid var(--glass-border);
     width: fit-content;
   }
@@ -203,7 +205,9 @@ import Icon from './Icon.astro';
     align-items: center;
     gap: 12px;
     width: fit-content;
-    margin: clamp(36px, 5vw, 64px) auto 0;
+    /* pinned to the bottom of the viewport-tall hero */
+    margin: clamp(18px, 2.4vh, 30px) auto 0;
+    flex: 0 0 auto;
     font-family: var(--font-mono);
     font-size: var(--fs-xs);
     letter-spacing: var(--tracking-wide);
@@ -226,17 +230,55 @@ import Icon from './Icon.astro';
   }
 
   @media (max-width: 940px) {
+    .hero {
+      /* let the stacked layout flow naturally on phones/tablets */
+      min-height: auto;
+      padding-bottom: clamp(48px, 8vw, 72px);
+    }
     .hero-grid {
       grid-template-columns: 1fr;
       text-align: left;
+      flex: 0 1 auto;
     }
     .hero-visual {
       grid-row: 1;
-      max-width: 320px;
+      max-width: 300px;
       justify-self: start;
     }
     .hero-title {
       max-width: 18ch;
+    }
+    .scroll-hint {
+      display: none;
+    }
+  }
+
+  /* Short desktop/laptop viewports: scale down so it still fits one screen */
+  @media (min-width: 941px) and (max-height: 840px) {
+    .hero-title {
+      font-size: clamp(1.9rem, 0.6rem + 2.6vw, 3.1rem);
+    }
+    .hero-lead {
+      margin-top: 16px;
+      font-size: 1rem;
+    }
+    .hero-cta {
+      margin-top: 20px;
+    }
+    .hero-stats {
+      margin-top: 22px;
+      padding-top: 18px;
+    }
+    .hero-visual {
+      max-width: 300px;
+    }
+  }
+  @media (min-width: 941px) and (max-height: 680px) {
+    .hero-lead {
+      display: none;
+    }
+    .hero-title {
+      font-size: 2.4rem;
     }
   }
   @media (prefers-reduced-motion: reduce) {

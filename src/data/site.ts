@@ -15,7 +15,7 @@ export const site = {
   role: 'Founder & CEO, Luminik',
   tagline: 'I turn expensive, repetitive work into products people pay for.',
   description:
-    'Building Luminik - AI co-pilot for event marketing teams. Previously built Aura at Bain ($0 to $3.6M ARR), raised $2.7M seed for Mainteny. Based in Oslo, Norway.',
+    'Building Luminik - AI co-pilot for event marketing teams. Previously built Aura at Bain ($0 to $3.6M ARR), co-founded Mainteny where the work helped raise a $2.7M seed.',
   metaTitle: 'Prasad Subrahmanya - Founder & Technology Leader',
   links: {
     linkedin: 'https://linkedin.com/in/prasadus',
@@ -112,6 +112,7 @@ export const work = [
     body: 'Building a multi-agent platform that connects B2B event spend to measurable pipeline: attendee extraction, enrichment, ICP matching, outbound, CRM sync, and revenue attribution. Powering GTM teams at flagship events.',
     tags: ['Next.js', 'React', 'Python', 'Hatchet', 'pgvector', 'AWS'],
     href: 'https://www.luminik.io',
+    icon: 'lucide:calendar-check',
     current: true,
   },
   {
@@ -121,6 +122,7 @@ export const work = [
     body: 'A Snowflake cost-optimization tool. It was used by one of the global top-3 consulting firms, and the conversations while building it surfaced the bigger problem that became Luminik.',
     tags: ['Snowflake', 'Data engineering', 'Cost optimization'],
     href: null,
+    icon: 'lucide:snowflake',
     current: false,
   },
   {
@@ -130,6 +132,7 @@ export const work = [
     body: 'Took a PE due-diligence SaaS platform from concept to $3.6M ARR in 15 months. Owned product, architecture, and the engineering team.',
     tags: ['Enterprise SaaS', 'AWS', 'PE & growth equity', 'Team leadership'],
     href: null,
+    icon: 'lucide:landmark',
     current: false,
   },
   {
@@ -139,6 +142,7 @@ export const work = [
     body: 'Field-service management SaaS for maintenance companies across Europe. Built and launched the MVP solo in 3 months, raised a $2.7M seed, and scaled the team to 15 across four countries.',
     tags: ['Spring Boot', 'Kubernetes', '$2.7M seed', 'CRM'],
     href: null,
+    icon: 'lucide:wrench',
     current: false,
   },
 ] as const;

@@ -16,7 +16,13 @@ export const GET: APIRoute = async ({ props }) => {
     `Published ${date}${d.readingTime ? ` · ${d.readingTime}` : ''}` +
     `${d.category ? ` · ${d.category}` : ''}\n\n` +
     `Source: https://prasad.tech/blog/${post.id}\n\n---\n\n`;
-  return new Response(head + (post.body ?? ''), {
+  const faq =
+    d.faq && d.faq.length
+      ? `\n\n---\n\n## Common questions\n\n` +
+        d.faq.map((f: { q: string; a: string }) => `**${f.q}**\n\n${f.a}`).join('\n\n') +
+        '\n'
+      : '';
+  return new Response(head + (post.body ?? '') + faq, {
     headers: { 'Content-Type': 'text/markdown; charset=utf-8' },
   });
 };
