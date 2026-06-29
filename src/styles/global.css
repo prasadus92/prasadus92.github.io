@@ -134,12 +134,11 @@ p {
   background: linear-gradient(90deg, var(--accent), transparent);
 }
 
-/* ---------- Gradient text ---------- */
+/* ---------- Accent text ----------
+   Solid accent (not a gradient) so emphasized words stay crisp and legible
+   on top of the aurora/gradient background. */
 .grad-text {
-  background: var(--grad-text);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: var(--accent);
 }
 
 /* ---------- Glass surface ---------- */
