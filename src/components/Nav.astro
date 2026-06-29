@@ -1,13 +1,15 @@
 ---
 import { nav, site } from '../data/site';
 import Icon from './Icon.astro';
+
+const lastName = site.name.replace(site.shortName, '').trim();
 ---
 
 <nav class="nav" id="nav">
   <div class="container nav-inner">
     <a href="/" class="brand" aria-label={`${site.name}, home`}>
       <span class="brand-mark">PS</span>
-      <span class="brand-name">{site.shortName}</span>
+      <span class="brand-name">{site.shortName}<span class="brand-last"> {lastName}</span></span>
     </a>
 
     <ul class="nav-links" id="nav-links">
@@ -88,6 +90,13 @@ import Icon from './Icon.astro';
   .brand-name {
     font-size: 1.02rem;
     letter-spacing: var(--tracking-snug);
+    white-space: nowrap;
+  }
+  /* full name on larger screens; just the first name on small ones */
+  @media (max-width: 560px) {
+    .brand-last {
+      display: none;
+    }
   }
   .nav-links {
     display: flex;
