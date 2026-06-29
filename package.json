@@ -23,6 +23,7 @@
     "astro-icon": "^1.1.5",
     "katex": "^0.17.0",
     "motion": "^11.13.1",
+    "rehype-external-links": "^3.0.0",
     "rehype-katex": "^7.0.1",
     "remark-math": "^6.0.0"
   },
