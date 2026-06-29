@@ -1,10 +1,10 @@
 ---
 title: "Three levers for cutting your coding agent's token bill, and how to tell which one works"
-description: "Coding agents burn tokens on naive grep-and-read loops and raw tool output. Three independent levers cut the bill, but only one is a reliable large win. Here is how I benchmarked each so the savings were attributable."
-pubDate: 2026-06-12
+description: "Coding agents burn tokens on naive grep-and-read loops and raw tool output. Three independent levers cut the bill. I ran a real internal benchmark on a code-graph stack over 17 repos and the lever I expected to win did not. Here is what I measured, per engine, behind a quality gate."
+pubDate: 2026-05-28
 category: "AI engineering"
-tags: ["coding-agents", "token-cost", "context-engineering", "prompt-compression", "llm-gateway", "semantic-cache", "code-graph", "benchmarking"]
-readingTime: "12 min read"
+tags: ["coding-agents", "token-cost", "context-engineering", "prompt-caching", "prompt-compression", "llm-gateway", "semantic-cache", "code-graph", "benchmarking"]
+readingTime: "13 min read"
 draft: false
 related: ["loops-harnesses-memory", "durable-by-design"]
 faq:
@@ -18,9 +18,8 @@ faq:
     a: "You pay for input tokens on every call, and the conversation history is part of the input. A twenty-step task re-sends a growing pile of history twenty times, like a taxi meter charging for the passengers already in the car. The bill comes from the accumulation across the loop, not from any one prompt, which is why reading the per-call cost matters more than reading any single message."
   - q: "How do I know which lever saved money?"
     a: "Benchmark each lever independently against the same task set with a fixed quality gate, change one thing at a time, and attribute the delta to that lever alone. If you stack all three and measure once, you cannot tell which one paid for itself, and you will keep paying for the ones that did not."
+tldr: "Coding agents burn tokens on naive grep-and-read loops and on dumping raw tool output back into context. Three independent levers cut the bill: a code graph for structural retrieval, compression at the tool-output boundary, and a gateway with prompt caching and a shared semantic cache. I ran a real internal benchmark of the caching lever on a code-graph stack over 17 repos, and the result was lumpy: 0% on the small Haiku engine that sat under the cache threshold, but warm queries on the Sonnet orchestrator came back roughly 68% cheaper, and a 20-question session landed about 54% cheaper overall. The lesson that outlasts the tactics: measure each lever alone behind a quality gate, per engine, or you cannot tell which one paid for itself."
 ---
-
-**TL;DR.** Coding agents burn tokens on naive grep-and-read loops and on dumping raw tool output back into context. Three independent levers cut the bill: a code graph for structural retrieval, compression at the tool-output boundary, and a gateway with a shared semantic cache. Only one, tool-output compression, was a reliable broad win in my runs. The lesson that outlasts the tactics: measure each lever alone behind a quality gate, or you cannot tell which one paid for itself.
 
 If you are new to how LLMs are billed, two minutes of fundamentals make the rest of this post obvious. A token is a chunk of text, roughly three-quarters of a word, and it is the unit you pay for. Every model call has two sides. **Input tokens** are everything you send: the system prompt, the conversation so far, and every tool result you paste back in. **Output tokens** are everything the model generates: its reasoning, its tool calls, and the code it writes. You pay for both, usually at different rates, and crucially you pay for the input on every single call. An agent that takes twenty steps re-sends a growing pile of history twenty times. Think of it like a taxi meter that charges for the passengers already in the car, not only the new one you pick up: the longer the ride and the more you carry, the more each additional block costs. That is why a loop with no expensive prompt anywhere in it can still run up a bill nobody can explain.
 
@@ -30,13 +29,13 @@ So I sat with a week of traces and read what the agents were doing token by toke
 
 Neither of those is a model problem. They are plumbing problems, and plumbing is fixable.
 
-This post is about three levers I pulled to cut that bill, what each one was worth, and the part that took me longest to accept: they are independent, they do not pay off equally, and the only way to know which one is working is to measure each one on its own. The numbers here are illustrative. I am not going to give you a vendor "10x" tagline, because when I measured honestly, nothing was 10x, and the lever I expected to win did not.
+This post is about three levers I pulled to cut that bill, what each one was worth, and the part that took me longest to accept: they are independent, they do not pay off equally, and the only way to know which one is working is to measure each one on its own. I am not going to give you a vendor "10x" tagline, because when I measured honestly, nothing was 10x, and the lever I expected to win did not.
 
-## The toy repo I will use
+## The benchmark I actually ran
 
-To keep this concrete and generic, picture a small open-source service: an HTTP API, a handful of route handlers, a service layer, a data-access layer, and tests. Call it `widget-store`. A few thousand lines, the kind of repo where an agent task is something like "add a discount field to orders and thread it through to the invoice."
+The numbers in this post are not made up. They come from a real internal benchmark I ran against a code-graph-rag stack pointed at 17 of our backend repos, each a medium service of roughly 10,000 to 100,000 lines. The stack has two model calls per question: a small `Cypher` generator that turns a natural-language question into a graph query, running on Haiku 4.5, and an orchestrator that plans and answers, running on Sonnet 4.6. I instrumented the HTTP client to capture the exact request and response bodies against the Anthropic API, so every cost figure below is from a measured `usage` object on the wire, not an estimate. Where a number is illustrative rather than measured, I say so.
 
-That task is a good stress test because it spans layers. The agent has to find where orders are defined, where invoices are built, and what touches both. That is exactly the cross-file discovery that grep-and-read handles badly.
+To keep the worked examples concrete and generic, I will also use a small imaginary service: an HTTP API, a handful of route handlers, a service layer, a data-access layer, and tests. Call it `widget-store`. The kind of repo where an agent task is "add a discount field to orders and thread it through to the invoice," which spans layers: the agent has to find where orders are defined, where invoices are built, and what touches both. That is exactly the cross-file discovery that grep-and-read handles badly, and the kind of task the real stack answers against the 17 repos.
 
 ## Where the tokens go
 
@@ -110,19 +109,51 @@ def feed_to_context(payload, kind):
     return payload
 ```
 
-Across the task set, this was the steadiest saver. On tool-heavy tasks it cut total input tokens by roughly 30 to 40 percent in my runs, illustratively, and the quality gate did not flinch. It does not depend on the shape of the question the way the graph does, because almost every agent task generates verbose tool output at some point.
+Across the task set, this was the steadiest saver. On tool-heavy tasks it cut total input tokens by roughly 30 to 40 percent, illustratively, and the quality gate did not flinch. I want to be precise about which numbers I stand behind: the per-engine caching figures in lever 3 are measured on the wire, while this compression range is from lighter runs on the same stack rather than the full instrumented benchmark, so I treat it as directional. It does not depend on the shape of the question the way the graph does, because almost every agent task generates verbose tool output at some point.
 
 The catch is that you have to be disciplined about the boundary. The first time I let a compressor see a file because the wiring was sloppy, the agent confidently edited a function that no longer matched what was on disk. One mislabeled payload is all it takes. Tag your payloads by kind and route on the tag, not on a guess.
 
-## Lever 3: a gateway with virtual keys, a ledger, and a shared cache
+## Lever 3: a gateway with virtual keys, a ledger, prompt caching, and a shared cache
 
-The first two levers make each call cheaper. The third makes calls disappear.
+The first two levers make each call cheaper. The third makes calls disappear, and it is the lever I have the most measured data on, because it is the one I benchmarked end to end.
 
-Right now, if you have more than one engineer running agents, you probably have provider keys scattered across machines, no shared view of spend, and the same questions being answered from scratch by every person on the team. Centralize the keys behind a gateway like [LiteLLM](https://github.com/BerriAI/litellm) and three things become possible at once:
+Right now, if you have more than one engineer running agents, you probably have provider keys scattered across machines, no shared view of spend, and the same questions being answered from scratch by every person on the team. Centralize the keys behind a gateway like [LiteLLM](https://github.com/BerriAI/litellm) and four things become possible at once:
 
 - **Per-developer virtual keys.** Everyone calls the gateway, not the provider. You can rotate, scope, and rate-limit a person without touching a provider dashboard.
 - **A spend ledger.** Every call is attributed, so cost stops being a monthly surprise and becomes a number you can watch by repo and by task type. This is also how you keep the benchmarking honest later.
-- **A shared semantic cache.** This is the real prize. When one engineer's agent asks "how does invoice rounding work," the answer gets cached by meaning, and the next engineer who asks a semantically similar question gets a cheap hit instead of a fresh model call. A tool like [GPTCache](https://github.com/zilliztech/GPTCache) does the embedding-and-lookup part.
+- **Prompt caching.** Mark the stable prefix of a request, the system prompt and tool definitions, with `cache_control`, and the provider charges a reduced rate to re-read it on a subsequent call within the cache window instead of full price. This is the lever I measured most precisely, and it has a sharp edge described below.
+- **A shared semantic cache.** When one engineer's agent asks "how does invoice rounding work," the answer gets cached by meaning, and the next engineer who asks a semantically similar question gets a cheap hit instead of a fresh model call. A tool like [GPTCache](https://github.com/zilliztech/GPTCache) does the embedding-and-lookup part.
+
+### What prompt caching actually returned, per engine
+
+This is where the benchmark earns its keep, and where the honest finding diverges from the slide. I turned on Anthropic prompt caching across the two-engine stack and measured the per-call `usage` on the wire. The result split cleanly by engine, and the split is the lesson.
+
+The small `Cypher` generator on Haiku 4.5 got **zero reduction**. Its system prompt is about 1,750 tokens, which sits below Haiku's cacheable-prefix minimum, so the provider quietly declined to cache it: the marker was on the wire, but `cache_creation_input_tokens` came back zero on every call. The cache was a no-op for that engine. At roughly $0.0023 per `Cypher` call, that engine was already cheap, so the miss did not hurt, but it would have been invisible if I had not read the `usage` object. A cache that silently does nothing is the easiest savings to imagine and the easiest to never actually get.
+
+The orchestrator on Sonnet 4.6 is where caching paid. Its system prompt plus tool definitions run about 3,400 tokens, comfortably above the threshold, so it cached. The economics measured out like this:
+
+| Orchestrator call | Input billing | Total cost | vs uncached |
+|---|---|---|---|
+| Uncached | 3,400 tok at full rate | $0.0132 | reference |
+| First call (cache write) | 3,400 tok at 1.25x | $0.0158 | +20% (the write premium) |
+| Warm call (cache read) | 3,400 tok at 0.10x | $0.0042 | about 68% cheaper |
+
+The first call is more expensive, because a cache write costs 1.25x the input rate. Every subsequent call within the window reads the cached prefix at a tenth of the input rate and lands about 68% cheaper than an uncached call. So caching is not a flat discount; it is a bet that you will reuse the prefix enough times to pay back the one write.
+
+Whether the bet pays depends on how clustered the usage is. A "session" is one developer asking a series of questions in close succession, each triggering one `Cypher` call and one orchestrator call. Measured across session shapes:
+
+| Session shape | Net cost change | Why |
+|---|---|---|
+| Single question, cold cache | **+17% worse** | You pay the write premium and never read it back |
+| 5 questions (4 within the window) | **about 43% cheaper** | Four warm orchestrator reads outweigh one write |
+| 20 questions, heavy use | **about 54% cheaper** | The write is amortized across nineteen warm reads |
+
+Projected onto a month of real usage, the savings ratio climbs with intensity, because caching only beats baseline when there are reads within the window: roughly 26% for a single light-use developer, around 46% for a small team of three asking regular questions, and near 50% for a wider team of eight. My earlier back-of-envelope guess had been "35 to 50% across the board," and the measurement corrected it: the floor is lower and the ceiling is real, but only under repetition, and only on the engine whose prefix clears the threshold.
+
+The transferable findings, both of which I would have gotten wrong without reading the wire:
+
+- **Below the prefix threshold, caching is a silent no-op.** Haiku's minimum cacheable prefix is around 2,048 tokens; Sonnet's is lower. A prompt under the line gets the marker honored on the wire and cached zero tokens. Check `cache_creation_input_tokens`, not the request.
+- **A single-shot call is worse with caching on, not better.** The 1.25x write premium with no read back makes a one-question session 17% more expensive. Caching is a repetition lever, so its value is a function of your session shape, not a constant.
 
 ```mermaid
 flowchart LR
@@ -197,15 +228,15 @@ So I benchmarked each lever the boring way:
 4. **Attribute the delta.** Whatever the bill moved when you added one lever, and only that lever, is what the lever is worth. The spend ledger from lever three is what makes this measurable per run.
 
 ```
-run             input Δ      output Δ    quality gate   verdict
-baseline        --           --          pass           reference
-+ graph         -28% disc.   ~0          pass           wins on deep discovery only
-+ compression   -34% total   ~0          pass           reliable, broad
-+ cache         varies       n/a         pass           best ceiling, repetition-bound
-(all numbers illustrative)
+run             token Δ           quality gate   verdict                       basis
+baseline        --                pass           reference                     --
++ graph         -28% on discovery pass           wins on deep discovery only   illustrative
++ compression   -34% total        pass           reliable, broad               directional
++ prompt cache  -54% per 20q sess pass           repetition-bound, per-engine  measured on wire
++ semantic cache varies           pass           best ceiling, repetition-bound illustrative
 ```
 
-What fell out of doing it this way is the whole point of this post. The lever I expected to be the star, the code graph, was conditional. The lever I almost skipped, tool-output compression, was the dependable win. And the lever that looked like free money, the shared cache, was only free after I paid the governance tax of invalidation and scoping.
+What fell out of doing it this way is the whole point of this post. The lever I expected to be the star, the code graph, was conditional. The lever I almost skipped, tool-output compression, was the dependable win. And caching, the one I measured to the cent, was a step-change on warm, repeated queries against the engine whose prefix cleared the cache threshold, a no-op on the small engine below it, and a 17% penalty on single-shot use. Free money only after I paid the write premium and only under repetition.
 
 None of that is visible if you measure the stack as a whole. It only shows up when each lever has to earn its savings alone, against a quality gate, on the same tasks every time.
 
@@ -213,10 +244,11 @@ None of that is visible if you measure the stack as a whole. It only shows up wh
 
 If I were starting over on a new team and a new repo, in order:
 
-1. **Compression first.** It is the highest floor, it does not depend on the question, and the only discipline it asks is keeping source code away from the compressor. Start here.
-2. **Gateway, keys, and ledger next.** Even before the cache pays off, you want attribution. You cannot run the rest of this honestly without a per-call spend number.
-3. **Cache once there is repetition.** Turn it on when more than one person is asking overlapping questions about the same codebase, and turn on invalidation and per-repo scoping the same day, not later.
-4. **Graph last, and only if your workload is discovery-heavy.** If your agents mostly do large cross-file investigations, build it. If they mostly do small targeted edits, skip it and save yourself the infrastructure.
+1. **Gateway, keys, and ledger first.** Even before any cache pays off, you want attribution. You cannot run the rest of this honestly without a per-call `usage` number, and reading that `usage` is what told me the Haiku cache was a silent no-op.
+2. **Prompt caching next, but check the threshold.** Turn it on for the engine whose system-plus-tools prefix clears the provider's cacheable minimum, and confirm `cache_creation_input_tokens` is non-zero before you believe it. Expect it to help warm, repeated sessions and to cost you on single-shot calls.
+3. **Compression alongside.** It is a high floor, it does not depend on the question, and the only discipline it asks is keeping source code away from the compressor.
+4. **Semantic cache once there is repetition.** Turn it on when more than one person is asking overlapping questions about the same codebase, and turn on invalidation and per-repo scoping the same day, not later.
+5. **Graph last, and only if your workload is discovery-heavy.** If your agents mostly do large cross-file investigations, build it. If they mostly do small targeted edits, skip it and save yourself the infrastructure.
 
 The meta-lesson is the one I keep relearning in this kind of work. Independent levers have to be measured independently, behind a quality gate, or you cannot tell help from theater. The originality is never in any single trick. It is in wiring them together and being honest about what each one was worth.
 
@@ -226,6 +258,7 @@ The meta-lesson is the one I keep relearning in this kind of work. Independent l
 - Split every task's cost into input you control and output the model generates. The levers only work on the input side, so a write-heavy task limits how much they can help.
 - A code graph wins on deep cross-file discovery and is break-even or worse on shallow or write-heavy tasks. It is question-dependent, not a flat discount.
 - Compress tool output, never source code. Tool output is repetitive and machine-shaped; source code is load-bearing token by token, and dropping the wrong one fails silently.
+- Prompt caching is the lever I measured precisely, and it is per-engine: zero on the Haiku engine whose prefix sat below the cacheable threshold, about 68% cheaper on warm Sonnet orchestrator reads, and a 17% penalty on a single-shot session. Check `cache_creation_input_tokens` on the wire, because a sub-threshold cache is a silent no-op.
 - A shared semantic cache has the best ceiling but only after you pay the governance tax: invalidate on code change and scope per repo. A stale hit costs nothing and lies.
 - Benchmark each lever alone, against the same task set, behind a fixed quality gate, changing one thing at a time. Stack-and-measure-once tells you nothing about which lever earned its keep.
-- On a fresh setup: compression first, gateway and ledger next, cache once there is repetition, graph last and only if your workload is discovery-heavy.
+- On a fresh setup: gateway and ledger first, prompt caching with a threshold check next, compression alongside, semantic cache once there is repetition, graph last and only if your workload is discovery-heavy.

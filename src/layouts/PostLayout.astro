@@ -10,6 +10,7 @@ import '../styles/prose.css';
 export interface Props {
   title: string;
   description: string;
+  tldr?: string;
   pubDate: Date;
   updatedDate?: Date;
   category?: string;
@@ -26,6 +27,7 @@ export interface Props {
 const {
   title,
   description,
+  tldr,
   pubDate,
   updatedDate,
   category,
@@ -43,6 +45,12 @@ const dateStr = pubDate.toLocaleDateString('en-US', { month: 'long', year: 'nume
 
 const origin = (Astro.site ?? new URL(`https://${site.domain}`)).origin;
 const postUrl = `${origin}/blog/${slug}`;
+
+// Share intent URLs (no client JS needed for LinkedIn / X).
+const shareEnc = encodeURIComponent(postUrl);
+const shareText = encodeURIComponent(title);
+const linkedInShare = `https://www.linkedin.com/sharing/share-offsite/?url=${shareEnc}`;
+const xShare = `https://twitter.com/intent/tweet?text=${shareText}&url=${shareEnc}`;
 
 const articleLd = {
   '@context': 'https://schema.org',
@@ -114,6 +122,14 @@ const jsonLd = [articleLd, breadcrumbLd, faqLd].filter(Boolean) as Record<string
 
     <div class="container post-body">
       <div class="prose reveal reveal-d2">
+        {
+          tldr && (
+            <aside class="tldr" aria-label="Summary">
+              <span class="tldr-label">TL;DR</span>
+              <p>{tldr}</p>
+            </aside>
+          )
+        }
         {demo === 'alfred-firing' && <AlfredFiringDemo />}
         <slot />
       </div>
@@ -125,14 +141,19 @@ const jsonLd = [articleLd, breadcrumbLd, faqLd].filter(Boolean) as Record<string
       faq.length > 0 && (
         <section class="container--prose post-faq reveal">
           <h2>Common questions</h2>
-          <dl>
-            {faq.map((f) => (
-              <>
-                <dt>{f.q}</dt>
-                <dd>{f.a}</dd>
-              </>
+          <div class="faq-list">
+            {faq.map((f, i) => (
+              <details class="faq-item" open={i === 0}>
+                <summary>
+                  <span class="faq-q">{f.q}</span>
+                  <Icon name="chevronDown" size={18} class="faq-chevron" />
+                </summary>
+                <div class="faq-a">
+                  <p>{f.a}</p>
+                </div>
+              </details>
             ))}
-          </dl>
+          </div>
         </section>
       )
     }
@@ -155,6 +176,34 @@ const jsonLd = [articleLd, breadcrumbLd, faqLd].filter(Boolean) as Record<string
         </section>
       )
     }
+
+    <div class="container--prose post-share reveal">
+      <span class="share-label">Share this</span>
+      <div class="share-row">
+        <a
+          class="share-btn"
+          href={linkedInShare}
+          target="_blank"
+          rel="noopener"
+          aria-label="Share on LinkedIn"
+        >
+          <Icon name="linkedin" size={16} /> LinkedIn
+        </a>
+        <a class="share-btn" href={xShare} target="_blank" rel="noopener" aria-label="Share on X">
+          <Icon name="twitter" size={16} /> X
+        </a>
+        <button
+          class="share-btn"
+          type="button"
+          id="copy-link"
+          data-url={postUrl}
+          aria-label="Copy link to this post"
+        >
+          <Icon name="link" size={16} />
+          <span class="copy-text">Copy link</span>
+        </button>
+      </div>
+    </div>
 
     <div class="container--prose post-foot reveal">
       <div class="author glass card" data-tilt="off">
@@ -206,6 +255,40 @@ const jsonLd = [articleLd, breadcrumbLd, faqLd].filter(Boolean) as Record<string
     toTop.addEventListener('click', () =>
       window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' })
     );
+  }
+
+  // Copy-link button with a transient "copied" state.
+  const copyBtn = document.getElementById('copy-link');
+  if (copyBtn) {
+    const label = copyBtn.querySelector('.copy-text');
+    const original = label ? label.textContent : '';
+    let resetTimer;
+    copyBtn.addEventListener('click', async () => {
+      const url = copyBtn.getAttribute('data-url') || window.location.href;
+      try {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(url);
+        } else {
+          const ta = document.createElement('textarea');
+          ta.value = url;
+          ta.style.position = 'fixed';
+          ta.style.opacity = '0';
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand('copy');
+          document.body.removeChild(ta);
+        }
+        copyBtn.classList.add('is-copied');
+        if (label) label.textContent = 'Copied';
+        clearTimeout(resetTimer);
+        resetTimer = setTimeout(() => {
+          copyBtn.classList.remove('is-copied');
+          if (label) label.textContent = original;
+        }, 2000);
+      } catch (e) {
+        /* clipboard unavailable; leave the button unchanged */
+      }
+    });
   }
 
   // Mermaid render + click-to-enlarge lightbox.
@@ -359,6 +442,31 @@ const jsonLd = [articleLd, breadcrumbLd, faqLd].filter(Boolean) as Record<string
     margin-top: clamp(40px, 6vw, 72px);
   }
 
+  /* TL;DR card */
+  .prose .tldr {
+    margin: 0 0 2em;
+    padding: 18px 22px;
+    border: 1px solid var(--glass-border);
+    border-left: 3px solid var(--accent);
+    border-radius: var(--r-md);
+    background: rgba(var(--accent-rgb), 0.06);
+  }
+  .prose .tldr .tldr-label {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .prose .tldr p {
+    margin: 0;
+    color: var(--ink);
+    line-height: 1.65;
+    font-size: 1.02rem;
+  }
+
   /* FAQ */
   .post-faq {
     margin-top: clamp(48px, 7vw, 80px);
@@ -368,16 +476,117 @@ const jsonLd = [articleLd, breadcrumbLd, faqLd].filter(Boolean) as Record<string
     font-size: var(--fs-h3);
     margin-bottom: 22px;
   }
-  .post-faq dt {
+  .faq-list {
+    display: grid;
+    gap: 10px;
+  }
+  .faq-item {
+    border: 1px solid var(--glass-border);
+    border-radius: var(--r-md);
+    background: var(--glass-bg);
+    transition: border-color var(--dur-2) var(--ease-out), background var(--dur-2) var(--ease-out);
+  }
+  .faq-item:hover {
+    border-color: var(--glass-border-strong);
+    background: var(--glass-bg-strong);
+  }
+  .faq-item[open] {
+    border-color: var(--glass-border-strong);
+  }
+  .faq-item summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 16px 20px;
+    cursor: pointer;
+    list-style: none;
+  }
+  .faq-item summary::-webkit-details-marker {
+    display: none;
+  }
+  .faq-q {
     font-family: var(--font-display);
     font-weight: 600;
     font-size: 1.05rem;
-    margin-top: 22px;
+    color: var(--ink);
   }
-  .post-faq dd {
-    margin: 8px 0 0;
+  .faq-item :global(.faq-chevron) {
+    flex: none;
+    color: var(--text-tertiary);
+    transition: transform var(--dur-2) var(--ease-out), color var(--dur-1) var(--ease-out);
+  }
+  .faq-item[open] :global(.faq-chevron) {
+    transform: rotate(180deg);
+    color: var(--accent);
+  }
+  .faq-item summary:hover :global(.faq-chevron) {
+    color: var(--accent);
+  }
+  .faq-a {
+    padding: 0 20px 18px;
+  }
+  .faq-a p {
+    margin: 0;
     color: var(--text-secondary);
     line-height: 1.7;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .faq-item :global(.faq-chevron) {
+      transition: color var(--dur-1) var(--ease-out);
+    }
+  }
+
+  /* Share row */
+  .post-share {
+    margin-top: clamp(48px, 7vw, 80px);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    padding-top: clamp(28px, 4vw, 40px);
+    border-top: 1px solid var(--glass-border);
+  }
+  .share-label {
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    letter-spacing: var(--tracking-wide);
+    color: var(--text-tertiary);
+  }
+  .share-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .share-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    border-radius: var(--r-btn);
+    border: 1px solid var(--glass-border);
+    background: var(--glass-bg);
+    color: var(--text-secondary);
+    font-family: var(--font-display);
+    font-size: var(--fs-sm);
+    font-weight: 500;
+    transition: color var(--dur-1) var(--ease-out), border-color var(--dur-2) var(--ease-out),
+      background var(--dur-2) var(--ease-out), transform var(--dur-1) var(--ease-out);
+  }
+  .share-btn:hover {
+    color: var(--ink);
+    border-color: var(--glass-border-strong);
+    background: var(--glass-bg-strong);
+    transform: translateY(-1px);
+  }
+  .share-btn.is-copied {
+    color: var(--st-pass, #16a34a);
+    border-color: currentColor;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .share-btn {
+      transition: color var(--dur-1) var(--ease-out), border-color var(--dur-2) var(--ease-out);
+    }
   }
 
   /* Related */

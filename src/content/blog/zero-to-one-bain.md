@@ -1,15 +1,14 @@
 ---
 title: "Building a $3.6M ARR product inside a consulting firm"
 description: "Lessons from building Aura at Bain & Company - the unique challenges and advantages of venture building inside a large organization."
-pubDate: 2025-01-26
+pubDate: 2025-09-10
 category: "Startup journey"
 tags: ["startup-journey"]
 readingTime: "15 min read"
+tldr: "I drove Aura, a PE due diligence platform, from $0 to $3.6M ARR in 15 months as its venture CTO inside Bain & Company. The team grew from 4 to 33, I built the data infrastructure myself, and the product eventually spun out of Bain as a separate entity. Building inside a large firm trades the startup's speed for distribution, trust, and funding you would otherwise spend years earning. The deciding factor is whether the problem genuinely rewards those assets."
 ---
 
-**TL;DR.** I drove Aura, a PE due diligence platform, from \$0 to \$3.6M ARR in 15 months as its venture CTO inside Bain & Company. The team grew from 4 to 33, I built the data infrastructure myself, and the product eventually spun out of Bain as a separate entity. Building inside a large firm trades the startup's speed for distribution, trust, and funding you would otherwise spend years earning. The deciding factor is whether the problem genuinely rewards those assets.
-
-When people hear I built a product from zero to \$3.6M ARR inside Bain & Company, they react one of two ways.
+When people hear I built a product from zero to \$3.6M [ARR](https://en.wikipedia.org/wiki/Annual_recurring_revenue) inside Bain & Company, they react one of two ways.
 
 The startup crowd asks: "How did you move fast inside a big consulting firm? Didn't bureaucracy kill you?"
 
@@ -23,13 +22,13 @@ I joined Aura as its venture CTO. My job was the whole technical surface: archit
 
 Some background. Consulting firms have built products for years, though they don't always talk about it. The logic is simple: consulting revenue is linear (more hours, more revenue), while product revenue can be exponential (build once, sell many times).
 
-There's a deeper reason too. Consulting firms have something startups would kill for: **unfettered access to decision-makers at the world's largest companies**. They spend millions of hours a year understanding customer problems at the highest levels. That's the world's most expensive market research program.
+There's a deeper reason too. Consulting firms have something most startups lack on day one: **direct access to decision-makers at large companies**. They spend a large share of their billable hours understanding customer problems at the senior level, which is a form of continuous, well-funded market research.
 
-The challenge is translating that insight into products. Most consulting firms fail at this, for reasons I'll explain. When it works, it works spectacularly.
+The challenge is translating that insight into products. Most consulting firms do not convert it, for reasons I'll explain. When the conversion works, the result can be a standalone business, which is what happened with Aura.
 
 ## How Aura started
 
-Aura was a PE due diligence platform. The origin story is simple. Bain does hundreds of due diligence projects for private equity firms every year. Each one involves collecting massive amounts of data, running analyses, and producing reports under extreme time pressure.
+Aura was a PE due diligence platform. The origin story is simple. Bain does hundreds of due diligence projects for private equity firms every year. Each one involves collecting data from dozens of sources, running analyses, and producing reports on a deal timeline measured in weeks.
 
 The existing process was artisanal. Consultants manually gathered data from dozens of sources. They built one-off spreadsheets. They spent nights reformatting slides. Each project reinvented the wheel.
 
@@ -49,13 +48,13 @@ Start with what made this easier than a traditional startup.
 
 In a startup, you build the product first, then figure out how to reach customers. At Bain we had the opposite. We had hundreds of partners with existing client relationships. Our go-to-market was: walk down the hall.
 
-This sounds trivial. It isn't. Startups die from lack of distribution more often than lack of product. Having distribution locked in from day one let us focus almost entirely on building the right thing.
+This sounds minor. It isn't. Startups die from lack of distribution more often than lack of product. Having distribution locked in from day one let us focus almost entirely on building the right thing.
 
 ### 2. Customer development on steroids
 
 When you're building a B2B product, the hardest part is getting time with decision-makers. They're busy. They don't take cold calls. They don't want to be guinea pigs for your MVP.
 
-At Bain, I had unlimited access to partners who ran PE due diligence. These are people who live the problem every day, who understand nuances a startup would take years to discover. Getting an hour of their time meant booking a meeting.
+At Bain, I had direct access to the partners who ran PE due diligence. These are people who live the problem every day, who understand nuances a startup would take years to discover. Getting an hour of their time meant booking a meeting.
 
 I could also watch them work. I sat in on actual due diligence projects and saw where the pain points really were, not where people said they were.
 
@@ -81,7 +80,7 @@ Now what made it harder.
 
 Large organizations have evolved mechanisms for rejecting new things. This is self-preservation, not malice. Most new initiatives fail, and successful companies have learned to be skeptical of shiny objects.
 
-The problem is that the immune system that protects against bad ideas also attacks good ones. You spend enormous energy creating space to exist. Every meeting requires explaining why this matters. Every resource request requires justification.
+The problem is that the immune system that protects against bad ideas also attacks good ones. You spend a real share of your time creating space to exist. Every meeting requires explaining why this matters. Every resource request requires justification.
 
 In a startup, everyone is rowing in the same direction by definition. In a large org, alignment is a constant battle.
 
@@ -135,6 +134,15 @@ These people lent us their conviction when we didn't have enough of our own. The
 
 People are surprised we went from zero to \$3.6M ARR in 15 months. Roughly how it happened:
 
+```mermaid
+timeline
+    title Aura zero to $3.6M ARR in 15 months
+    Months 1-3 Discovery : Interviewed 30+ partners : Shadowed live projects : No code written
+    Months 4-6 MVP : Smallest useful build : Data collection automation : Deployed on 3 projects
+    Months 7-12 Iteration : Analysis modules added : Reporting improved : 15 projects per month
+    Months 13-15 Scale : Standardized platform : Self-service capabilities : $3.6M ARR run rate
+```
+
 **Months 1-3:** Discovery. Interviewed 30+ partners and managers. Shadowed actual due diligence projects. Mapped the workflow in excruciating detail. No code written.
 
 **Months 4-6:** MVP. Built the smallest thing that could be useful. Focused on data collection automation, the most painful and least interesting part of the work. Deployed on 3 real projects.
@@ -168,7 +176,18 @@ Would I do it again? It depends on the problem. For something like due diligence
 
 There's no universally right answer. The question isn't "startup or corporate?" It's "what does this specific problem require, and which setting gives me the best chance of solving it?"
 
-That's a harder question to answer. It's the right one to ask.
+That's a harder question to answer. It's the right one to ask. Here is the decision the way I'd run it now:
+
+```mermaid
+flowchart TD
+    idea["A new product idea"] --> q1{"Does the problem reward<br/>distribution, trust, and<br/>customer access?"}
+    q1 -->|"No"| startup["Build as a startup:<br/>speed and focus win"]
+    q1 -->|"Yes"| q2{"Can you secure<br/>executive air cover?"}
+    q2 -->|"No"| risky["High risk: the immune<br/>system will stall it"]
+    q2 -->|"Yes"| q3{"Structured as a business<br/>with revenue targets?"}
+    q3 -->|"No"| theater["Innovation theater:<br/>likely to die"]
+    q3 -->|"Yes"| corp["Build inside the firm:<br/>borrow distribution and trust"]
+```
 
 ## Key takeaways
 

@@ -56,6 +56,27 @@ export function bookMarkdown(): string {
   return L.join('\n');
 }
 
+// Markdown for the /contact page.
+export function contactMarkdown(): string {
+  const L: string[] = [];
+  L.push('# Contact', '');
+  L.push(
+    "> If you are building something hard in AI, or hiring someone who has, I'd like to hear about it.",
+    ''
+  );
+  L.push(
+    `Reach ${site.name}, ${site.role}.`,
+    '',
+    `- Book a call: ${ORIGIN}/book`,
+    `- Email: ${site.email}`,
+    `- LinkedIn: ${site.links.linkedin}`,
+    `- GitHub: ${site.links.github}`,
+    `- Based in: ${site.location}`,
+    ''
+  );
+  return L.join('\n');
+}
+
 type PostMeta = {
   id: string;
   title: string;
@@ -119,6 +140,7 @@ export function llmsIndex(posts: PostMeta[]): string {
   L.push(`- [Home](${ORIGIN}/): work, impact, background, and how he works. Markdown: ${ORIGIN}/index.md`);
   L.push(`- [Story](${ORIGIN}/story): the long version of his background, from rural Karnataka to founding companies. Markdown: ${ORIGIN}/story.md`);
   L.push(`- [Book a call](${ORIGIN}/book): book a short intro call. Markdown: ${ORIGIN}/book.md`);
+  L.push(`- [Contact](${ORIGIN}/contact): ways to reach him by email, LinkedIn, or GitHub. Markdown: ${ORIGIN}/contact.md`);
   L.push(`- [Writing](${ORIGIN}/blog): essays on AI-native engineering, durable workflows, and founding.`);
   L.push(`- [Facts](${ORIGIN}/facts.md): machine-readable list of public claims and their evidence.`);
   L.push('');

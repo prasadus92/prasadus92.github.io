@@ -26,7 +26,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? `https://${site.doma
 
 // Markdown route for the current page (for the footer AI helpers), where one exists.
 const _p = Astro.url.pathname.replace(/\/$/, '');
-const _mdRoutes = new Set(['/story', '/book']);
+const _mdRoutes = new Set(['/story', '/book', '/contact']);
 const mdPath =
   _p === ''
     ? '/index.md'

@@ -4,6 +4,8 @@ import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import icon from 'astro-icon';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
 
 // Build a map of blog URL -> lastmod (updatedDate || pubDate) by reading the
 // post frontmatter directly. Used by the sitemap serialize hook so search
@@ -69,7 +71,11 @@ export default defineConfig({
     inlineStylesheets: 'auto',
   },
   markdown: {
-    remarkPlugins: [remarkMermaid],
+    // singleDollarTextMath disabled so prose dollar amounts ($50,000, 20%)
+    // are not parsed as inline math. Use $$...$$ for display math, and
+    // \( ... \) for inline math.
+    remarkPlugins: [remarkMermaid, [remarkMath, { singleDollarTextMath: false }]],
+    rehypePlugins: [rehypeKatex],
     shikiConfig: {
       theme: 'github-dark',
       wrap: false,

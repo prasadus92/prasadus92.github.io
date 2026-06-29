@@ -1,7 +1,8 @@
 ---
 title: "Durable by design: two ways to survive failure in AI-native workflows"
 description: "Every AI-native workflow eventually fails partway through. There are two coherent ways to survive it: resume the work with a durable-execution engine, or make every step idempotent and re-derivable. When to use which, from systems running both."
-pubDate: 2026-06-28
+tldr: "Any AI-native workflow with more than one step, an external call, and enough runtime to be interrupted will fail partway through, and that is the normal case, not the rare one. There are two coherent ways to survive it: resume the work from a saved checkpoint with a durable-execution engine, or make every step idempotent and re-derivable so a crash means you run it again and land the same state. Resume optimizes for not repeating work; re-derive optimizes for not needing to remember. I run both. The choice comes down to how long a workflow lives, how much irrecoverable state it carries, and how much infrastructure you want to operate."
+pubDate: 2026-06-24
 category: "Engineering"
 tags: ["ai-native", "durable-workflows", "distributed-systems", "idempotency", "ai-in-production"]
 readingTime: "12 min read"
@@ -20,13 +21,11 @@ faq:
     a: "If you advance the watermark before every record up to it is committed, the records still in flight fall into a gap that no future run re-pulls, and they are lost without any error. Advancing only after commit means a partial failure simply re-pulls the window, which is safe when your upserts are idempotent."
 ---
 
-**TL;DR.** Any AI-native workflow with more than one step, an external call, and enough runtime to be interrupted will fail partway through, and that is the normal case, not the rare one. There are two coherent ways to survive it: resume the work from a saved checkpoint with a durable-execution engine, or make every step idempotent and re-derivable so a crash means you run it again and land the same state. Resume optimizes for not repeating work; re-derive optimizes for not needing to remember. I run both. The choice comes down to how long a workflow lives, how much irrecoverable state it carries, and how much infrastructure you want to operate.
-
 A quick orientation if "durable workflow" is new. Durable here means the end state survives a crash: stop the process at any point, start it again, and you arrive where you would have if nothing had failed. The reason this is hard is that the moment work spans two systems, your database and a payment API, your queue and your worker, there is no instant where both are guaranteed consistent. A crash can land in the gap between them. This is the same reason double-entry bookkeeping exists: a transfer is not one event but two, money leaving one account and arriving in another, and the discipline is making sure you can never end up with one without the other. Durable workflows are that discipline applied to code that can die mid-step.
 
 ## Failure is the normal case
 
-A sync pulled records from a customer's CRM, enriched each one through a provider, and ran an agent pass over the result. It worked in the demo and for two weeks. Then on a Tuesday the enrichment provider returned a 503 halfway through a batch of 4,000 records, the process retried the whole batch, and the customer woke up to duplicate work and a sync that reported "complete" after finishing a third of the job.
+A sync pulled records from a customer's CRM, enriched each one through a provider, and ran an agent pass over the result. It worked in the demo and for two weeks. Then on a Tuesday the enrichment provider returned a `503` halfway through a batch of 4,000 records, the process retried the whole batch, and the customer woke up to duplicate work and a sync that reported "complete" after finishing a third of the job.
 
 That is the code meeting real traffic for the first time.
 
@@ -34,8 +33,8 @@ The moment a workflow has more than one step, calls an external API, and runs lo
 
 ## Two approaches: resume vs re-derive
 
-- **Resume.** Record progress as you go, and on a crash, pick up where you left off. This is what a durable-execution engine gives you. Temporal is the well-known example. The engine checkpoints each step, persists workflow state, and replays from the last durable point. You write linear code and the engine makes the linearity survive crashes. The cost: you now operate a stateful orchestration system, and your logic is shaped by its execution model.
-- **Re-derive.** Make every unit of work idempotent and re-runnable from its inputs, so a crash means you run it again and get the same result. There is no saved position to resume from, because position does not matter. The work is a pure function of its inputs plus what is already in your database. The cost: you have to make that property true for every step, including the ones that touch the outside world.
+- **Resume.** Record progress as you go, and on a crash, pick up where you left off. This is what a [durable-execution](https://en.wikipedia.org/wiki/Durable_execution) engine gives you. `Temporal` is the well-known example. The engine checkpoints each step, persists workflow state, and replays from the last durable point. You write linear code and the engine makes the linearity survive crashes. The cost: you now operate a stateful orchestration system, and your logic is shaped by its execution model.
+- **Re-derive.** Make every unit of work [idempotent](/glossary) and re-runnable from its inputs, so a crash means you run it again and get the same result. There is no saved position to resume from, because position does not matter. The work is a pure function of its inputs plus what is already in your database. The cost: you have to make that property true for every step, including the ones that touch the outside world.
 
 ```mermaid
 flowchart LR
@@ -69,7 +68,7 @@ Here is a failure that looks impossible until it happens. A request comes in, yo
 
 There is no safe ordering of two writes to two systems, because the crash can land in the gap.
 
-The transactional outbox makes both writes one write. You write the business row and an outbox row in the same database transaction. Either both commit or neither does. A separate poller reads unprocessed outbox rows, publishes them, and marks them done. If it crashes after publishing but before marking, the row publishes again, which is fine because the consumer is idempotent. The only atomic operation the system depends on is a single-transaction commit, which Postgres already guarantees.
+The [transactional outbox](/glossary) makes both writes one write. You write the business row and an outbox row in the same database transaction. Either both commit or neither does. A separate poller reads unprocessed outbox rows, publishes them, and marks them done. If it crashes after publishing but before marking, the row publishes again, which is fine because the consumer is idempotent. The only atomic operation the system depends on is a single-transaction commit, which Postgres already guarantees.
 
 ```mermaid
 flowchart LR
@@ -95,7 +94,7 @@ FOR UPDATE SKIP LOCKED;
 
 ## Checkpoints and watermarks
 
-Pulling from a CRM is rarely one-shot. You sync incrementally: ask for everything changed since last time, process it, and remember where you stopped. That memory is a watermark, usually a timestamp or a monotonic cursor. This is how you avoid re-pulling a million records every hour.
+Pulling from a CRM is rarely one-shot. You sync incrementally: ask for everything changed since last time, process it, and remember where you stopped. That memory is a [watermark](/glossary), usually a timestamp or a monotonic cursor. This is how you avoid re-pulling a million records every hour.
 
 The watermark is where partial failure does its quietest damage. Pull a page of records modified after `T`, process some, then die. If you advance the watermark to the newest timestamp you saw before confirming every record committed, the unprocessed records fall into a gap no future run will ask for. Those records are lost without any error, and the data looks consistent even though it isn't.
 
@@ -128,7 +127,7 @@ Quarantine plus salvage turns a lost batch into a delayed one you can fix and re
 
 ## Backoff, rate limits, and a fleet-wide stop
 
-External APIs push back. The polite version is a 429 with a retry-after header.
+External APIs push back. The polite version is a `429` with a `Retry-After` header.
 
 - **Per-request: back off with jitter.** Wait a bit, then twice as long, then four times, with randomness so a thousand retrying workers do not synchronize into a thundering herd. Most HTTP clients do this for you.
 - **Per-account: stop the fleet.** Most rate limits are per-account, not per-request. One API key, one quota, shared across every worker. When you hit that ceiling, individual backoff is the wrong instinct: a hundred workers each backing off is still a hundred workers slamming the same wall, burning quota on rejected calls and pushing recovery further out.
@@ -150,6 +149,20 @@ Separating the proposer from the reviewer is the agent-world version of not lett
 Some steps are a person deciding something. A sync wants to delete records that no longer match and a human approves. An agent drafts an outbound action and someone signs off. The naive build blocks: the workflow waits for the human. That turns a lunch break into a hung process and a transport hiccup into a lost decision.
 
 We model human approval as a first-class workflow state, with the same durability rules as any other step.
+
+```mermaid
+stateDiagram-v2
+  [*] --> Pending: work needs human decision
+  Pending --> Approved: human approves
+  Pending --> Rejected: human rejects
+  Pending --> TimedOut: window elapses
+  Pending --> TransportFailed: notice or reply lost
+  TimedOut --> SafeDefault: resolve to do-not-proceed
+  TransportFailed --> SafeDefault: recorded verdict
+  Approved --> [*]
+  Rejected --> [*]
+  SafeDefault --> [*]
+```
 
 - **Park durably.** The work sits in a pending-approval state, and the workflow is free to do other things.
 - **Time out to a safe default.** If no decision arrives within the window, the step resolves to a defined outcome, usually "do not proceed," rather than waiting forever.
@@ -174,6 +187,17 @@ Reach for **stateless re-derivation** when:
 - You can make each step idempotent, so it is safe to run again.
 - You operate with one or two people and a ceiling on infrastructure you run yourself. The durability lives in Postgres, which you already operate, with no orchestration engine to upgrade and reason about.
 - You need to scale a path horizontally, where a stateless idempotent worker is the cheapest thing to add.
+
+```mermaid
+flowchart TD
+  W[New workflow] --> Q1{"Long-lived, branchy,<br/>expensive state to recompute?"}
+  Q1 -->|yes| Q2{"Steps you cannot<br/>make idempotent,<br/>like sending money?"}
+  Q2 -->|yes| ENG["Durable-execution engine<br/>(resume)"]
+  Q1 -->|no| Q3{"Small unit, cheap inputs,<br/>each step idempotent?"}
+  Q3 -->|yes| RED["Stateless re-derivation<br/>on Postgres"]
+  Q2 -->|no| RED
+  Q3 -->|no| ENG
+```
 
 The questions that decide it: how long one workflow lives and how much irrecoverable state it carries, how expensive it is to recompute a step versus resume past it, how many people operate this at three in the morning, and what your ceiling is on self-run infrastructure. Scale pushes the high-volume paths toward re-derivation. Statefulness and irreversibility push toward resume.
 

@@ -1,7 +1,7 @@
 ---
 title: "The translation layer: bridging static-auth clients to short-lived-token backends"
-description: "A lot of practical AI infra work is impedance matching between API shapes that almost agree. Here is what I learned putting a tiny local proxy in the seam between static-bearer clients and Vertex AI's 60-minute OAuth tokens."
-pubDate: 2026-06-20
+description: "A lot of practical AI infra work is impedance matching between API shapes that almost agree. Here is what I learned putting a small local proxy in the seam between static-bearer clients and Vertex AI's 60-minute OAuth tokens."
+pubDate: 2026-04-22
 category: "Engineering"
 tags:
   - ai-native
@@ -16,6 +16,7 @@ draft: false
 related:
   - loops-harnesses-memory
   - durable-by-design
+tldr: "A lot of AI infra work is impedance matching: two APIs that describe the same thing on paper but disagree on auth, URL shape, and streaming in ways no schema documents. I put a small local proxy in the seam between static-bearer clients and Vertex AI's 60-minute OAuth tokens. The auth bridge took an afternoon. The dialect translation took two weeks, and that is the part worth reading. Code: github.com/prasadus92/vertex-proxy."
 faq:
   - q: "Why not point clients at Vertex AI directly?"
     a: "Vertex authenticates with 60-minute OAuth access tokens minted from a service-account key. Clients like Claude Code, Cline, and the OpenAI and Anthropic SDKs expect a static bearer token and a fixed URL shape. There is no place in those clients to run a refresh loop, so the token expires mid-session and requests start failing with 401s. The proxy owns the refresh loop server-side so the client can keep sending one unchanging header."
@@ -29,11 +30,9 @@ faq:
     a: "OpenAI-style clients build their final URL by appending a fixed suffix like /chat/completions to whatever base_url you give them. People set base_url to .../gemini expecting Gemini, but that prefix is the native generateContent route, so the appended suffix 404s. Mounting the OpenAI-compat handler under every plausible prefix lets any reasonable base_url choice work, because routing keys off the body's model field, not the URL."
 ---
 
-**TL;DR.** A lot of AI infra work is impedance matching: two APIs that describe the same thing on paper but disagree on auth, URL shape, and streaming in ways no schema documents. I put a small local proxy in the seam between static-bearer clients and Vertex AI's 60-minute OAuth tokens. The auth bridge took an afternoon. The dialect translation took two weeks, and that is the part worth reading. Code: [vertex-proxy](https://github.com/prasadus92/vertex-proxy).
+Two terms first, if they are new. A **proxy** is a program that sits between a client and a server, receives the client's request, and forwards it on, often changing something in the middle. It is a translator standing between two people who each speak a slightly different dialect: both think they are speaking the same language, and most of the time they are, until a word means something different to each and the translator has to bridge it. The other term is the auth mismatch at the center of this. A **static bearer token** is a fixed password you put in a header and never change. An **[OAuth](https://oauth.net/2/) access token** is a temporary pass that expires, here after 60 minutes, and has to be refreshed. The clients I use only know how to send a fixed password. Vertex only accepts the expiring pass. Neither side will move, so something in the middle has to hold both.
 
-Two terms first, if they are new. A **proxy** is a program that sits between a client and a server, receives the client's request, and forwards it on, often changing something in the middle. It is a translator standing between two people who each speak a slightly different dialect: both think they are speaking the same language, and most of the time they are, until a word means something different to each and the translator has to bridge it. The other term is the auth mismatch at the center of this. A **static bearer token** is a fixed password you put in a header and never change. An **OAuth access token** is a temporary pass that expires, here after 60 minutes, and has to be refreshed. The clients I use only know how to send a fixed password. Vertex only accepts the expiring pass. Neither side will move, so something in the middle has to hold both.
-
-I wanted Claude Code to run against Vertex AI instead of the public Anthropic API. Same model, different billing, higher quota. I figured it was a one-line base_url change.
+I wanted Claude Code to run against Vertex AI instead of the public Anthropic API. Same model, different billing, higher quota. I figured it was a one-line `base_url` change.
 
 It was not. The client expects a static `Authorization: Bearer xxx` header that never changes. Vertex hands you an OAuth access token that expires in 60 minutes. There is no field in Claude Code, or Cline, or the OpenAI SDK, where you tell it "go refresh this credential every so often." The auth models do not match, and neither side is going to move.
 
@@ -93,13 +92,28 @@ except TimeoutError:
 
 There is a belt-and-suspenders guard on top: the foreground `get_token()` checks `credentials.expired` and forces a synchronous refresh if the background loop ever fell behind. Most of the time it does nothing. It exists for the one time the loop is wedged and a request comes in anyway.
 
+```mermaid
+sequenceDiagram
+    participant C as Client, static bearer
+    participant P as vertex-proxy
+    participant L as Background refresh task
+    participant V as Vertex AI
+    L->>V: refresh token at 50 min, worker thread
+    V-->>L: new 60-min OAuth token
+    C->>P: request with fixed bearer to localhost
+    P->>P: check token, force sync refresh if expired
+    P->>V: forward with valid OAuth token
+    V-->>P: response
+    P-->>C: translated response
+```
+
 One earned lesson from this half: the right place to hide a stateful concern is the one place that can be stateful. The client cannot run a loop, so the proxy runs it for everyone.
 
 ## Half two: where compatible breaks down
 
 This is where the time went. Three things bit me, and each one looked like it could not possibly be a problem until it was.
 
-### finish_reason must be emitted exactly once
+### `finish_reason` must be emitted exactly once
 
 OpenAI streams a sequence of `chat.completion.chunk` objects. Exactly one of them carries a non-null `finish_reason`, and it marks the end of the turn. Anthropic streams differently: a `message_delta` event carries the stop reason, and then a separate `message_stop` event closes things out.
 
@@ -130,11 +144,22 @@ if tool_calls:
     finish_reason = "tool_calls"
 ```
 
+```mermaid
+flowchart TD
+    A["Anthropic stream"] --> MD["message_delta<br/>carries stop_reason"]
+    A --> MS["message_stop"]
+    MD -->|"set finish_reason once"| OUT["OpenAI chunk with finish_reason"]
+    MS -->|"terminal sentinel only"| DONE["data: [DONE]"]
+    OUT --> NS{"Non-streaming and tool_calls present?"}
+    NS -->|Yes| FORCE["Force finish_reason = tool_calls"]
+    NS -->|No| KEEP["Keep mapped finish_reason"]
+```
+
 ### streamed tool calls cannot be translated statelessly
 
 I wanted the OpenAI bridge to handle tool use end to end. I could not make the streaming case work without giving up the property I cared about most, which was a stateless line-by-line translator.
 
-Anthropic streams a tool call as `content_block_start` followed by a run of `input_json_delta` events, each carrying a fragment of the JSON arguments. To turn that into OpenAI's streamed `tool_calls` format you have to accumulate the fragments across events, track which content block index you are on, and emit the reassembled call at the end. That is stateful by definition, and my translator processes one SSE line at a time with no memory.
+Anthropic streams a tool call as `content_block_start` followed by a run of `input_json_delta` events, each carrying a fragment of the JSON arguments. To turn that into OpenAI's streamed `tool_calls` format you have to accumulate the fragments across events, track which content block index you are on, and emit the reassembled call at the end. That is stateful by definition, and my translator processes one [SSE](/glossary) line at a time with no memory.
 
 I had two options. Make the translator stateful and carry a per-stream accumulation buffer, or accept that streamed tool calls are text-only and document it loudly. I chose the second, because the stateful version doubles the surface area where a malformed stream can corrupt state, and tool-using clients can fall back to non-streaming requests where the whole response is available to translate in one pass.
 
@@ -237,6 +262,6 @@ Most AI infra work looks like building a feature and turns out to be reconciling
 - Much of AI infra is impedance matching: two APIs that agree on paper and disagree on auth, URL shape, and streaming in ways no schema documents.
 - A proxy is the right place for a stateful concern the client cannot hold. The client cannot run a token-refresh loop, so the proxy runs it once for everyone, refreshing ahead of expiry on a background task.
 - Run blocking refresh calls in a worker thread so they do not stall the event loop, and never let a transient refresh failure kill the loop, or the token goes stale and every request 401s an hour later.
-- Streaming is where compatibility claims break. Emit finish_reason exactly once, and accept that streamed tool calls need stateful accumulation a line-by-line translator should not take on.
-- Clients construct URLs you did not design by appending fixed suffixes to base_url. Mount the same handler under every plausible prefix and route off the request body, not the path.
+- Streaming is where compatibility claims break. Emit `finish_reason` exactly once, and accept that streamed tool calls need stateful accumulation a line-by-line translator should not take on.
+- Clients construct URLs you did not design by appending fixed suffixes to `base_url`. Mount the same handler under every plausible prefix and route off the request body, not the path.
 - A translation layer between two systems you do not control is a standing maintenance commitment, not a finished build. Clients add fields and backends lag the schema, so the strip set and the model-id alias table grow over time.

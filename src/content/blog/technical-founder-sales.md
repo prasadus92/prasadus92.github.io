@@ -1,13 +1,12 @@
 ---
 title: "Technical founders can sell: here's how"
 description: "Engineers have a hidden advantage in B2B sales: they understand what they're selling. Here's how to use deep product knowledge to outsell traditional salespeople."
-pubDate: 2025-01-26
+pubDate: 2025-11-12
 category: "Founder sales"
 tags: ["founder-sales"]
 readingTime: "11 min read"
+tldr: "Engineers are told they cannot sell. The opposite is true in modern B2B, where buyers want to be helped, not pitched, and the person who understands the product deepest is the most credible voice in the room. I learned this selling at Mainteny, and most concretely when I signed a roughly $48K contract with a 200-person identity-verification company in New York before the product was even finished. The move is to stop performing sales and start doing what engineers already do well: understand the problem, map an honest solution to it, and follow through."
 ---
-
-**TL;DR.** Engineers are told they cannot sell. The opposite is true in modern B2B, where buyers want to be helped, not pitched, and the person who understands the product deepest is the most credible voice in the room. I learned this selling at Mainteny, and most concretely when I signed a roughly \$48K contract with a 200-person identity-verification company in New York before the product was even finished. The move is to stop performing sales and start doing what engineers already do well: understand the problem, map an honest solution to it, and follow through.
 
 There's a persistent myth in startups that engineers can't sell. That we're too introverted, too technical, too focused on features instead of benefits. That we need to hire a "real salesperson" as soon as possible.
 
@@ -67,6 +66,18 @@ On a sales call, this means asking genuine questions about their situation, list
 - **Instead of** "what would it take to close this deal today," **try** "does it make sense to keep talking, or is this not a priority right now?"
 
 This has a counterintuitive benefit. It increases your close rate. When you give people permission to say no, they trust you more. When you're honest about limitations, they believe you about strengths. When you focus on helping rather than closing, the right prospects lean in and the wrong ones self-select out.
+
+```mermaid
+flowchart TD
+    call["Sales call"] --> ask["Ask about their situation"]
+    ask --> listen["Listen, take notes in their words"]
+    listen --> map["Map solution honestly,<br/>name the gaps"]
+    map --> fit{"Does it actually fit?"}
+    fit -->|"Yes"| yes["Right prospects lean in"]
+    fit -->|"No"| no["Wrong prospects self-select out"]
+    yes --> trust["Trust compounds:<br/>higher close rate, referrals"]
+    no --> trust
+```
 
 ## Engineers do discovery well
 
@@ -158,11 +169,22 @@ Review them later. You'll notice patterns: questions you ask poorly, moments whe
 
 The question every technical founder eventually faces. When should I stop doing sales myself and hire someone?
 
-The conventional wisdom says "as soon as possible." I think that's wrong.
+The conventional wisdom says "as soon as possible." I think that's wrong. Here is the test I'd apply:
 
-Founder-led sales has enormous advantages early on. You learn directly from customers. You understand objections firsthand. You can make product decisions based on what you're hearing in sales calls. You build relationships with early customers that pay off for years.
+```mermaid
+flowchart TD
+    q0["Should I hire a salesperson?"] --> q1{"Closed 10-15 deals<br/>yourself?"}
+    q1 -->|"No"| keep["Keep founder-led sales"]
+    q1 -->|"Yes"| q2{"Repeatable process,<br/>stable ICP and price?"}
+    q2 -->|"No"| keep
+    q2 -->|"Yes"| q3{"Sales over 50% of your time<br/>and deals slipping?"}
+    q3 -->|"No"| keep
+    q3 -->|"Yes"| hire["Hire, starting with an SDR<br/>or customer success, not a closer"]
+```
 
-You also haven't figured out your sales motion yet. What's the ideal customer profile? What messaging resonates? What's the right price point? What objections come up repeatedly? What's the typical sales cycle? You need to answer these before you can hire someone to execute a playbook that doesn't exist yet.
+Founder-led sales has real advantages early on. You learn directly from customers. You understand objections firsthand. You can make product decisions based on what you're hearing in sales calls. You build relationships with early customers that pay off for years.
+
+You also haven't figured out your sales motion yet. What's the [ideal customer profile](https://en.wikipedia.org/wiki/Ideal_customer_profile)? What messaging resonates? What's the right price point? What objections come up repeatedly? What's the typical sales cycle? You need to answer these before you can hire someone to execute a playbook that doesn't exist yet.
 
 #### Keep doing sales yourself if:
 

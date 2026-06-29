@@ -13,9 +13,11 @@ Write like Prasad talking to a smart colleague: plain, first person, lived, prag
 - **Anchor every claim** with a number, a name, or a real outcome. Show tradeoffs as dilemmas. Admit what he underestimated.
 - **Banned constructions (machine tells):** "not X but Y", "isn't just", "doesn't just"; filler (actually/really/just/simply); hedges and throat-clearing ("it is worth noting"); overgeneralizations ("everyone", "most teams"); superlatives with no number; marketing slop ("dive in, game-changer, seamless, unlock, supercharge, leverage, delve"); emojis; standalone aphorisms (at most one earned per section).
 - **No extreme framing.** "create duplicate or inconsistent data", not "a source of corruption".
+- **No exaggeration or undermining.** Avoid size/scale exaggerations ("tiny", "huge", "massive", "trivial", "enormous", "a tiny bit of code") and phrasing that downplays or inflates the work. State the precise fact or number instead. Not "the verifier code is tiny" but "the verifier is about 215 lines; the real cost is specifying correctness per task." Don't undermine his own work, and don't over-claim it; be exact and neutral.
 - **Never add AI attribution** anywhere (no "generated with", no Co-Authored-By for AI), in commits, PRs, or content.
 - Run a neutrality pass on every header and the first/last sentence of each section before calling copy done.
 - Quoted evidence (transcripts, logs) stays verbatim even if it breaks a rule.
+- **Format code identifiers as inline code.** Wrap technical identifiers in backticks: table/column/function/env-var names, keywords, commands, file paths, API names (e.g. `ACCOUNT_USAGE`, `QUERY_ATTRIBUTION_HISTORY`, `svix-id`, `FOR UPDATE SKIP LOCKED`, `INSERT ... ON CONFLICT`). This applies in body text AND in headings/subtitles.
 
 ## Structure and depth (apply to every blog post and to copy in general)
 
