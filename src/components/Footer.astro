@@ -2,11 +2,15 @@
 import { site } from '../data/site';
 import Icon from './Icon.astro';
 import CopyPage from './CopyPage.astro';
+import GameOfLife from './GameOfLife.astro';
 const { mdPath } = Astro.props as { mdPath?: string };
 const year = new Date().getFullYear();
 ---
 
 <footer class="footer">
+  <div class="container footer-life">
+    <GameOfLife />
+  </div>
   <div class="container footer-inner">
     <div class="footer-brand">
       <a href="/" class="brand-mark">PS</a>
@@ -69,6 +73,9 @@ const year = new Date().getFullYear();
     margin-top: clamp(64px, 10vw, 140px);
     padding-top: clamp(48px, 6vw, 80px);
     border-top: 1px solid var(--glass-border);
+  }
+  .footer-life {
+    margin-bottom: clamp(36px, 5vw, 56px);
   }
   .footer-inner {
     display: grid;
