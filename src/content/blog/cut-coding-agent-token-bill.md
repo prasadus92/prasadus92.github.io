@@ -70,12 +70,12 @@ Off-the-shelf, you can build this with something like [code-graph-rag](https://g
 ```mermaid
 flowchart LR
     Q["agent question:<br/>what connects orders to invoices?"]
-    subgraph graph["precomputed code graph"]
+    subgraph cg["precomputed code graph"]
         O["Order"] -->|used by| S["InvoiceService.build()"]
         S -->|calls| L["lineItemsFor(order)"]
     end
-    Q --> graph
-    graph --> A["3 functions, ~40 lines<br/>instead of 4 files, ~600 lines"]
+    Q --> cg
+    cg --> A["3 functions, ~40 lines<br/>instead of 4 files, ~600 lines"]
 ```
 
 On the `widget-store` discount task, this is where the graph shines. Brute-force, the agent pulled four files into context to trace the path from order to invoice. With the graph, it pulled the three relevant functions. Illustratively, that took the discovery phase from roughly 9,000 input tokens to roughly 2,500. A real cut, and the kind of thing a vendor screenshot would stop at.

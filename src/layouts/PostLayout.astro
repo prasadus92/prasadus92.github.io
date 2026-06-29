@@ -162,8 +162,7 @@ const jsonLd = [articleLd, breadcrumbLd, faqLd].filter(Boolean) as Record<string
         <div>
           <strong>{site.name}</strong>
           <p class="muted">
-            Founder & CEO at Luminik. Three-time technical co-founder building AI-native products and
-            taking them to production.
+            Founder & CEO at Luminik. 3x technical co-founder. I turn expensive, repetitive work into products people pay for.
           </p>
           <div class="author-links">
             <a href={site.links.linkedin} target="_blank" rel="noopener" aria-label="LinkedIn"
@@ -294,9 +293,9 @@ const jsonLd = [articleLd, breadcrumbLd, faqLd].filter(Boolean) as Record<string
     top: 0;
     left: 0;
     right: 0;
-    height: 3px;
+    height: 4px;
     z-index: 200;
-    background: transparent;
+    background: var(--glass-border);
     pointer-events: none;
   }
   .read-progress span {

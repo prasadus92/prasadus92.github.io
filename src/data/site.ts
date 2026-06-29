@@ -180,12 +180,12 @@ export const approach = [
   {
     n: '05',
     title: 'Measure what matters',
-    body: 'I tie systems to the number the business cares about: pipeline, ARR, resolution rate. If I cannot see the effect, I am careful about shipping.',
+    body: 'I tie systems to the number the business cares about: pipeline, revenue, and cost. If I cannot see the effect, I am careful about shipping.',
   },
   {
     n: '06',
     title: 'Stay hands-on',
-    body: 'I still write code and read transcripts. This work is hard to lead from a distance.',
+    body: 'I stay hands-on: I write code, review it, and read what the system produces in the wild. This work is hard to lead from a distance.',
   },
 ] as const;
 

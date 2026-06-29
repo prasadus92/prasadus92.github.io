@@ -2,7 +2,7 @@
 layout: ../layouts/PageLayout.astro
 title: "My story"
 eyebrow: "About"
-description: "How Prasad Subrahmanya went from a small town in Karnataka with no path into engineering to a three-time technical co-founder building AI products in Oslo."
+description: "How Prasad Subrahmanya went from a small town in Karnataka with no path into engineering to a 3x technical co-founder building AI products in Oslo."
 lead: "From a small town in Karnataka with no path into engineering, to building companies from zero. The long version."
 ---
 
@@ -24,7 +24,7 @@ There was no backup plan. There was studying, or there was nothing.
 
 I learned to code at 14. My first language was Q-BASIC. I still remember the feeling of typing something and watching the machine do exactly what I told it, no more and no less. That was the first thing in my life that paid back effort at a clean exchange rate. You put in the work, the program ran. No politics, no luck, no asking anyone for a favor.
 
-In 12th standard I scored 99 out of 100 in Computer Science. I was the only person in my school to do it, and the first time anyone there had. The number is not the point. It was the first hard proof that the thing I loved doing was also something I could be good at, measured against everyone else.
+In 12th grade I scored 99 out of 100 in Computer Science. I was the only person in my school to do it, and the first time anyone there had. The number is not the point. It was the first hard proof that the thing I loved doing was also something I could be good at, measured against everyone else.
 
 ## Getting into engineering
 
@@ -34,9 +34,9 @@ I want to be plain about what those numbers were for. A rank is a door. It does 
 
 ## Failing the only interview on campus
 
-TCS was the only company that came to our campus, and I failed the first round in my seventh semester. There was no plan B. I wasn't going to do an MS abroad like many classmates, and in my family I would be the one supporting my parents as they got older. I needed a job.
+TCS was the only company that came to our campus, and I failed the first round in my final year. There was no plan B. I wasn't going to do an MS abroad like many classmates, and in my family I would be the one supporting my parents as they got older. I needed a job.
 
-So I worked. I'd had my own laptop since second year, a Compaq I was proud of, and I was always coding, grinding LeetCode. After the rejection I started building real things: small tools in PHP, C, and C++, an invoicing tool, a hotel-management tool, which I gave away for free. There was no AI to lean on, so I read and wrote code for hours. By the end of eighth semester I had six offers: Applied Materials, Huawei, Broadcom, Manhattan Associates, BlueJeans, and TCS, which I cleared off-campus against more than a million applicants after it had passed on me on campus. I finished with the highest offer in my batch, without being placed on campus at all.
+So I worked. I'd had my own laptop since second year, a Compaq I was proud of, and I was always coding, grinding LeetCode. After the rejection I started building real things: small tools in PHP, C, and C++, an invoicing tool, a hotel-management tool, which I gave away for free. There was no AI to lean on, so I read and wrote code for hours. By the time I graduated I had six offers: Applied Materials, Huawei, Broadcom, Manhattan Associates, BlueJeans, and TCS, which I cleared off-campus against more than a million applicants after it had passed on me on campus. I finished with the highest offer in my batch, without being placed on campus at all.
 
 ## Leaving home
 
@@ -62,6 +62,6 @@ I underestimated, for a long time, how much of building is selling and listening
 
 These days I am building Luminik, and Alfred, an open-source framework for running a fleet of coding agents. The work has not changed shape much from the Q-BASIC days. It is still the same loop: a hard problem, a machine, and the question of whether I can make the thing do what it is supposed to. I am drawn to problems that are difficult and unglamorous, the ones without an audience, because those are the ones still worth solving.
 
-Away from the screen, I hike. I know the Alps around Garmisch and the German-Austrian border well enough now to have favorite trails. My wife Neha and I travel to chase history and food, usually in that order. I read mostly technical writing, which my friends find funny and I find relaxing. I play a long game by temperament and I do not rattle easily.
+Away from the screen, I hike. I know the Alps around Garmisch and the German-Austrian border well enough now to have favorite trails. My wife [Neha](https://neha-prasad.com) and I travel to chase history and food, usually in that order. I read mostly technical writing, which my friends find funny and I find relaxing. I play a long game by temperament and I do not rattle easily.
 
 I came from a place with no path to this. I built the path by doing the work, and that is still the only method I trust.
