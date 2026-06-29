@@ -415,7 +415,7 @@ Four things, honestly. The in-message marker, because I assumed a tag could not 
 
 <div class="demo-card demo-sim" data-demo-sim>
   <span class="demo-kicker">Interactive: one case through the pipeline</span>
-  <p class="demo-note">Runs entirely in your browser with hardcoded examples. Nothing touches the network and nothing runs against a real agent. It is a picture of the method, safe to click.</p>
+  <p class="demo-note">A safe, in-browser demo on sample cases. Pick one and run it.</p>
   <div class="sim-controls">
     <select data-sim-select aria-label="Pick a test case"></select>
     <button type="button" class="demo-btn" data-sim-run>Run case</button>

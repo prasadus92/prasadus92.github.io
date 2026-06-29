@@ -63,7 +63,7 @@ function factsMarkdown(): string {
   L.push(
     '### Background',
     `- Claim: ${about.education.degree}, ${about.education.school} (${about.education.period}), ${about.education.result}.`,
-    `- Claim: Three-time technical co-founder.`,
+    `- Claim: 3x technical co-founder.`,
     `- Evidence: ${work.map((w) => `${w.company} (${w.role})`).join('; ')}.`,
     `- Earlier roles: ${earlier.map((e) => `${e.company} (${e.role}, ${e.note})`).join('; ')}.`,
     ''
