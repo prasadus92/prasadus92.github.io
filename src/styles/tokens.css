@@ -40,14 +40,16 @@
   --sp-10: 128px;
   --sp-11: 176px;
 
-  /* --- Radii (revyl-style: minimal/sharp) --- */
-  --r-xs: 3px;
-  --r-sm: 5px;
-  --r-md: 7px;
-  --r-lg: 10px;
-  --r-xl: 12px;
-  --r-pill: 6px;
-  --r-btn: 6px;
+  /* --- Radii (revyl-style: minimal/sharp) ---
+     Large surfaces (cards, panels, images, portrait) stay near 0-4px;
+     small controls get a small, intentional radius. */
+  --r-xs: 2px;
+  --r-sm: 3px;
+  --r-md: 4px;
+  --r-lg: 4px;
+  --r-xl: 4px;
+  --r-pill: 4px;
+  --r-btn: 4px;
 
   /* --- Layout --- */
   --container: 1200px;
@@ -80,12 +82,12 @@
   --bg-elevated: #0d111b;
 
   --ink: #eef2f8;
-  --text-secondary: #a7b2c4;
-  --text-tertiary: #6c7689;
+  --text-secondary: #b6c0d0;
+  --text-tertiary: #9ba5b6;
 
   --accent: #f63e8c;        /* Luminik magenta, signature */
   --accent-2: #7c6cff;      /* indigo-violet */
-  --accent-3: #ffb15c;      /* warm amber, used sparingly */
+  --accent-3: #9a7dff;      /* in-family violet (was amber); keeps the palette to two hues */
   --accent-ink: #ffffff;    /* text on solid accent */
   --accent-rgb: 246, 62, 140;
 
@@ -125,18 +127,19 @@
   --bg-elevated: #ffffff;
 
   --ink: #101522;
-  --text-secondary: #455064;
-  --text-tertiary: #707a8c;
+  /* Darkened for AA contrast over the (calmer) aurora wash in light mode. */
+  --text-secondary: #313a49;
+  --text-tertiary: #3f4856;
 
   --accent: #d81b6e;
   --accent-2: #6a4cff;
-  --accent-3: #c2740a;
+  --accent-3: #7a5cff;      /* in-family violet (was amber) */
   --accent-ink: #ffffff;
   --accent-rgb: 216, 27, 110;
 
   --grad-brand: linear-gradient(120deg, #ff6aa8 0%, #d81b6e 44%, #6a4cff 100%);
   --grad-text: linear-gradient(100deg, #d81b6e 0%, #c01a8e 45%, #6a4cff 100%);
-  --grad-halo: radial-gradient(60% 60% at 50% 0%, rgba(216, 27, 110, 0.12), transparent 70%);
+  --grad-halo: radial-gradient(60% 60% at 50% 0%, rgba(216, 27, 110, 0.1), transparent 70%);
 
   --glow: rgba(216, 27, 110, 0.22);
   --glow-soft: rgba(216, 27, 110, 0.1);

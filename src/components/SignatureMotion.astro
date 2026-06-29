@@ -48,13 +48,27 @@
     width: 100%;
     height: 100%;
     /* the soft aurora look comes from blurring a low-res canvas */
-    filter: blur(48px) saturate(1.06);
-    opacity: 0.72;
+    filter: blur(56px) saturate(0.98);
+    opacity: 0.5;
     transform: translateZ(0);
   }
   [data-theme='light'] .sig-canvas {
-    filter: blur(52px) saturate(1.05);
-    opacity: 0.5;
+    filter: blur(60px) saturate(0.96);
+    opacity: 0.34;
+  }
+  /* On mobile the hero stacks, so the top-right light field lands behind the
+     eyebrow/lead. Keep it faint and high so copy stays readable. */
+  @media (max-width: 640px) {
+    .sig-motion {
+      -webkit-mask-image: radial-gradient(120% 70% at 70% 6%, #000 20%, transparent 72%);
+      mask-image: radial-gradient(120% 70% at 70% 6%, #000 20%, transparent 72%);
+    }
+    .sig-canvas {
+      opacity: 0.32;
+    }
+    [data-theme='light'] .sig-canvas {
+      opacity: 0.22;
+    }
   }
 </style>
 
@@ -114,7 +128,7 @@
 
     let accent: RGB = [246, 62, 140];
     let accent2: RGB = [124, 108, 255];
-    let accent3: RGB = [255, 177, 92];
+    let accent3: RGB = [154, 125, 255];
 
     // pointer in -1..1, smoothed
     let pxTarget = 0;
@@ -126,7 +140,7 @@
       const cs = getComputedStyle(root);
       accent = parseColor(cs.getPropertyValue('--sig-accent') || '#f63e8c');
       accent2 = parseColor(cs.getPropertyValue('--sig-accent-2') || '#7c6cff');
-      accent3 = parseColor(cs.getPropertyValue('--sig-accent-3') || '#ffb15c');
+      accent3 = parseColor(cs.getPropertyValue('--sig-accent-3') || '#9a7dff');
     };
 
     // Five orbs on irrational-ish periods so the field never visibly repeats.
@@ -170,8 +184,8 @@
       const r = o.rad * dim;
       const [cr, cg, cb] = o.color;
       const g = ctx.createRadialGradient(x, y, 0, x, y, r);
-      g.addColorStop(0, `rgba(${cr},${cg},${cb},0.55)`);
-      g.addColorStop(0.4, `rgba(${cr},${cg},${cb},0.22)`);
+      g.addColorStop(0, `rgba(${cr},${cg},${cb},0.42)`);
+      g.addColorStop(0.4, `rgba(${cr},${cg},${cb},0.16)`);
       g.addColorStop(1, `rgba(${cr},${cg},${cb},0)`);
       ctx.fillStyle = g;
       ctx.fillRect(0, 0, cw, ch);

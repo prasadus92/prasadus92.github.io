@@ -110,7 +110,7 @@ export const work = [
     role: 'Founder & CEO',
     period: 'Oct 2024 to Present',
     body: 'Building a multi-agent platform that connects B2B event spend to measurable pipeline: attendee extraction, enrichment, ICP matching, outbound, CRM sync, and revenue attribution. Powering GTM teams at flagship events.',
-    tags: ['Next.js', 'React', 'Python', 'Hatchet', 'pgvector', 'AWS'],
+    tags: ['Next.js', 'React', 'Python', 'Hatchet', 'Vector search', 'AWS'],
     href: 'https://www.luminik.io',
     icon: 'lucide:calendar-check',
     current: true,
@@ -268,22 +268,22 @@ export const skills = [
   {
     icon: 'lucide:bot',
     title: 'AI-native engineering',
-    items: 'Autonomous agent fleets (Alfred), Claude Code + Codex, Anthropic + OpenAI SDKs, multi-agent orchestration',
+    items: 'Autonomous agent fleets (Alfred), Claude Code + Codex, Anthropic + OpenAI SDKs, LangGraph, MCP, multi-agent orchestration',
   },
   {
     icon: 'lucide:database',
-    title: 'RAG & memory',
-    items: 'pgvector semantic recall, embeddings, Redis agent memory, reviewable promotion gates',
+    title: 'Retrieval & memory',
+    items: 'Vector databases (pgvector), embeddings, hybrid retrieval, Redis agent memory, context engineering, reviewable promotion gates',
   },
   {
     icon: 'lucide:gauge',
     title: 'Evals & benchmarking',
-    items: 'LLM-as-judge gates, classifiers, structured multi-axis review, adversarial suites',
+    items: 'LLM-as-judge gates, Langfuse, classifiers, structured multi-axis review, adversarial suites',
   },
   {
     icon: 'lucide:activity',
     title: 'AI observability & reliability',
-    items: 'OpenTelemetry, Sentry, spend and failure telemetry, fleet health loops',
+    items: 'Langfuse tracing, OpenTelemetry, Sentry, spend and failure telemetry, fleet health loops',
   },
   {
     icon: 'lucide:server',

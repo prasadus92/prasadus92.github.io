@@ -32,7 +32,9 @@ body {
   background: var(--bg);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
+  /* clip (not hidden) so the body does not become a scroll container,
+     which was capping the page scroll short of the footer */
+  overflow-x: clip;
   transition: background var(--dur-2) var(--ease-out), color var(--dur-2) var(--ease-out);
 }
 img,

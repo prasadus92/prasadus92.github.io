@@ -182,42 +182,45 @@ const siteLd = {
         pointer-events: none;
         transition: transform 0.5s var(--ease-out);
       }
+      /* Aurora: a restrained two-hue wash (magenta -> violet only).
+         Kept subtle so text over it stays readable. */
       .aurora {
         position: absolute;
         border-radius: 50%;
-        filter: blur(100px);
-        opacity: 0.55;
+        filter: blur(120px);
+        opacity: 0.4;
         will-change: transform;
         mix-blend-mode: screen;
       }
       .a1 {
-        width: 62vw;
-        height: 62vw;
-        max-width: 760px;
-        max-height: 760px;
-        top: -22vh;
+        width: 58vw;
+        height: 58vw;
+        max-width: 720px;
+        max-height: 720px;
+        top: -24vh;
         left: -8vw;
-        background: radial-gradient(circle, rgba(var(--accent-rgb), 0.55), transparent 62%);
+        background: radial-gradient(circle, rgba(var(--accent-rgb), 0.4), transparent 64%);
         animation: drift1 28s var(--ease-in-out) infinite;
       }
       .a2 {
-        width: 52vw;
-        height: 52vw;
-        max-width: 640px;
-        max-height: 640px;
-        top: 12%;
-        right: -14vw;
-        background: radial-gradient(circle, rgba(124, 108, 255, 0.5), transparent 62%);
+        width: 50vw;
+        height: 50vw;
+        max-width: 600px;
+        max-height: 600px;
+        top: 10%;
+        right: -16vw;
+        background: radial-gradient(circle, rgba(124, 108, 255, 0.34), transparent 64%);
         animation: drift2 34s var(--ease-in-out) infinite;
       }
+      /* third blob kept in-family (violet) and very faint, just for depth */
       .a3 {
-        width: 44vw;
-        height: 44vw;
-        max-width: 540px;
-        max-height: 540px;
-        bottom: -18vh;
-        left: 34%;
-        background: radial-gradient(circle, rgba(255, 177, 92, 0.3), transparent 62%);
+        width: 42vw;
+        height: 42vw;
+        max-width: 520px;
+        max-height: 520px;
+        bottom: -20vh;
+        left: 36%;
+        background: radial-gradient(circle, rgba(124, 108, 255, 0.16), transparent 66%);
         animation: drift3 40s var(--ease-in-out) infinite;
       }
       .shimmer {
@@ -226,11 +229,9 @@ const siteLd = {
         background: conic-gradient(
           from 0deg,
           transparent 0%,
-          rgba(var(--accent-rgb), 0.07) 12%,
-          transparent 30%,
-          rgba(124, 108, 255, 0.06) 55%,
-          transparent 72%,
-          rgba(var(--accent-rgb), 0.05) 90%,
+          rgba(var(--accent-rgb), 0.04) 14%,
+          transparent 34%,
+          rgba(124, 108, 255, 0.035) 58%,
           transparent 100%
         );
         -webkit-mask-image: radial-gradient(ellipse 70% 55% at 50% 8%, #000, transparent 72%);
@@ -238,12 +239,47 @@ const siteLd = {
         animation: spin 70s linear infinite;
         will-change: transform;
       }
+      /* Light mode: much calmer. multiply darkens, so keep opacity low
+         and let the page background read as a near-white wash. */
       [data-theme='light'] .aurora {
-        opacity: 0.42;
+        opacity: 0.16;
+        filter: blur(140px);
         mix-blend-mode: multiply;
       }
+      [data-theme='light'] .a3 {
+        opacity: 0.12;
+      }
       [data-theme='light'] .shimmer {
-        opacity: 0.5;
+        opacity: 0.28;
+      }
+      /* On narrow screens the blobs cover the full width and pile up behind
+         hero text. Pull them toward the top edge and fade them so the
+         eyebrow / lead stay readable. */
+      @media (max-width: 640px) {
+        .aurora {
+          opacity: 0.16;
+          filter: blur(110px);
+        }
+        .a1 {
+          top: -40vh;
+          left: -40vw;
+        }
+        .a2 {
+          top: -16vh;
+          right: -42vw;
+        }
+        .a3 {
+          opacity: 0.06;
+        }
+        [data-theme='light'] .aurora {
+          opacity: 0.1;
+        }
+        .shimmer {
+          opacity: 0.3;
+        }
+        [data-theme='light'] .shimmer {
+          opacity: 0.16;
+        }
       }
       .noise {
         position: absolute;
