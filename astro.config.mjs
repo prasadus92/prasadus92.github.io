@@ -6,6 +6,7 @@ import sitemap from '@astrojs/sitemap';
 import icon from 'astro-icon';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
+import rehypeExternalLinks from 'rehype-external-links';
 
 // Build a map of blog URL -> lastmod (updatedDate || pubDate) by reading the
 // post frontmatter directly. Used by the sitemap serialize hook so search
@@ -72,10 +73,14 @@ export default defineConfig({
   },
   markdown: {
     // singleDollarTextMath disabled so prose dollar amounts ($50,000, 20%)
-    // are not parsed as inline math. Use $$...$$ for display math, and
-    // \( ... \) for inline math.
+    // are not parsed as inline math. Use $$...$$ for display math; for inline
+    // expressions use inline code (`...`), since \( ... \) does not render here.
     remarkPlugins: [remarkMermaid, [remarkMath, { singleDollarTextMath: false }]],
-    rehypePlugins: [rehypeKatex],
+    // External links open in a new tab; internal links (/, /blog, #anchors) stay in-tab.
+    rehypePlugins: [
+      rehypeKatex,
+      [rehypeExternalLinks, { target: '_blank', rel: ['noopener', 'noreferrer'] }],
+    ],
     shikiConfig: {
       theme: 'github-dark',
       wrap: false,
