@@ -1,0 +1,214 @@
+---
+// Conway's Game of Life as a quiet, low-contrast footer strip.
+// Emergence from simple rules. Click to reseed. Self-contained: markup +
+// scoped style + a client script gated on the element existing.
+---
+
+<div class="gol" role="img" aria-label="Conway's Game of Life, an animated cellular automaton. Click to reseed.">
+  <canvas class="gol-canvas"></canvas>
+  <span class="gol-hint" aria-hidden="true">Conway's Game of Life · click to reseed</span>
+</div>
+
+<style>
+  .gol {
+    position: relative;
+    width: 100%;
+    height: clamp(108px, 15vw, 156px);
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    border: 1px solid var(--glass-border);
+    background: var(--glass-bg);
+    cursor: pointer;
+    /* fade the pattern out at the left/right edges so it reads as a texture */
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  }
+  .gol-canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  .gol-hint {
+    position: absolute;
+    bottom: 8px;
+    right: 12px;
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    letter-spacing: var(--tracking-wide);
+    color: var(--text-tertiary);
+    opacity: 0;
+    transition: opacity var(--dur-2) var(--ease-out);
+    pointer-events: none;
+  }
+  .gol:hover .gol-hint,
+  .gol:focus-visible .gol-hint {
+    opacity: 1;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .gol {
+      cursor: default;
+    }
+  }
+</style>
+
+<script>
+  const wrap = document.querySelector<HTMLElement>('.gol');
+  const canvas = wrap?.querySelector<HTMLCanvasElement>('.gol-canvas');
+  if (wrap && canvas) {
+    const ctx = canvas.getContext('2d')!;
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const CELL = 13; // px per cell at CSS scale
+    const STEP_MS = 115; // ~9 ticks/sec
+    const MAX_GEN = 600;
+
+    let cols = 0,
+      rows = 0,
+      grid: Uint8Array,
+      next: Uint8Array,
+      dpr = 1,
+      gen = 0,
+      stable = 0,
+      lastPop = -1,
+      acc = 0,
+      last = 0,
+      raf = 0,
+      onScreen = true;
+
+    const accent = () => {
+      const v = getComputedStyle(document.documentElement).getPropertyValue('--accent-rgb').trim();
+      return v || '246, 62, 140';
+    };
+    let rgb = accent();
+
+    function size() {
+      const r = wrap.getBoundingClientRect();
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      cols = Math.max(8, Math.ceil(r.width / CELL));
+      rows = Math.max(4, Math.ceil(r.height / CELL));
+      canvas.width = Math.round(r.width * dpr);
+      canvas.height = Math.round(r.height * dpr);
+      grid = new Uint8Array(cols * rows);
+      next = new Uint8Array(cols * rows);
+    }
+
+    function seed() {
+      for (let i = 0; i < grid.length; i++) grid[i] = Math.random() < 0.28 ? 1 : 0;
+      // sprinkle a few gliders for ongoing movement
+      const glider = [
+        [1, 0],
+        [2, 1],
+        [0, 2],
+        [1, 2],
+        [2, 2],
+      ];
+      for (let g = 0; g < 3; g++) {
+        const ox = (Math.random() * (cols - 4)) | 0;
+        const oy = (Math.random() * (rows - 4)) | 0;
+        for (const [dx, dy] of glider) grid[(oy + dy) * cols + (ox + dx)] = 1;
+      }
+      gen = 0;
+      stable = 0;
+      lastPop = -1;
+    }
+
+    function step() {
+      let pop = 0;
+      for (let y = 0; y < rows; y++) {
+        for (let x = 0; x < cols; x++) {
+          let n = 0;
+          for (let dy = -1; dy <= 1; dy++) {
+            for (let dx = -1; dx <= 1; dx++) {
+              if (!dx && !dy) continue;
+              const nx = (x + dx + cols) % cols; // toroidal wrap
+              const ny = (y + dy + rows) % rows;
+              n += grid[ny * cols + nx];
+            }
+          }
+          const a = grid[y * cols + x];
+          const alive = a ? n === 2 || n === 3 : n === 3;
+          next[y * cols + x] = alive ? 1 : 0;
+          if (alive) pop++;
+        }
+      }
+      const tmp = grid;
+      grid = next;
+      next = tmp;
+      gen++;
+      if (pop === lastPop) stable++;
+      else stable = 0;
+      lastPop = pop;
+      if (pop === 0 || stable > 16 || gen > MAX_GEN) seed();
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const c = CELL * dpr;
+      const gap = Math.max(1, Math.round(dpr));
+      ctx.fillStyle = `rgba(${rgb}, 0.42)`;
+      for (let y = 0; y < rows; y++) {
+        for (let x = 0; x < cols; x++) {
+          if (grid[y * cols + x]) ctx.fillRect(x * c, y * c, c - gap, c - gap);
+        }
+      }
+    }
+
+    function tick(t: number) {
+      raf = requestAnimationFrame(tick);
+      if (!last) last = t;
+      acc += t - last;
+      last = t;
+      if (acc >= STEP_MS) {
+        acc = 0;
+        step();
+        draw();
+      }
+    }
+
+    function start() {
+      if (raf || reduce || !onScreen || document.hidden) return;
+      last = 0;
+      raf = requestAnimationFrame(tick);
+    }
+    function stop() {
+      if (raf) cancelAnimationFrame(raf);
+      raf = 0;
+    }
+
+    size();
+    seed();
+    draw();
+
+    if (!reduce) {
+      wrap.addEventListener('click', () => {
+        seed();
+        draw();
+      });
+      document.addEventListener('visibilitychange', () => (document.hidden ? stop() : start()));
+      const io = new IntersectionObserver(
+        (e) => {
+          onScreen = e[0].isIntersecting;
+          onScreen ? start() : stop();
+        },
+        { rootMargin: '120px' }
+      );
+      io.observe(wrap);
+      let rt: number;
+      window.addEventListener(
+        'resize',
+        () => {
+          clearTimeout(rt);
+          rt = window.setTimeout(() => {
+            size();
+            seed();
+            draw();
+          }, 180);
+        },
+        { passive: true }
+      );
+      new MutationObserver(() => {
+        rgb = accent();
+        draw();
+      }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+    }
+  }
+</script>
