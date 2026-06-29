@@ -1,0 +1,102 @@
+---
+// Self-contained layout for the /v2 comparison draft.
+// Japanese-editorial ("Sakura Fest") theme. Light-first, scoped colors.
+// Deliberately does NOT use BaseLayout, Nav, Footer, the aurora backdrop,
+// or the global motion script, so none of the current site's chrome bleeds in.
+// It imports the font @font-face declarations only (so Instrument Sans /
+// Fragment Mono are available) and defines its own palette inside .ed-root.
+import '../styles/fonts.css';
+import { site } from '../data/site';
+
+export interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = `${site.name} - Founder & technology leader (editorial draft)`,
+  description = site.description,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <!-- Comparison draft: must not affect SEO. -->
+    <meta name="robots" content="noindex" />
+    <meta name="theme-color" content="#f7f3ec" />
+    <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+    <link rel="icon" type="image/x-icon" href="/favicon/favicon.ico" />
+  </head>
+  <body>
+    <div class="ed-root">
+      <slot />
+    </div>
+
+    <style is:global>
+      /* Scope all theme decisions under .ed-root so this page is immune to
+         data-theme and never leaks into the rest of the site. */
+      .ed-root {
+        /* Palette: warm cream, sumi ink, crimson, sakura pink. */
+        --cream: #f7f3ec;
+        --cream-2: #f1eade;
+        --paper: #fbf8f2;
+        --ink: #161413;
+        --ink-soft: #4b4642;
+        --ink-faint: #8a837b;
+        --crimson: #e0271d;
+        --crimson-deep: #b51c14;
+        --sakura: #f7ccd8;
+        --sakura-soft: #fbe3ea;
+        --rule: rgba(22, 20, 19, 0.14);
+        --rule-strong: rgba(22, 20, 19, 0.32);
+
+        --font-display: 'Instrument Sans Variable', ui-sans-serif, system-ui, -apple-system,
+          BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        --font-mono: 'Fragment Mono', 'SFMono-Regular', ui-monospace, Menlo, Consolas, monospace;
+
+        --gutter: clamp(20px, 5vw, 56px);
+        --maxw: 1240px;
+
+        font-family: var(--font-display);
+        color: var(--ink);
+        background: var(--cream);
+        min-height: 100vh;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        line-height: 1.5;
+        overflow-x: hidden;
+      }
+
+      .ed-root *,
+      .ed-root *::before,
+      .ed-root *::after {
+        box-sizing: border-box;
+        margin: 0;
+      }
+
+      /* Set the page background even outside .ed-root for over-scroll color. */
+      body {
+        background: #f7f3ec;
+      }
+
+      .ed-root img,
+      .ed-root svg {
+        display: block;
+        max-width: 100%;
+      }
+      .ed-root a {
+        color: inherit;
+        text-decoration: none;
+      }
+      .ed-root :focus-visible {
+        outline: 2px solid var(--crimson);
+        outline-offset: 3px;
+      }
+    </style>
+  </body>
+</html>
