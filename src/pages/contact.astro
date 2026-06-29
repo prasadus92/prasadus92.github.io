@@ -1,0 +1,212 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import { site } from '../data/site';
+
+const origin = `https://${site.domain}`;
+
+const contactPageLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ContactPage',
+  name: `Contact ${site.name}`,
+  url: `${origin}/contact`,
+  description: `Ways to reach ${site.name}: email, LinkedIn, GitHub, or book a call.`,
+  mainEntity: {
+    '@type': 'Person',
+    name: site.name,
+    email: `mailto:${site.email}`,
+    url: origin,
+    sameAs: [site.links.linkedin, site.links.github],
+    contactPoint: {
+      '@type': 'ContactPoint',
+      contactType: 'business',
+      email: site.email,
+      url: `${origin}/book`,
+      availableLanguage: ['English'],
+    },
+  },
+};
+
+const channels = [
+  {
+    icon: 'mail',
+    label: 'Email',
+    value: site.email,
+    href: `mailto:${site.email}`,
+    external: false,
+  },
+  {
+    icon: 'linkedin',
+    label: 'LinkedIn',
+    value: 'linkedin.com/in/prasadus',
+    href: site.links.linkedin,
+    external: true,
+  },
+  {
+    icon: 'github',
+    label: 'GitHub',
+    value: 'github.com/prasadus92',
+    href: site.links.github,
+    external: true,
+  },
+];
+---
+
+<BaseLayout
+  title={`Contact - ${site.name}`}
+  description={`Reach ${site.name} by email, LinkedIn, or GitHub, or book a short call.`}
+  jsonLd={[contactPageLd]}
+>
+  <section class="contact-page section">
+    <div class="contact-glow" aria-hidden="true"></div>
+    <div class="container--narrow contact-wrap">
+      <header class="contact-intro">
+        <p class="eyebrow reveal">Contact</p>
+        <h1 class="reveal reveal-d1">Let's talk.</h1>
+        <p class="contact-lead muted reveal reveal-d2">
+          If you're building something hard in AI, or hiring someone who has, I'd like to hear about
+          it. The fastest way to reach me is to grab a time below. Email and the rest work too.
+        </p>
+        <div class="contact-cta reveal reveal-d3">
+          <a href="/book" class="btn btn-primary">
+            Book a call <Icon name="arrowRight" size={16} />
+          </a>
+          <a href={`mailto:${site.email}`} class="btn btn-ghost">Send an email</a>
+        </div>
+      </header>
+
+      <ul class="channels reveal reveal-d4">
+        {
+          channels.map((c) => (
+            <li>
+              <a
+                href={c.href}
+                class="channel card glass"
+                data-tilt="off"
+                {...(c.external ? { target: '_blank', rel: 'noopener' } : {})}
+              >
+                <span class="channel-icon">
+                  <Icon name={c.icon} size={19} />
+                </span>
+                <span class="channel-text">
+                  <span class="channel-label mono">{c.label}</span>
+                  <span class="channel-value">{c.value}</span>
+                </span>
+                <Icon name="arrowUpRight" size={16} class="trail" />
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+
+      <p class="contact-foot muted reveal reveal-d5">
+        Based in {site.location}. I read everything that comes in and reply to what I can.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .contact-page {
+    position: relative;
+    padding-top: clamp(132px, 16vh, 184px);
+    overflow: hidden;
+  }
+  .contact-glow {
+    position: absolute;
+    width: 70%;
+    height: 90%;
+    top: -8%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--grad-halo);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .contact-wrap {
+    position: relative;
+    z-index: 1;
+  }
+  .contact-intro h1 {
+    margin-top: 14px;
+    font-size: clamp(2.2rem, 1.5rem + 3vw, 3.4rem);
+    letter-spacing: var(--tracking-tight);
+  }
+  .contact-lead {
+    margin-top: 18px;
+    max-width: 52ch;
+    font-size: var(--fs-lead);
+    line-height: 1.6;
+  }
+  .contact-cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 28px;
+  }
+
+  .channels {
+    list-style: none;
+    padding: 0;
+    margin: clamp(40px, 6vw, 64px) 0 0;
+    display: grid;
+    gap: 12px;
+  }
+  .channel {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 20px;
+    border-radius: var(--r-lg);
+    color: var(--ink);
+  }
+  .channel-icon {
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    flex: 0 0 auto;
+    border-radius: var(--r-md);
+    color: var(--accent);
+    background: rgba(var(--accent-rgb), 0.1);
+    border: 1px solid rgba(var(--accent-rgb), 0.18);
+  }
+  .channel-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+  }
+  .channel-label {
+    font-size: var(--fs-xs);
+    letter-spacing: 0.05em;
+    color: var(--text-tertiary);
+  }
+  .channel-value {
+    font-size: 1rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .channel .trail {
+    flex: 0 0 auto;
+    color: var(--text-tertiary);
+    transition: transform var(--dur-1) var(--ease-out), color var(--dur-1) var(--ease-out);
+  }
+  .channel:hover .trail {
+    color: var(--accent);
+    transform: translate(2px, -2px);
+  }
+
+  .contact-foot {
+    margin-top: clamp(32px, 5vw, 48px);
+    font-size: var(--fs-sm);
+  }
+
+  @media (max-width: 520px) {
+    .contact-cta .btn {
+      flex: 1 1 auto;
+    }
+  }
+</style>

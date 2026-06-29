@@ -17,73 +17,152 @@ import { site } from '../data/site';
       </p>
     </div>
     <div class="container book-embed reveal reveal-d2">
-      <div id="cal-inline" aria-label="Cal.com booking calendar"></div>
+      <div id="cal-shell">
+        <div id="cal-skeleton" aria-hidden="true">
+          <div class="sk-header">
+            <div class="sk-line sk-title shimmer"></div>
+            <div class="sk-line sk-sub shimmer"></div>
+          </div>
+          <div class="sk-body">
+            <div class="sk-cal">
+              <div class="sk-line sk-month shimmer"></div>
+              <div class="sk-grid">
+                {Array.from({ length: 35 }).map(() => <div class="sk-cell shimmer" />)}
+              </div>
+            </div>
+            <div class="sk-slots">
+              {Array.from({ length: 7 }).map(() => <div class="sk-slot shimmer" />)}
+            </div>
+          </div>
+        </div>
+        <div id="cal-inline" aria-label="Cal.com booking calendar"></div>
+      </div>
     </div>
   </section>
 </BaseLayout>
 
 <script is:inline>
-  (function (C, A, L) {
-    let p = function (a, ar) {
-      a.q.push(ar);
-    };
-    let d = C.document;
-    C.Cal =
-      C.Cal ||
-      function () {
-        let cal = C.Cal;
-        let ar = arguments;
-        if (!cal.loaded) {
-          cal.ns = {};
-          cal.q = cal.q || [];
-          d.head.appendChild(d.createElement('script')).src = A;
-          cal.loaded = true;
-        }
-        if (ar[0] === L) {
-          const api = function () {
-            p(api, arguments);
+  (function () {
+    const root = document.documentElement;
+    const shell = document.getElementById('cal-shell');
+    const el = document.getElementById('cal-inline');
+    const skeleton = document.getElementById('cal-skeleton');
+    const getTheme = () => (root.getAttribute('data-theme') === 'light' ? 'light' : 'dark');
+
+    let booted = false;
+    let lastTheme = getTheme();
+
+    // Standard Cal.com embed loader. Only invoked on first init (lazy).
+    function loadCalScript() {
+      (function (C, A, L) {
+        let p = function (a, ar) {
+          a.q.push(ar);
+        };
+        let d = C.document;
+        C.Cal =
+          C.Cal ||
+          function () {
+            let cal = C.Cal;
+            let ar = arguments;
+            if (!cal.loaded) {
+              cal.ns = {};
+              cal.q = cal.q || [];
+              d.head.appendChild(d.createElement('script')).src = A;
+              cal.loaded = true;
+            }
+            if (ar[0] === L) {
+              const api = function () {
+                p(api, arguments);
+              };
+              const namespace = ar[1];
+              api.q = api.q || [];
+              if (typeof namespace === 'string') {
+                cal.ns[namespace] = cal.ns[namespace] || api;
+                p(cal.ns[namespace], ar);
+                p(cal, ['initNamespace', namespace]);
+              } else p(cal, ar);
+              return;
+            }
+            p(cal, ar);
           };
-          const namespace = ar[1];
-          api.q = api.q || [];
-          if (typeof namespace === 'string') {
-            cal.ns[namespace] = cal.ns[namespace] || api;
-            p(cal.ns[namespace], ar);
-            p(cal, ['initNamespace', namespace]);
-          } else p(cal, ar);
-          return;
-        }
-        p(cal, ar);
-      };
-  })(window, 'https://app.cal.com/embed/embed.js', 'init');
+      })(window, 'https://app.cal.com/embed/embed.js', 'init');
 
-  Cal('init', 'intro', { origin: 'https://cal.com' });
-
-  const root = document.documentElement;
-  const el = document.getElementById('cal-inline');
-  const getTheme = () => (root.getAttribute('data-theme') === 'light' ? 'light' : 'dark');
-
-  // Render the Intro Chat event directly (not the profile page), 20 min default.
-  function renderCal() {
-    const theme = getTheme();
-    el.innerHTML = '';
-    Cal.ns.intro('inline', {
-      elementOrSelector: '#cal-inline',
-      config: { layout: 'month_view', theme: theme, duration: '20' },
-      calLink: 'meet-prasad/intro-chat',
-    });
-    Cal.ns.intro('ui', { hideEventTypeDetails: false, layout: 'month_view', theme: theme });
-  }
-  renderCal();
-
-  // Keep the embed in sync with the site's light/dark theme (toggle or system).
-  let lastTheme = getTheme();
-  new MutationObserver(() => {
-    const t = getTheme();
-    if (t !== lastTheme) {
-      lastTheme = t;
-      renderCal();
+      Cal('init', 'intro', { origin: 'https://cal.com' });
     }
-  }).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
+
+    // Render the Intro Chat event directly (not the profile page), 20 min default.
+    function renderCal() {
+      const theme = getTheme();
+      el.innerHTML = '';
+      Cal.ns.intro('inline', {
+        elementOrSelector: '#cal-inline',
+        config: { layout: 'month_view', theme: theme, duration: '20' },
+        calLink: 'meet-prasad/intro-chat',
+      });
+      Cal.ns.intro('ui', { hideEventTypeDetails: false, layout: 'month_view', theme: theme });
+    }
+
+    // Reveal the embed and drop the skeleton once Cal's iframe is in the DOM.
+    function watchForIframe() {
+      const reveal = () => {
+        if (!el.querySelector('iframe')) return false;
+        shell.classList.add('cal-ready');
+        if (skeleton) skeleton.remove();
+        return true;
+      };
+      if (reveal()) return;
+      const mo = new MutationObserver(() => {
+        if (reveal()) mo.disconnect();
+      });
+      mo.observe(el, { childList: true, subtree: true });
+      // Safety net: stop waiting after 12s and reveal whatever rendered.
+      setTimeout(() => {
+        mo.disconnect();
+        shell.classList.add('cal-ready');
+        if (skeleton && skeleton.parentNode) skeleton.remove();
+      }, 12000);
+    }
+
+    function boot() {
+      if (booted) return;
+      booted = true;
+      loadCalScript();
+      renderCal();
+      watchForIframe();
+
+      // Keep the embed in sync with the site's light/dark theme (toggle or system).
+      new MutationObserver(() => {
+        const t = getTheme();
+        if (t !== lastTheme) {
+          lastTheme = t;
+          renderCal();
+          watchForIframe();
+        }
+      }).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
+    }
+
+    // Lazy-load: initialize when the embed is near the viewport, or on first
+    // interaction, so the Cal script never blocks initial page load.
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver(
+        (entries) => {
+          if (entries.some((e) => e.isIntersecting)) {
+            io.disconnect();
+            boot();
+          }
+        },
+        { rootMargin: '400px 0px' }
+      );
+      io.observe(shell);
+    } else {
+      boot();
+    }
+    // Fallbacks: any interaction or a short idle timeout also triggers boot.
+    ['pointerdown', 'keydown', 'touchstart'].forEach((ev) =>
+      window.addEventListener(ev, boot, { once: true, passive: true })
+    );
+    setTimeout(boot, 2500);
+  })();
 </script>
 
 <style>
@@ -102,12 +181,126 @@ import { site } from '../data/site';
   .book-embed {
     margin-top: clamp(28px, 4vw, 44px);
   }
-  #cal-inline {
+  #cal-shell {
+    position: relative;
     width: 100%;
     min-height: 680px;
     border: 1px solid var(--glass-border);
     border-radius: var(--r-lg);
     overflow: hidden;
     background: var(--glass-bg);
+  }
+  #cal-inline {
+    width: 100%;
+    min-height: 680px;
+    opacity: 0;
+    transition: opacity var(--dur-3) var(--ease-out);
+  }
+  #cal-shell.cal-ready #cal-inline {
+    opacity: 1;
+  }
+
+  /* ---------- Loading skeleton ---------- */
+  #cal-skeleton {
+    position: absolute;
+    inset: 0;
+    padding: clamp(20px, 3vw, 32px);
+    display: flex;
+    flex-direction: column;
+    gap: clamp(20px, 3vw, 28px);
+    transition: opacity var(--dur-2) var(--ease-out);
+  }
+  #cal-shell.cal-ready #cal-skeleton {
+    opacity: 0;
+    pointer-events: none;
+  }
+  .sk-header {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .sk-line {
+    border-radius: var(--r-sm);
+  }
+  .sk-title {
+    width: 42%;
+    height: 22px;
+  }
+  .sk-sub {
+    width: 26%;
+    height: 14px;
+  }
+  .sk-body {
+    display: grid;
+    grid-template-columns: 1.6fr 0.9fr;
+    gap: clamp(20px, 4vw, 40px);
+    flex: 1;
+    min-height: 0;
+  }
+  .sk-month {
+    width: 50%;
+    height: 18px;
+    margin-bottom: 18px;
+  }
+  .sk-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+  }
+  .sk-cell {
+    aspect-ratio: 1 / 1;
+    border-radius: var(--r-md);
+  }
+  .sk-slots {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .sk-slot {
+    height: 44px;
+    border-radius: var(--r-md);
+  }
+
+  /* Shared shimmer surface */
+  .shimmer {
+    position: relative;
+    overflow: hidden;
+    background: var(--glass-bg-strong);
+  }
+  .shimmer::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      var(--glass-highlight) 50%,
+      transparent 100%
+    );
+    animation: cal-shimmer 1.4s var(--ease-in-out) infinite;
+  }
+  @keyframes cal-shimmer {
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .sk-body {
+      grid-template-columns: 1fr;
+    }
+    .sk-slots {
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+    .sk-slot {
+      flex: 1 1 30%;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .shimmer::after {
+      animation: none;
+    }
   }
 </style>

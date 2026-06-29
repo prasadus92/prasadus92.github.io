@@ -1,7 +1,7 @@
 ---
 title: "From idea to MVP in 3 months: a solo founder's playbook"
 description: "How I built Mainteny's MVP solo in 3 months, including the routing detour that cost me two sprints, before the work helped raise a $2.7M seed round."
-pubDate: 2025-01-26
+pubDate: 2025-12-09
 category: "Startup"
 tags: ["startup"]
 readingTime: "13 min read"
@@ -15,9 +15,8 @@ faq:
     a: "The one you can write in your sleep. I used Spring Boot, PostgreSQL, and server-rendered templates because I could estimate features accurately and debug in minutes. Choose tools by your speed with them, not their theoretical fit."
   - q: "When should you add a co-founder?"
     a: "After the concept is proven, not before. Solo founding wins on decision speed during the uncertain MVP phase. I co-founded Mainteny, and the second brain mattered most once we were past zero to one and building a team."
+tldr: "I built Mainteny's MVP solo in three months by shipping the one workflow that proved people would pay, create-assign-complete a job, and writing everything else onto a 40-item won't-have list. The one time I broke my own rule, I burned two sprints scoping a custom routing solver before realising an 80% third-party API answered the only question that mattered. Core loop first, infrastructure last, boring stack I could write in my sleep, customers talking to me before the product worked. The work I did in that period, alongside my co-founder, helped raise a $2.7M seed round."
 ---
-
-**TL;DR.** I built Mainteny's MVP solo in three months by shipping the one workflow that proved people would pay, create-assign-complete a job, and writing everything else onto a 40-item won't-have list. The one time I broke my own rule, I burned two sprints scoping a custom routing solver before realising an 80% third-party API answered the only question that mattered. Core loop first, infrastructure last, boring stack I could write in my sleep, customers talking to me before the product worked. The work I did in that period, alongside my co-founder, helped raise a $2.7M seed round.
 
 In early 2021 I left my job to build a CRM for maintenance companies in Europe: HVAC technicians, plumbers, electricians. Three months later I had a working product and paying customers. The work I did in that period, alongside my co-founder, helped raise a $2.7M seed round.
 
@@ -29,28 +28,49 @@ The hardest skill in an MVP is deciding what to leave out. Maintenance businesse
 
 So I asked one question obsessively. What is the one thing that, if it works, proves the business is viable? For us it was job management: create a job, assign it to a technician, capture what happened, mark it complete. If maintenance companies would pay for a better way to run their daily jobs, everything else could come later.
 
-Everything else got cut into a written won't-have list. That list ran past 40 items. Every time a prospect mentioned a feature, it went on the list instead of the roadmap, which let me hear the need without committing to build it. The won't-have list is the most useful document you write as a solo founder. It is not a backlog. It is a promise to yourself not to get distracted.
+Everything else got cut into a written won't-have list. That list ran past 40 items. Every time a prospect mentioned a feature, it went on the list instead of the roadmap, which let me hear the need without committing to build it. The won't-have list earns its keep as a solo founder. It is not a backlog. It is a promise to yourself not to get distracted.
 
 > The won't-have list is not a backlog. It is a promise to yourself not to get distracted.
 
 ## The routing detour that cost me two sprints
 
-Field-service software lives or dies on routing: which technician goes to which job, in what order, given where they are and when the customer is free. I knew the computer science. This is vehicle routing with time windows, a variant of the traveling salesman problem, and it is NP-hard. There is no algorithm that solves it perfectly at scale in reasonable time.
+Field-service software lives or dies on routing: which technician goes to which job, in what order, given where they are and when the customer is free. I knew the computer science. This is [vehicle routing with time windows](/glossary), a variant of the [traveling salesman problem](https://en.wikipedia.org/wiki/Travelling_salesman_problem), and it is [NP-hard](https://en.wikipedia.org/wiki/NP-hardness). There is no algorithm that solves it perfectly at scale in reasonable time.
 
-My instinct was to build a custom solver. The Java ecosystem has good open-source tooling for exactly this: OptaPlanner, now Timefold, for the constraint solving, and GraphHopper for the routing graph. I started scoping a real solver. It was the most interesting problem in the product and I wanted to own it.
+My instinct was to build a custom solver. The Java ecosystem has good open-source tooling for exactly this: `OptaPlanner`, now `Timefold`, for the constraint solving, and `GraphHopper` for the routing graph. I started scoping a real solver. It was the most interesting problem in the product and I wanted to own it.
 
 Then someone challenged the premise, and they were right. We did not need to solve technician routing perfectly to find out whether anyone would pay. A decent 80% solution was more than enough for the first version. The customer does not experience the optimality gap on a six-job day. They experience whether the tool exists at all.
 
 So I dropped the custom solver and shipped the MVP on a third-party routing API from a Canadian provider. Plug it in, get back an ordered route, move on. The detour cost me roughly two weeks, two full sprints, of work that did not move the product forward. In the early days of a company, two weeks is real. That was the clearest case I had of my technical intuition being wrong: I optimized for the interesting problem instead of the question that mattered, which was whether the business existed.
 
-The lesson generalizes past routing. I come from an infrastructure and backend background, so my reflex is also to front-load monitoring and observability. Sometimes that is right. At MVP stage it is the same mistake in a different costume: build the minimal version, then iterate when there is something worth observing.
+The lesson generalizes past routing. The test for any hard, interesting subproblem is whether solving it well changes whether anyone pays, and whether paying customers even exist yet.
+
+```mermaid
+flowchart TD
+    feature["A hard, interesting subproblem<br/>(e.g. routing solver)"] --> q1{"Does solving it perfectly<br/>change whether anyone pays?"}
+    q1 -->|"No"| buy["Ship an 80% third-party<br/>solution, move on"]
+    q1 -->|"Yes"| q2{"Do paying customers<br/>exist yet?"}
+    q2 -->|"No"| buy
+    q2 -->|"Yes"| build["Build the owned version<br/>against real constraints"]
+    buy --> later["Revisit once the<br/>business is real"]
+    later --> q2
+```
+
+I come from an infrastructure and backend background, so my reflex is also to front-load monitoring and observability. Sometimes that is right. At MVP stage it is the same mistake in a different costume: build the minimal version, then iterate when there is something worth observing.
 
 ## What I built after the routing API, in order
 
 Sequencing matters as much as scope. Get it wrong and you spend weeks on infrastructure before there is anything to show.
 
-- **Week 1-2, the core loop.** Create a job, assign it, mark it complete. Hardcoded test user, no migrations, basic try-catch. By the end of week 2 I could demo the flow to customers. It was ugly and broke in dozens of ways, but it showed the idea clearly enough to get feedback.
-- **Week 3-4, just enough auth.** Username and password on Spring Security, the simplest config that works. No OAuth, no social login, no password reset. I reset passwords by hand in the database. This is where developers over-engineer; do not.
+```mermaid
+flowchart TD
+    w12["Week 1-2: core loop<br/>create, assign, complete a job"] --> w34["Week 3-4: just enough auth<br/>username/password only"]
+    w34 --> w58["Week 5-8: must-have features<br/>scheduling, routing API, reporting"]
+    w58 --> w910["Week 9-10: polish + infra<br/>deploy pipeline, monitoring, backups"]
+    w910 --> later["After paying customers<br/>real solver, invoicing, offline capture"]
+```
+
+- **Week 1-2, the core loop.** Create a job, assign it, mark it complete. Hardcoded test user, no migrations, basic `try-catch`. By the end of week 2 I could demo the flow to customers. It was ugly and broke in dozens of ways, but it showed the idea clearly enough to get feedback.
+- **Week 3-4, just enough auth.** Username and password on `Spring Security`, the simplest config that works. No `OAuth`, no social login, no password reset. I reset passwords by hand in the database. This is where developers over-engineer; do not.
 - **Week 5-8, the must-have features.** Customer and technician management, scheduling with a calendar view, status workflows, the routing API wired in, simple reporting. Each feature got the simplest version that solved the problem, then feedback, then iterate only if needed.
 - **Week 9-10, polish and infrastructure.** Deployment pipeline, monitoring, backups. Only in the final weeks, and only because by then there was something worth running reliably.
 
@@ -60,7 +80,7 @@ What I deliberately skipped: extensive unit tests on code that would be rewritte
 
 ## The real routing system came later
 
-Once paying customers were on the product, the 80% routing API became the thing worth replacing. We built the real solution on GraphHopper, adapted from generic vehicle routing to technician dispatching, which has constraints a delivery-van model does not. Service time at each site, where the technician is working, not driving. Waiting windows when a customer is only available in a slot. Callout and emergency reroutes, where an urgent job lands mid-day and the whole afternoon has to recompute around it.
+Once paying customers were on the product, the 80% routing API became the thing worth replacing. We built the real solution on `GraphHopper`, adapted from generic vehicle routing to technician dispatching, which has constraints a delivery-van model does not. Service time at each site, where the technician is working, not driving. Waiting windows when a customer is only available in a slot. Callout and emergency reroutes, where an urgent job lands mid-day and the whole afternoon has to recompute around it.
 
 That order is the point. The hard, owned version of routing earned its build time only after the business was real. With the foundation proven, the product expanded the same way: invoicing, order handling, quotations, a customer-facing UI, units management, and offline capture of machine details for technicians working in basements and plant rooms with no signal. None of that belonged in the first three months.
 
@@ -68,13 +88,13 @@ That order is the point. The hard, owned version of routing earned its build tim
 
 When you build alone, the temptation to try new technology is strong. Resist it. This is not the time to learn Rust.
 
-I chose the most boring stack I knew well: Spring Boot with Spring Data JPA, PostgreSQL, server-rendered templates with JavaScript for the frontend, Kubernetes on Google Cloud, GitHub Actions for deploys. Why Spring Boot? I had used it for years and could estimate features accurately and debug in minutes instead of hours. Some founders questioned Kubernetes as overkill for an MVP. Maybe, but I could stand up a cluster and deploy faster than I could configure a VM by hand, because I had done it dozens of times.
+I chose the most boring stack I knew well: `Spring Boot` with `Spring Data JPA`, `PostgreSQL`, server-rendered templates with JavaScript for the frontend, `Kubernetes` on Google Cloud, `GitHub Actions` for deploys. Why `Spring Boot`? I had used it for years and could estimate features accurately and debug in minutes instead of hours. Some founders questioned `Kubernetes` as overkill for an MVP. Maybe, but I could stand up a cluster and deploy faster than I could configure a `VM` by hand, because I had done it dozens of times.
 
 Choose technology by your speed with it, not its theoretical fit. A tool you know deeply beats a better tool you do not.
 
 ## Sell while you build
 
-The biggest mistake technical founders make is building in isolation for months, then discovering they built the wrong thing. I started talking to maintenance companies in week 3, before the product really worked, with a simple ask: I am building a tool for businesses like yours, can I show you what I have and get your feedback? People rarely say no to a request for advice.
+A common mistake technical founders make is building in isolation for months, then discovering they built the wrong thing. I started talking to maintenance companies in week 3, before the product really worked, with a simple ask: I am building a tool for businesses like yours, can I show you what I have and get your feedback? People rarely say no to a request for advice.
 
 Those conversations validated the problem, shaped the product, and seeded a pipeline. By launch I had 15 companies waiting to try it, and three became paying customers in the first month. The trick was honesty about the product's state: I told prospects exactly what worked and what did not, fixed things fast when they broke, and gave them my phone number. Early customers do not expect perfection. They expect to be heard.
 

@@ -31,7 +31,7 @@ export const nav = [
   { label: 'Work', href: '/#work' },
   { label: 'Story', href: '/story' },
   { label: 'Writing', href: '/blog' },
-  { label: 'Contact', href: '/#contact' },
+  { label: 'Contact', href: '/contact' },
 ] as const;
 
 // Hero stat trio (sharpened, role-aligned)

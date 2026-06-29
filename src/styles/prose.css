@@ -126,22 +126,40 @@
 .prose table {
   width: 100%;
   border-collapse: collapse;
-  margin-block: 1.5em;
-  font-size: 0.96rem;
+  margin-block: 1.8em;
+  font-size: 0.94rem;
+  /* horizontal scroll on narrow screens; rounded container via border + clip */
   display: block;
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--r-md);
+  background: var(--bg-elevated);
 }
 .prose th,
 .prose td {
   text-align: left;
-  padding: 10px 14px;
+  padding: 11px 16px;
   border-bottom: 1px solid var(--glass-border);
+  vertical-align: top;
 }
-.prose th {
+.prose tbody tr:last-child td {
+  border-bottom: none;
+}
+.prose thead th {
   color: var(--ink);
   font-family: var(--font-display);
   font-weight: 600;
-  border-bottom-color: var(--glass-border-strong);
+  white-space: nowrap;
+  background: var(--glass-bg-strong);
+  border-bottom: 1px solid var(--glass-border-strong);
+}
+/* subtle zebra striping for scanability */
+.prose tbody tr:nth-child(even) td {
+  background: var(--glass-bg);
+}
+.prose tbody tr:hover td {
+  background: rgba(var(--accent-rgb), 0.05);
 }
 .prose .mermaid {
   margin-block: 1.8em;
@@ -279,6 +297,42 @@
   color: var(--accent);
   margin-bottom: 6px;
 }
+/* Once JS upgrades the kicker into a "Try it" pill + plain description. */
+.demo-kicker.is-pill {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  text-transform: none;
+  letter-spacing: normal;
+  margin-bottom: 14px;
+}
+.demo-try {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: rgba(var(--accent-rgb), 0.1);
+  border: 1px solid rgba(var(--accent-rgb), 0.35);
+  border-radius: var(--r-pill);
+  padding: 3px 10px;
+}
+.demo-try::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+.demo-kicker-text {
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+}
 .demo-note {
   font-size: 0.85rem;
   line-height: 1.55;
@@ -288,6 +342,16 @@
   border-radius: var(--r-md);
   padding: 10px 14px;
   margin: 0 0 14px;
+}
+/* Clear clickable affordance on the interactive controls inside a demo. */
+.demo-card button:not(:disabled),
+.demo-card select,
+.demo-reward .rw-driver {
+  cursor: pointer;
+}
+.demo-reward .rw-driver:hover,
+.demo-levers .lv-row:hover {
+  border-color: var(--glass-border-strong);
 }
 .demo-btn {
   font-family: var(--font-display);

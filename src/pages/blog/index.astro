@@ -33,10 +33,20 @@ const companySlugs = new Set([
 const companyPosts = posts.filter((p) => companySlugs.has(p.id));
 const engineeringPosts = posts.filter((p) => !companySlugs.has(p.id));
 
+const slug = (s: string) =>
+  s
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
+
 const clusters = [
   { title: 'AI-native engineering', posts: engineeringPosts },
   { title: 'Building companies', posts: companyPosts },
-].filter((c) => c.posts.length > 0);
+]
+  .filter((c) => c.posts.length > 0)
+  .map((c) => ({ ...c, key: slug(c.title) }));
+
+const totalPosts = clusters.reduce((n, c) => n + c.posts.length, 0);
 
 // Suppress an unused-variable lint while keeping the explicit slug set for clarity.
 void engineeringSlugs;
@@ -61,27 +71,77 @@ void engineeringSlugs;
       </header>
 
       {
-        clusters.map((cluster) => (
-          <section class="blog-cluster">
-            <h2 class="cluster-title reveal">{cluster.title}</h2>
-            <div class="blog-grid">
-              {cluster.posts.map((p, i) => (
-                <BlogCard
-                  slug={p.id}
-                  title={p.data.title}
-                  description={p.data.description}
-                  pubDate={p.data.pubDate}
-                  category={p.data.category}
-                  readingTime={p.data.readingTime}
-                  delay={(i % 3) + 1}
-                />
-              ))}
-            </div>
-          </section>
-        ))
+        clusters.length > 1 && (
+          <div class="blog-filters reveal" role="group" aria-label="Filter writing by topic">
+            <button type="button" class="filter-chip" data-filter="all" aria-pressed="true">
+              All <span class="chip-count">{totalPosts}</span>
+            </button>
+            {clusters.map((cluster) => (
+              <button
+                type="button"
+                class="filter-chip"
+                data-filter={cluster.key}
+                aria-pressed="false"
+              >
+                {cluster.title} <span class="chip-count">{cluster.posts.length}</span>
+              </button>
+            ))}
+          </div>
+        )
       }
+
+      <div data-blog-list>
+        {
+          clusters.map((cluster) => (
+            <section class="blog-cluster" data-cluster={cluster.key}>
+              <h2 class="cluster-title reveal">{cluster.title}</h2>
+              <div class="blog-grid">
+                {cluster.posts.map((p, i) => (
+                  <BlogCard
+                    slug={p.id}
+                    title={p.data.title}
+                    description={p.data.description}
+                    pubDate={p.data.pubDate}
+                    category={p.data.category}
+                    readingTime={p.data.readingTime}
+                    delay={(i % 3) + 1}
+                  />
+                ))}
+              </div>
+            </section>
+          ))
+        }
+        <p class="blog-empty" data-blog-empty hidden>Nothing here yet under this topic.</p>
+      </div>
     </div>
   </section>
+
+  <script>
+    const chips = Array.from(
+      document.querySelectorAll<HTMLButtonElement>('.filter-chip')
+    );
+    const sections = Array.from(
+      document.querySelectorAll<HTMLElement>('[data-cluster]')
+    );
+    const empty = document.querySelector<HTMLElement>('[data-blog-empty]');
+    if (chips.length) {
+      const apply = (filter: string) => {
+        let visible = 0;
+        sections.forEach((s) => {
+          const show = filter === 'all' || s.dataset.cluster === filter;
+          s.hidden = !show;
+          if (show) visible++;
+        });
+        if (empty) empty.hidden = visible !== 0;
+        chips.forEach((c) =>
+          c.setAttribute('aria-pressed', String(c.dataset.filter === filter))
+        );
+      };
+      chips.forEach((c) =>
+        c.addEventListener('click', () => apply(c.dataset.filter || 'all'))
+      );
+    }
+  </script>
 </BaseLayout>
 
 <style>
@@ -101,8 +161,54 @@ void engineeringSlugs;
     font-size: var(--fs-lead);
     line-height: 1.6;
   }
+  .blog-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: clamp(36px, 4.5vw, 56px);
+  }
+  .filter-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 15px;
+    border-radius: var(--r-pill);
+    font-family: var(--font-display);
+    font-size: var(--fs-sm);
+    font-weight: 500;
+    color: var(--text-secondary);
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    transition: color var(--dur-1) var(--ease-out), border-color var(--dur-2) var(--ease-out),
+      background var(--dur-2) var(--ease-out);
+  }
+  .filter-chip:hover {
+    color: var(--ink);
+    border-color: var(--glass-border-strong);
+    background: var(--glass-bg-strong);
+  }
+  .filter-chip[aria-pressed='true'] {
+    color: var(--accent-ink);
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+  .filter-chip .chip-count {
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    opacity: 0.75;
+  }
+  .blog-empty {
+    color: var(--text-tertiary);
+    font-size: var(--fs-lead);
+    padding: clamp(32px, 5vw, 56px) 0;
+    text-align: center;
+  }
   .blog-cluster {
     margin-bottom: clamp(48px, 6vw, 88px);
+  }
+  /* When a cluster is hidden by the filter, drop its trailing margin. */
+  .blog-cluster[hidden] {
+    display: none;
   }
   .blog-cluster:last-child {
     margin-bottom: 0;

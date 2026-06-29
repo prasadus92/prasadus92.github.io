@@ -1,11 +1,12 @@
 ---
 title: "How to measure B2B event ROI"
 description: "Events run 10-20% of a B2B marketing budget and most teams cannot prove the return. Here is a first-principles framework: sourced vs influenced pipeline, cost per opportunity, attribution windows, and payback."
-pubDate: 2025-01-26
+pubDate: 2026-02-18
 category: "Event marketing"
 tags: ["event-marketing", "gtm", "measurement"]
 readingTime: "12 min read"
 related: ["technical-founder-sales", "raising-seed-round"]
+tldr: "B2B events run 10 to 20% of the marketing budget and most teams cannot prove the return, not because events fail but because the measurement is anecdotal. Use a first-principles framework: a fully loaded cost denominator, sourced and influenced pipeline reported separately, an attribution window matched to your sales cycle, and cost per opportunity rather than cost per lead. The biggest hidden lever is follow-up speed, since most trade-show leads are never contacted and most of the rest are contacted late."
 faq:
   - q: "What is the difference between sourced and influenced pipeline for an event?"
     a: "Sourced pipeline is opportunities whose first qualifying touch was the event, the new logos the event created. Influenced pipeline is open opportunities that had any event touch along the way, including ones already in motion. Report both. Sourced answers 'did this event create new pipeline,' influenced answers 'did it help move existing deals,' and conflating them is how teams either overclaim or undersell the same event."
@@ -16,8 +17,6 @@ faq:
   - q: "Why does follow-up speed dominate event ROI?"
     a: "Because most leads never get contacted and most of the rest get contacted late. Industry data puts un-followed-up trade show leads as high as 80%, and a large share of follow-ups arrive after six days. Leads contacted within 24 hours convert several times better. Speed is the cheapest lever on the whole funnel and the one most teams lose."
 ---
-
-**TL;DR.** B2B events run 10 to 20% of the marketing budget and most teams cannot prove the return, not because events fail but because the measurement is anecdotal. Use a first-principles framework: a fully loaded cost denominator, sourced and influenced pipeline reported separately, an attribution window matched to your sales cycle, and cost per opportunity rather than cost per lead. The biggest hidden lever is follow-up speed, since most trade-show leads are never contacted and most of the rest are contacted late.
 
 Two numbers. How much did your company spend on events last year, and how much pipeline can you attribute to that spend? Most B2B teams know the first to the dollar and can only wave at the second. That gap is expensive, because events run 10 to 20% of a B2B marketing budget, and 70% of B2B marketers report pressure to prove ROI they cannot currently measure.
 
@@ -47,6 +46,15 @@ This is the distinction that decides whether your measurement is honest. They an
 
 Report both, labeled, every time. Sourced answers "did this event create new pipeline." Influenced answers "did it help move what we already had." A team that only reports influenced is flattering itself. A team that only reports sourced is underselling events that mostly accelerate existing deals, which many enterprise events do.
 
+```mermaid
+flowchart TD
+    D["Open opportunity with an event touch"] --> Q{"Was the event the first<br/>qualifying touch?"}
+    Q -->|Yes| S["Sourced pipeline<br/>event created this deal"]
+    Q -->|"No, deal already in motion"| I["Influenced pipeline<br/>event helped move it"]
+    S --> R["Report both, labeled, every time"]
+    I --> R
+```
+
 > A team that only reports influenced pipeline is flattering itself; one that only reports sourced is underselling the same event.
 
 ## Pick an attribution window that matches your sales cycle
@@ -55,7 +63,7 @@ The most common way teams accidentally prove events do not work is measuring on 
 
 Set the attribution window to roughly your median sales cycle and report sourced pipeline at that horizon, not at the calendar boundary that happens to come next. A 90-day snapshot of a 9-month-cycle business systematically makes every event look like a failure, which then gets used to cut the events that were working. Decide the window before the event, write it down, and judge every event on the same clock so you are comparing like with like.
 
-Last-touch attribution makes this worse: 67% of B2B teams still credit only the final interaction before conversion, which erases the event entirely from any deal that had a later touch. If you can run multi-touch, do, even a simple even-weighted model across touches beats last-touch for crediting events fairly.
+[Last-touch attribution](https://en.wikipedia.org/wiki/Attribution_(marketing)) makes this worse: 67% of B2B teams still credit only the final interaction before conversion, which erases the event entirely from any deal that had a later touch. If you can run multi-touch, do, even a simple even-weighted model across touches beats last-touch for crediting events fairly.
 
 ## The funnel, with realistic numbers
 
@@ -63,7 +71,18 @@ Take the $170K conference. Say you capture 200 leads, which is $850 per lead, fi
 
 Industry data is blunt here. Up to 80% of trade show leads never receive any follow-up at all. Of the leads that do get worked, a large share are contacted late: roughly 38% of exhibitors take longer than six days. Trade show lead-to-opportunity conversion ranges from about 1% to 10% depending almost entirely on follow-up execution.
 
-So 200 leads, worked well, become maybe 15 to 20 opportunities. Worked the industry-average way, far fewer. At 15 sourced opportunities, $170,000 of fully loaded cost is about **$11,000 per opportunity**. Whether that is good depends on the deal math: at a $50,000 average deal and a 20% win rate, those 15 opportunities yield 3 closed deals worth $150,000, which barely covers the event before you count influenced pipeline and renewals. Move the win rate to 30% or the deal size to $75,000 and the same event is clearly profitable. The point is not the specific numbers, which are representative. The point is that the funnel, not the event, is where the return is won or lost.
+So 200 leads, worked well, become maybe 15 to 20 opportunities. Worked the industry-average way, far fewer.
+
+```mermaid
+flowchart TD
+    L["200 leads captured<br/>$850 per lead"] --> F{"Followed up fast?"}
+    F -->|"Yes, within 24h"| O["15 to 20 sourced opportunities"]
+    F -->|"No, late or never<br/>up to 80% never contacted"| X["Far fewer opportunities"]
+    O --> C["~3 closed deals<br/>$50K deal, 20% win rate"]
+    C --> P["Payback = closed-won revenue / fully loaded cost"]
+```
+
+At 15 sourced opportunities, $170,000 of fully loaded cost is about **$11,000 per opportunity**. Whether that is good depends on the deal math: at a $50,000 average deal and a 20% win rate, those 15 opportunities yield 3 closed deals worth $150,000, which barely covers the event before you count influenced pipeline and renewals. Move the win rate to 30% or the deal size to $75,000 and the same event is clearly profitable. The point is not the specific numbers, which are representative. The point is that the funnel, not the event, is where the return is won or lost.
 
 ## Payback and the metrics that move it
 

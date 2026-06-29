@@ -1,13 +1,14 @@
 ---
 title: "Deploying a customer-support AI agent to production: testing it, then trusting the numbers"
 description: "A practitioner's primer on taking a vendor-hosted AI support agent to production and operating it: test it like a customer before launch, then measure what it solves once it is live, because the headline resolution rate overstates the win. Built around Zendesk AI Agents and Ultimate AI."
-pubDate: 2026-06-22
+pubDate: 2026-06-10
 updatedDate: 2026-06-26
 category: "AI engineering"
 tags: ["zendesk-ai-agents", "ultimate-ai", "ai-agent-testing", "llm-evaluation", "llm-as-judge", "red-teaming", "ai-reliability", "ai-in-production"]
 readingTime: "50 min read"
 featured: true
 draft: false
+tldr: "You cannot inspect a vendor-hosted AI support agent, so you test its behavior through the channel customers use, spend your effort on the cases that carry real risk, keep a human at the points where being wrong is expensive, and put error bars on the result before you trust it. After launch, the vendor's resolution rate blends confirmed solves with chats that merely ended, so measure the verified number yourself: grade live transcripts through the same cascade, separate verified from contained, exclude test traffic, and treat recent days as provisional until the confirmation window closes."
 ---
 
 
@@ -309,13 +310,11 @@ An AI grader has predictable blind spots. Measure how often it agrees with a hum
 
 The controls follow from the failures. Score each answer on its own against a rubric, which avoids the position bias of head-to-head scoring. Force a tiny JSON verdict, which leaves no room for a long-winded rationale to inflate the score. Route by risk, so strict cases get the strict rubric.
 
-Then calibrate. Hand-label a sample yourself and measure agreement with Cohen's kappa, which corrects for agreement that would happen by chance.
+Then calibrate. Hand-label a sample yourself and measure agreement with [Cohen's kappa](/glossary), which corrects for agreement that would happen by chance.
 
-```
-kappa = (observed agreement - chance agreement) / (1 - chance agreement)
-```
+$$\kappa = \frac{p_o - p_e}{1 - p_e}$$
 
-Below about 0.6, the judge is not trustworthy enough to grade that rubric alone. In my runs the local judge (qwen2.5:7b-instruct through Ollama) scored lower on the adversarial rubric than a frontier model did, which set the cost policy: iterate for free locally, and spend on the frontier judge only for the final shared score where it earns it.
+where `p_o` is the observed agreement and `p_e` is the agreement expected by chance. Below about 0.6, the judge is not trustworthy enough to grade that rubric alone. In my runs the local judge (qwen2.5:7b-instruct through Ollama) scored lower on the adversarial rubric than a frontier model did, which set the cost policy: iterate for free locally, and spend on the frontier judge only for the final shared score where it earns it.
 
 Two safety habits, because the transcript is hostile input. The reply can carry an attack aimed at the judge, so tell the judge the prompt and reply are untrusted data to evaluate, never instructions to follow. And a safety-tuned judge sometimes refuses and returns nothing, so parse defensively and count an empty or unreadable verdict as a failure rather than a crash.
 
@@ -360,9 +359,13 @@ The principle is to put humans where probability meets consequence: at the safet
 
 The agent and the grader both vary from run to run, so a single score is one sample, not the truth. Report a range, and use the metric that matches the risk. The [statistics for evals](https://arxiv.org/abs/2411.00640) are well worked out.
 
-Report a standard error. For a pass rate over n cases, `SE = sqrt(p(1-p)/n)`. Near 0 or 100 percent, where safety scores sit, use the Wilson interval rather than the simple one, because it behaves correctly at the edges. Run each case several times and average per case, which separates how hard a case is from how noisy the model is.
+Report a standard error. For a pass rate `p` over `n` cases:
 
-For safety, a 99 percent pass rate sounds safe and is not. The real risk is at least one failure across many chats. If a case passes with probability p, the chance of a failure over N chats is `1 - p^N`.
+$$SE = \sqrt{\frac{p(1-p)}{n}}$$
+
+Near 0 or 100 percent, where safety scores sit, use the [Wilson score interval](/glossary) rather than the simple one, because it behaves correctly at the edges. Run each case several times and average per case, which separates how hard a case is from how noisy the model is.
+
+For safety, a 99 percent pass rate sounds safe and is not. The real risk is at least one failure across many chats. If a case passes with probability `p`, the chance of a failure over `N` chats is `1 - p^N`.
 
 | Chats (N) | Chance of at least one failure at p = 0.99 |
 |---|---|
@@ -371,13 +374,11 @@ For safety, a 99 percent pass rate sounds safe and is not. The real risk is at l
 | 100 | 63 percent |
 | 500 | 99 percent |
 
-So critical cases are scored as pass^k, the fraction that pass on every one of k repeated runs, with any single failure failing the case. Comparing before and after a fix is a paired design on the same cases, so use McNemar's test on the cases that changed, not two separate pass rates.
+So critical cases are scored as [pass^k](/glossary), the fraction that pass on every one of k repeated runs, with any single failure failing the case. Comparing before and after a fix is a paired design on the same cases, so use [McNemar's test](/glossary) on the cases that changed, not two separate pass rates.
 
-```
-b = passed before, failed after
-c = failed before, passed after
-chi2 = (b - c)^2 / (b + c)        # exact binomial when b + c is small
-```
+$$\chi^2 = \frac{(b - c)^2}{b + c}$$
+
+where `b` is the count that passed before and failed after, and `c` the count that failed before and passed after. Use the exact binomial test when `b + c` is small.
 
 A twelve-case smoke test cannot certify a one-percent change in safety. Power analysis tells you how many cases you need.
 

@@ -1,15 +1,14 @@
 ---
 title: "The seed fundraising playbook"
 description: "A practical guide to raising your first seed round. Cold outreach, investor meetings, term sheets, and the mistakes to avoid."
-pubDate: 2025-01-26
+pubDate: 2025-10-15
 category: "Fundraising"
 tags: ["fundraising"]
 readingTime: "12 min read"
+tldr: "I co-founded Mainteny and ran the technical side of a seed raise that took six months, 87 investor conversations, and a lot of rejection. The work I did there helped raise a $2.7M seed. Cold outreach got us a 15% response rate by researching every investor instead of mail-merging them, the live product demo did more than any deck, and term sheets arrived in a cluster at the end because no one wants to be first. The real lesson: fundraising is a filter on whether you built something worth funding, not an accomplishment in itself."
 ---
 
-**TL;DR.** I co-founded Mainteny and ran the technical side of a seed raise that took six months, 87 investor conversations, and a lot of rejection. The work I did there helped raise a \$2.7M seed. Cold outreach got us a 15% response rate by researching every investor instead of mail-merging them, the live product demo did more than any deck, and term sheets arrived in a cluster at the end because no one wants to be first. The real lesson: fundraising is a filter on whether you built something worth funding, not an accomplishment in itself.
-
-Most fundraising advice comes from people who raised money in 2021, when VCs handed out term sheets freely. That advice is useless now.
+Most fundraising advice comes from people who raised money in 2021, when VCs handed out [term sheets](https://en.wikipedia.org/wiki/Term_sheet) freely. That advice is useless now.
 
 I co-founded Mainteny and was the CTO through our seed raise. The process took six months, 87 investor conversations, and more rejections than I want to count. The work my co-founder and I did in that period helped raise a \$2.7M seed. I ran the technical half of it: the product demo, the technical due diligence, and the "why this team can build it" story. Here is what I learned.
 
@@ -33,6 +32,17 @@ Block entire days for investor work. Block entire days for product work. The con
 Unless you went to Stanford, worked at a FAANG, or have a successful exit, you probably do not have warm intros to most investors. We did not.
 
 Our cold email response rate was 15%. Industry average is 2-5%. Here is why.
+
+The raise was a funnel. Researched outreach fed conversations, a fraction of those asked for the data room, fewer still went to a partner meeting, and the term sheets came at the very end.
+
+```mermaid
+flowchart LR
+    a["Researched outreach<br/>(email + LinkedIn)"] --> b["Replies<br/>15% email, 20% LinkedIn"]
+    b --> c["87 investor<br/>conversations"]
+    c --> d["Data room requests<br/>(a few VCs)"]
+    d --> e["Partner meetings<br/>(2 firms)"]
+    e --> f["3 term sheets<br/>in two weeks"]
+```
 
 ### Research each investor
 
@@ -110,6 +120,17 @@ The reason this works is first-principles simple. A deck is a claim. A working p
 
 ## The timeline
 
+The six months had a shape. Each month moved the process one stage further, and the work changed at each step.
+
+```mermaid
+flowchart TD
+    m1["Month 1: false confidence<br/>warm intros, polite enthusiasm"] --> m2["Month 2: reality<br/>cold outreach, 'too early' passes"]
+    m2 --> m3["Month 3: iteration<br/>shorter deck, lead with demo"]
+    m3 --> m4["Month 4: data room requests<br/>models, contracts, cap table"]
+    m4 --> m5["Month 5: partner meetings<br/>pitch the whole partnership"]
+    m5 --> m6["Month 6: term sheets<br/>first commit, then 3 in two weeks"]
+```
+
 ### Month 1: false confidence
 
 Warm intros. Friends of friends, former colleagues who knew investors. Conversations went well. Lots of enthusiasm. Lots of "we should stay in touch."
@@ -130,7 +151,7 @@ Still no term sheet. Lots of "interested but need more traction."
 
 ### Month 4: data room requests
 
-A few VCs asked for our data room. Financial models, customer contracts, team backgrounds, cap table. This felt like progress. It was also more work.
+A few VCs asked for our data room. Financial models, customer contracts, team backgrounds, [cap table](https://en.wikipedia.org/wiki/Capitalization_table). This felt like progress. It was also more work.
 
 ### Month 5: partner meetings
 
@@ -186,7 +207,7 @@ Accept that building slows down during fundraising. Be strategic about what you 
 
 What we prioritized:
 
-- **Bug fixes affecting retention:** Losing customers during a raise is catastrophic.
+- **Bug fixes affecting retention:** A churned customer mid-raise shows up directly in the metrics investors are watching.
 - **Features that improved metrics:** These numbers show up in investor conversations.
 - **Nothing speculative:** No exploratory work, new integrations, or experiments. Only high-certainty, high-impact work.
 

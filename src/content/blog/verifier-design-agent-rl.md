@@ -1,7 +1,8 @@
 ---
 title: "Writing the verifier is the real work in agent RL"
-description: "A reward function is a specification of correctness, not a scalar loss. Strict final-state equality is fine for a leaderboard and wrong for RL in real domains. The verifier code is tiny; understanding the domain is the cost."
-pubDate: 2026-06-24
+description: "A reward function is a specification of correctness, not a scalar loss. Strict final-state equality is fine for a leaderboard and wrong for RL in real domains. The verifier is about 215 lines; understanding the domain is the cost."
+tldr: "In reinforcement learning, the reward function is where you tell the agent what \"good\" means, and getting that definition right is the hard part, not the training. I spent two weeks extending tau-bench into a new domain and the verifier that scores each run came out to about 215 lines. The code was a weekend. Writing down what \"correct\" means per task, the equivalence classes, the safety lines you can never cross, the money that has to balance, was the project. If you are new to RL, the first half of this post explains the field from scratch so the second half lands."
+pubDate: 2026-06-28
 category: "AI engineering"
 tags: [agent-rl, reinforcement-learning, reward-design, tau-bench, verifiers, evaluation]
 readingTime: "12 min read"
@@ -20,9 +21,9 @@ faq:
     a: "A learning setup where an agent acts in an environment, the environment returns a reward signal, and the agent improves its policy to earn more reward over time. There is no labeled answer per step the way supervised learning has. The agent learns from consequences, the way you learn to ride a bike from wobbling and falling rather than from a manual. Because the policy chases whatever the reward measures, the reward function is the real definition of the task."
 ---
 
-**TL;DR.** In reinforcement learning, the reward function is where you tell the agent what "good" means, and getting that definition right is the hard part, not the training. I spent two weeks extending tau-bench into a new domain and the verifier that scores each run came out to about 215 lines. The code was a weekend. Writing down what "correct" means per task, the equivalence classes, the safety lines you can never cross, the money that has to balance, was the project. If you are new to RL, the first half of this post explains the field from scratch so the second half lands. The repo extension is open: [agent-eval-domain-extension](https://github.com/prasadus92/agent-eval-domain-extension).
+The repo extension is open: [agent-eval-domain-extension](https://github.com/prasadus92/agent-eval-domain-extension).
 
-I spent two weeks extending [tau-bench](https://github.com/sierra-research/tau-bench) into a new domain for RL, and the lesson that stuck was not about training. It was about the verifier.
+I spent two weeks extending [tau-bench](https://github.com/sierra-research/tau-bench) into a new domain for [reinforcement learning](https://en.wikipedia.org/wiki/Reinforcement_learning), and the lesson that stuck was not about training. It was about the verifier.
 
 The verifier is the part that reads an agent's trajectory and decides what reward to hand back. I assumed it would be a thin wrapper around the benchmark's existing scorer. It was the hardest design work in the project, and the code came out to about 215 lines. The cost was not in those lines. It was in figuring out, per task, what "correct" even meant.
 
@@ -60,7 +61,7 @@ The agent observes the state, picks an action from its policy, the environment m
 
 Two more ideas you need before the verifier. First, **the reward is almost always sparse and delayed**. You do not find out the ride was good until you have stopped without falling. The agent took fifteen actions and got one number at the end, and now it has to figure out which of the fifteen deserved credit. This is the **credit-assignment problem**, and it is why dense intermediate signal, covered later, matters so much.
 
-Second, **exploration versus exploitation**. The agent can exploit what it already knows works, or explore something new that might work better or might fail. Lean exactly the way that kept you up last time, or try a sharper turn that could be faster. Pure exploitation locks in mediocre habits; pure exploration never settles. Every RL system has to balance the two, and the balance is set, in part, by what the reward rewards.
+Second, **[exploration versus exploitation](https://en.wikipedia.org/wiki/Multi-armed_bandit)**. The agent can exploit what it already knows works, or explore something new that might work better or might fail. Lean exactly the way that kept you up last time, or try a sharper turn that could be faster. Pure exploitation locks in mediocre habits; pure exploration never settles. Every RL system has to balance the two, and the balance is set, in part, by what the reward rewards.
 
 Now the load-bearing point. Everything the agent learns is downstream of that reward number. The policy will chase whatever the reward measures, exactly, including the parts you did not mean. If the reward says falling slowly is fine as long as you eventually stop, you will train a very careful faller. The agent does not learn what you wanted. It learns what you measured. So the reward function is not a tuning knob bolted on at the end. It is the definition of the task, written in the only language the agent reads. Get it wrong and a better model, more data, and more training all make the wrong thing happen harder.
 
@@ -87,7 +88,7 @@ def calculate_reward(self) -> RewardResult:
     return RewardResult(reward=reward, ...)
 ```
 
-Two predicates, AND-ed together. The SHA-256 of the agent's final database equals the SHA-256 of replaying the ground-truth actions, and each expected output string shows up somewhere in the agent's replies. Reward is 0.0 or 1.0. No partial credit, no safety concept, no tolerance for outcomes that are equivalent but not byte-identical.
+Two predicates, AND-ed together. The `SHA-256` of the agent's final database equals the `SHA-256` of replaying the ground-truth actions, and each expected output string shows up somewhere in the agent's replies. Reward is `0.0` or `1.0`. No partial credit, no safety concept, no tolerance for outcomes that are equivalent but not byte-identical.
 
 This is the right call for a leaderboard. You want a hard pass/fail when you are ranking models. It is the wrong shape for RL training, and the reason is specific: strict final-state equality says only the exact recorded ground-truth state is correct, when in a real domain many distinct states are correct.
 
@@ -98,6 +99,16 @@ Three places it breaks in practice:
 - **No safety floor.** A brilliant ten-step trajectory that suggests a peanut substitute to a peanut-allergic customer along the way scores the same as one that did not, as long as the final state matches. There is no notion of an outcome you can never recover from.
 
 None of this is a flaw in tau-bench. It is a benchmark doing benchmark things. The moment you point it at RL in a domain with real money and real safety, you have to write a different verifier.
+
+```mermaid
+flowchart TD
+  O[Agent outcome] --> Q{"Is there one byte-exact<br/>correct final state?"}
+  Q -->|yes| LB["Strict final-state equality<br/>good for a leaderboard"]
+  Q -->|no, many valid forms| RL["RL needs a spec verifier"]
+  RL --> EQ["Equivalence classes for<br/>stochastic choices"]
+  RL --> INV["Conservation invariants for<br/>path-independent money"]
+  RL --> GATE["Hard safety gates for<br/>irreversible mistakes"]
+```
 
 ## The reframe: a reward is a spec
 
@@ -125,11 +136,11 @@ flowchart TD
 1. **Stochastic-equivalence.** Any valid choice is correct, so the verifier must compare equivalence classes, not values.
 2. **Irreversible safety constraints.** Some violations cannot be undone by later good behavior, so the verifier needs a hard zero that fires regardless of outcome.
 3. **Path-independent invariants.** What matters is a conserved quantity (the money balances), not the specific path that conserved it.
-4. **Dense intermediate signal.** Sparse 0/1 at episode end is a brutal credit-assignment problem, so the verifier should emit partial signal along the trajectory.
+4. **Dense intermediate signal.** A sparse `0/1` at episode end is a hard credit-assignment problem, so the verifier should emit partial signal along the trajectory.
 
 The two that taught me the most were the first and the third. They are also the two with real code worth showing.
 
-## Example one: equivalence-class hashing
+## Example one: [equivalence-class hashing](/glossary)
 
 The tool that surfaced this is `dispatch_replacement_courier`. When an order's original driver falls through, it finds every available driver within range and assigns one. Driver selection is stochastic across replays. The fix in the tool was small: when it assigns, it also records the full candidate pool it chose from.
 
@@ -159,7 +170,7 @@ def get_data_hash_canonical(self) -> str:
 
 If the agent's chosen driver is in the candidate set, the field collapses to `sorted(candidates)`. Now any valid driver hashes to the same thing. The ground-truth replay collapses to the same set, so the comparison passes for every correct choice instead of only the recorded one.
 
-Ten lines of verifier code. What it cost me was deciding, per task, which fields are equivalence-classed and what defines the class. That is a domain question. For driver dispatch the class is "available, in range, has capacity." For a multi-stop delivery it is "any visit order that respects the time windows." Each one is a judgment about what the domain treats as the same. The code is trivial. Knowing the answer is the work.
+The canonicalizer is about 10 lines. What it cost me was deciding, per task, which fields are equivalence-classed and what defines the class. That is a domain question. For driver dispatch the class is "available, in range, has capacity." For a multi-stop delivery it is "any visit order that respects the time windows." Each one is a judgment about what the domain treats as the same. Writing those 10 lines is not the cost. Knowing the answer they encode is.
 
 One thing I got wrong at first: I tried to define the equivalence class inside the verifier, as a rule. That does not scale, because the class is task-specific. The right move was to make the tool record the candidate set at runtime and have the verifier read it. The domain produces the equivalence class; the verifier only canonicalizes it.
 
@@ -222,7 +233,11 @@ def _monetary_identity_holds(self) -> bool:
     return abs(total - inv["disputed_amount"]) <= inv.get("tolerance", 0.01)
 ```
 
-`sum(refunds) + sum(credits) + sum(replacement_value) == disputed_amount`, within a cent. Any resolution that satisfies it is correct. Path-independent, exactly as the domain is.
+The identity it checks is a conservation law, true within a tolerance `ε`:
+
+$$\left| \sum \text{refunds} + \sum \text{credits} + \sum \text{replacement value} - \text{disputed amount} \right| \le \varepsilon$$
+
+Any resolution that satisfies it is correct. Path-independent, exactly as the domain is.
 
 The invariant alone is not enough, and this is the part I underestimated. An invariant is symmetric: it does not care if you go over. "Make the customer whole" and "do not over-refund" are different constraints, and a policy under simulated customer pressure will happily over-refund to end the conversation. So the same override carries a hard cap, checked as a safety gate that fires before anything else:
 
@@ -261,7 +276,7 @@ Sparse reward at episode end is a hard credit-assignment problem. The agent did 
 ]
 ```
 
-The verifier sums the weights of satisfied checkpoints and returns it alongside the outcome, so the training client picks the blend it wants (`outcome` alone, `outcome + 0.3 * process`, or `outcome * safety_passed`). I put this last on purpose. Dense shaping is the one piece most likely to be gamed: reward the steps and the policy learns to perform the steps without the result. It only earns its place once the outcome, the equivalence handling, and the safety floor are correct underneath it. Shaping is a speedup on a correct signal, not a substitute for one.
+The process reward is the weighted sum over satisfied checkpoints, `p = Σᵢ wᵢ · 1[checkpoint i satisfied]`. The verifier returns it alongside the outcome, so the training client picks the blend it wants: outcome alone, the shaped form `r = outcome + 0.3·p`, or outcome gated by safety as `r = outcome · 1[safety passed]`. I put this last on purpose. Dense shaping is the one piece most likely to be gamed: reward the steps and the policy learns to perform the steps without the result. It only earns its place once the outcome, the equivalence handling, and the safety floor are correct underneath it. Shaping is a speedup on a correct signal, not a substitute for one.
 
 ## Where the cost lands
 
@@ -269,7 +284,7 @@ Here is the accounting that changed how I think about these projects. The verifi
 
 | Upgrade | Verifier LOC | Per-task spec time |
 |---|---|---|
-| Equivalence-class hashing | ~10 | trivial (one field) |
+| Equivalence-class hashing | ~10 | ~1 min (one field) |
 | Safety gates | ~30 (a small DSL) | ~3 min |
 | Monetary-identity invariant | ~25 | ~2 min |
 | Process checkpoints | ~50 | ~7 min |

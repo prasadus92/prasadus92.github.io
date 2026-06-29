@@ -10,6 +10,32 @@
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* ============================================================
+     Demo affordance cleanup
+     The markdown embeds verbose "Interactive: ..." kickers. Strip
+     the redundant prefix and turn each kicker into a small "Try it"
+     pill, so the clickable nature is signalled once and cleanly.
+     ============================================================ */
+  (() => {
+    document.querySelectorAll<HTMLElement>('.demo-card .demo-kicker').forEach((el) => {
+      const raw = (el.textContent || '').trim();
+      // Drop a leading "Interactive:"/"Interactive -" label; keep the description.
+      const desc = raw.replace(/^interactive\s*[:\-]\s*/i, '').trim();
+      el.textContent = '';
+      const pill = document.createElement('span');
+      pill.className = 'demo-try';
+      pill.textContent = 'Try it';
+      el.appendChild(pill);
+      if (desc) {
+        const label = document.createElement('span');
+        label.className = 'demo-kicker-text';
+        label.textContent = desc;
+        el.appendChild(label);
+      }
+      el.classList.add('is-pill');
+    });
+  })();
+
+  /* ============================================================
      Demo 1: support-agent simulator
      ============================================================ */
   (() => {

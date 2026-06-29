@@ -4,6 +4,7 @@
 
 @import './fonts.css';
 @import './tokens.css';
+@import 'katex/dist/katex.min.css';
 
 /* ---------- Reset ---------- */
 *,

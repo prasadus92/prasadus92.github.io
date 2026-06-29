@@ -1,12 +1,13 @@
 ---
 title: "A daily hotel KPI pipeline that survives repeated snapshots"
 description: "Building a daily hotel-performance KPI pipeline with dbt and DuckDB: dedup before you aggregate, treat occupancy and revenue status asymmetrically, validate at two grains, build byte-reproducibly, and gate CI on an independent reconciliation."
-pubDate: 2026-06-08
+pubDate: 2026-03-17
 category: "Engineering"
 tags: ["engineering", "data-engineering", "dbt", "duckdb", "elt", "data-quality"]
 readingTime: "12 min read"
 draft: false
 related: ["durable-by-design"]
+tldr: "A daily hotel KPI pipeline built on dbt and DuckDB stays correct because of five decisions: dedup to one canonical row per business key per day before you aggregate, split status logic so occupancy and revenue are counted by what each one measures, validate the same number at two grains and require them to agree, build byte-reproducibly so a diff means something, and gate CI on an independent recomputation rather than only the pipeline's own tests. The code is on GitHub: prasadus92/hotel-kpi-elt-pipeline."
 faq:
   - q: "Why dedup before aggregating in a snapshot-based pipeline?"
     a: "Because daily snapshots repeat. The same reservation appears in today's extract and yesterday's, and a source can re-emit a row inside a single day. If you SUM revenue before collapsing each reservation to one row per day, every duplicate inflates the KPI silently. Dedup to a single canonical row per business key per day first, then aggregate, so the count is right by construction rather than by luck."
@@ -18,11 +19,26 @@ faq:
     a: "dbt tests check the pipeline against assumptions the pipeline's author wrote. An independent reconciliation recomputes the headline KPIs a second way, ideally in different code, from the raw inputs and asserts they match the pipeline's output within tolerance. It catches the class of bug where the transform and its test are wrong in the same direction, which is the class that reaches production."
 ---
 
-**TL;DR.** A daily hotel KPI pipeline built on dbt and DuckDB stays correct because of five decisions: dedup to one canonical row per business key per day before you aggregate, split status logic so occupancy and revenue are counted by what each one measures, validate the same number at two grains and require them to agree, build byte-reproducibly so a diff means something, and gate CI on an independent recomputation rather than only the pipeline's own tests. The code is on GitHub: [prasadus92/hotel-kpi-elt-pipeline](https://github.com/prasadus92/hotel-kpi-elt-pipeline).
-
 A daily hotel-performance pipeline looks simple until the snapshots start repeating. You pull reservation and occupancy data every day, compute the KPIs a revenue manager looks at, occupancy, ADR, RevPAR, revenue by date, and publish a table. The trap is that the inputs are snapshots, not events, and the same reservation shows up again tomorrow, and the day after, and sometimes twice in one day. Aggregate naively and every duplicate quietly inflates the number.
 
-This is a writeup of a daily KPI pipeline built on dbt and DuckDB, and the five decisions that keep it correct: dedup before you aggregate, treat occupancy and revenue status asymmetrically, validate at two grains, build byte-reproducibly, and gate CI on an independent reconciliation. DuckDB because the working set fits in process and a local engine makes the build fast and the tests free; dbt because the transforms want to be versioned SQL with lineage and tests attached.
+This is a writeup of a daily KPI pipeline built on [dbt](https://docs.getdbt.com/docs/introduction) and [DuckDB](https://duckdb.org/why_duckdb), an [ELT](https://en.wikipedia.org/wiki/Extract,_load,_transform) design where raw data lands first and the transforms run in the warehouse. Five decisions keep it correct: dedup before you aggregate, treat occupancy and revenue status asymmetrically, validate at two grains, build byte-reproducibly, and gate CI on an independent reconciliation.
+
+`DuckDB` because the working set fits in process and a local engine makes the build fast and the tests free. `dbt` because the transforms want to be versioned SQL with lineage and tests attached.
+
+```mermaid
+flowchart TD
+    SRC["Daily snapshots<br/>reservations + occupancy"] --> DED["Dedup: one canonical row<br/>per business key per day"]
+    DED --> SPL{"Status logic split"}
+    SPL --> OCC["Occupancy grain<br/>rows where room was occupied"]
+    SPL --> REV["Revenue grain<br/>rows where money recognized"]
+    OCC --> AGG["Aggregate to KPIs<br/>occupancy, ADR, RevPAR, revenue"]
+    REV --> AGG
+    AGG --> VAL{"Two-grain check:<br/>rollup sums back to detail?"}
+    VAL -->|"diff > 0.01"| FAIL["Fail the build"]
+    VAL -->|matches| RECON{"Independent reconciliation<br/>in CI agrees?"}
+    RECON -->|no| FAIL
+    RECON -->|yes| PUB["Publish daily-property table"]
+```
 
 ## Snapshots repeat, so dedup before you aggregate
 
@@ -51,7 +67,19 @@ The instinct is to apply one status filter to the whole pipeline: drop cancelled
 
 A room held under a non-refundable rate and then cancelled produces revenue, because the hotel keeps the money, but it does not produce occupancy, because nobody sleeps there. A complimentary or house-use night is the mirror image: it produces occupancy but no revenue. A no-show often counts as revenue and, depending on the property's rules, sometimes as occupancy too. Run one status filter and you will either undercount revenue by dropping kept-money cancellations or overcount occupancy by counting them as stays.
 
-So I split the status logic. Occupancy counts rows where someone physically occupied the room. Revenue counts rows where money is recognized, on whatever the property's recognition rule is. The two sets overlap heavily but are not equal, and modeling them as one set is a correctness bug that hides as a rounding discrepancy until someone reconciles against the PMS and finds the gap.
+So I split the status logic. Occupancy counts rows where someone physically occupied the room. Revenue counts rows where money is recognized, on whatever the property's recognition rule is. The two sets overlap heavily but are not equal, and modeling them as one set is a correctness bug that hides as a rounding discrepancy until someone reconciles against the `PMS` and finds the gap.
+
+```mermaid
+flowchart TD
+    R["A reservation row"] --> O{"Did someone<br/>occupy the room?"}
+    R --> M{"Is money<br/>recognized?"}
+    O -->|Yes| OC["Counts toward occupancy"]
+    O -->|No| ON["Not occupancy"]
+    M -->|Yes| MC["Counts toward revenue"]
+    M -->|No| MN["Not revenue"]
+    OC --> EX1["Comp / house-use night:<br/>occupancy, no revenue"]
+    MC --> EX2["Non-refundable cancellation:<br/>revenue, no occupancy"]
+```
 
 ## Validate at two grains
 

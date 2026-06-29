@@ -21,7 +21,10 @@
     "@iconify-json/simple-icons": "^1.2.87",
     "astro": "^5.6.1",
     "astro-icon": "^1.1.5",
-    "motion": "^11.13.1"
+    "katex": "^0.17.0",
+    "motion": "^11.13.1",
+    "rehype-katex": "^7.0.1",
+    "remark-math": "^6.0.0"
   },
   "devDependencies": {
     "playwright": "^1.61.1"
