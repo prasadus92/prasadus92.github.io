@@ -20,13 +20,16 @@ const year = new Date().getFullYear();
     </div>
     <div class="footer-cols">
       <div>
-        <span class="foot-label">Navigate</span>
+        <span class="foot-label">Explore</span>
         <a href="/#impact">Impact</a>
         <a href="/#work">Work</a>
         <a href="/ai-enablement">AI enablement</a>
         <a href="/story">Story</a>
         <a href="/blog">Writing</a>
         <a href="/glossary">Glossary</a>
+      </div>
+      <div>
+        <span class="foot-label">More</span>
         <a href="/book">Book a call</a>
         <a href="/#contact">Contact</a>
         <a href="/rss.xml">RSS</a>
@@ -102,7 +105,7 @@ const year = new Date().getFullYear();
   }
   .footer-cols {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
     gap: 24px;
   }
   .footer-cols > div {
