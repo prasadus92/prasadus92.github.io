@@ -71,6 +71,7 @@ export default defineConfig({
   build: {
     inlineStylesheets: 'auto',
   },
+  compressHTML: false,
   markdown: {
     // singleDollarTextMath disabled so prose dollar amounts ($50,000, 20%)
     // are not parsed as inline math. Use $$...$$ for display math; for inline
