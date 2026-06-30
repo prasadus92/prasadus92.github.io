@@ -1,139 +1,233 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import Icon from '../../components/Icon.astro';
-import { formatMonth, posts } from '../../lib/posts';
+import BlogCard from '../../components/BlogCard.astro';
+import { site } from '../../data/site';
 
-const title = 'Notes on product, sales, and agent work';
-const description = 'Essays from building Luminik and earlier products: B2B product engineering, founder-led sales, agent workflows, event pipeline systems, and zero-to-one work.';
-const keywords = [
-  'technical founder writing',
-  'B2B product engineering',
-  'founder-led sales',
-  'agent workflows',
-  'event pipeline systems',
-  'zero-to-one product',
-  'Luminik',
-  'Alfred OS'
-];
-const breadcrumbs = [
-  { name: 'Home', url: '/' },
-  { name: 'Blog', url: '/blog/' }
-];
+const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
 
-const paths = [
-  {
-    title: 'Solo builder OS',
-    body: 'Alfred, CLAUDE.md files, isolated branches, approval rules, and the recurring checks I run while building Luminik.',
-    href: '/blog/alfred-solo-founder-operating-system.html'
-  },
-  {
-    title: 'Founder-led sales',
-    body: 'Sales starts by understanding how the buyer does the work today. Useful before hiring a sales motion.',
-    href: '/blog/selling-before-building.html'
-  },
-  {
-    title: 'Event pipeline',
-    body: 'How event ROI breaks across handoffs, and why the answer starts with one event operating record.',
-    href: '/blog/event-marketing-roi.html'
-  },
-  {
-    title: 'Zero to one',
-    body: 'Mainteny, Aura, SnowOptix, and the product decisions that changed what I built next.',
-    href: '/blog/mvp-three-months.html'
-  }
-];
+// Two clusters, by slug membership (robust to category strings). Engineering
+// shows first. Anything not listed in either set falls under engineering.
+const engineeringSlugs = new Set([
+  'verifier-design-agent-rl',
+  'idempotent-ingestion',
+  'multi-model-proxy',
+  'cut-coding-agent-token-bill',
+  'durable-by-design',
+  'loops-harnesses-memory',
+  'deploying-a-customer-support-ai-agent-to-production',
+  'hotel-kpi-elt-pipeline',
+  'snowflake-cost-optimization',
+]);
+const companySlugs = new Set([
+  'zero-to-one-bain',
+  'raising-seed-round',
+  'technical-founder-sales',
+  'mvp-three-months',
+  'event-marketing-roi',
+]);
 
-const collectionSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'CollectionPage',
-  name: 'Prasad Subrahmanya Blog',
-  description,
-  url: 'https://prasad.tech/blog/',
-  mainEntity: {
-    '@type': 'ItemList',
-    itemListElement: posts.map((post, index) => ({
-      '@type': 'ListItem',
-      position: index + 1,
-      url: `https://prasad.tech${post.url}`,
-      name: post.title
-    }))
-  }
-};
+// posts is already newest-first, so each cluster preserves that order.
+const companyPosts = posts.filter((p) => companySlugs.has(p.id));
+const engineeringPosts = posts.filter((p) => !companySlugs.has(p.id));
+
+const slug = (s: string) =>
+  s
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
+
+const clusters = [
+  { title: 'AI-native engineering', posts: engineeringPosts },
+  { title: 'Building companies', posts: companyPosts },
+]
+  .filter((c) => c.posts.length > 0)
+  .map((c) => ({ ...c, key: slug(c.title) }));
+
+const totalPosts = clusters.reduce((n, c) => n + c.posts.length, 0);
+
+// Suppress an unused-variable lint while keeping the explicit slug set for clarity.
+void engineeringSlugs;
 ---
 
 <BaseLayout
-  title={title}
-  description={description}
-  canonical="https://prasad.tech/blog/"
-  active="blog"
-  image="/og/prasad-og.png"
-  imageAlt="Prasad Subrahmanya, notes on product, sales, and agent work"
-  keywords={keywords}
-  breadcrumbs={breadcrumbs}
+  title={`Writing - ${site.name}`}
+  description="Hands-on writing on AI-native engineering, evals, durable workflows, and building companies."
+  image="/og/blog.png"
 >
-  <script is:inline slot="head" type="application/ld+json" set:html={JSON.stringify(collectionSchema)} />
-
-  <section class="blog-hero">
+  <section class="section blog-index">
     <div class="container">
-      <div class="eyebrow reveal">Blog</div>
-      <h1 class="reveal">Notes on product, sales, and agent work</h1>
-      <p class="lead reveal" style="max-width: 760px; margin: 0 auto;">
-        Notes from building Luminik and earlier products: product decisions, sales calls, agent workflows, event pipeline systems, and zero-to-one work.
-      </p>
-    </div>
-  </section>
+      <header class="blog-hero">
+        <p class="eyebrow reveal">Writing</p>
+        <h1 class="reveal reveal-d1">
+          Notes from the <span class="grad-text">build</span>.
+        </h1>
+        <p class="muted reveal reveal-d2">
+          Hands-on writing on AI-native engineering, evals, durable workflows, and the operator side
+          of building companies. From what I have shipped.
+        </p>
+      </header>
 
-  <section class="section tight">
-    <div class="container">
-      <article class="featured-post card reveal">
-        <div>
-          <span class="blog-category">{posts[0].category}</span>
-          <h2>{posts[0].title}</h2>
-          <p>{posts[0].description}</p>
-          <div class="hero-actions">
-            <a class="button primary" href={posts[0].url}>Start here <Icon name="arrow-right" size={16} /></a>
+      {
+        clusters.length > 1 && (
+          <div class="blog-filters reveal" role="group" aria-label="Filter writing by topic">
+            <button type="button" class="filter-chip" data-filter="all" aria-pressed="true">
+              All <span class="chip-count">{totalPosts}</span>
+            </button>
+            {clusters.map((cluster) => (
+              <button
+                type="button"
+                class="filter-chip"
+                data-filter={cluster.key}
+                aria-pressed="false"
+              >
+                {cluster.title} <span class="chip-count">{cluster.posts.length}</span>
+              </button>
+            ))}
           </div>
-        </div>
-        <div class="featured-diagram" aria-label="Alfred work preview">
-          <div class="featured-diagram-row">
-            <strong>Context</strong>
-            <span>CLAUDE.md files, specs, voice rules, and public positioning.</span>
-          </div>
-          <div class="featured-diagram-row">
-            <strong>Work</strong>
-            <span>Digests with links, pull requests, draft copy, and drift checks.</span>
-          </div>
-          <div class="featured-diagram-row">
-            <strong>Gate</strong>
-            <span>Human approval before publish, merge, send, or deploy.</span>
-          </div>
-        </div>
-      </article>
+        )
+      }
 
-      <div class="blog-grid">
-        {posts.map((post) => (
-          <a class="blog-card card interactive reveal" href={post.url}>
-            <div class="blog-card-content">
-              <span class="blog-category">{post.category}</span>
-              <h3>{post.title}</h3>
-              <p>{post.description}</p>
-              <div class="blog-meta">
-                <span><Icon name="calendar" size={14} /> {formatMonth(post.date)}</span>
-                <span><Icon name="clock" size={14} /> {post.readTime}</span>
+      <div data-blog-list>
+        {
+          clusters.map((cluster) => (
+            <section class="blog-cluster" data-cluster={cluster.key}>
+              <h2 class="cluster-title reveal">{cluster.title}</h2>
+              <div class="blog-grid">
+                {cluster.posts.map((p, i) => (
+                  <BlogCard
+                    slug={p.id}
+                    title={p.data.title}
+                    description={p.data.description}
+                    pubDate={p.data.pubDate}
+                    category={p.data.category}
+                    readingTime={p.data.readingTime}
+                    delay={(i % 3) + 1}
+                  />
+                ))}
               </div>
-            </div>
-          </a>
-        ))}
-      </div>
-
-      <div class="path-grid blog-path-grid" style="margin-top: 44px;">
-        {paths.map((path) => (
-          <a class="path-card card interactive reveal" href={path.href} style="color: inherit; text-decoration: none;">
-            <h3>{path.title}</h3>
-            <p>{path.body}</p>
-          </a>
-        ))}
+            </section>
+          ))
+        }
+        <p class="blog-empty" data-blog-empty hidden>Nothing here yet under this topic.</p>
       </div>
     </div>
   </section>
+
+  <script>
+    const chips = Array.from(
+      document.querySelectorAll<HTMLButtonElement>('.filter-chip')
+    );
+    const sections = Array.from(
+      document.querySelectorAll<HTMLElement>('[data-cluster]')
+    );
+    const empty = document.querySelector<HTMLElement>('[data-blog-empty]');
+    if (chips.length) {
+      const apply = (filter: string) => {
+        let visible = 0;
+        sections.forEach((s) => {
+          const show = filter === 'all' || s.dataset.cluster === filter;
+          s.hidden = !show;
+          if (show) visible++;
+        });
+        if (empty) empty.hidden = visible !== 0;
+        chips.forEach((c) =>
+          c.setAttribute('aria-pressed', String(c.dataset.filter === filter))
+        );
+      };
+      chips.forEach((c) =>
+        c.addEventListener('click', () => apply(c.dataset.filter || 'all'))
+      );
+    }
+  </script>
 </BaseLayout>
+
+<style>
+  .blog-index {
+    padding-top: clamp(120px, 15vh, 170px);
+  }
+  .blog-hero {
+    max-width: 62ch;
+    margin-bottom: clamp(40px, 5vw, 64px);
+  }
+  .blog-hero h1 {
+    margin-top: 14px;
+    font-size: clamp(2.2rem, 1.5rem + 3vw, 3.6rem);
+  }
+  .blog-hero p {
+    margin-top: 20px;
+    font-size: var(--fs-lead);
+    line-height: 1.6;
+  }
+  .blog-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: clamp(36px, 4.5vw, 56px);
+  }
+  .filter-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 15px;
+    border-radius: var(--r-pill);
+    font-family: var(--font-display);
+    font-size: var(--fs-sm);
+    font-weight: 500;
+    color: var(--text-secondary);
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    transition: color var(--dur-1) var(--ease-out), border-color var(--dur-2) var(--ease-out),
+      background var(--dur-2) var(--ease-out);
+  }
+  .filter-chip:hover {
+    color: var(--ink);
+    border-color: var(--glass-border-strong);
+    background: var(--glass-bg-strong);
+  }
+  .filter-chip[aria-pressed='true'] {
+    color: var(--accent-ink);
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+  .filter-chip .chip-count {
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    opacity: 0.75;
+  }
+  .blog-empty {
+    color: var(--text-tertiary);
+    font-size: var(--fs-lead);
+    padding: clamp(32px, 5vw, 56px) 0;
+    text-align: center;
+  }
+  .blog-cluster {
+    margin-bottom: clamp(48px, 6vw, 88px);
+  }
+  /* When a cluster is hidden by the filter, drop its trailing margin. */
+  .blog-cluster[hidden] {
+    display: none;
+  }
+  .blog-cluster:last-child {
+    margin-bottom: 0;
+  }
+  .cluster-title {
+    font-size: clamp(1.3rem, 1.1rem + 1vw, 1.7rem);
+    letter-spacing: var(--tracking-tight);
+    margin-bottom: clamp(20px, 2.4vw, 28px);
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--glass-border);
+  }
+  .blog-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(14px, 1.6vw, 20px);
+  }
+  @media (max-width: 760px) {
+    .blog-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

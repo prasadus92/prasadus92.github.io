@@ -1,0 +1,316 @@
+---
+/*
+  SignatureMotion — a slow aurora light field rendered on a single <canvas>.
+  A handful of soft, oversized radial-gradient orbs (magenta -> violet ->
+  indigo) drift along smooth, irrational-period sine paths and blend together,
+  producing a calm, premium light field with depth. No shapes, no lines, no
+  arrows. Sits behind the hero as atmosphere; theme-aware via CSS custom props
+  read at runtime, and gently pointer-reactive on fine pointers.
+
+  Inspiration: giga.ai's restrained, photographic warmth (depth + soft light,
+  no busy motion) and the slow noise-driven mesh gradients on Stripe / Linear.
+
+  Performance contract:
+  - one <canvas>, one requestAnimationFrame loop
+  - fixed, small orb count (5); blur is a single CSS filter on the canvas
+  - renders at half internal resolution then scales up (cheap big gradients)
+  - devicePixelRatio clamped to 1.25 (the canvas is blurred anyway)
+  - loop paused when tab hidden (visibilitychange) and when offscreen
+    (IntersectionObserver)
+  - frame budget throttled to ~30fps (motion is slow; no benefit to more)
+  - pointer parallax only on (pointer: fine)
+  - prefers-reduced-motion: renders a single static frame, no loop
+*/
+---
+
+<div class="sig-motion" aria-hidden="true" data-sig-motion>
+  <canvas class="sig-canvas" data-sig-canvas></canvas>
+</div>
+
+<style>
+  .sig-motion {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+    /* tokens read by the script via getComputedStyle */
+    --sig-accent: var(--accent);
+    --sig-accent-2: var(--accent-2);
+    --sig-accent-3: var(--accent-3);
+    /* keep the light near the top-right, fade out toward the copy so it never
+       fights readability */
+    -webkit-mask-image: radial-gradient(125% 105% at 72% 22%, #000 30%, transparent 88%);
+    mask-image: radial-gradient(125% 105% at 72% 22%, #000 30%, transparent 88%);
+  }
+  .sig-canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    /* the soft aurora look comes from blurring a low-res canvas */
+    filter: blur(56px) saturate(0.98);
+    opacity: 0.5;
+    transform: translateZ(0);
+  }
+  [data-theme='light'] .sig-canvas {
+    filter: blur(60px) saturate(0.96);
+    opacity: 0.34;
+  }
+  /* On mobile the hero stacks, so the top-right light field lands behind the
+     eyebrow/lead. Keep it faint and high so copy stays readable. */
+  @media (max-width: 640px) {
+    .sig-motion {
+      -webkit-mask-image: radial-gradient(120% 70% at 70% 6%, #000 20%, transparent 72%);
+      mask-image: radial-gradient(120% 70% at 70% 6%, #000 20%, transparent 72%);
+    }
+    .sig-canvas {
+      opacity: 0.32;
+    }
+    [data-theme='light'] .sig-canvas {
+      opacity: 0.22;
+    }
+  }
+</style>
+
+<script>
+  type RGB = [number, number, number];
+
+  interface Orb {
+    // base position as a fraction of canvas (0..1)
+    bx: number;
+    by: number;
+    // drift amplitude (fraction of canvas) + angular speed + phase, per axis
+    ax: number;
+    ay: number;
+    sx: number;
+    sy: number;
+    phx: number;
+    phy: number;
+    // radius as a fraction of the larger canvas dimension
+    rad: number;
+    color: RGB;
+    // pointer-parallax depth factor
+    depth: number;
+  }
+
+  function parseColor(raw: string): RGB {
+    const s = raw.trim();
+    const hex = s.match(/^#([0-9a-f]{3}|[0-9a-f]{6})$/i);
+    if (hex) {
+      let h = hex[1];
+      if (h.length === 3) h = h.split('').map((c) => c + c).join('');
+      return [
+        parseInt(h.slice(0, 2), 16),
+        parseInt(h.slice(2, 4), 16),
+        parseInt(h.slice(4, 6), 16),
+      ];
+    }
+    const m = s.match(/(-?\d+\.?\d*)/g);
+    if (m && m.length >= 3) return [+m[0], +m[1], +m[2]];
+    return [246, 62, 140];
+  }
+
+  function initSignatureMotion() {
+    const root = document.querySelector<HTMLElement>('[data-sig-motion]');
+    const canvas = document.querySelector<HTMLCanvasElement>('[data-sig-canvas]');
+    if (!root || !canvas) return;
+    const ctx = canvas.getContext('2d', { alpha: true });
+    if (!ctx) return;
+
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const finePointer = window.matchMedia('(pointer: fine)').matches;
+
+    let W = 0; // CSS px
+    let H = 0;
+    let cw = 0; // canvas backing px (low-res)
+    let ch = 0;
+    let orbs: Orb[] = [];
+
+    let accent: RGB = [246, 62, 140];
+    let accent2: RGB = [124, 108, 255];
+    let accent3: RGB = [154, 125, 255];
+
+    // pointer in -1..1, smoothed
+    let pxTarget = 0;
+    let pyTarget = 0;
+    let px = 0;
+    let py = 0;
+
+    const readColors = () => {
+      const cs = getComputedStyle(root);
+      accent = parseColor(cs.getPropertyValue('--sig-accent') || '#f63e8c');
+      accent2 = parseColor(cs.getPropertyValue('--sig-accent-2') || '#7c6cff');
+      accent3 = parseColor(cs.getPropertyValue('--sig-accent-3') || '#9a7dff');
+    };
+
+    // Five orbs on irrational-ish periods so the field never visibly repeats.
+    // Positions favour the top/right where the mask keeps it; the magenta lead
+    // sits up high, violet anchors the mid, indigo and a faint amber add depth.
+    const buildOrbs = () => {
+      orbs = [
+        { bx: 0.74, by: 0.16, ax: 0.10, ay: 0.07, sx: 0.013, sy: 0.017, phx: 0.0, phy: 1.3, rad: 0.62, color: accent, depth: 1.0 },
+        { bx: 0.50, by: 0.34, ax: 0.12, ay: 0.09, sx: 0.011, sy: 0.0091, phx: 2.1, phy: 0.4, rad: 0.70, color: accent2, depth: 0.6 },
+        { bx: 0.88, by: 0.46, ax: 0.08, ay: 0.10, sx: 0.0083, sy: 0.012, phx: 4.0, phy: 2.6, rad: 0.55, color: accent2, depth: 0.8 },
+        { bx: 0.28, by: 0.20, ax: 0.11, ay: 0.08, sx: 0.0097, sy: 0.014, phx: 1.0, phy: 3.4, rad: 0.50, color: accent, depth: 0.45 },
+        { bx: 0.62, by: 0.58, ax: 0.09, ay: 0.07, sx: 0.0071, sy: 0.0105, phx: 3.3, phy: 5.0, rad: 0.46, color: accent3, depth: 0.35 },
+      ];
+    };
+
+    const resize = () => {
+      const rect = root.getBoundingClientRect();
+      W = Math.max(1, rect.width);
+      H = Math.max(1, rect.height);
+      // low internal resolution: the CSS blur hides the lack of detail and the
+      // big radial gradients stay cheap. dpr clamped well under 2.
+      const dpr = Math.min(1.25, window.devicePixelRatio || 1);
+      const scale = 0.5 * dpr;
+      cw = Math.max(1, Math.round(W * scale));
+      ch = Math.max(1, Math.round(H * scale));
+      canvas.width = cw;
+      canvas.height = ch;
+    };
+
+    const drawOrb = (o: Orb, t: number) => {
+      const dim = Math.max(cw, ch);
+      // smooth drift along two sines per axis
+      let x = (o.bx + Math.sin(t * o.sx + o.phx) * o.ax) * cw;
+      let y = (o.by + Math.cos(t * o.sy + o.phy) * o.ay) * ch;
+      // pointer parallax: nearer orbs (higher depth) move more, opposite the
+      // pointer for a subtle sense of layers
+      if (finePointer) {
+        x -= px * o.depth * cw * 0.05;
+        y -= py * o.depth * ch * 0.05;
+      }
+      const r = o.rad * dim;
+      const [cr, cg, cb] = o.color;
+      const g = ctx.createRadialGradient(x, y, 0, x, y, r);
+      g.addColorStop(0, `rgba(${cr},${cg},${cb},0.42)`);
+      g.addColorStop(0.4, `rgba(${cr},${cg},${cb},0.16)`);
+      g.addColorStop(1, `rgba(${cr},${cg},${cb},0)`);
+      ctx.fillStyle = g;
+      ctx.fillRect(0, 0, cw, ch);
+    };
+
+    const render = (timeMs: number) => {
+      const t = timeMs / 1000;
+      px += (pxTarget - px) * 0.05;
+      py += (pyTarget - py) * 0.05;
+
+      ctx.clearRect(0, 0, cw, ch);
+      // 'lighter' makes overlapping orbs add up into bright aurora seams
+      ctx.globalCompositeOperation = 'lighter';
+      for (const o of orbs) drawOrb(o, t);
+      ctx.globalCompositeOperation = 'source-over';
+    };
+
+    const renderStatic = () => {
+      px = 0;
+      py = 0;
+      // a fixed, attractive frame (non-zero time so orbs aren't all centred)
+      render(8000);
+    };
+
+    // ---- loop with frame budget + gating ----
+    let raf = 0;
+    let running = false;
+    let visible = true;
+    let onScreen = true;
+    let last = 0;
+    const FRAME_MS = 1000 / 30;
+
+    const loop = (time: number) => {
+      raf = requestAnimationFrame(loop);
+      if (time - last < FRAME_MS) return;
+      last = time;
+      render(time);
+    };
+
+    const start = () => {
+      if (running || reduce) return;
+      if (!visible || !onScreen) return;
+      running = true;
+      last = 0;
+      raf = requestAnimationFrame(loop);
+    };
+    const stop = () => {
+      running = false;
+      if (raf) cancelAnimationFrame(raf);
+      raf = 0;
+    };
+
+    // ---- wiring ----
+    readColors();
+    resize();
+    buildOrbs();
+
+    if (reduce) {
+      renderStatic();
+    } else {
+      const themeObs = new MutationObserver(() => {
+        readColors();
+        buildOrbs();
+        if (!running) render(performance.now());
+      });
+      themeObs.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['data-theme'],
+      });
+
+      let resizeTimer = 0;
+      window.addEventListener(
+        'resize',
+        () => {
+          window.clearTimeout(resizeTimer);
+          resizeTimer = window.setTimeout(() => {
+            resize();
+            if (!running) render(performance.now());
+          }, 180);
+        },
+        { passive: true }
+      );
+
+      if (finePointer) {
+        window.addEventListener(
+          'pointermove',
+          (e) => {
+            const rect = root.getBoundingClientRect();
+            // normalise to -1..1 across the hero
+            pxTarget = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+            pyTarget = ((e.clientY - rect.top) / rect.height) * 2 - 1;
+          },
+          { passive: true }
+        );
+        window.addEventListener(
+          'pointerleave',
+          () => {
+            pxTarget = 0;
+            pyTarget = 0;
+          },
+          { passive: true }
+        );
+      }
+
+      document.addEventListener('visibilitychange', () => {
+        visible = !document.hidden;
+        visible ? start() : stop();
+      });
+
+      const io = new IntersectionObserver(
+        (entries) => {
+          onScreen = entries[0]?.isIntersecting ?? true;
+          onScreen ? start() : stop();
+        },
+        { threshold: 0 }
+      );
+      io.observe(root);
+
+      start();
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initSignatureMotion);
+  } else {
+    initSignatureMotion();
+  }
+</script>

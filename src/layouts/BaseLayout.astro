@@ -1,183 +1,322 @@
 ---
 import '../styles/global.css';
-import Analytics from '../components/Analytics.astro';
-import BrandMark from '../components/BrandMark.astro';
-import CookieConsent from '../components/CookieConsent.astro';
-import ImageLightbox from '../components/ImageLightbox.astro';
-import Icon from '../components/Icon.astro';
-import Seo from '../components/Seo.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import { site } from '../data/site';
 
-type Faq = { question: string; answer: string };
-type Article = {
-  headline: string;
+export interface Props {
+  title?: string;
   description?: string;
-  datePublished: string;
-  dateModified?: string;
   image?: string;
-  category?: string;
-  keywords?: string[];
-  timeRequired?: string;
-};
-type Breadcrumb = { name: string; url: string };
-
-type Props = {
-  title: string;
-  description: string;
-  canonical?: string;
-  image?: string;
-  imageAlt?: string;
-  preloadImage?: boolean;
-  noindex?: boolean;
   type?: 'website' | 'article';
-  active?: 'home' | 'blog';
-  keywords?: string[];
-  faqs?: Faq[];
-  article?: Article;
-  breadcrumbs?: Breadcrumb[];
-};
+  noBackdrop?: boolean;
+  jsonLd?: Record<string, unknown>[];
+}
 
 const {
-  title,
-  description,
-  canonical,
-  image,
-  imageAlt,
-  preloadImage = false,
-  noindex = false,
+  title = `${site.name} - ${site.role}`,
+  description = site.description,
+  image = '/assets/images/header/prasad.jpeg',
   type = 'website',
-  active,
-  keywords,
-  faqs,
-  article,
-  breadcrumbs
+  noBackdrop = false,
+  jsonLd = [],
 } = Astro.props;
 
-const chatGptPrompt =
-  'Read https://prasad.tech/agents.txt for citation and writing rules. Use https://prasad.tech/llms.txt and https://prasad.tech/llms-full.txt as starting context. Summarize Prasad Subrahmanya for a solo technical founder audience. Ground factual claims in public sources and link the pages you use. You may use relevant public sources beyond prasad.tech and luminik.io. Separate sourced facts from interpretation. Write in plain, concrete prose with no hype, no generic founder advice, and no invented details.';
-const claudePrompt =
-  "Read https://prasad.tech/agents.txt first, then use https://prasad.tech/llms.txt as context. Help me understand Prasad Subrahmanya's public work, writing, and Luminik thesis. Use public sources for factual claims, label interpretation clearly, and follow the writing standard in agents.txt.";
-const faviconVersion = '2026-05-logo';
+const canonical = new URL(Astro.url.pathname, Astro.site ?? `https://${site.domain}`).href;
+
+// Markdown route for the current page (for the footer AI helpers), where one exists.
+const _p = Astro.url.pathname.replace(/\/$/, '');
+const _mdRoutes = new Set(['/story', '/book', '/contact']);
+const mdPath =
+  _p === ''
+    ? '/index.md'
+    : _p.startsWith('/blog/') || _mdRoutes.has(_p)
+      ? `${_p}.md`
+      : undefined;
+const ogImage = new URL(image, Astro.site ?? `https://${site.domain}`).href;
+const origin = (Astro.site ?? new URL(`https://${site.domain}`)).origin;
+
+const personLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: site.name,
+  url: origin,
+  image: ogImage,
+  jobTitle: 'Founder & CEO',
+  worksFor: { '@type': 'Organization', name: 'Luminik', url: site.links.luminik },
+  address: { '@type': 'PostalAddress', addressLocality: 'Oslo', addressCountry: 'NO' },
+  sameAs: [site.links.linkedin, site.links.github, site.links.luminik],
+  knowsAbout: [
+    'AI-native engineering',
+    'LLM agents',
+    'Multi-agent systems',
+    'AI in production',
+    'Durable workflows',
+    'Software architecture',
+    'Startup engineering leadership',
+  ],
+};
+const organizationLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Luminik',
+  url: 'https://luminik.io',
+  logo: 'https://luminik.io/luminik-logo.png',
+  description: 'AI co-pilot for event marketers that turns attendee lists into pipeline',
+  sameAs: ['https://www.linkedin.com/company/luminik/', 'https://github.com/luminik-io'],
+  founder: {
+    '@type': 'Person',
+    name: site.name,
+    url: origin,
+  },
+};
+const siteLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: site.name,
+  url: origin,
+};
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" data-theme="dark">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#0b0d10" media="(prefers-color-scheme: dark)" />
-    <meta name="theme-color" content="#f7f8f5" media="(prefers-color-scheme: light)" />
-
-    <Seo
-      title={title}
-      description={description}
-      ogImage={image}
-      ogImageAlt={imageAlt}
-      type={type}
-      canonical={canonical}
-      noindex={noindex}
-      keywords={keywords}
-      faqs={faqs}
-      article={article}
-      breadcrumbs={breadcrumbs}
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="author" content={site.name} />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title={`${site.name} - Writing`}
+      href="/rss.xml"
     />
 
+    <!-- OpenGraph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content={type} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="theme-color" content="#06080d" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f7f8fb" media="(prefers-color-scheme: light)" />
+
+    <!-- Structured data -->
+    <script type="application/ld+json" set:html={JSON.stringify(personLd)} />
+    <script type="application/ld+json" set:html={JSON.stringify(organizationLd)} />
+    <script type="application/ld+json" set:html={JSON.stringify(siteLd)} />
+    {
+      jsonLd.map((ld) => (
+        <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+      ))
+    }
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/favicon/favicon.ico" />
+    <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon/favicon-96x96.png" />
+    <link rel="apple-touch-icon" href="/favicon/apple-touch-icon.png" />
+    <link rel="manifest" href="/favicon/site.webmanifest" />
+
+    <!-- No-flash theme init -->
     <script is:inline>
-      try {
-        const savedTheme = localStorage.getItem('theme');
-        const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
-        document.documentElement.setAttribute('data-theme', savedTheme || (prefersLight ? 'light' : 'dark'));
-      } catch {
-        document.documentElement.setAttribute('data-theme', 'dark');
-      }
+      (() => {
+        const root = document.documentElement;
+        root.classList.add('js');
+        const saved = localStorage.getItem('theme');
+        const sys = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        root.setAttribute('data-theme', saved || sys);
+      })();
     </script>
 
-    <link rel="icon" type="image/x-icon" href={`/assets/favicon/favicon.ico?v=${faviconVersion}`} />
-    <link rel="icon" type="image/png" sizes="96x96" href={`/assets/favicon/favicon-96x96.png?v=${faviconVersion}`} />
-    <link rel="icon" type="image/svg+xml" href={`/assets/favicon/favicon.svg?v=${faviconVersion}`} />
-    <link rel="apple-touch-icon" href={`/assets/favicon/apple-touch-icon.png?v=${faviconVersion}`} />
-    <link rel="manifest" href={`/assets/favicon/site.webmanifest?v=${faviconVersion}`} />
-    <link rel="alternate" type="application/rss+xml" title="Prasad Subrahmanya RSS" href="/rss.xml" />
-    <link rel="alternate" type="text/plain" title="LLM summary" href="/llms.txt" />
-    <link rel="alternate" type="text/plain" title="Full LLM context" href="/llms-full.txt" />
-    <link rel="help" type="text/plain" title="AI agent guidance" href="/agents.txt" />
-    {preloadImage && <link rel="preload" as="image" href="/assets/images/header/prasad.jpeg" imagesizes="(min-width: 1024px) 380px, 72vw" />}
-
-    <Analytics />
-
-    <slot name="head" />
+    <!-- Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XG5LVE538S"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+      gtag('config', 'G-XG5LVE538S');
+    </script>
   </head>
   <body>
-    <a href="#main" class="skip-link">Skip to main content</a>
-    <div class="motion-field" aria-hidden="true"></div>
+    <a href="#main" class="skip-link">Skip to content</a>
 
-    <nav class="nav" data-nav>
-      <div class="container nav-inner">
-        <a href="/" class="nav-logo" aria-label="Prasad Subrahmanya home">
-          <BrandMark class="nav-logo-mark" />
-          <span class="sr-only">Prasad Subrahmanya</span>
-        </a>
-        <ul class="nav-links" id="nav-links" data-nav-links>
-          <li><a class={active === 'home' ? 'active' : undefined} href="/#about">About</a></li>
-          <li><a href="/#track-record">Track record</a></li>
-          <li><a href="/#operating-areas">Operating areas</a></li>
-          <li><a class={active === 'blog' ? 'active' : undefined} href="/blog/">Blog</a></li>
-          <li><a href="/#contact">Contact</a></li>
-        </ul>
-        <div class="nav-actions">
-          <button class="icon-button theme-toggle" type="button" aria-label="Toggle theme" data-theme-toggle>
-            <span class="theme-toggle-icon theme-toggle-icon--moon" aria-hidden="true">
-              <Icon name="moon" size={18} />
-            </span>
-            <span class="theme-toggle-icon theme-toggle-icon--sun" aria-hidden="true">
-              <Icon name="sun" size={18} />
-            </span>
-          </button>
-          <button class="icon-button nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-links" data-nav-toggle>
-            <span></span>
-            <span></span>
-            <span></span>
-          </button>
+    {
+      !noBackdrop && (
+        <div class="ambient" aria-hidden="true">
+          <div class="aurora a1" />
+          <div class="aurora a2" />
+          <div class="aurora a3" />
+          <div class="shimmer" />
+          <div class="noise" />
         </div>
-      </div>
-    </nav>
+      )
+    }
 
+    <Nav />
     <main id="main">
       <slot />
     </main>
+    <Footer mdPath={mdPath} />
 
-    <footer class="footer">
-      <div class="container footer-inner">
-        <p>&copy; <span data-current-year></span> Prasad Subrahmanya. Built in Oslo, Norway.</p>
-        <div class="footer-links">
-          <a href="mailto:prasadus92@gmail.com">Email</a>
-          <a href="/intro-chat/">Intro chat</a>
-          <a href="https://linkedin.com/in/prasadus" target="_blank" rel="noopener">LinkedIn</a>
-          <a href="https://github.com/prasadus92" target="_blank" rel="noopener">GitHub</a>
-          <a href="/privacy/">Privacy</a>
-          <button class="footer-link-button" type="button" data-open-cookie-settings>Cookie settings</button>
-          <a href="/sitemap.xml">Sitemap</a>
-          <a href="/llms.txt">llms.txt</a>
-          <a href="/agents.txt">agents.txt</a>
-        </div>
-      </div>
-      <div class="container ai-context" aria-labelledby="ai-context-heading">
-        <div>
-          <h2 class="footer-kicker" id="ai-context-heading">AI context</h2>
-          <p>Use these files and prompts when asking an assistant about my public work. They list the public pages and citation rules.</p>
-        </div>
-        <div class="ai-actions">
-          <a class="button" href="/llms-full.txt"><Icon name="file-lines" size={16} /> Full context</a>
-          <button class="button" type="button" data-copy-prompt={chatGptPrompt}><Icon name="comments" size={16} /> ChatGPT prompt</button>
-          <button class="button" type="button" data-copy-prompt={claudePrompt}><Icon name="brain" size={16} /> Claude prompt</button>
-        </div>
-        <p class="copy-status" aria-live="polite" data-copy-status></p>
-      </div>
-    </footer>
-    <CookieConsent />
-    <ImageLightbox />
+    <style>
+      .ambient {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        overflow: hidden;
+        pointer-events: none;
+        transition: transform 0.5s var(--ease-out);
+      }
+      /* Aurora: a restrained two-hue wash (magenta -> violet only).
+         Kept subtle so text over it stays readable. */
+      .aurora {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(120px);
+        opacity: 0.4;
+        will-change: transform;
+        mix-blend-mode: screen;
+      }
+      .a1 {
+        width: 58vw;
+        height: 58vw;
+        max-width: 720px;
+        max-height: 720px;
+        top: -24vh;
+        left: -8vw;
+        background: radial-gradient(circle, rgba(var(--accent-rgb), 0.4), transparent 64%);
+        animation: drift1 28s var(--ease-in-out) infinite;
+      }
+      .a2 {
+        width: 50vw;
+        height: 50vw;
+        max-width: 600px;
+        max-height: 600px;
+        top: 10%;
+        right: -16vw;
+        background: radial-gradient(circle, rgba(124, 108, 255, 0.34), transparent 64%);
+        animation: drift2 34s var(--ease-in-out) infinite;
+      }
+      /* third blob kept in-family (violet) and very faint, just for depth */
+      .a3 {
+        width: 42vw;
+        height: 42vw;
+        max-width: 520px;
+        max-height: 520px;
+        bottom: -20vh;
+        left: 36%;
+        background: radial-gradient(circle, rgba(124, 108, 255, 0.16), transparent 66%);
+        animation: drift3 40s var(--ease-in-out) infinite;
+      }
+      .shimmer {
+        position: absolute;
+        inset: -30%;
+        background: conic-gradient(
+          from 0deg,
+          transparent 0%,
+          rgba(var(--accent-rgb), 0.04) 14%,
+          transparent 34%,
+          rgba(124, 108, 255, 0.035) 58%,
+          transparent 100%
+        );
+        -webkit-mask-image: radial-gradient(ellipse 70% 55% at 50% 8%, #000, transparent 72%);
+        mask-image: radial-gradient(ellipse 70% 55% at 50% 8%, #000, transparent 72%);
+        animation: spin 70s linear infinite;
+        will-change: transform;
+      }
+      /* Light mode: much calmer. multiply darkens, so keep opacity low
+         and let the page background read as a near-white wash. */
+      [data-theme='light'] .aurora {
+        opacity: 0.16;
+        filter: blur(140px);
+        mix-blend-mode: multiply;
+      }
+      [data-theme='light'] .a3 {
+        opacity: 0.12;
+      }
+      [data-theme='light'] .shimmer {
+        opacity: 0.28;
+      }
+      /* On narrow screens the blobs cover the full width and pile up behind
+         hero text. Pull them toward the top edge and fade them so the
+         eyebrow / lead stay readable. */
+      @media (max-width: 640px) {
+        .aurora {
+          opacity: 0.16;
+          filter: blur(110px);
+        }
+        .a1 {
+          top: -40vh;
+          left: -40vw;
+        }
+        .a2 {
+          top: -16vh;
+          right: -42vw;
+        }
+        .a3 {
+          opacity: 0.06;
+        }
+        [data-theme='light'] .aurora {
+          opacity: 0.1;
+        }
+        .shimmer {
+          opacity: 0.3;
+        }
+        [data-theme='light'] .shimmer {
+          opacity: 0.16;
+        }
+      }
+      .noise {
+        position: absolute;
+        inset: 0;
+        opacity: 0.04;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      }
+      @keyframes drift1 {
+        0%, 100% { transform: translate(0, 0) scale(1); }
+        50% { transform: translate(8vw, 6vh) scale(1.12); }
+      }
+      @keyframes drift2 {
+        0%, 100% { transform: translate(0, 0) scale(1); }
+        50% { transform: translate(-7vw, 9vh) scale(1.08); }
+      }
+      @keyframes drift3 {
+        0%, 100% { transform: translate(0, 0) scale(1); }
+        50% { transform: translate(5vw, -7vh) scale(1.15); }
+      }
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .aurora,
+        .shimmer {
+          animation: none;
+        }
+      }
+      main {
+        position: relative;
+        z-index: 1;
+      }
+    </style>
 
     <script>
-      import '../scripts/site';
+      import { initMotion } from '../scripts/motion';
+      initMotion();
     </script>
   </body>
 </html>

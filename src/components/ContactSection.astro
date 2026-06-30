@@ -1,0 +1,182 @@
+---
+import SectionHeader from './SectionHeader.astro';
+import Icon from './Icon.astro';
+import { site } from '../data/site';
+---
+
+<section class="section" id="contact">
+  <div class="container">
+    <div class="contact-panel glass reveal">
+      <div class="contact-glow" aria-hidden="true"></div>
+      <div class="contact-grid">
+        <div class="contact-left">
+          <p class="eyebrow">Contact</p>
+          <h2>Let's talk.</h2>
+          <p class="contact-lead muted">
+            If you're building something hard in AI, or hiring someone who has, I'd like to hear about
+            it.
+          </p>
+
+          <div class="contact-cta-row">
+            <a href="/book" class="btn btn-primary contact-book">
+              Book a 15-minute call <Icon name="arrowRight" size={16} />
+            </a>
+            <a href="/contact" class="btn btn-ghost">All ways to reach me</a>
+          </div>
+        </div>
+
+        <aside class="building card glass" data-tilt="off">
+          <span class="building-label mono">Currently building</span>
+          <a href={site.links.luminik} target="_blank" rel="noopener" class="building-item">
+            <img src="/assets/images/logos/luminik-icon.svg" alt="Luminik" width="40" height="40" loading="lazy" decoding="async" />
+            <div>
+              <strong>Luminik</strong>
+              <span class="muted">Multi-agent platform that turns event spend into pipeline</span>
+            </div>
+            <Icon name="arrowUpRight" size={16} class="trail" />
+          </a>
+          <a href={site.links.alfred} target="_blank" rel="noopener" class="building-item">
+            <img src="/assets/images/logos/alfred-logo.png" alt="Alfred" width="40" height="40" loading="lazy" decoding="async" />
+            <div>
+              <strong>Alfred</strong>
+              <span class="muted">Autonomous coding agents that ship while you're away</span>
+            </div>
+            <Icon name="arrowUpRight" size={16} class="trail" />
+          </a>
+        </aside>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact-panel {
+    position: relative;
+    overflow: hidden;
+    padding: clamp(32px, 5vw, 64px);
+    border-radius: var(--r-xl);
+  }
+  .contact-glow {
+    position: absolute;
+    width: 60%;
+    height: 140%;
+    top: -20%;
+    right: -10%;
+    background: var(--grad-halo);
+    pointer-events: none;
+  }
+  .contact-grid {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: clamp(28px, 4vw, 56px);
+    align-items: start;
+  }
+  .contact-left h2 {
+    margin-top: 14px;
+    max-width: 16ch;
+  }
+  .contact-lead {
+    margin-top: 18px;
+    max-width: 46ch;
+    font-size: var(--fs-lead);
+    line-height: 1.6;
+  }
+  .contact-cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 26px;
+  }
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 28px;
+  }
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 15px 18px;
+    border-radius: var(--r-md);
+    color: var(--ink);
+    font-size: 0.98rem;
+  }
+  .contact-link span {
+    flex: 1;
+  }
+  .contact-link .trail,
+  .building-item .trail {
+    color: var(--text-tertiary);
+    transition: transform var(--dur-1) var(--ease-out), color var(--dur-1) var(--ease-out);
+  }
+  .contact-link:hover .trail,
+  .building-item:hover .trail {
+    color: var(--accent);
+    transform: translate(2px, -2px);
+  }
+  .contact-link :global(svg:first-child) {
+    color: var(--accent);
+  }
+
+  .building {
+    padding: 24px;
+    border-radius: var(--r-lg);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .building-label {
+    font-size: var(--fs-xs);
+    letter-spacing: 0.05em;
+    color: var(--text-tertiary);
+    margin-bottom: 8px;
+  }
+  .building-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px;
+    border-radius: var(--r-md);
+    border: 1px solid transparent;
+    transition: background var(--dur-2) var(--ease-out), border-color var(--dur-2) var(--ease-out);
+  }
+  .building-item:hover {
+    background: var(--glass-bg);
+    border-color: var(--glass-border);
+  }
+  .building-item img,
+  .building-mark {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--r-md);
+    flex: 0 0 auto;
+  }
+  .building-mark {
+    display: grid;
+    place-items: center;
+    color: var(--accent);
+    background: rgba(var(--accent-rgb), 0.1);
+    border: 1px solid rgba(var(--accent-rgb), 0.18);
+  }
+  .building-item div {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .building-item strong {
+    font-family: var(--font-display);
+  }
+  .building-item span.muted {
+    font-size: 0.84rem;
+    line-height: 1.4;
+  }
+
+  @media (max-width: 820px) {
+    .contact-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

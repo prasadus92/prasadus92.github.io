@@ -1,0 +1,223 @@
+---
+import SectionHeader from './SectionHeader.astro';
+import Icon from './Icon.astro';
+import { Icon as LIcon } from 'astro-icon/components';
+import { work, earlier } from '../data/site';
+---
+
+<section class="section" id="work">
+  <div class="container">
+    <SectionHeader
+      eyebrow="Work"
+      title="Where I've <span class='grad-text'>built and shipped</span>."
+      lead="Founder and operator across regulated, high-stakes domains: events, private equity, field service, and algorithmic trading."
+    />
+
+    <div class="timeline">
+      {
+        work.map((job, i) => (
+          <article class={`job glass card reveal reveal-d${(i % 4) + 1}`}>
+            <div class="job-rail" aria-hidden="true">
+              <span class={`job-node ${job.current ? 'now' : ''}`}>
+                <LIcon name={job.icon} />
+              </span>
+            </div>
+            <div class="job-main">
+              <div class="job-head">
+                <div>
+                  <h3 class="job-company">
+                    {job.company}
+                    {job.href && (
+                      <a href={job.href} target="_blank" rel="noopener" aria-label={`Visit ${job.company}`}>
+                        <Icon name="arrowUpRight" size={16} />
+                      </a>
+                    )}
+                  </h3>
+                  <p class="job-role">{job.role}</p>
+                </div>
+                <span class="job-period mono">{job.period}</span>
+              </div>
+              <p class="job-body">{job.body}</p>
+              <div class="job-tags">
+                {job.tags.map((t) => (
+                  <span class="chip">{t}</span>
+                ))}
+              </div>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+
+    <div class="earlier reveal">
+      <span class="earlier-label mono">Earlier</span>
+      <div class="earlier-grid">
+        {
+          earlier.map((e) => (
+            <div class="earlier-item">
+              <strong>{e.company}</strong>
+              <span class="earlier-role">{e.role}</span>
+              <span class="earlier-note muted">{e.note}</span>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .timeline {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(14px, 1.6vw, 20px);
+  }
+  .job {
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    gap: 16px;
+    padding: clamp(22px, 2.4vw, 34px);
+    overflow: hidden;
+  }
+  .job-rail {
+    display: flex;
+    justify-content: center;
+    padding-top: 2px;
+  }
+  .job-node {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    flex: 0 0 auto;
+    color: var(--text-secondary);
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border-strong);
+    transition: color var(--dur-2) var(--ease-out), background var(--dur-2) var(--ease-out),
+      border-color var(--dur-2) var(--ease-out);
+  }
+  .job-node :global(svg) {
+    width: 19px;
+    height: 19px;
+  }
+  /* filled = current/latest, outline = past */
+  .job-node.now {
+    background: var(--grad-brand);
+    color: var(--accent-ink);
+    border-color: transparent;
+    /* crisp 1px ring + soft glow; avoids the muddy fringe a wide
+       semi-transparent spread shadow leaves on the circle's edges */
+    box-shadow: 0 0 0 1px rgba(var(--accent-rgb), 0.28),
+      0 8px 20px -8px rgba(var(--accent-rgb), 0.5);
+  }
+  .job:hover .job-node:not(.now) {
+    color: var(--ink);
+    border-color: var(--accent);
+  }
+  .job-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .job-company {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: var(--fs-h3);
+  }
+  .job-company a {
+    color: var(--text-tertiary);
+    transition: color var(--dur-1) var(--ease-out), transform var(--dur-1) var(--ease-out);
+  }
+  .job-company a:hover {
+    color: var(--accent);
+    transform: translate(2px, -2px);
+  }
+  .job-role {
+    margin-top: 2px;
+    color: var(--accent);
+    font-weight: 500;
+    font-size: 0.98rem;
+  }
+  .job-period {
+    font-size: var(--fs-xs);
+    color: var(--text-tertiary);
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+  }
+  .job-body {
+    margin-top: 14px;
+    color: var(--text-secondary);
+    max-width: 70ch;
+    line-height: 1.65;
+  }
+  .job-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 18px;
+  }
+
+  .earlier {
+    margin-top: clamp(36px, 4vw, 56px);
+    padding-top: 28px;
+    border-top: 1px solid var(--glass-border);
+  }
+  .earlier-label {
+    font-size: var(--fs-xs);
+    letter-spacing: 0.05em;
+    color: var(--text-tertiary);
+  }
+  .earlier-grid {
+    margin-top: 18px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: clamp(14px, 2vw, 24px);
+  }
+  .earlier-item {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .earlier-item strong {
+    font-family: var(--font-display);
+    font-size: 1.02rem;
+  }
+  .earlier-role {
+    font-size: 0.85rem;
+    color: var(--accent);
+  }
+  .earlier-note {
+    font-size: 0.85rem;
+    line-height: 1.45;
+  }
+
+  @media (max-width: 720px) {
+    .job {
+      grid-template-columns: 38px 1fr;
+      gap: 12px;
+    }
+    .job-node {
+      width: 36px;
+      height: 36px;
+    }
+    .job-node :global(svg) {
+      width: 17px;
+      height: 17px;
+    }
+    .earlier-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  @media (max-width: 420px) {
+    .job {
+      grid-template-columns: 1fr;
+    }
+    .job-rail {
+      justify-content: flex-start;
+    }
+  }
+</style>

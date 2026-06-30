@@ -1,0 +1,126 @@
+---
+import { Icon } from 'astro-icon/components';
+import SectionHeader from './SectionHeader.astro';
+
+const nodes = [
+  { icon: 'lucide:radio', title: 'Signals', sub: 'Events, CRM, product data' },
+  { icon: 'lucide:bot', title: 'Agents', sub: 'Plan, act, hand off' },
+  { icon: 'lucide:shield-check', title: 'Evals', sub: 'Judges, guardrails, error bars' },
+  { icon: 'lucide:refresh-cw', title: 'Durable runs', sub: 'Retry, resume, recover' },
+  { icon: 'lucide:trending-up', title: 'Outcomes', sub: 'Pipeline, ARR, resolution' },
+];
+---
+
+<section class="section" id="system">
+  <div class="container">
+    <SectionHeader
+      eyebrow="System"
+      title="The shape of what I <span class='grad-text'>build</span>."
+      lead="Most of my work looks like this loop: turn signals into action with agents, prove the behavior with evals, run it durably, and tie it to the number that matters."
+      align="center"
+    />
+
+    <div class="flow" role="img" aria-label="Signals to Agents to Evals to Durable runs to Outcomes">
+      {
+        nodes.map((n, i) => (
+          <>
+            <div class={`fnode glass card reveal reveal-d${i + 1}`} data-tilt="off">
+              <span class="fnode-icon"><Icon name={n.icon} /></span>
+              <strong>{n.title}</strong>
+              <span class="fnode-sub">{n.sub}</span>
+            </div>
+            {i < nodes.length - 1 && <span class={`fconn reveal reveal-d${i + 1}`} aria-hidden="true" />}
+          </>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .flow {
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    gap: 0;
+    flex-wrap: nowrap;
+  }
+  .fnode {
+    flex: 1 1 0;
+    min-width: 0;
+    padding: 22px 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+  }
+  .fnode-icon {
+    display: grid;
+    place-items: center;
+    width: 50px;
+    height: 50px;
+    border-radius: var(--r-md);
+    color: var(--accent);
+    background: rgba(var(--accent-rgb), 0.1);
+    border: 1px solid rgba(var(--accent-rgb), 0.2);
+    margin-bottom: 4px;
+  }
+  .fnode-icon :global(svg) {
+    width: 24px;
+    height: 24px;
+  }
+  .fnode strong {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+  }
+  .fnode-sub {
+    font-size: 0.82rem;
+    color: var(--text-tertiary);
+    line-height: 1.4;
+  }
+  .fconn {
+    flex: 0 0 clamp(20px, 4vw, 64px);
+    align-self: center;
+    height: 2px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    background-size: 200% 100%;
+    opacity: 0.7;
+    animation: flow 3.5s linear infinite;
+  }
+  @keyframes flow {
+    to {
+      background-position: -200% 0;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .fconn {
+      animation: none;
+    }
+  }
+  @media (max-width: 760px) {
+    .flow {
+      flex-direction: column;
+      align-items: center;
+    }
+    .fnode {
+      width: 100%;
+      max-width: 320px;
+      flex: none;
+    }
+    .fconn {
+      width: 2px;
+      height: 28px;
+      flex-basis: 28px;
+      background: linear-gradient(180deg, var(--accent), var(--accent-2));
+      background-size: 100% 200%;
+      animation: flowv 3.5s linear infinite;
+    }
+  }
+  @keyframes flowv {
+    to {
+      background-position: 0 -200%;
+    }
+  }
+</style>

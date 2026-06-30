@@ -1,0 +1,76 @@
+---
+import { Icon } from 'astro-icon/components';
+import SectionHeader from './SectionHeader.astro';
+import { principles } from '../data/site';
+---
+
+<section class="section" id="principles">
+  <div class="container">
+    <SectionHeader
+      eyebrow="Principles"
+      title="What I <span class='grad-text'>believe</span>."
+      lead="The mindset under the work. These are the ideas I keep testing against reality, and they keep holding up."
+    />
+
+    <div class="principles-grid">
+      {
+        principles.map((p, i) => (
+          <article class={`principle glass card reveal reveal-d${(i % 3) + 1}`} data-tilt="off">
+            <span class="principle-icon">
+              <Icon name={p.icon} />
+            </span>
+            <h3>{p.title}</h3>
+            <p>{p.body}</p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .principles-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(14px, 1.5vw, 18px);
+  }
+  .principle {
+    padding: clamp(24px, 2.2vw, 32px);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .principle-icon {
+    display: grid;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    border-radius: var(--r-md);
+    color: var(--accent);
+    background: rgba(var(--accent-rgb), 0.1);
+    border: 1px solid rgba(var(--accent-rgb), 0.2);
+    margin-bottom: 4px;
+  }
+  .principle-icon :global(svg) {
+    width: 22px;
+    height: 22px;
+  }
+  .principle h3 {
+    font-size: 1.16rem;
+  }
+  .principle p {
+    color: var(--text-secondary);
+    font-size: 0.96rem;
+    line-height: 1.6;
+  }
+  @media (max-width: 900px) {
+    .principles-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  @media (max-width: 560px) {
+    .principles-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

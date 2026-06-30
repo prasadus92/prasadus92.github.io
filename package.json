@@ -1,39 +1,36 @@
 {
-  "name": "prasadus92.github.io",
+  "name": "prasad-tech",
+  "type": "module",
   "version": "1.0.0",
   "private": true,
-  "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "prebuild": "node scripts/generate-favicon.mjs && node scripts/generate-og.mjs",
+    "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "check": "astro check",
-    "favicon": "node scripts/generate-favicon.mjs",
-    "og": "node scripts/generate-og.mjs"
+    "og": "node scripts/render-og.mjs",
+    "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/mdx": "^5.0.4",
-    "@astrojs/react": "^5.0.4",
     "@astrojs/rss": "^4.0.18",
-    "@types/react": "^19.2.14",
-    "@types/react-dom": "^19.2.3",
-    "astro": "^6.2.2",
-    "mermaid": "^11.15.0",
-    "react": "^19.2.5",
-    "react-dom": "^19.2.5"
+    "@astrojs/sitemap": "^3.2.1",
+    "@fontsource-variable/instrument-sans": "^5.2.8",
+    "@fontsource-variable/quicksand": "^5.2.10",
+    "@fontsource/fragment-mono": "^5.2.8",
+    "@iconify-json/lucide": "^1.2.114",
+    "@iconify-json/simple-icons": "^1.2.87",
+    "astro": "^5.6.1",
+    "astro-icon": "^1.1.5",
+    "katex": "^0.17.0",
+    "motion": "^11.13.1",
+    "rehype-external-links": "^3.0.0",
+    "rehype-katex": "^7.0.1",
+    "remark-math": "^6.0.0"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.9.9",
-    "@resvg/resvg-js": "^2.6.2",
-    "@types/node": "^25.9.1",
-    "node-html-markdown": "^2.0.0",
-    "satori": "^0.26.0",
-    "sharp": "^0.34.5",
-    "typescript": "^6.0.3"
+    "playwright": "^1.61.1"
   },
   "overrides": {
-    "yaml": "^2.8.3",
     "esbuild": "^0.28.1"
   }
 }

@@ -1,0 +1,98 @@
+---
+import { Icon } from 'astro-icon/components';
+import SectionHeader from './SectionHeader.astro';
+import IconUI from './Icon.astro';
+import { beyondWork } from '../data/site';
+---
+
+<section class="section" id="beyond">
+  <div class="container">
+    <SectionHeader
+      eyebrow="Beyond the work"
+      title="Away from the <span class='grad-text'>screen</span>."
+      lead="A bit of who I am when I am not shipping."
+    />
+
+    <div class="beyond-grid">
+      {
+        beyondWork.map((b, i) => (
+          <article class={`beyond glass card reveal reveal-d${(i % 4) + 1}`} data-tilt="off">
+            <span class="beyond-icon">
+              <Icon name={b.icon} />
+            </span>
+            <h3>{b.title}</h3>
+            <p>{b.body}</p>
+            {b.href && (
+              <a href={b.href} target="_blank" rel="noopener" class="beyond-link">
+                {b.hrefLabel}
+                <IconUI name="arrowUpRight" size={14} />
+              </a>
+            )}
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .beyond-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: clamp(14px, 1.5vw, 18px);
+  }
+  .beyond {
+    padding: clamp(22px, 2vw, 30px);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .beyond-icon {
+    display: grid;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    border-radius: var(--r-md);
+    color: var(--accent);
+    background: rgba(var(--accent-rgb), 0.1);
+    border: 1px solid rgba(var(--accent-rgb), 0.2);
+  }
+  .beyond-icon :global(svg) {
+    width: 22px;
+    height: 22px;
+  }
+  .beyond h3 {
+    font-size: 1.1rem;
+  }
+  .beyond p {
+    color: var(--text-secondary);
+    font-size: 0.94rem;
+    line-height: 1.6;
+    flex: 1;
+  }
+  .beyond-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--accent);
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 0.9rem;
+  }
+  .beyond-link :global(svg) {
+    transition: transform var(--dur-1) var(--ease-out);
+  }
+  .beyond-link:hover :global(svg) {
+    transform: translate(2px, -2px);
+  }
+  @media (max-width: 900px) {
+    .beyond-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  @media (max-width: 520px) {
+    .beyond-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

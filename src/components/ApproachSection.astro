@@ -1,0 +1,86 @@
+---
+import SectionHeader from './SectionHeader.astro';
+import { approach } from '../data/site';
+---
+
+<section class="section" id="approach">
+  <div class="container">
+    <SectionHeader
+      eyebrow="Approach"
+      title="How I <span class='grad-text'>work</span>."
+      lead="A few principles I keep coming back to, from building products people paid for before they were finished."
+    />
+
+    <div class="squares">
+      {
+        approach.map((a, i) => (
+          <article class={`sq glass card reveal reveal-d${(i % 3) + 1}`}>
+            <span class="sq-n mono">{a.n}</span>
+            <h3 class="sq-title">{a.title}</h3>
+            <p class="sq-body">{a.body}</p>
+            <span class="sq-corner" aria-hidden="true" />
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .squares {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(14px, 1.4vw, 18px);
+  }
+  .sq {
+    position: relative;
+    padding: clamp(24px, 2.2vw, 34px);
+    min-height: 230px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .sq-n {
+    font-size: 0.8rem;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+  }
+  .sq-title {
+    margin-top: 16px;
+    font-size: 1.22rem;
+  }
+  .sq-body {
+    margin-top: 12px;
+    color: var(--text-secondary);
+    font-size: 0.96rem;
+    line-height: 1.6;
+  }
+  .sq-corner {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 72px;
+    height: 72px;
+    background: radial-gradient(circle at top right, var(--glow-soft), transparent 70%);
+    opacity: 0;
+    transition: opacity var(--dur-2) var(--ease-out);
+    pointer-events: none;
+  }
+  .sq:hover .sq-corner {
+    opacity: 1;
+  }
+
+  @media (max-width: 900px) {
+    .squares {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  @media (max-width: 560px) {
+    .squares {
+      grid-template-columns: 1fr;
+    }
+    .sq {
+      min-height: auto;
+    }
+  }
+</style>

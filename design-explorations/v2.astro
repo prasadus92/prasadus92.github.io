@@ -1,0 +1,1011 @@
+---
+import EditorialLayout from '../layouts/EditorialLayout.astro';
+import {
+  site,
+  heroStats,
+  impact,
+  work,
+  earlier,
+} from '../data/site';
+
+const year = new Date().getFullYear();
+---
+
+<EditorialLayout>
+  <!-- Comparison switcher chip (only on /v2). -->
+  <a href="/" class="ed-switch" aria-label="View the current site">
+    <span class="dot" aria-hidden="true"></span>
+    Theme: Sakura · view the other
+    <span class="arr" aria-hidden="true">&rarr;</span>
+  </a>
+
+  <!-- ======================= MASTHEAD ======================= -->
+  <header class="ed-masthead">
+    <div class="ed-wrap">
+      <div class="mast-row">
+        <div class="mast-lockup">
+          <span class="mast-mark" aria-hidden="true">運</span>
+          <div class="mast-id">
+            <span class="mast-name">Prasad</span>
+            <span class="mast-name">Subrahmanya</span>
+          </div>
+        </div>
+        <div class="mast-meta">
+          <span>{site.location}</span>
+          <span class="sep" aria-hidden="true">/</span>
+          <span>{site.role}</span>
+        </div>
+      </div>
+    </div>
+    <div class="mast-rule" aria-hidden="true"></div>
+  </header>
+
+  <!-- ======================= HERO ======================= -->
+  <section class="ed-hero">
+    <div class="ed-wrap hero-grid">
+      <!-- Left: crimson panel with rotated side label -->
+      <aside class="hero-panel">
+        <span class="panel-label" aria-hidden="true">Founder &amp; CEO · Luminik</span>
+        <div class="panel-body">
+          <span class="panel-no mono">01</span>
+          <p class="panel-quote">
+            Sell before you build. Work backward from a real customer's pain.
+          </p>
+        </div>
+        <div class="panel-sun" aria-hidden="true"></div>
+      </aside>
+
+      <!-- Center: headline -->
+      <div class="hero-head">
+        <p class="kicker mono">Founder &middot; technology leader</p>
+        <h1 class="hero-title">
+          I turn expensive,<br />
+          repetitive work into<br />
+          <em>products people pay for.</em>
+        </h1>
+        <p class="hero-lead">
+          3x technical founder. I spot the work people already pay to do, prove the demand, then
+          build and ship the product that captures it. Today I'm building
+          <a href={site.links.luminik} target="_blank" rel="noopener">Luminik</a>, and
+          <a href={site.links.alfred} target="_blank" rel="noopener">Alfred</a> in the open.
+        </p>
+        <div class="hero-cta">
+          <a href="/contact" class="btn btn-solid">Get in touch <span aria-hidden="true">&rarr;</span></a>
+          <a href="#work" class="btn btn-line">See the work</a>
+        </div>
+      </div>
+
+      <!-- Right: portrait -->
+      <div class="hero-portrait">
+        <div class="portrait-frame">
+          <img
+            src="/assets/images/header/prasad.jpeg"
+            width="520"
+            height="620"
+            alt={site.name}
+            fetchpriority="high"
+          />
+        </div>
+        <span class="portrait-cap mono">{site.location}</span>
+      </div>
+    </div>
+
+    <!-- Stat ledger across the bottom of the hero -->
+    <div class="ed-wrap">
+      <dl class="stat-ledger">
+        {
+          heroStats.map((s) => (
+            <div class="stat">
+              <dt>{s.value}</dt>
+              <dd>{s.label}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </section>
+
+  <!-- ======================= IMPACT ======================= -->
+  <section class="ed-section" id="impact">
+    <div class="ed-wrap">
+      <div class="sec-head">
+        <p class="kicker mono">Selected impact</p>
+        <h2 class="sec-title">What the work moved.</h2>
+      </div>
+      <div class="impact-grid">
+        {
+          impact.map((card, i) => (
+            <article class={`impact-card ${i === 0 ? 'is-wash' : ''}`}>
+              <span class="impact-kicker mono">{card.kicker}</span>
+              <p class="impact-metric">
+                {card.metric}
+                <span class="impact-unit">{card.unit}</span>
+              </p>
+              <p class="impact-body">{card.body}</p>
+              <ul class="impact-tags">
+                {card.tags.map((t) => (
+                  <li>{t}</li>
+                ))}
+              </ul>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= WORK ======================= -->
+  <section class="ed-section ed-section--alt" id="work">
+    <div class="ed-wrap">
+      <div class="sec-head">
+        <p class="kicker mono">Track record</p>
+        <h2 class="sec-title">Where I've built.</h2>
+      </div>
+
+      <ol class="work-list">
+        {
+          work.map((job, i) => (
+            <li class="work-item">
+              <span class="work-no mono">{String(i + 1).padStart(2, '0')}</span>
+              <div class="work-when mono">
+                {job.period}
+                {job.current && <span class="work-now">Now</span>}
+              </div>
+              <div class="work-main">
+                <h3 class="work-co">
+                  {job.href ? (
+                    <a href={job.href} target="_blank" rel="noopener">
+                      {job.company} <span class="work-arr" aria-hidden="true">&nearr;</span>
+                    </a>
+                  ) : (
+                    job.company
+                  )}
+                </h3>
+                <p class="work-role mono">{job.role}</p>
+                <p class="work-body">{job.body}</p>
+                <ul class="work-tags">
+                  {job.tags.map((t) => (
+                    <li>{t}</li>
+                  ))}
+                </ul>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+
+      <div class="earlier">
+        <span class="earlier-label mono">Earlier</span>
+        <ul class="earlier-list">
+          {
+            earlier.map((e) => (
+              <li>
+                <strong>{e.company}</strong>
+                <span class="earlier-role">{e.role}</span>
+                <span class="earlier-note">{e.note}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= WRITING ======================= -->
+  <section class="ed-section ed-writing">
+    <div class="ed-wrap writing-grid">
+      <div class="writing-copy">
+        <p class="kicker mono">Writing</p>
+        <h2 class="sec-title">Notes from the build.</h2>
+        <p class="writing-lead">
+          Deep, first-principles pieces on AI in production: durable workflows, agent fleets, evals,
+          and the failures nobody demos. Written from running code and real numbers.
+        </p>
+        <a href="/blog" class="btn btn-line">Read the writing <span aria-hidden="true">&rarr;</span></a>
+      </div>
+      <div class="writing-mark" aria-hidden="true">
+        <span class="mark-glyph">書</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= CONTACT ======================= -->
+  <section class="ed-section ed-contact" id="contact">
+    <div class="ed-wrap">
+      <div class="contact-panel">
+        <span class="contact-side" aria-hidden="true">Let's talk</span>
+        <div class="contact-inner">
+          <h2 class="contact-title">
+            If you're building something hard in AI, or hiring someone who has, I'd like to hear it.
+          </h2>
+          <div class="contact-cta">
+            <a href="/book" class="btn btn-cream">Book a 15-minute call <span aria-hidden="true">&rarr;</span></a>
+            <a href="/contact" class="btn btn-line-light">All ways to reach me</a>
+          </div>
+        </div>
+        <div class="contact-wash" aria-hidden="true"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= FOOTER ======================= -->
+  <footer class="ed-footer">
+    <div class="ed-wrap foot-row">
+      <span class="mono">{site.name}</span>
+      <nav class="foot-nav">
+        <a href={site.links.linkedin} target="_blank" rel="noopener">LinkedIn</a>
+        <a href={site.links.github} target="_blank" rel="noopener">GitHub</a>
+        <a href="/blog">Writing</a>
+        <a href="/contact">Contact</a>
+      </nav>
+      <span class="mono foot-year">&copy; {year} · Oslo</span>
+    </div>
+  </footer>
+</EditorialLayout>
+
+<style>
+  /* ---------- Shared primitives ---------- */
+  .ed-wrap {
+    width: 100%;
+    max-width: var(--maxw);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+  }
+  .mono {
+    font-family: var(--font-mono);
+  }
+  .kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--crimson);
+  }
+  .kicker::before {
+    content: '';
+    width: 26px;
+    height: 2px;
+    background: var(--crimson);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0.85em 1.4em;
+    border-radius: 3px;
+    font-size: 0.92rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    transition: transform 0.16s ease, background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  }
+  .btn:active {
+    transform: translateY(1px);
+  }
+  .btn-solid {
+    background: var(--crimson);
+    color: var(--cream);
+  }
+  .btn-solid:hover {
+    background: var(--crimson-deep);
+    transform: translateY(-2px);
+  }
+  .btn-line {
+    border: 1.5px solid var(--ink);
+    color: var(--ink);
+  }
+  .btn-line:hover {
+    background: var(--ink);
+    color: var(--cream);
+    transform: translateY(-2px);
+  }
+  .btn-cream {
+    background: var(--cream);
+    color: var(--ink);
+  }
+  .btn-cream:hover {
+    transform: translateY(-2px);
+    background: #fff;
+  }
+  .btn-line-light {
+    border: 1.5px solid rgba(247, 243, 236, 0.6);
+    color: var(--cream);
+  }
+  .btn-line-light:hover {
+    border-color: var(--cream);
+    background: rgba(247, 243, 236, 0.12);
+  }
+
+  /* ---------- Switcher chip ---------- */
+  .ed-switch {
+    position: fixed;
+    z-index: 50;
+    top: 16px;
+    right: 16px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    border-radius: 3px;
+    background: var(--ink);
+    color: var(--cream);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    box-shadow: 0 8px 24px -10px rgba(22, 20, 19, 0.5);
+    transition: transform 0.16s ease, background 0.2s ease;
+  }
+  .ed-switch:hover {
+    transform: translateY(-2px);
+    background: var(--crimson);
+  }
+  .ed-switch .dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--sakura);
+  }
+  .ed-switch .arr {
+    transition: transform 0.16s ease;
+  }
+  .ed-switch:hover .arr {
+    transform: translateX(3px);
+  }
+
+  /* ---------- Masthead ---------- */
+  .ed-masthead {
+    padding-top: clamp(28px, 4vw, 44px);
+  }
+  .mast-row {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .mast-lockup {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .mast-mark {
+    display: grid;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 4px;
+    background: var(--crimson);
+    color: var(--cream);
+    font-size: 1.6rem;
+    line-height: 1;
+    flex: 0 0 auto;
+  }
+  .mast-id {
+    display: flex;
+    flex-direction: column;
+    line-height: 0.98;
+  }
+  .mast-name {
+    font-size: clamp(1.1rem, 0.9rem + 0.6vw, 1.35rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .mast-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+  }
+  .mast-meta .sep {
+    color: var(--crimson);
+  }
+  .mast-rule {
+    margin-top: clamp(20px, 3vw, 32px);
+    height: 2px;
+    background: var(--ink);
+  }
+
+  /* ---------- Hero ---------- */
+  .ed-hero {
+    padding-top: clamp(36px, 5vw, 64px);
+    padding-bottom: clamp(40px, 5vw, 72px);
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 0.62fr 1.5fr 0.9fr;
+    gap: clamp(20px, 3vw, 40px);
+    align-items: stretch;
+  }
+
+  /* crimson side panel with vertical label */
+  .hero-panel {
+    position: relative;
+    background: var(--crimson);
+    color: var(--cream);
+    border-radius: 4px;
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 320px;
+    overflow: hidden;
+  }
+  .panel-label {
+    position: absolute;
+    top: 22px;
+    right: 16px;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    letter-spacing: 0.14em;
+    color: rgba(247, 243, 236, 0.92);
+  }
+  .panel-body {
+    position: relative;
+    z-index: 1;
+    margin-top: auto;
+    max-width: 18ch;
+  }
+  .panel-no {
+    display: block;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    opacity: 0.75;
+    margin-bottom: 12px;
+  }
+  .panel-quote {
+    font-size: clamp(1.05rem, 0.9rem + 0.5vw, 1.3rem);
+    font-weight: 600;
+    line-height: 1.28;
+    letter-spacing: -0.01em;
+  }
+  .panel-sun {
+    position: absolute;
+    top: -60px;
+    right: -60px;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 50% 50%, var(--sakura) 0%, rgba(247, 204, 216, 0) 70%);
+    opacity: 0.5;
+  }
+
+  /* headline */
+  .hero-head {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .hero-title {
+    margin-top: 18px;
+    font-size: clamp(2.2rem, 1.1rem + 4vw, 4.4rem);
+    line-height: 1.02;
+    letter-spacing: -0.03em;
+    font-weight: 700;
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--crimson);
+  }
+  .hero-lead {
+    margin-top: 26px;
+    max-width: 52ch;
+    font-size: clamp(1rem, 0.95rem + 0.25vw, 1.18rem);
+    line-height: 1.6;
+    color: var(--ink-soft);
+  }
+  .hero-lead a {
+    color: var(--ink);
+    font-weight: 600;
+    border-bottom: 2px solid var(--sakura);
+    transition: border-color 0.18s ease, color 0.18s ease;
+  }
+  .hero-lead a:hover {
+    color: var(--crimson);
+    border-color: var(--crimson);
+  }
+  .hero-cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 30px;
+  }
+
+  /* portrait */
+  .hero-portrait {
+    position: relative;
+    align-self: stretch;
+  }
+  .portrait-frame {
+    width: 100%;
+    height: 100%;
+    min-height: 320px;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1.5px solid var(--ink);
+  }
+  .portrait-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    filter: saturate(1.02) contrast(1.02);
+  }
+  .portrait-cap {
+    position: absolute;
+    left: 12px;
+    bottom: 12px;
+    padding: 5px 10px;
+    background: var(--cream);
+    color: var(--ink);
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    border-radius: 3px;
+  }
+
+  /* stat ledger */
+  .stat-ledger {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin-top: clamp(32px, 4vw, 48px);
+    border-top: 2px solid var(--ink);
+    border-bottom: 2px solid var(--ink);
+  }
+  .stat {
+    padding: 22px clamp(14px, 2vw, 28px);
+    border-right: 1px solid var(--rule);
+  }
+  .stat:last-child {
+    border-right: 0;
+  }
+  .stat dt {
+    font-size: clamp(1.7rem, 1.2rem + 1.6vw, 2.6rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: var(--crimson);
+    line-height: 1;
+  }
+  .stat dd {
+    margin-top: 8px;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
+    color: var(--ink-soft);
+  }
+
+  /* ---------- Section scaffold ---------- */
+  .ed-section {
+    padding-block: clamp(56px, 7vw, 110px);
+  }
+  .ed-section--alt {
+    background: var(--paper);
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .sec-head {
+    margin-bottom: clamp(36px, 4vw, 56px);
+  }
+  .sec-title {
+    margin-top: 16px;
+    font-size: clamp(1.9rem, 1.3rem + 2vw, 3.1rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.04;
+  }
+
+  /* ---------- Impact ---------- */
+  .impact-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .impact-card {
+    background: var(--cream);
+    padding: clamp(22px, 2.4vw, 34px);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .impact-card.is-wash {
+    background:
+      linear-gradient(155deg, var(--sakura-soft) 0%, rgba(247, 204, 216, 0.35) 42%, rgba(224, 39, 29, 0.1) 100%);
+  }
+  .impact-kicker {
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    color: var(--ink-soft);
+  }
+  .impact-metric {
+    font-size: clamp(2.4rem, 1.6rem + 2.6vw, 3.6rem);
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    line-height: 0.96;
+    color: var(--crimson);
+  }
+  .impact-unit {
+    display: block;
+    margin-top: 8px;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.01em;
+    font-weight: 400;
+    color: var(--ink-soft);
+    line-height: 1.4;
+  }
+  .impact-body {
+    font-size: 0.96rem;
+    line-height: 1.6;
+    color: var(--ink-soft);
+  }
+  .impact-tags {
+    list-style: none;
+    padding: 0;
+    margin-top: auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .impact-tags li {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.02em;
+    padding: 4px 9px;
+    border: 1px solid var(--rule-strong);
+    border-radius: 3px;
+    color: var(--ink-soft);
+  }
+
+  /* ---------- Work ---------- */
+  .work-list {
+    list-style: none;
+    padding: 0;
+    border-top: 1px solid var(--rule);
+  }
+  .work-item {
+    display: grid;
+    grid-template-columns: 44px 160px 1fr;
+    gap: clamp(16px, 2vw, 36px);
+    padding-block: clamp(26px, 3vw, 40px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .work-no {
+    font-size: 0.82rem;
+    color: var(--crimson);
+    padding-top: 4px;
+  }
+  .work-when {
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+    padding-top: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+  }
+  .work-now {
+    padding: 2px 8px;
+    border-radius: 3px;
+    background: var(--crimson);
+    color: var(--cream);
+    font-size: 0.66rem;
+    letter-spacing: 0.06em;
+  }
+  .work-co {
+    font-size: clamp(1.3rem, 1rem + 1vw, 1.85rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .work-co a {
+    transition: color 0.18s ease;
+  }
+  .work-co a:hover {
+    color: var(--crimson);
+  }
+  .work-arr {
+    font-size: 0.7em;
+    color: var(--crimson);
+  }
+  .work-role {
+    margin-top: 4px;
+    font-size: 0.8rem;
+    letter-spacing: 0.04em;
+    color: var(--ink-soft);
+  }
+  .work-body {
+    margin-top: 14px;
+    max-width: 64ch;
+    font-size: 0.98rem;
+    line-height: 1.62;
+    color: var(--ink-soft);
+  }
+  .work-tags {
+    list-style: none;
+    padding: 0;
+    margin-top: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .work-tags li {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    padding: 3px 9px;
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    color: var(--ink-soft);
+  }
+
+  .earlier {
+    margin-top: clamp(32px, 4vw, 48px);
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: clamp(16px, 2vw, 36px);
+  }
+  .earlier-label {
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    color: var(--crimson);
+    padding-top: 4px;
+  }
+  .earlier-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .earlier-list li {
+    background: var(--cream);
+    padding: 16px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .ed-section--alt .earlier-list li {
+    background: var(--paper);
+  }
+  .earlier-list strong {
+    font-size: 1rem;
+    font-weight: 700;
+  }
+  .earlier-role {
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    color: var(--crimson);
+  }
+  .earlier-note {
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+    line-height: 1.45;
+  }
+
+  /* ---------- Writing ---------- */
+  .writing-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 0.6fr;
+    gap: clamp(24px, 4vw, 56px);
+    align-items: center;
+  }
+  .writing-lead {
+    margin-top: 20px;
+    max-width: 56ch;
+    font-size: clamp(1rem, 0.95rem + 0.2vw, 1.15rem);
+    line-height: 1.62;
+    color: var(--ink-soft);
+  }
+  .writing-copy .btn-line {
+    margin-top: 26px;
+  }
+  .writing-mark {
+    justify-self: end;
+    display: grid;
+    place-items: center;
+    width: clamp(140px, 18vw, 220px);
+    aspect-ratio: 1;
+    border-radius: 4px;
+    background: var(--sakura-soft);
+    border: 1.5px solid var(--rule);
+  }
+  .mark-glyph {
+    font-size: clamp(4rem, 9vw, 7rem);
+    color: var(--crimson);
+    line-height: 1;
+  }
+
+  /* ---------- Contact ---------- */
+  .ed-contact {
+    padding-bottom: clamp(56px, 7vw, 110px);
+  }
+  .contact-panel {
+    position: relative;
+    background: var(--ink);
+    color: var(--cream);
+    border-radius: 6px;
+    padding: clamp(34px, 5vw, 72px);
+    overflow: hidden;
+  }
+  .contact-side {
+    position: absolute;
+    top: 50%;
+    right: 18px;
+    transform: translateY(-50%);
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.18em;
+    color: var(--sakura);
+    z-index: 2;
+  }
+  .contact-inner {
+    position: relative;
+    z-index: 2;
+    max-width: 22ch;
+  }
+  .contact-title {
+    font-size: clamp(1.8rem, 1.2rem + 2.2vw, 3rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.08;
+    text-wrap: balance;
+  }
+  .contact-cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 32px;
+  }
+  .contact-wash {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background:
+      radial-gradient(60% 90% at 100% 0%, rgba(224, 39, 29, 0.55) 0%, transparent 60%),
+      radial-gradient(50% 80% at 90% 100%, rgba(247, 204, 216, 0.28) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  /* ---------- Footer ---------- */
+  .ed-footer {
+    border-top: 2px solid var(--ink);
+    padding-block: 26px;
+  }
+  .foot-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+  }
+  .foot-nav {
+    display: flex;
+    gap: 20px;
+  }
+  .foot-nav a {
+    transition: color 0.18s ease;
+  }
+  .foot-nav a:hover {
+    color: var(--crimson);
+  }
+
+  /* ======================= RESPONSIVE ======================= */
+  @media (max-width: 1080px) {
+    .hero-grid {
+      grid-template-columns: 1.4fr 0.9fr;
+      grid-template-areas:
+        'head portrait'
+        'panel portrait';
+    }
+    .hero-head {
+      grid-area: head;
+    }
+    .hero-portrait {
+      grid-area: portrait;
+    }
+    .hero-panel {
+      grid-area: panel;
+      min-height: 200px;
+    }
+    .writing-grid {
+      grid-template-columns: 1.2fr 0.5fr;
+    }
+  }
+
+  @media (max-width: 820px) {
+    .impact-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .hero-grid {
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        'portrait'
+        'head'
+        'panel';
+      gap: 24px;
+    }
+    .hero-portrait {
+      max-width: 320px;
+    }
+    .portrait-frame {
+      aspect-ratio: 4 / 5;
+      min-height: 0;
+    }
+    .hero-panel {
+      min-height: 0;
+      padding: 24px 56px 24px 22px;
+    }
+    .panel-body {
+      margin-top: 0;
+    }
+    .work-item {
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+    .work-no {
+      padding-top: 0;
+    }
+    .work-when {
+      flex-direction: row;
+      align-items: center;
+      padding-top: 0;
+    }
+    .earlier {
+      grid-template-columns: 1fr;
+    }
+    .earlier-list {
+      grid-template-columns: 1fr;
+    }
+    .writing-grid {
+      grid-template-columns: 1fr;
+    }
+    .writing-mark {
+      justify-self: start;
+    }
+    .ed-switch {
+      font-size: 0.66rem;
+      padding: 7px 11px;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .stat-ledger {
+      grid-template-columns: 1fr;
+    }
+    .stat {
+      border-right: 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .stat:last-child {
+      border-bottom: 0;
+    }
+    .mast-meta {
+      font-size: 0.7rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .btn,
+    .ed-switch,
+    .ed-switch .arr {
+      transition: none;
+    }
+  }
+</style>
