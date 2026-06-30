@@ -29,5 +29,8 @@
   },
   "devDependencies": {
     "playwright": "^1.61.1"
+  },
+  "overrides": {
+    "esbuild": "^0.28.1"
   }
 }
