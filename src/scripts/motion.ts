@@ -178,31 +178,62 @@ function initParallax() {
   }
 }
 
+/*
+  Count-up on scroll-into-view (Revyl-style).
+
+  Markup contract — the element's text content IS the final value, so no-JS and
+  reduced-motion readers always see the real number:
+    <span data-count>$3.6M</span>
+  The utility parses the FIRST number it finds in that text (here 3.6), keeps
+  everything before it as a prefix ("$") and after it as a suffix ("M"), and
+  animates only the number. Decimals are inferred from the literal so "3.6"
+  counts with one decimal and "8" counts as an integer. Values with no leading
+  number (e.g. "0→$3.6M", "3×") are left untouched.
+*/
 function initCounters() {
   const nums = document.querySelectorAll<HTMLElement>('[data-count]');
-  if (!nums.length || reduceMotion()) {
-    nums.forEach((n) => (n.textContent = n.dataset.count || n.textContent));
-    return;
-  }
+  if (!nums.length) return;
+
+  // reduced motion / no-JS: text content already holds the final value.
+  if (reduceMotion()) return;
+
+  const animate = (el: HTMLElement) => {
+    const raw = (el.dataset.countTo ?? el.textContent ?? '').trim();
+    // first number, with optional decimals; capture prefix and suffix around it
+    const m = raw.match(/^(\D*?)(\d[\d,]*(?:\.\d+)?)(.*)$/s);
+    if (!m) return; // nothing numeric to animate; leave as-is
+    const prefix = m[1];
+    const numStr = m[2].replace(/,/g, '');
+    const suffix = m[3];
+    const target = parseFloat(numStr);
+    if (!isFinite(target)) return;
+    const dot = numStr.indexOf('.');
+    const decimals = dot === -1 ? 0 : numStr.length - dot - 1;
+    const hadComma = m[2].includes(',');
+    const fmt = (v: number) => {
+      const s = v.toFixed(decimals);
+      return hadComma ? Number(s).toLocaleString('en-US') : s;
+    };
+
+    const dur = 1100;
+    const start = performance.now();
+    const step = (now: number) => {
+      const p = Math.min((now - start) / dur, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = prefix + fmt(target * eased) + suffix;
+      if (p < 1) requestAnimationFrame(step);
+      else el.textContent = prefix + fmt(target) + suffix;
+    };
+    requestAnimationFrame(step);
+  };
+
   const io = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
         if (!entry.isIntersecting) return;
         const el = entry.target as HTMLElement;
         io.unobserve(el);
-        const target = parseFloat(el.dataset.count || '0');
-        const prefix = el.dataset.prefix || '';
-        const suffix = el.dataset.suffix || '';
-        const decimals = parseInt(el.dataset.decimals || '0', 10);
-        const dur = 1100;
-        const start = performance.now();
-        const step = (now: number) => {
-          const p = Math.min((now - start) / dur, 1);
-          const eased = 1 - Math.pow(1 - p, 3);
-          el.textContent = prefix + (target * eased).toFixed(decimals) + suffix;
-          if (p < 1) requestAnimationFrame(step);
-        };
-        requestAnimationFrame(step);
+        animate(el);
       });
     },
     { threshold: 0.5 }

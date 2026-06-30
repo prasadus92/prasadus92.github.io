@@ -1,126 +1,124 @@
 ---
 import { Icon } from 'astro-icon/components';
-import SectionHeader from './SectionHeader.astro';
+import Lattice from './Lattice.astro';
 
-const nodes = [
-  { icon: 'lucide:radio', title: 'Signals', sub: 'Events, CRM, product data' },
-  { icon: 'lucide:bot', title: 'Agents', sub: 'Plan, act, hand off' },
-  { icon: 'lucide:shield-check', title: 'Evals', sub: 'Judges, guardrails, error bars' },
-  { icon: 'lucide:refresh-cw', title: 'Durable runs', sub: 'Retry, resume, recover' },
-  { icon: 'lucide:trending-up', title: 'Outcomes', sub: 'Pipeline, ARR, resolution' },
+/*
+  System, as a full-bleed big-type statement band (DESIGN-IDEAS #1).
+  Replaces the five-card flow. One large sentence with the accent on single
+  words (signals / evals / outcomes), generous negative space, and a thin
+  inline icon row underneath. This is a hinge between halves of the page, not
+  a sixth card grid. Accent words are solid colour, never a fill (DESIGN.md).
+*/
+
+const steps = [
+  { icon: 'lucide:radio', label: 'Signals' },
+  { icon: 'lucide:bot', label: 'Agents' },
+  { icon: 'lucide:shield-check', label: 'Evals' },
+  { icon: 'lucide:refresh-cw', label: 'Durable runs' },
+  { icon: 'lucide:trending-up', label: 'Outcomes' },
 ];
 ---
 
-<section class="section" id="system">
-  <div class="container">
-    <SectionHeader
-      eyebrow="System"
-      title="The shape of what I <span class='grad-text'>build</span>."
-      lead="Most of my work looks like this loop: turn signals into action with agents, prove the behavior with evals, run it durably, and tie it to the number that matters."
-      align="center"
-    />
+<section class="band" id="system" aria-labelledby="band-statement">
+  <Lattice variant="divider" accent />
+  <div class="container band-inner">
+    <p class="eyebrow band-eyebrow reveal">System</p>
 
-    <div class="flow" role="img" aria-label="Signals to Agents to Evals to Durable runs to Outcomes">
+    <h2 id="band-statement" class="band-statement reveal reveal-d1">
+      Most of what I build is one loop:
+      <span class="grad-text">signals</span>, agents,
+      <span class="grad-text">evals</span>, durable runs,
+      <span class="grad-text">outcomes</span>.
+    </h2>
+
+    <ol class="band-steps reveal reveal-d2" aria-label="Signals to agents to evals to durable runs to outcomes">
       {
-        nodes.map((n, i) => (
-          <>
-            <div class={`fnode glass card reveal reveal-d${i + 1}`} data-tilt="off">
-              <span class="fnode-icon"><Icon name={n.icon} /></span>
-              <strong>{n.title}</strong>
-              <span class="fnode-sub">{n.sub}</span>
-            </div>
-            {i < nodes.length - 1 && <span class={`fconn reveal reveal-d${i + 1}`} aria-hidden="true" />}
-          </>
+        steps.map((s, i) => (
+          <li class="band-step">
+            <span class="band-icon"><Icon name={s.icon} /></span>
+            <span class="band-label">{s.label}</span>
+            {i < steps.length - 1 && <span class="band-arrow" aria-hidden="true">→</span>}
+          </li>
         ))
       }
-    </div>
+    </ol>
   </div>
 </section>
 
 <style>
-  .flow {
-    display: flex;
-    align-items: stretch;
-    justify-content: center;
-    gap: 0;
-    flex-wrap: nowrap;
+  .band {
+    position: relative;
+    /* full-bleed: a quieter, flatter surface than the card sections, so the
+       aurora ones around it feel like arrivals (DESIGN-IDEAS #5, calm version) */
+    background: linear-gradient(180deg, transparent, var(--bg-2) 40%, var(--bg-2) 60%, transparent);
+    padding-block: clamp(80px, 12vw, 168px);
+    /* hairline top + bottom to mark it as a distinct band */
+    border-top: 1px solid var(--glass-border);
+    border-bottom: 1px solid var(--glass-border);
   }
-  .fnode {
-    flex: 1 1 0;
-    min-width: 0;
-    padding: clamp(24px, 2vw, 32px) clamp(14px, 1.4vw, 20px);
+  .band-inner {
+    position: relative;
+    z-index: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    gap: var(--sp-2);
   }
-  .fnode-icon {
+  .band-eyebrow {
+    justify-content: center;
+  }
+  .band-statement {
+    margin-top: var(--sp-5);
+    max-width: 18ch;
+    /* the one place type goes big */
+    font-size: clamp(2.1rem, 1.1rem + 4.2vw, 4.4rem);
+    line-height: 1.08;
+    letter-spacing: var(--tracking-tight);
+    text-wrap: balance;
+  }
+  .band-steps {
+    list-style: none;
+    margin: clamp(40px, 5vw, 64px) 0 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(10px, 1.6vw, 18px);
+  }
+  .band-step {
+    display: inline-flex;
+    align-items: center;
+    gap: clamp(8px, 1vw, 12px);
+    color: var(--text-tertiary);
+  }
+  .band-icon {
     display: grid;
     place-items: center;
-    width: 50px;
-    height: 50px;
-    border-radius: var(--r-md);
     color: var(--accent);
-    background: rgba(var(--accent-rgb), 0.1);
-    border: 1px solid rgba(var(--accent-rgb), 0.2);
-    margin-bottom: 4px;
   }
-  .fnode-icon :global(svg) {
-    width: 24px;
-    height: 24px;
+  .band-icon :global(svg) {
+    width: 18px;
+    height: 18px;
   }
-  .fnode strong {
-    font-family: var(--font-display);
-    font-size: 1.05rem;
+  .band-label {
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    letter-spacing: var(--tracking-wide);
   }
-  .fnode-sub {
-    font-size: 0.82rem;
+  .band-arrow {
+    margin-left: clamp(2px, 0.8vw, 10px);
     color: var(--text-tertiary);
-    line-height: 1.4;
+    opacity: 0.5;
   }
-  .fconn {
-    flex: 0 0 clamp(20px, 4vw, 64px);
-    align-self: center;
-    height: 2px;
-    border-radius: 2px;
-    background: linear-gradient(90deg, var(--accent), var(--accent-2));
-    background-size: 200% 100%;
-    opacity: 0.7;
-    animation: flow 3.5s linear infinite;
-  }
-  @keyframes flow {
-    to {
-      background-position: -200% 0;
+
+  @media (max-width: 560px) {
+    /* keep the inline row readable: drop the arrows, wrap as a tidy list */
+    .band-arrow {
+      display: none;
     }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .fconn {
-      animation: none;
-    }
-  }
-  @media (max-width: 760px) {
-    .flow {
-      flex-direction: column;
-      align-items: center;
-    }
-    .fnode {
-      width: 100%;
-      max-width: 320px;
-      flex: none;
-    }
-    .fconn {
-      width: 2px;
-      height: 28px;
-      flex-basis: 28px;
-      background: linear-gradient(180deg, var(--accent), var(--accent-2));
-      background-size: 100% 200%;
-      animation: flowv 3.5s linear infinite;
-    }
-  }
-  @keyframes flowv {
-    to {
-      background-position: 0 -200%;
+    .band-steps {
+      gap: 12px 18px;
     }
   }
 </style>

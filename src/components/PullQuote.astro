@@ -1,0 +1,56 @@
+---
+/*
+  Editorial pull-quote interstitial (DESIGN-IDEAS #3). A single first-person
+  line, large and centred, between the "what I've done" half (Impact, Work) and
+  the "how I think" half (Approach, Skills). No card, no border: just type and
+  air, with the aurora showing through. One per page, earned. The credibility is
+  that it is first person, not a testimonial.
+*/
+import Seal from './Seal.astro';
+---
+
+<section class="pq" aria-label="A note on how I work">
+  <div class="container--narrow pq-inner">
+    <Seal size={30} class="pq-seal reveal" />
+    <blockquote class="pq-quote reveal reveal-d1">
+      I close the deal before I write the code.
+      <span class="pq-em">Demand first, product second.</span>
+    </blockquote>
+  </div>
+</section>
+
+<style>
+  .pq {
+    position: relative;
+    /* generous negative space around the line; no surface change, the aurora
+       reads straight through */
+    padding-block: clamp(72px, 12vw, 152px);
+  }
+  .pq-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .pq-seal {
+    margin-bottom: clamp(20px, 3vw, 32px);
+    opacity: 0.8;
+  }
+  .pq-quote {
+    margin: 0;
+    max-width: 22ch;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(1.8rem, 1.1rem + 3.2vw, 3.4rem);
+    line-height: 1.12;
+    letter-spacing: var(--tracking-tight);
+    text-wrap: balance;
+    color: var(--ink);
+  }
+  /* second line steps down to secondary so the first clause leads */
+  .pq-em {
+    display: block;
+    margin-top: 0.2em;
+    color: var(--text-secondary);
+  }
+</style>

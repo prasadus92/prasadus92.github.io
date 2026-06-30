@@ -16,8 +16,7 @@ import SignatureMotion from './SignatureMotion.astro';
       </h1>
 
       <p class="hero-lead reveal reveal-d2">
-        3x technical founder. I spot the work people already pay to do, prove the demand,
-        then build and ship the product that captures it. Today I'm building
+        3x technical founder. Today I'm building
         <a href={site.links.luminik} target="_blank" rel="noopener">Luminik</a>, and
         <a href={site.links.alfred} target="_blank" rel="noopener">Alfred</a> in the open.
       </p>
@@ -33,7 +32,7 @@ import SignatureMotion from './SignatureMotion.astro';
         {
           heroStats.map((s) => (
             <div class="hstat">
-              <dt>{s.value}</dt>
+              <dt data-count>{s.value}</dt>
               <dd>{s.label}</dd>
             </div>
           ))
