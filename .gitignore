@@ -21,3 +21,6 @@ _legacy_site/
 # misc archives
 *.zip
 .gstack/
+
+# local working doc, do not publish
+CONTENT-AUDIT.md
