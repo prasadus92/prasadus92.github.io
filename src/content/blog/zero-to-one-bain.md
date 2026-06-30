@@ -78,6 +78,8 @@ When a random startup approaches a PE firm with a new due diligence tool, they h
 
 When Bain approaches the same firm with the same tool, the conversation is different. The trust is inherited. The relationships are already there. The brand does heavy lifting that would otherwise take years of credibility-building.
 
+That inheritance showed up in who adopted it. Some of the largest names in crossover and growth-equity investing, funds running tens of billions, used it in their diligence. A new vendor does not get into those rooms in a year.
+
 ## The disadvantages, and where they bite
 
 Now what made it harder.
