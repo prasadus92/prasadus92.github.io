@@ -44,12 +44,12 @@
      Large surfaces (cards, panels, images, portrait) stay near 0-4px;
      small controls get a small, intentional radius. */
   --r-xs: 2px;
-  --r-sm: 3px;
-  --r-md: 4px;
-  --r-lg: 4px;
-  --r-xl: 4px;
-  --r-pill: 4px;
-  --r-btn: 4px;
+  --r-sm: 2px;
+  --r-md: 2px;
+  --r-lg: 2px;
+  --r-xl: 2px;
+  --r-pill: 2px;
+  --r-btn: 2px;
 
   /* --- Layout --- */
   --container: 1200px;
