@@ -135,11 +135,20 @@ const lastName = site.name.replace(site.shortName, '').trim();
     align-items: center;
     gap: 10px;
   }
+  /* control cluster (CTA + toggle + hamburger) shares one height so they read
+     as a balanced set; --nav-ctrl is the single source of that height */
+  .nav-actions {
+    --nav-ctrl: 44px;
+  }
+  .nav-cta {
+    height: var(--nav-ctrl);
+    padding-block: 0;
+  }
   .icon-btn {
     display: grid;
     place-items: center;
-    width: 38px;
-    height: 38px;
+    width: var(--nav-ctrl);
+    height: var(--nav-ctrl);
     border-radius: var(--r-md);
     color: var(--text-secondary);
     border: 1px solid var(--glass-border);
@@ -163,8 +172,8 @@ const lastName = site.name.replace(site.shortName, '').trim();
     display: none;
     flex-direction: column;
     gap: 5px;
-    width: 38px;
-    height: 38px;
+    width: var(--nav-ctrl);
+    height: var(--nav-ctrl);
     align-items: center;
     justify-content: center;
   }
