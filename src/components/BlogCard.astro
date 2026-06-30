@@ -60,7 +60,7 @@ const dateStr = pubDate.toLocaleDateString('en-US', { month: 'short', year: 'num
     display: flex;
     flex-direction: column;
     flex: 1;
-    padding: clamp(20px, 2vw, 28px);
+    padding: var(--card-pad);
   }
   .bcard-top {
     display: flex;
@@ -73,7 +73,7 @@ const dateStr = pubDate.toLocaleDateString('en-US', { month: 'short', year: 'num
     color: var(--text-tertiary);
   }
   .bcard-title {
-    margin-top: 16px;
+    margin-top: var(--sp-4);
     font-size: 1.28rem;
     line-height: 1.25;
     transition: color var(--dur-1) var(--ease-out);
@@ -82,7 +82,7 @@ const dateStr = pubDate.toLocaleDateString('en-US', { month: 'short', year: 'num
     color: var(--accent);
   }
   .bcard-desc {
-    margin-top: 12px;
+    margin-top: var(--sp-3);
     color: var(--text-secondary);
     font-size: 0.95rem;
     line-height: 1.6;
@@ -92,8 +92,8 @@ const dateStr = pubDate.toLocaleDateString('en-US', { month: 'short', year: 'num
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-top: 22px;
-    padding-top: 16px;
+    margin-top: var(--sp-5);
+    padding-top: var(--sp-4);
     border-top: 1px solid var(--glass-border);
     font-size: var(--fs-sm);
     color: var(--text-tertiary);

@@ -70,13 +70,13 @@ import { work, earlier } from '../data/site';
   .timeline {
     display: flex;
     flex-direction: column;
-    gap: clamp(14px, 1.6vw, 20px);
+    gap: var(--grid-gap);
   }
   .job {
     display: grid;
     grid-template-columns: 48px 1fr;
-    gap: 16px;
-    padding: clamp(22px, 2.4vw, 34px);
+    gap: var(--sp-4);
+    padding: var(--card-pad);
     overflow: hidden;
   }
   .job-rail {
@@ -149,7 +149,7 @@ import { work, earlier } from '../data/site';
     white-space: nowrap;
   }
   .job-body {
-    margin-top: 14px;
+    margin-top: var(--sp-3);
     color: var(--text-secondary);
     max-width: 70ch;
     line-height: 1.65;
@@ -157,13 +157,13 @@ import { work, earlier } from '../data/site';
   .job-tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 18px;
+    gap: var(--sp-2);
+    margin-top: var(--sp-4);
   }
 
   .earlier {
-    margin-top: clamp(36px, 4vw, 56px);
-    padding-top: 28px;
+    margin-top: var(--rail-pad);
+    padding-top: var(--rail-pad);
     border-top: 1px solid var(--glass-border);
   }
   .earlier-label {

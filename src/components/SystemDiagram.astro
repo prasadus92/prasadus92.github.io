@@ -48,12 +48,12 @@ const nodes = [
   .fnode {
     flex: 1 1 0;
     min-width: 0;
-    padding: 22px 16px;
+    padding: clamp(24px, 2vw, 32px) clamp(14px, 1.4vw, 20px);
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    gap: 8px;
+    gap: var(--sp-2);
   }
   .fnode-icon {
     display: grid;

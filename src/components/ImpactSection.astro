@@ -46,12 +46,12 @@ import { impact, brands } from '../data/site';
   .impact-grid {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
-    gap: clamp(16px, 1.6vw, 22px);
+    gap: var(--grid-gap);
   }
   .icard {
     position: relative;
     overflow: hidden;
-    padding: clamp(26px, 2.6vw, 40px);
+    padding: var(--card-pad);
     display: flex;
     flex-direction: column;
     min-height: 280px;
@@ -129,7 +129,7 @@ import { impact, brands } from '../data/site';
   }
   .icard-body {
     position: relative;
-    margin-top: 18px;
+    margin-top: var(--sp-4);
     color: var(--text-secondary);
     font-size: 1rem;
     line-height: 1.65;
@@ -138,10 +138,10 @@ import { impact, brands } from '../data/site';
     position: relative;
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: var(--sp-2);
     /* pin tags to the card bottom so both top cards align */
     margin-top: auto;
-    padding-top: 24px;
+    padding-top: var(--sp-5);
   }
   .icard:nth-child(3) .icard-tags {
     margin-top: 0;
@@ -158,12 +158,12 @@ import { impact, brands } from '../data/site';
 
   /* brand row */
   .brands {
-    margin-top: clamp(40px, 5vw, 64px);
+    margin-top: var(--rail-pad);
     display: flex;
     align-items: center;
     gap: clamp(16px, 3vw, 40px);
     flex-wrap: wrap;
-    padding-top: 28px;
+    padding-top: var(--rail-pad);
     border-top: 1px solid var(--glass-border);
   }
   .brands-label {

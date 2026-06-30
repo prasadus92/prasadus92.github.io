@@ -30,13 +30,13 @@ import { skills } from '../data/site';
   .skills-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: clamp(14px, 1.5vw, 18px);
+    gap: var(--grid-gap);
   }
   .skill {
-    padding: clamp(22px, 2.2vw, 30px);
+    padding: var(--card-pad);
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: var(--sp-3);
   }
   .skill-icon {
     display: grid;

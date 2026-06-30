@@ -17,19 +17,20 @@ const { eyebrow, title, lead, align = 'left' } = Astro.props;
 <style>
   .sec-head {
     max-width: 60ch;
-    margin-bottom: clamp(36px, 5vw, 64px);
+    margin-bottom: var(--head-gap);
   }
   .sec-head.center {
     margin-inline: auto;
     text-align: center;
   }
   .sec-head h2 {
-    margin-top: 14px;
+    margin-top: var(--sp-3);
   }
   .sec-lead {
-    margin-top: 18px;
+    margin-top: var(--sp-4);
     font-size: var(--fs-lead);
     line-height: 1.6;
+    color: var(--text-secondary);
   }
   .sec-head.center .eyebrow {
     justify-content: center;

@@ -50,10 +50,10 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
     margin-bottom: 0;
   }
   .writing-grid {
-    margin-top: clamp(32px, 4vw, 48px);
+    margin-top: var(--head-gap);
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: clamp(14px, 1.6vw, 20px);
+    gap: var(--grid-gap);
   }
   @media (max-width: 860px) {
     .writing-grid {

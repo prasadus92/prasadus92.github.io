@@ -81,7 +81,7 @@ const year = new Date().getFullYear();
     display: grid;
     grid-template-columns: 1.2fr 2fr;
     gap: clamp(32px, 6vw, 80px);
-    padding-bottom: 48px;
+    padding-bottom: var(--sp-7);
   }
   .footer-brand .brand-mark {
     display: grid;
@@ -128,16 +128,18 @@ const year = new Date().getFullYear();
   .footer-ai {
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: var(--sp-3);
     flex-wrap: wrap;
-    padding-top: 20px;
+    padding-top: var(--sp-5);
+    padding-bottom: var(--sp-5);
+    border-top: 1px solid var(--glass-border);
   }
   .footer-base {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 16px;
-    padding: 24px 0 40px;
+    gap: var(--sp-4);
+    padding: var(--sp-5) 0 var(--sp-7);
     border-top: 1px solid var(--glass-border);
     font-size: 0.88rem;
   }

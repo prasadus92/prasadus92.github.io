@@ -30,11 +30,11 @@ import { approach } from '../data/site';
   .squares {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: clamp(14px, 1.4vw, 18px);
+    gap: var(--grid-gap);
   }
   .sq {
     position: relative;
-    padding: clamp(24px, 2.2vw, 34px);
+    padding: var(--card-pad);
     min-height: 230px;
     display: flex;
     flex-direction: column;
@@ -46,11 +46,11 @@ import { approach } from '../data/site';
     letter-spacing: 0.05em;
   }
   .sq-title {
-    margin-top: 16px;
+    margin-top: var(--sp-4);
     font-size: 1.22rem;
   }
   .sq-body {
-    margin-top: 12px;
+    margin-top: var(--sp-3);
     color: var(--text-secondary);
     font-size: 0.96rem;
     line-height: 1.6;
