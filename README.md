@@ -1,50 +1,53 @@
-# Personal Website - prasad.tech
+# prasad.tech
 
-[![Build Status](https://github.com/prasadus92/prasadus92.github.io/actions/workflows/deploy.yml/badge.svg)](https://github.com/prasadus92/prasadus92.github.io/actions/workflows/deploy.yml)
+[![Deploy](https://github.com/prasadus92/prasadus92.github.io/actions/workflows/deploy.yml/badge.svg)](https://github.com/prasadus92/prasadus92.github.io/actions/workflows/deploy.yml)
 
-A premium, responsive personal website built with Astro.
+The personal site of Prasad Subrahmanya: founder, engineer, and writer. It covers
+what I have built (Luminik, Aura at Bain, Mainteny, Alfred) and deep technical
+writing on AI-native engineering, agents, durable systems, and founder-led sales.
 
-## Overview
-- **URL**: [prasad.tech](https://prasad.tech)
-- **Stack**: Astro (static output), TypeScript, self-hosted fonts, near-zero client JS
-- **Theme**: Dark/Light mode, follows the system preference
-- **Responsive**: Optimized for desktop, tablet, and mobile
-- **Performance**: Static HTML, lazy images, minimal JavaScript
+Live at [prasad.tech](https://prasad.tech).
 
-## Features
-- Modern, minimalist design
-- Responsive layout with mobile-first approach
-- Optimized performance with lazy loading
-- Dark/Light theme with automatic switching
-- Professional sections:
-  - Current ventures (Luminik, SnowOptix)
-  - Professional experience (Bain & Company, Mainteny)
-  - Technical expertise
-  - Education
-- Social media integration
-- OpenGraph meta tags for better social sharing
-- Custom favicons for various platforms
+## Stack
 
-## Local development
+- **[Astro](https://astro.build) 7**, static output, near-zero client JS
+- TypeScript, design tokens in CSS custom properties, self-hosted fonts
+- Content collections for the blog (`src/content/blog/*.md`)
+- KaTeX for math, mermaid for diagrams, Shiki for code highlighting
+- Light/dark themes that follow the system preference
+- Deployed to GitHub Pages via GitHub Actions
+
+## Develop
+
 ```bash
 npm install
-npm run dev      # http://localhost:4321
-npm run build    # static output in dist/
-```
-Regenerate assets when content changes:
-```bash
-npm run og       # social/OG images (Playwright)
-node scripts/render-favicon.mjs
+npm run dev      # local dev server
+npm run build    # static build to dist/
+npm run preview  # serve the built site
 ```
 
-## Deployment
-Deployed to GitHub Pages on every push to `master` via GitHub Actions (`.github/workflows/deploy.yml`), which builds the Astro site and publishes `dist/`. The Pages source must be set to "GitHub Actions" in the repo settings.
+Run `npm run build` from the repo root (the content glob base is relative to cwd).
 
-## Contact
-For any inquiries, please reach out via:
-- Email: prasadus92@gmail.com
-- LinkedIn: [linkedin.com/in/prasadus](https://linkedin.com/in/prasadus)
-- GitHub: [github.com/prasadus92](https://github.com/prasadus92)
+## Structure
+
+- `src/pages/` routes; `src/layouts/` page shells; `src/components/` UI
+- `src/content/blog/` posts; `src/data/site.ts` single source of truth for site content
+- `src/styles/tokens.css` design tokens; `src/styles/global.css` base styles
+- `design-explorations/` alternate design drafts, not part of the live build
 
 ## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+Two licenses, by file type:
+
+- **Code** (everything that makes the site run: `.astro`, `.ts`, `.css`, config,
+  build scripts) is under the [MIT License](LICENSE). Reuse it freely, keep the
+  copyright notice.
+- **Content** (the writing, copy, and images: `src/content/`, the prose in
+  `src/data/site.ts`, and `public/` imagery) is under
+  [Creative Commons BY-NC 4.0](LICENSE-CONTENT.md). You may share and adapt it
+  for non-commercial use **with attribution** to Prasad Subrahmanya and a link
+  back to prasad.tech. It is not for republishing as your own or for commercial
+  use without permission.
+
+Please do not pass off the writing or design as your own. If something here is
+useful, credit it and link back.
