@@ -285,6 +285,21 @@ import SignatureMotion from './SignatureMotion.astro';
       font-size: 2.4rem;
     }
   }
+  /* On small phones the visual sits at the left gutter, so the chips'
+     negative overhang would clip off the viewport edge. Tuck them just
+     inside the portrait so they stay fully on-screen down to ~320px. */
+  @media (max-width: 480px) {
+    /* !important to override the per-chip inline --left/--right offsets.
+       nth-of-type counts the portrait-frame div first, so the chips are
+       2 (AI to production), 3 (Multi-agent systems), 4 (0->1 founder). */
+    .chip-float:nth-of-type(2) {
+      --left: 0% !important;
+    }
+    .chip-float:nth-of-type(3) {
+      --right: 0% !important;
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .chip-float,
     .scroll-chevron {
