@@ -1,27 +1,25 @@
-import { defineCollection } from 'astro:content';
+import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
-import { z } from 'astro/zod';
 
 const blog = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/blog' }),
   schema: z.object({
-    slug: z.string(),
     title: z.string(),
     description: z.string(),
-    date: z.string(),
-    modified: z.string().optional(),
-    category: z.string(),
-    readTime: z.string(),
-    tags: z.array(z.string()),
-    faqs: z
-      .array(
-        z.object({
-          question: z.string(),
-          answer: z.string()
-        })
-      )
-      .optional()
-  })
+    tldr: z.string().optional(),
+    pubDate: z.coerce.date(),
+    updatedDate: z.coerce.date().optional(),
+    category: z.string().default('Essay'),
+    tags: z.array(z.string()).default([]),
+    readingTime: z.string().optional(),
+    draft: z.boolean().default(false),
+    featured: z.boolean().default(false),
+    demo: z.string().optional(),
+    related: z.array(z.string()).default([]),
+    faq: z
+      .array(z.object({ q: z.string(), a: z.string() }))
+      .default([]),
+  }),
 });
 
 export const collections = { blog };

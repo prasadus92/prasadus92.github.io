@@ -1,6 +1,23 @@
-.idea
-node_modules/
+# build output
 dist/
 .astro/
-.claude/
-tmp/
+
+# dependencies
+node_modules/
+
+# editor / OS
+.idea
+.vscode
+.DS_Store
+**/.DS_Store
+
+# env
+.env
+.env.production
+
+# legacy static site (kept locally for reference, not deployed)
+_legacy_site/
+
+# misc archives
+*.zip
+.gstack/

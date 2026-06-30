@@ -1,89 +1,55 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Icon from '../components/Icon.astro';
-
-const helpfulLinks = [
-  {
-    href: '/',
-    icon: 'arrow-left',
-    title: 'Portfolio overview',
-    text: 'Start with what I am building now and the products I have shipped before.'
-  },
-  {
-    href: '/blog/',
-    icon: 'book-open',
-    title: 'Field notes',
-    text: 'Writing on solo product work, founder-led sales, Luminik, and agent workflows.'
-  },
-  {
-    href: '/intro-chat/',
-    icon: 'comments',
-    title: 'Intro chat',
-    text: 'A direct way to reach me if the missing page was supposed to answer something specific.'
-  }
-] as const;
 ---
 
-<BaseLayout
-  title="Page Not Found"
-  description="This prasad.tech page is missing. Start from Prasad Subrahmanya's portfolio, writing, Markdown pages, or public context files."
-  canonical="https://prasad.tech/404.html"
-  noindex
->
-  <section class="not-found">
-    <div class="container not-found-grid">
-      <div class="not-found-copy">
-        <div class="eyebrow reveal">404</div>
-        <h1 class="reveal">I can't find this page.</h1>
-        <p class="lead reveal">
-          The link you opened does not match a live page. The homepage, writing index, and public context files are the best places to restart.
-        </p>
-        <div class="not-found-path reveal" aria-label="Requested path">
-          <span>Requested path</span>
-          <code data-missing-path>/unknown</code>
-        </div>
-        <div class="hero-actions reveal">
-          <a class="button primary" href="/blog/"><Icon name="book-open" size={16} /> Read the blog</a>
-          <a class="button" href="/"><Icon name="arrow-left" size={16} /> Go home</a>
-        </div>
-      </div>
-
-      <aside class="not-found-panel card reveal" aria-labelledby="not-found-next-heading">
-        <div>
-          <div class="eyebrow">Start here</div>
-          <h2 id="not-found-next-heading">Useful links</h2>
-        </div>
-        <nav class="not-found-links" aria-label="Useful recovery links">
-          {helpfulLinks.map((link) => (
-            <a href={link.href}>
-              <span class="not-found-link-icon" aria-hidden="true">
-                <Icon name={link.icon} size={17} />
-              </span>
-              <span>
-                <strong>{link.title}</strong>
-                <small>{link.text}</small>
-              </span>
-            </a>
-          ))}
-        </nav>
-        <div class="not-found-context">
-          <h2>For assistants and crawlers</h2>
-          <p>Use the Markdown pages and context files when you need the public facts without site navigation.</p>
-          <div class="not-found-context-links">
-            <a href="/index.md"><Icon name="file-lines" size={15} /> index.md</a>
-            <a href="/llms-full.txt"><Icon name="brain" size={15} /> llms-full.txt</a>
-            <a href="/agents.txt"><Icon name="file-lines" size={15} /> agents.txt</a>
-          </div>
-        </div>
+<BaseLayout title="Page not found - Prasad Subrahmanya" description="That page does not exist.">
+  <section class="nf">
+    <div class="container nf-inner">
+      <p class="nf-code grad-text">404</p>
+      <h1>This page took a different path.</h1>
+      <p class="muted">
+        The link is broken or the page moved. Here is the way back.
+      </p>
+      <div class="nf-cta">
+        <a href="/" class="btn btn-primary"><Icon name="arrowLeft" size={16} /> Home</a>
+        <a href="/blog" class="btn btn-ghost">Read the writing</a>
       </div>
     </div>
   </section>
-
-  <script>
-    const requestedPath = document.querySelector('[data-missing-path]');
-    if (requestedPath) {
-      const path = `${window.location.pathname}${window.location.search}`;
-      requestedPath.textContent = path === '/404.html' ? '/unknown' : path;
-    }
-  </script>
 </BaseLayout>
+
+<style>
+  .nf {
+    min-height: 76vh;
+    display: grid;
+    place-items: center;
+    padding-top: 100px;
+    text-align: center;
+  }
+  .nf-inner {
+    max-width: 50ch;
+  }
+  .nf-code {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(5rem, 10vw, 9rem);
+    line-height: 1;
+    letter-spacing: var(--tracking-tight);
+  }
+  .nf h1 {
+    margin-top: 8px;
+    font-size: clamp(1.6rem, 1.2rem + 1.6vw, 2.4rem);
+  }
+  .nf p.muted {
+    margin-top: 16px;
+    font-size: var(--fs-lead);
+  }
+  .nf-cta {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 32px;
+    flex-wrap: wrap;
+  }
+</style>

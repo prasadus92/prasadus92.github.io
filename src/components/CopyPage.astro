@@ -1,0 +1,96 @@
+---
+import { Icon } from 'astro-icon/components';
+export interface Props {
+  mdPath: string;
+  class?: string;
+}
+const { mdPath, class: cls = '' } = Astro.props;
+const origin = 'https://prasad.tech';
+const mdUrl = `${origin}${mdPath}`;
+const prompt = encodeURIComponent(`Read ${mdUrl} and summarize it.`);
+---
+
+<div class={`copypage ${cls}`} data-md={mdPath}>
+  <button type="button" class="cp-btn" data-cp-copy>
+    <Icon name="lucide:copy" class="cp-i-copy" />
+    <Icon name="lucide:check" class="cp-i-done" />
+    <span class="cp-label">Copy page</span>
+  </button>
+  <a class="cp-btn" href={mdPath} target="_blank" rel="noopener" title="View as Markdown">
+    <Icon name="lucide:file-text" /><span>Markdown</span>
+  </a>
+  <a
+    class="cp-btn"
+    href={`https://chatgpt.com/?q=${prompt}`}
+    target="_blank"
+    rel="noopener"
+    title="Open in ChatGPT"
+  >
+    <Icon name="lucide:sparkles" /><span>Ask AI</span>
+  </a>
+</div>
+
+<style>
+  .copypage {
+    display: inline-flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .cp-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 11px;
+    border-radius: var(--r-sm);
+    border: 1px solid var(--glass-border);
+    background: var(--glass-bg);
+    color: var(--text-secondary);
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    cursor: pointer;
+    transition: color var(--dur-1) var(--ease-out), border-color var(--dur-1) var(--ease-out);
+  }
+  .cp-btn:hover {
+    color: var(--ink);
+    border-color: var(--glass-border-strong);
+  }
+  .cp-btn :global(svg) {
+    width: 14px;
+    height: 14px;
+  }
+  .cp-i-done {
+    display: none;
+    color: var(--accent);
+  }
+  .copypage.copied .cp-i-copy {
+    display: none;
+  }
+  .copypage.copied .cp-i-done {
+    display: inline-flex;
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.copypage').forEach((el) => {
+    const btn = el.querySelector<HTMLButtonElement>('[data-cp-copy]');
+    const label = el.querySelector<HTMLElement>('.cp-label');
+    const md = el.dataset.md;
+    if (!btn || !md) return;
+    btn.addEventListener('click', async () => {
+      try {
+        const res = await fetch(md);
+        const text = await res.text();
+        await navigator.clipboard.writeText(text);
+        el.classList.add('copied');
+        if (label) label.textContent = 'Copied';
+        setTimeout(() => {
+          el.classList.remove('copied');
+          if (label) label.textContent = 'Copy page';
+        }, 1800);
+      } catch (e) {
+        if (label) label.textContent = 'Copy failed';
+      }
+    });
+  });
+</script>

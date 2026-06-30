@@ -1,0 +1,42 @@
+---
+import { getCollection, render } from 'astro:content';
+import PostLayout from '../../layouts/PostLayout.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+// Resolve related posts (by id) for internal linking.
+const all = await getCollection('blog', ({ data }) => !data.draft);
+const related = (post.data.related ?? [])
+  .map((id) => all.find((p) => p.id === id))
+  .filter((p): p is (typeof all)[number] => Boolean(p))
+  .map((p) => ({ id: p.id, title: p.data.title, description: p.data.description }));
+---
+
+<PostLayout
+  title={post.data.title}
+  description={post.data.description}
+  tldr={post.data.tldr}
+  pubDate={post.data.pubDate}
+  updatedDate={post.data.updatedDate}
+  category={post.data.category}
+  readingTime={post.data.readingTime}
+  tags={post.data.tags}
+  image={`/og/${post.id}.png`}
+  seed={post.id}
+  slug={post.id}
+  mdPath={`/blog/${post.id}.md`}
+  demo={post.data.demo}
+  faq={post.data.faq}
+  related={related}
+>
+  <Content />
+</PostLayout>

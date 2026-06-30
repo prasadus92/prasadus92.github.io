@@ -1,17 +1,24 @@
 import rss from '@astrojs/rss';
-import type { APIRoute } from 'astro';
-import { posts } from '../lib/posts';
+import { getCollection } from 'astro:content';
+import type { APIContext } from 'astro';
+import { site } from '../data/site';
+import { ORIGIN } from '../lib/llms';
 
-export const GET: APIRoute = () =>
-  rss({
-    title: 'Prasad Subrahmanya',
-    description: 'Notes on B2B product work, founder-led sales, agent workflows, event pipeline systems, and zero-to-one building.',
-    site: 'https://prasad.tech',
-    items: posts.map((post) => ({
-      title: post.title,
-      description: post.description,
-      pubDate: new Date(`${post.date}T00:00:00Z`),
-      link: post.url,
-      categories: [post.category, ...post.tags]
-    }))
+export const GET = async (context: APIContext) => {
+  const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+  );
+
+  return rss({
+    title: `${site.name} - Writing`,
+    description:
+      'Hands-on writing on AI-native engineering, evals, durable workflows, and building companies.',
+    site: context.site ?? ORIGIN,
+    items: posts.map((p) => ({
+      title: p.data.title,
+      description: p.data.description,
+      pubDate: p.data.pubDate,
+      link: `/blog/${p.id}/`,
+    })),
   });
+};

@@ -1,0 +1,116 @@
+---
+import Icon from './Icon.astro';
+import PostArt from './PostArt.astro';
+export interface Props {
+  slug: string;
+  title: string;
+  description: string;
+  pubDate: Date;
+  category?: string;
+  readingTime?: string;
+  featured?: boolean;
+  delay?: number;
+}
+const { slug, title, description, pubDate, category, readingTime, featured = false, delay = 1 } =
+  Astro.props;
+const dateStr = pubDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+---
+
+<a href={`/blog/${slug}`} class={`bcard glass card reveal reveal-d${delay} ${featured ? 'feat' : ''}`}>
+  <div class="bcard-art">
+    <PostArt seed={slug} height="100%" compact={true} />
+  </div>
+  <div class="bcard-body">
+    <div class="bcard-top">
+      {category && <span class="chip">{category}</span>}
+      <span class="bcard-read mono">{readingTime}</span>
+    </div>
+    <h3 class="bcard-title">{title}</h3>
+    <p class="bcard-desc">{description}</p>
+    <div class="bcard-foot">
+      <span class="mono">{dateStr}</span>
+      <span class="bcard-go">Read <Icon name="arrowRight" size={15} /></span>
+    </div>
+  </div>
+</a>
+
+<style>
+  .bcard {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+    transition: transform var(--dur-2) var(--ease-out), border-color var(--dur-2) var(--ease-out),
+      box-shadow var(--dur-2) var(--ease-out);
+  }
+  .bcard:hover {
+    transform: translateY(-4px);
+  }
+  .bcard-art {
+    height: 150px;
+    flex: 0 0 auto;
+    border-bottom: 1px solid var(--glass-border);
+  }
+  .bcard-art :global(.post-art) {
+    height: 100% !important;
+    border: none;
+    border-radius: 0;
+  }
+  .bcard-body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: clamp(20px, 2vw, 28px);
+  }
+  .bcard-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .bcard-read {
+    font-size: var(--fs-xs);
+    color: var(--text-tertiary);
+  }
+  .bcard-title {
+    margin-top: 16px;
+    font-size: 1.28rem;
+    line-height: 1.25;
+    transition: color var(--dur-1) var(--ease-out);
+  }
+  .bcard:hover .bcard-title {
+    color: var(--accent);
+  }
+  .bcard-desc {
+    margin-top: 12px;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    flex: 1;
+  }
+  .bcard-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 22px;
+    padding-top: 16px;
+    border-top: 1px solid var(--glass-border);
+    font-size: var(--fs-sm);
+    color: var(--text-tertiary);
+  }
+  .bcard-go {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--accent);
+    font-family: var(--font-display);
+    font-weight: 500;
+  }
+  .bcard-go :global(svg) {
+    transition: transform var(--dur-1) var(--ease-out);
+  }
+  .bcard:hover .bcard-go :global(svg) {
+    transform: translateX(3px);
+  }
+
+</style>

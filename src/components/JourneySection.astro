@@ -1,0 +1,132 @@
+---
+import { Icon } from 'astro-icon/components';
+import { journey } from '../data/site';
+---
+
+<section class="section section--tight" id="journey">
+  <div class="container">
+    <div class="journey-head reveal">
+      <p class="eyebrow">Journey</p>
+      <h3>From a small town in India to building from Oslo.</h3>
+    </div>
+
+    <ol class="journey-line">
+      {
+        journey.map((j, i) => (
+          <li class={`stop reveal reveal-d${i + 1}`}>
+            <span class="stop-pin">
+              <Icon name={j.icon} />
+            </span>
+            <div class="stop-body">
+              <strong>{j.place}</strong>
+              <span class="stop-country">{j.country}</span>
+              <span class="stop-period mono">{j.period}</span>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .journey-head {
+    display: flex;
+    align-items: baseline;
+    gap: 18px;
+    flex-wrap: wrap;
+    margin-bottom: 36px;
+  }
+  .journey-head h3 {
+    font-size: clamp(1.25rem, 1rem + 1vw, 1.7rem);
+  }
+  .journey-line {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(16px, 2vw, 28px);
+    position: relative;
+  }
+  /* connecting line behind the pins */
+  .journey-line::before {
+    content: '';
+    position: absolute;
+    top: 23px;
+    left: 8%;
+    right: 8%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent), var(--accent-2), transparent);
+    opacity: 0.5;
+    background-size: 200% 100%;
+    animation: flowline 6s linear infinite;
+  }
+  @keyframes flowline {
+    to {
+      background-position: -200% 0;
+    }
+  }
+  .stop {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 12px;
+  }
+  .stop-pin {
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    color: var(--accent);
+    background: var(--bg-elevated);
+    border: 1px solid var(--glass-border-strong);
+    position: relative;
+    z-index: 1;
+  }
+  .stop-pin :global(svg) {
+    width: 22px;
+    height: 22px;
+  }
+  .stop-body {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .stop-body strong {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+  }
+  .stop-country {
+    color: var(--text-secondary);
+    font-size: 0.92rem;
+  }
+  .stop-period {
+    color: var(--text-tertiary);
+    font-size: var(--fs-xs);
+    margin-top: 2px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .journey-line::before {
+      animation: none;
+    }
+  }
+  @media (max-width: 620px) {
+    .journey-line {
+      grid-template-columns: 1fr;
+      gap: 22px;
+    }
+    .journey-line::before {
+      display: none;
+    }
+    .stop {
+      flex-direction: row;
+      text-align: left;
+    }
+    .stop-body {
+      align-items: flex-start;
+    }
+  }
+</style>
