@@ -21,8 +21,6 @@ faq:
     a: "A learning setup where an agent acts in an environment, the environment returns a reward signal, and the agent improves its policy to earn more reward over time. There is no labeled answer per step the way supervised learning has. The agent learns from consequences, the way you learn to ride a bike from wobbling and falling rather than from a manual. Because the policy chases whatever the reward measures, the reward function is the real definition of the task."
 ---
 
-The repo extension is open: [agent-eval-domain-extension](https://github.com/prasadus92/agent-eval-domain-extension).
-
 I spent two weeks extending [tau-bench](https://github.com/sierra-research/tau-bench) into a new domain for [reinforcement learning](https://en.wikipedia.org/wiki/Reinforcement_learning), and the lesson that stuck was not about training. It was about the verifier.
 
 The verifier is the part that reads an agent's trajectory and decides what reward to hand back. I assumed it would be a thin wrapper around the benchmark's existing scorer. It was the hardest design work in the project, and the code came out to about 215 lines. The cost was not in those lines. It was in figuring out, per task, what "correct" even meant.
@@ -302,8 +300,6 @@ One more cost I almost skipped: the verifier needs its own tests. If the grader 
 The instinct is to treat the verifier as plumbing and the data as the product. It is the other way around. The verifier is the executable definition of the task, and the data is whatever that definition accepts. Get the definition wrong and more data makes the problem worse, because you are scaling a wrong signal.
 
 So the bottleneck was never engineering. It was understanding the domain well enough to say what correct means without hand-waving. The 215 lines are real, but they are the easy part. The hard part is knowing the answer they encode.
-
-The full domain extension, verifier and all, is in the repo if you want to read the code behind every snippet here: [github.com/prasadus92/agent-eval-domain-extension](https://github.com/prasadus92/agent-eval-domain-extension).
 
 ## Key takeaways
 
