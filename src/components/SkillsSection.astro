@@ -23,6 +23,10 @@ import { skills } from '../data/site';
         ))
       }
     </div>
+
+    <p class="skills-cta">
+      <a href="/ai-enablement">How I put this to work, getting AI into production with teams &rarr;</a>
+    </p>
   </div>
 </section>
 
@@ -59,6 +63,17 @@ import { skills } from '../data/site';
     color: var(--text-secondary);
     font-size: 0.94rem;
     line-height: 1.6;
+  }
+  .skills-cta {
+    margin-top: var(--sp-5);
+  }
+  .skills-cta a {
+    color: var(--accent);
+    font-weight: 500;
+    transition: opacity var(--dur-1) var(--ease-out);
+  }
+  .skills-cta a:hover {
+    opacity: 0.8;
   }
   @media (max-width: 900px) {
     .skills-grid {
