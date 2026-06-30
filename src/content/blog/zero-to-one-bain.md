@@ -5,7 +5,7 @@ pubDate: 2025-09-10
 category: "Startup journey"
 tags: ["startup-journey"]
 readingTime: "15 min read"
-tldr: "I drove Aura, a PE due diligence platform, from $0 to $3.6M ARR in 15 months as its venture CTO inside Bain & Company. The team grew from 4 to 33, I built the data infrastructure myself, and the product eventually spun out of Bain as a separate entity. Building inside a large firm trades the startup's speed for distribution, trust, and funding you would otherwise spend years earning. The deciding factor is whether the problem genuinely rewards those assets."
+tldr: "I drove Aura, a workforce-analytics platform used heavily in PE and growth-equity due diligence, from $0 to $3.6M ARR in 15 months as its venture CTO inside Bain & Company. The team grew from 4 to 33, I built the data infrastructure myself, and the product eventually spun out of Bain as a separate entity. Building inside a large firm trades the startup's speed for distribution, trust, and funding you would otherwise spend years earning. The deciding factor is whether the problem genuinely rewards those assets."
 ---
 
 When people hear I built a product from zero to \$3.6M [ARR](https://en.wikipedia.org/wiki/Annual_recurring_revenue) inside Bain & Company, they react one of two ways.
@@ -14,9 +14,9 @@ The startup crowd asks: "How did you move fast inside a big consulting firm? Did
 
 The corporate crowd asks: "How did you convince leadership to fund something so risky? Consulting firms hate uncertainty."
 
-Both questions miss the point. Building inside a large organization is different from building a traditional startup. Understanding those differences, really understanding them, determines whether you succeed or fail.
+Both questions assume the wrong frame. Building inside a large organization is a different game from a traditional startup, and the differences are what decide whether you succeed.
 
-I joined Aura as its venture CTO. My job was the whole technical surface: architecture, the team I hired, and the data infrastructure, which I built myself because it was the load-bearing part of the product and I wanted my hands on it. Over 15 months we went from 4 people to 33 and from no revenue to a \$3.6M ARR run rate. Aura later spun out of Bain as its own entity. What follows is what I learned about why a setting like that helps and where it fights you.
+Aura was incubated in Bain's Founders Studio, the part of Bain's Engine 2 Ventures unit that turns consulting workflows into software businesses. Engine 1 is the consulting business; Engine 2 productizes it. Aura was one of four ventures in that first incubation, and I was its venture CTO. My job was the whole technical surface: architecture, the team I hired, and the data infrastructure, which I built myself because it was the load-bearing part of the product and I wanted my hands on it. Over 15 months we went from 4 people to 33 and from no revenue to a \$3.6M ARR run rate. Aura later spun out of Bain as its own entity. What follows is what I learned about why a setting like that helps and where it fights you.
 
 ## Why consulting firms build products
 
@@ -28,7 +28,7 @@ The challenge is translating that insight into products. Most consulting firms d
 
 ## How Aura started
 
-Aura was a PE due diligence platform. The origin story is simple. Bain does hundreds of due diligence projects for private equity firms every year. Each one involves collecting data from dozens of sources, running analyses, and producing reports on a deal timeline measured in weeks.
+Aura was a workforce-analytics platform, used heavily in PE and growth-equity due diligence. The origin story is simple. Bain does hundreds of due diligence projects for private equity firms every year. Each one involves collecting data from dozens of sources, running analyses, and producing reports on a deal timeline measured in weeks.
 
 The existing process was artisanal. Consultants manually gathered data from dozens of sources. They built one-off spreadsheets. They spent nights reformatting slides. Each project reinvented the wheel.
 
@@ -38,9 +38,15 @@ From first principles, a due diligence project is a data pipeline with a deadlin
 
 That framing is also why I built the data infrastructure myself. The ingestion and reconciliation layer was the part everything else stood on. If the data was wrong or slow, no amount of polish on top would matter, and a due diligence number that is confidently wrong is worse than no number at all. So I owned that layer directly rather than delegating it early.
 
+### What "the load-bearing layer" actually meant
+
+I started the architecture deliberately simple so we could ship: Postgres, Django, and Celery on AWS, with dimensional modeling on top. That was the right call to get moving, and it was the wrong call to keep. As the data and the analytical load grew, Postgres was no longer the right fit for a warehouse workload, so we moved the analytics to Snowflake with [Cube.js](https://cube.dev/) as the semantic layer, and landed the large datasets in S3. The scale is what made it interesting: over a billion rows of profile data, hundreds of millions of job postings, S&P 500 financials, plus a set of API vendors feeding an enrichment waterfall. I built it as a medallion architecture, raw to refined to serving, so a number could always be traced back to its source.
+
+The harder problem was making any of it comparable. We had more than 20 million raw skills and a sprawl of job titles, and you cannot compare two companies' workforces until those mean the same thing. We adopted the [Lightcast](https://lightcast.io/open-skills) skills and job-title taxonomies and the US [Bureau of Labor Statistics](https://www.bls.gov/oes/) occupational data as a common spine, then used LLMs, which we had been working with since GPT first launched, to clean and map the rest. On top of the BLS job-function data I built a way to estimate the AI exposure of a role, meaning how much of its actual work a model can do, which also fed back and improved the skill and role taxonomy. A due diligence number that is confidently wrong is worse than no number, so this layer is where I kept my hands.
+
 Easy to say. Making it happen inside a consulting firm is hard for reasons that aren't obvious from the outside.
 
-## The advantages no one talks about
+## The advantages of building inside a firm
 
 Start with what made this easier than a traditional startup.
 
@@ -48,9 +54,9 @@ Start with what made this easier than a traditional startup.
 
 In a startup, you build the product first, then figure out how to reach customers. At Bain we had the opposite. We had hundreds of partners with existing client relationships. Our go-to-market was: walk down the hall.
 
-This sounds minor. It isn't. Startups die from lack of distribution more often than lack of product. Having distribution locked in from day one let us focus almost entirely on building the right thing.
+That sounds minor and it is not. Startups die from lack of distribution more often than from lack of product. Having distribution locked in from day one let us focus almost entirely on building the right thing.
 
-### 2. Customer development on steroids
+### 2. Customer development without the access problem
 
 When you're building a B2B product, the hardest part is getting time with decision-makers. They're busy. They don't take cold calls. They don't want to be guinea pigs for your MVP.
 
@@ -72,7 +78,7 @@ When a random startup approaches a PE firm with a new due diligence tool, they h
 
 When Bain approaches the same firm with the same tool, the conversation is different. The trust is inherited. The relationships are already there. The brand does heavy lifting that would otherwise take years of credibility-building.
 
-## The disadvantages everyone underestimates
+## The disadvantages, and where they bite
 
 Now what made it harder.
 
@@ -130,6 +136,10 @@ In the early days, before we had traction, we needed believers. The consultants 
 
 These people lent us their conviction when we didn't have enough of our own. Their credibility within the organization opened doors that would have been closed to outsiders.
 
+### Coordination as much as code
+
+The job was as much coordination as code. I was managing internal Bain people and stakeholders, external software-development consultancies, and consultants who rotated in through Bain's global program, all at once. When Aura spun out, I handled the org setup and the Bain-to-Aura separation itself: the contracts, the legal, and the requirements for standing the company up on its own.
+
 ## The 15-month timeline
 
 People are surprised we went from zero to \$3.6M ARR in 15 months. Roughly how it happened:
@@ -151,7 +161,9 @@ timeline
 
 **Months 13-15:** Scale. Standardized the platform. Built self-service capabilities. Expanded to multiple PE clients. Hit \$3.6M ARR run rate.
 
-We never had a big launch. We grew one project at a time, with each success creating demand for the next. The team grew the same way, from 4 to 33 over those 15 months, hired against pull from real usage rather than ahead of it. Aura later spun out of Bain as a separate entity, which is the clearest signal that what started as an internal tool had become a business in its own right.
+We never had a big launch. We grew one project at a time, with each success creating demand for the next. The team grew the same way, from 4 to 33 over those 15 months, hired against pull from real usage rather than ahead of it.
+
+Aura spun out of Bain as its own company, and it has kept going. It is now an [official Claude connector](https://claude.com/connectors/aura), usable natively inside Claude through Anthropic's MCP, which is the kind of distribution that did not exist when we started. The clearest signal that an internal tool became a real business is that it now lives well outside the building it was born in.
 
 ## Lessons for both worlds
 

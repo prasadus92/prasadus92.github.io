@@ -15,7 +15,7 @@ export const site = {
   role: 'Founder & CEO, Luminik',
   tagline: 'I turn expensive, repetitive work into products people pay for.',
   description:
-    'Building Luminik - AI co-pilot for event marketing teams. Previously built Aura at Bain ($0 to $3.6M ARR), co-founded Mainteny where the work helped raise a $2.7M seed.',
+    'Building Luminik, a multi-agent platform that ties B2B event spend to revenue. Previously built Aura at Bain ($0 to $3.6M ARR), co-founded Mainteny where the work helped raise a $2.7M seed.',
   metaTitle: 'Prasad Subrahmanya - Founder & Technology Leader',
   links: {
     linkedin: 'https://linkedin.com/in/prasadus',
@@ -54,7 +54,7 @@ export const impact = [
     kicker: 'Aura · Bain & Company',
     metric: '$3.6M',
     unit: 'ARR, from zero in 15 months',
-    body: 'Built a PE due-diligence platform as venture CTO and took it from zero to $3.6M ARR in 15 months. Some of the largest names in growth equity and private equity used it to run their diligence.',
+    body: 'Built a workforce-analytics platform used heavily in PE and growth-equity due diligence, as venture CTO, and took it from zero to $3.6M ARR in 15 months. I owned the data infrastructure it stood on, later moving the warehouse to Snowflake as the analytical load grew.',
     tags: ['0→1', 'Enterprise SaaS', 'PE & growth equity'],
     accent: 'magenta',
   },
@@ -129,8 +129,8 @@ export const work = [
     company: 'Aura · Bain & Company',
     role: 'Venture CTO',
     period: 'Nov 2022 to Dec 2023',
-    body: 'Took a PE due-diligence SaaS platform from concept to $3.6M ARR in 15 months. Owned product, architecture, and the engineering team.',
-    tags: ['Enterprise SaaS', 'AWS', 'PE & growth equity', 'Team leadership'],
+    body: 'Took a workforce-analytics SaaS platform, used heavily in PE and growth-equity due diligence, from concept to $3.6M ARR in 15 months. Owned product, architecture, and the engineering team, and built the data infrastructure: a medallion warehouse on Snowflake with a Cube.js semantic layer, plus Lightcast and BLS taxonomies for comparable workforce data.',
+    tags: ['Enterprise SaaS', 'Snowflake', 'AWS', 'PE & growth equity', 'Team leadership'],
     href: null,
     icon: 'lucide:landmark',
     current: false,
@@ -139,7 +139,7 @@ export const work = [
     company: 'Mainteny',
     role: 'Co-founder & CTO',
     period: 'Aug 2020 to Oct 2022',
-    body: 'Field-service management SaaS for maintenance companies across Europe. Built and launched the MVP solo in 3 months, raised a $2.7M seed, and scaled the team to 15 across four countries.',
+    body: 'Field-service management SaaS for maintenance companies across Europe. Built and launched the MVP solo in 3 months, raised a $2.7M seed, and scaled the team to about 15 across five countries.',
     tags: ['Spring Boot', 'Kubernetes', '$2.7M seed', 'CRM'],
     href: null,
     icon: 'lucide:wrench',
@@ -165,12 +165,12 @@ export const approach = [
   {
     n: '02',
     title: 'Treat agents as systems',
-    body: 'An agent is more than a prompt. It needs planning, isolation, review, and a way to recover when it goes wrong. Alfred runs a fleet of coding agents on those rules.',
+    body: 'An agent needs more than a good prompt. It needs planning, isolation, review, and a way to recover when it goes wrong. Alfred runs a fleet of coding agents on those rules.',
   },
   {
     n: '03',
     title: 'Earn trust before production',
-    body: 'Demos are easy. I spend the real effort on the cases that break: evals, a judge I have calibrated, and adversarial tests, so I know how a system behaves before customers meet it.',
+    body: 'Of course you can show a good demo. The real work is the cases that break: evals, a judge I have calibrated, and adversarial tests, so I know how a system behaves before customers meet it.',
   },
   {
     n: '04',
@@ -180,12 +180,12 @@ export const approach = [
   {
     n: '05',
     title: 'Measure what matters',
-    body: 'I tie systems to the number the business cares about: pipeline, revenue, and cost. If I cannot see the effect, I am careful about shipping.',
+    body: 'I tie systems to the number the business cares about: pipeline, revenue, and cost. If I cannot measure the effect, I do not call it done.',
   },
   {
     n: '06',
     title: 'Stay hands-on',
-    body: 'I stay hands-on: I write code, review it, and read what the system produces in the wild. This work is hard to lead from a distance.',
+    body: 'I write the code, review it, and read what the system produces in the wild. This kind of work does not lead well from a distance.',
   },
 ] as const;
 
@@ -194,7 +194,7 @@ export const principles = [
   {
     icon: 'lucide:zap',
     title: 'High agency',
-    body: 'I default to action. If something is broken or missing, I assume it is mine to fix and find a way.',
+    body: 'If something is broken or missing, I treat it as mine to fix rather than wait for someone to own it.',
   },
   {
     icon: 'lucide:trending-up',

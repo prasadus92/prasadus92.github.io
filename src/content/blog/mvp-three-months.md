@@ -20,7 +20,7 @@ tldr: "I built Mainteny's MVP solo in three months by shipping the one workflow 
 
 In early 2021 I left my job to build a CRM for maintenance companies in Europe: HVAC technicians, plumbers, electricians. Three months later I had a working product and paying customers. The work I did in that period, alongside my co-founder, helped raise a $2.7M seed round.
 
-This is not a story about 16-hour days. It is about deciding what not to build when you are building alone, and about the one time I ignored my own rule and lost two sprints to it.
+It is not a story about working 16-hour days. It is about deciding what not to build when you are building alone, and about the one time I ignored my own rule and lost two sprints to it.
 
 ## Build the one thing that proves people will pay
 
@@ -28,7 +28,7 @@ The hardest skill in an MVP is deciding what to leave out. Maintenance businesse
 
 So I asked one question obsessively. What is the one thing that, if it works, proves the business is viable? For us it was job management: create a job, assign it to a technician, capture what happened, mark it complete. If maintenance companies would pay for a better way to run their daily jobs, everything else could come later.
 
-Everything else got cut into a written won't-have list. That list ran past 40 items. Every time a prospect mentioned a feature, it went on the list instead of the roadmap, which let me hear the need without committing to build it. The won't-have list earns its keep as a solo founder. It is not a backlog. It is a promise to yourself not to get distracted.
+Everything else got cut into a written won't-have list. That list ran past 40 items. Every time a prospect mentioned a feature, it went on the list instead of the roadmap, which let me hear the need without committing to build it. The won't-have list earns its keep as a solo founder.
 
 > The won't-have list is not a backlog. It is a promise to yourself not to get distracted.
 
@@ -70,7 +70,7 @@ flowchart TD
 ```
 
 - **Week 1-2, the core loop.** Create a job, assign it, mark it complete. Hardcoded test user, no migrations, basic `try-catch`. By the end of week 2 I could demo the flow to customers. It was ugly and broke in dozens of ways, but it showed the idea clearly enough to get feedback.
-- **Week 3-4, just enough auth.** Username and password on `Spring Security`, the simplest config that works. No `OAuth`, no social login, no password reset. I reset passwords by hand in the database. This is where developers over-engineer; do not.
+- **Week 3-4, just enough auth.** Username and password on `Spring Security`, the simplest config that works. No `OAuth`, no social login, no password reset. I reset passwords by hand in the database. This is the spot where it is tempting to over-engineer auth. Do not.
 - **Week 5-8, the must-have features.** Customer and technician management, scheduling with a calendar view, status workflows, the routing API wired in, simple reporting. Each feature got the simplest version that solved the problem, then feedback, then iterate only if needed.
 - **Week 9-10, polish and infrastructure.** Deployment pipeline, monitoring, backups. Only in the final weeks, and only because by then there was something worth running reliably.
 
@@ -96,7 +96,11 @@ Choose technology by your speed with it, not its theoretical fit. A tool you kno
 
 A common mistake technical founders make is building in isolation for months, then discovering they built the wrong thing. I started talking to maintenance companies in week 3, before the product really worked, with a simple ask: I am building a tool for businesses like yours, can I show you what I have and get your feedback? People rarely say no to a request for advice.
 
-Those conversations validated the problem, shaped the product, and seeded a pipeline. By launch I had 15 companies waiting to try it, and three became paying customers in the first month. The trick was honesty about the product's state: I told prospects exactly what worked and what did not, fixed things fast when they broke, and gave them my phone number. Early customers do not expect perfection. They expect to be heard.
+Talking was not enough on its own, so I went to where the work happened. I rode along on real maintenance calls. At a small elevator-maintenance company in Oslo, a technician named Jonas took me to a training center with real lift cars, and I stood on top of an elevator car in safety gear watching them work. I learned that every building has a dedicated elevator room with the controller and electrical circuits, the kind of thing you cannot learn from a requirements doc. I also got Knut Tore Haugen, the operations manager at StartupLab, the Oslo startup hub, to let me run an early IoT prototype from a vendor called LiftInsight on about eight of their elevators to collect real data. You design a very different product after you have stood on the equipment than you do from a whiteboard.
+
+Those conversations validated the problem, shaped the product, and seeded a pipeline. The first company to run the product in the real world was a roughly 15-technician service company in Berlin, and the Oslo elevator company, run by Lian Heis, was both a development partner and an early adopter. The trick was honesty about the product's state: I told prospects exactly what worked and what did not, fixed things fast when they broke, and gave them my phone number. Early customers do not expect perfection. They expect to be heard.
+
+The work behind that honesty was unglamorous. On our v1 launch day I was up until 6am importing customer data with Python scripts, and back at it by 10am, because a customer onboarding cannot wait.
 
 ## What I would change
 
@@ -107,9 +111,9 @@ Those conversations validated the problem, shaped the product, and seeded a pipe
 
 ## The point of solo building
 
-Building an MVP solo is not about proving you do not need help. It is about moving fast in the phase where speed matters most, before you know what you are building or why. Once the concept is proven, build the team. I co-founded Mainteny and we went from two people to fifteen; the second brain mattered most after zero to one, not during it.
+Building an MVP solo is not about proving you do not need help. It is about moving fast in the phase where speed matters most, before you know what you are building or why. Once the concept is proven, build the team. I co-founded Mainteny and we grew to about fifteen people across five countries; the second brain mattered most after zero to one, not during it.
 
-Three months, one person, one core workflow, three paying customers. That was enough to prove the idea was worth pursuing. The routing detour was the one stretch where I forgot my own rule, and it cost exactly what ignoring it always costs.
+Three months, one person, one core workflow, and the first companies running it in the real world. That was enough to prove the idea was worth pursuing. The routing detour was the one stretch where I forgot my own rule, and it cost exactly what ignoring it always costs.
 
 ## Key takeaways: the solo MVP playbook
 

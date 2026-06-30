@@ -1,7 +1,7 @@
 ---
 title: "Writing the verifier is the real work in agent RL"
 description: "A reward function is a specification of correctness, not a scalar loss. Strict final-state equality is fine for a leaderboard and wrong for RL in real domains. The verifier is about 215 lines; understanding the domain is the cost."
-tldr: "In reinforcement learning, the reward function is where you tell the agent what \"good\" means, and getting that definition right is the hard part, not the training. I spent two weeks extending tau-bench into a new domain and the verifier that scores each run came out to about 215 lines. The code was a weekend. Writing down what \"correct\" means per task, the equivalence classes, the safety lines you can never cross, the money that has to balance, was the project. If you are new to RL, the first half of this post explains the field from scratch so the second half lands."
+tldr: "In reinforcement learning, the reward function is where you tell the agent what \"good\" means, and getting that definition right is the hard part, not the training. I spent two weeks extending tau-bench into a new domain and the verifier that scores each run came out to about 215 lines. The code took a couple of days. Most of the two weeks went into writing down what \"correct\" means per task: the equivalence classes, the safety lines you can never cross, the money that has to balance. If you are new to RL, the first half of this post explains the field from scratch so the second half lands."
 pubDate: 2026-06-28
 category: "AI engineering"
 tags: [agent-rl, reinforcement-learning, reward-design, tau-bench, verifiers, evaluation]

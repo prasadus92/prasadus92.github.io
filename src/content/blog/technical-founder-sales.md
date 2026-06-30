@@ -22,9 +22,9 @@ That understanding turned out to be a real advantage.
 
 Partly Hollywood stereotypes of socially awkward engineers. Partly the real observation that many technical people are uncomfortable with traditional sales tactics.
 
-But traditional sales tactics are mostly garbage anyway.
+But the traditional sales tactics work less and less anyway.
 
-The pushy closer. The artificial scarcity. The manipulation techniques. The "always be closing" mentality. These are uncomfortable for engineers, and they're increasingly ineffective for everyone. Modern B2B buyers are sophisticated. They can smell manipulation from a mile away. They have Google. They talk to each other on LinkedIn and in Slack communities. They don't need a salesperson to tell them about your product. They need someone to help them figure out if it's right for their situation.
+The pushy closer. The artificial scarcity. The manipulation techniques. The "always be closing" mentality. These are uncomfortable for engineers, and they're increasingly ineffective for everyone. Modern B2B buyers are sophisticated. They recognize manipulation quickly. They have Google. They talk to each other on LinkedIn and in Slack communities. They don't need a salesperson to tell them about your product. They need someone to help them figure out if it's right for their situation.
 
 That's what engineers are good at.
 
@@ -54,6 +54,12 @@ You can also have real conversations about architecture, integrations, and imple
 Here's the mental shift that changed things for me. Stop thinking of sales calls as chances to pitch. Start thinking of them as chances to help.
 
 Josh Braun calls this "selling without being salesy." The idea is simple. Your job isn't to convince people to buy. Your job is to help them figure out whether what you have fits what they need. If it does, great. If it doesn't, that's useful information for both of you.
+
+I think about cold outreach the same way: genuinely helpful and useful without expectation, getting into the customer's shoes, their pains, their workflows, and never treating it as a transaction. Josh Braun and Rob Snyder both teach this. Rob Snyder's framing stuck with me: look at what is on the buyer's Kanban board for the quarter, the half, the year, and work together to hit those outcomes. The sale follows from that. Patience and no expectations matter.
+
+Before one enterprise marketing team started working with us, I had three conversations with their senior marketing director, all about how they invest in events, what they were seeing, their actual workflows, and the specific outcomes they wanted. None of those calls was a pitch. It is someone's career and possibly their promotion. For them it is a specific project they are driving, and you have to be positioned to help them hit it. Match, timing, and budget all have to line up. I would not even call it a sale. It is someone deciding to believe in you and bring you onto their team to reach a goal. **[name Microblink? confirm — it is a customer]**
+
+Cracking cold messages and cold emails took a real learning curve, and every founder goes through it. The better mindset is the one Rob Snyder points at: find whoever actually has a project running on the problem you solve.
 
 This feels natural to engineers because it's how we approach problem-solving anyway. Understand the problem. Consider different solutions. Weigh tradeoffs. Make a recommendation based on the specific context.
 
@@ -85,7 +91,7 @@ Discovery is the process of understanding a prospect's situation before proposin
 
 Engineers are almost pathologically inclined toward thorough discovery. We want to understand the problem before suggesting solutions. We're uncomfortable making recommendations without enough context. We ask follow-up questions because we want to understand the edge cases.
 
-This is a feature, not a bug.
+That instinct is an advantage here, not a liability.
 
 Good discovery questions from a technical founder:
 
@@ -111,7 +117,7 @@ When a prospect raises an objection, they're telling you something about their n
 
 If the objection is valid, if your product genuinely has a limitation they're worried about, acknowledge it directly. Then do three things: explain why the limitation exists, describe what you're doing about it if anything, and help them evaluate whether it's a dealbreaker for their situation.
 
-> "Prospects don't trust salespeople who have an answer for everything. They trust salespeople who are honest about tradeoffs."
+Prospects do not trust a salesperson who has an answer for everything. They trust the one who is honest about tradeoffs, and as the builder you can be specific about exactly which tradeoff and why.
 
 At Luminik I've had calls where prospects asked about features we don't have yet. Instead of pretending we're "working on it," I tell them exactly where it is on our roadmap and why other things are prioritized higher. Sometimes they're fine waiting. Sometimes it's a dealbreaker. Either outcome beats setting false expectations.
 
@@ -207,6 +213,8 @@ You also haven't figured out your sales motion yet. What's the [ideal customer p
 Even then, your first sales hire probably shouldn't be a quota-carrying rep. Consider a sales development rep (SDR) who handles outbound and qualification, leaving you to do the selling. Or a customer success person who handles post-sale work, freeing you up for more prospects. The goal is to extend your capacity, not replace yourself.
 
 When you do hire, look for someone who matches your consultative approach. The pushy "always be closing" types will feel wrong to you and will alienate the customers you've been building relationships with. Find someone who wants to help customers solve problems, not just hit quota.
+
+This matched how I built the team at Mainteny. I kept doing the selling myself while I brought in a trusted former colleague, Dapeng, part-time to extend engineering capacity, then hired my first full-time engineer, Ayobami, who relocated from Nigeria to Oslo to join us. Over time the team grew to about fifteen people, and I was managing engineers across Norway, Germany, India, Croatia, and Nigeria. None of that replaced founder-led sales. It freed me to keep doing it.
 
 ## The advantage
 

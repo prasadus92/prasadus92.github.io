@@ -8,7 +8,7 @@ readingTime: "12 min read"
 tldr: "I co-founded Mainteny and ran the technical side of a seed raise that took six months, 87 investor conversations, and a lot of rejection. The work I did there helped raise a $2.7M seed. Cold outreach got us a 15% response rate by researching every investor instead of mail-merging them, the live product demo did more than any deck, and term sheets arrived in a cluster at the end because no one wants to be first. The real lesson: fundraising is a filter on whether you built something worth funding, not an accomplishment in itself."
 ---
 
-Most fundraising advice comes from people who raised money in 2021, when VCs handed out [term sheets](https://en.wikipedia.org/wiki/Term_sheet) freely. That advice is useless now.
+Most fundraising advice comes from people who raised money in 2021, when VCs handed out [term sheets](https://en.wikipedia.org/wiki/Term_sheet) freely. It does not transfer to a tighter market.
 
 I co-founded Mainteny and was the CTO through our seed raise. The process took six months, 87 investor conversations, and more rejections than I want to count. The work my co-founder and I did in that period helped raise a \$2.7M seed. I ran the technical half of it: the product demo, the technical due diligence, and the "why this team can build it" story. Here is what I learned.
 
@@ -31,7 +31,7 @@ Block entire days for investor work. Block entire days for product work. The con
 
 Unless you went to Stanford, worked at a FAANG, or have a successful exit, you probably do not have warm intros to most investors. We did not.
 
-Our cold email response rate was 15%. Industry average is 2-5%. Here is why.
+Our cold email response rate was 15%, several times the low single digits that untargeted cold outreach tends to get. Here is why.
 
 The raise was a funnel. Researched outreach fed conversations, a fraction of those asked for the data room, fewer still went to a partner meeting, and the term sheets came at the very end.
 
@@ -46,7 +46,7 @@ flowchart LR
 
 ### Research each investor
 
-The worst thing you can do is send the same email to 200 investors. They can smell a mail merge.
+The worst thing you can do is send the same email to 200 investors. A mail merge is obvious to them.
 
 What have they invested in? What do they write about? What is their thesis? Connect those dots.
 
@@ -58,7 +58,7 @@ Hi \[Name\],
 
 I noticed your investment in \[similar company\] and your recent post about European B2B markets. We are building something adjacent.
 
-\[Company\] is a CRM for maintenance companies. 500B EUR market in Europe with zero modern software players. Our 47 customers grew 3x in 8 months because the alternative is paper and Excel.
+\[Company\] is a CRM for maintenance companies, a large European market still running on paper and Excel. Early customers are switching because there is no modern alternative built for how they actually work.
 
 Would you be open to a 20-minute call next week?
 
@@ -89,11 +89,13 @@ After 87 conversations, patterns emerge.
 
 ### Market understanding
 
-Every pitch deck has a TAM slide with a big number. Investors know this number is fiction.
+A pitch deck has a TAM slide with a big number, and investors discount it on sight.
 
 What they care about: do you understand the market deeply enough to have a contrarian insight?
 
-The investors who got excited were not impressed by our TAM number. They were impressed that we could explain market dynamics better than they had heard before. We knew the customer because we had spent months talking to them.
+The investors who got excited were not impressed by our TAM number. They were impressed that we could explain how maintenance companies actually work, day to day, better than they had heard before.
+
+That came from going to the field. Early on I rode along on real maintenance calls. At a small Oslo elevator-maintenance company, a technician named Jonas took me to a training center with real lift cars, and I stood on top of an elevator car in safety gear watching the work. I learned that buildings have a dedicated elevator room with the controller and the electrical circuits, the kind of detail you only get by being there. Lian Heis, who ran the company, became one of our development partners. When an investor asked how technicians really spend their day, I was not guessing.
 
 ### Team
 
@@ -139,13 +141,13 @@ We mistook politeness for interest.
 
 ### Month 2: reality
 
-Warm intros dried up. Started cold outreach. Response rates lower than expected. Conversations ended with "you are too early" or "we do not invest in this vertical."
+Warm intros dried up, so we started cold outreach. Response rates came in lower than expected. Conversations ended with "you are too early" or "we do not invest in this vertical."
 
-Doubt creeps in. Are we fundable? Is the market real?
+Doubt creeps in. We started asking ourselves whether we were fundable and whether the market was real.
 
 ### Month 3: iteration
 
-Refined the pitch based on feedback. Shortened the deck. Led with the demo. Got better at handling objections. Response rates improved.
+We refined the pitch based on feedback, shortened the deck, and led with the demo. We got better at handling objections, and response rates improved.
 
 Still no term sheet. Lots of "interested but need more traction."
 
@@ -258,7 +260,7 @@ The best thing you can do to make fundraising easier is to spend less time think
 ## Key takeaways
 
 - Treat fundraising as a filter, not a trophy. If you have built real value you will find capital; if you have not, no tactic saves you.
-- Research every investor before you send anything. That discipline is why our cold response rate was 15% against a 2 to 5% industry norm.
+- Research every investor before you send anything. That discipline is why our cold response rate was 15%, several times what untargeted outreach gets.
 - Demo the live product, not a slide about it. Evidence beats claims, and it collapses the two risks an investor underwrites at seed: can you build, and does anyone want it.
 - Block whole days for investor work and whole days for product work. The context-switching tax between the two is the hidden cost of a raise.
 - Have the data room ready before you start. Good opportunities move fast, and scrambling for contracts and a cap table mid-process loses a week you do not have.

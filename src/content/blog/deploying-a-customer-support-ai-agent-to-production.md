@@ -804,6 +804,8 @@ After launch, the measurement half:
 
 This post is about testing an agent you consume. The opposite job is building the evaluation environments and graded trajectories that train and benchmark agents in the first place. I wrote a separate case study on extending Sierra's τ-bench line into a new domain, covering reward design, compositional task generation, and the operational model for producing graded trajectories at scale: [Extending τ-bench into a new domain](https://github.com/prasadus92/toloka-case-study). The two posts share the same backbone, pass^k reliability and policy adherence, from the producer and the consumer side.
 
+This is also the clearest example of how I help teams get AI into production, the testing, the reliability, and the measurement that turn a demo into something you can trust. If that is the work you are doing, [here is more on how I help with AI enablement](/ai-enablement).
+
 ## What I would build next
 
 - Multi-turn testing with a simulated user, the [τ-bench](https://arxiv.org/abs/2406.12045) and [τ²-bench](https://arxiv.org/abs/2506.07982) approach, so policy adherence is tested across a whole conversation rather than a single turn. This closes the single-turn limitation noted earlier.

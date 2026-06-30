@@ -22,6 +22,10 @@ import SignatureMotion from './SignatureMotion.astro';
         <a href={site.links.alfred} target="_blank" rel="noopener">Alfred</a> in the open.
       </p>
 
+      <p class="hero-sub reveal reveal-d2">
+        I build AI that makes it to production, and <a href="/ai-enablement">help teams get there</a>.
+      </p>
+
       <div class="hero-cta reveal reveal-d3">
         <a href="/contact" class="btn btn-primary">
           Get in touch <Icon name="arrowRight" size={17} />
@@ -112,6 +116,21 @@ import SignatureMotion from './SignatureMotion.astro';
     transition: color var(--dur-1) var(--ease-out), border-color var(--dur-1) var(--ease-out);
   }
   .hero-lead a:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+  .hero-sub {
+    margin-top: 12px;
+    max-width: 60ch;
+    font-size: 1rem;
+    color: var(--text-tertiary);
+  }
+  .hero-sub a {
+    color: var(--text-secondary);
+    border-bottom: 1px solid var(--glass-border-strong);
+    transition: color var(--dur-1) var(--ease-out), border-color var(--dur-1) var(--ease-out);
+  }
+  .hero-sub a:hover {
     color: var(--accent);
     border-color: var(--accent);
   }
@@ -278,7 +297,8 @@ import SignatureMotion from './SignatureMotion.astro';
     }
   }
   @media (min-width: 941px) and (max-height: 680px) {
-    .hero-lead {
+    .hero-lead,
+    .hero-sub {
       display: none;
     }
     .hero-title {
