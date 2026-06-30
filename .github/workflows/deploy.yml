@@ -25,7 +25,10 @@ jobs:
         with:
           node-version: 22
           cache: npm
-      - run: npm ci
+      # npm install (not ci) so the lockfile reconciles under CI's own npm;
+      # avoids npm-version drift between local and runner failing the strict
+      # ci sync check.
+      - run: npm install --no-audit --no-fund
       - run: npm run build
       - uses: actions/upload-pages-artifact@v3
         with:
