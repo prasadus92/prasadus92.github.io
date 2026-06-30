@@ -297,18 +297,48 @@ const jsonLd = [articleLd, breadcrumbLd, faqLd].filter(Boolean) as Record<string
     const mermaid = (
       await import('https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs')
     ).default;
-    const dark = document.documentElement.getAttribute('data-theme') !== 'light';
-    mermaid.initialize({
-      startOnLoad: false,
-      theme: dark ? 'dark' : 'neutral',
-      securityLevel: 'strict',
-      fontFamily: "'Space Grotesk', system-ui, sans-serif",
-    });
-    try {
-      await mermaid.run({ nodes });
-    } catch (e) {
-      /* leave source visible if a diagram fails */
+    // Keep the original diagram source so we can re-render on theme change.
+    const sources = [...nodes].map((n) => n.textContent);
+    const themeFor = () =>
+      document.documentElement.getAttribute('data-theme') === 'light' ? 'neutral' : 'dark';
+    const hintHTML =
+      '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>';
+    async function renderMermaid() {
+      nodes.forEach((n, i) => {
+        n.removeAttribute('data-processed');
+        n.textContent = sources[i];
+      });
+      mermaid.initialize({
+        startOnLoad: false,
+        theme: themeFor(),
+        securityLevel: 'strict',
+        fontFamily: "'Space Grotesk', system-ui, sans-serif",
+      });
+      try {
+        await mermaid.run({ nodes });
+      } catch (e) {
+        /* leave source visible if a diagram fails */
+      }
+      // (re)decorate each rendered diagram for the lightbox
+      nodes.forEach((n) => {
+        if (!n.querySelector('svg')) return;
+        n.classList.add('mm-zoomable');
+        n.setAttribute('role', 'button');
+        n.setAttribute('tabindex', '0');
+        n.setAttribute('aria-label', 'Enlarge diagram');
+        if (!n.querySelector('.mm-hint')) {
+          const hint = document.createElement('span');
+          hint.className = 'mm-hint';
+          hint.innerHTML = hintHTML;
+          n.appendChild(hint);
+        }
+      });
     }
+    await renderMermaid();
+    // Re-render the diagrams to match the site theme when it is toggled.
+    new MutationObserver((muts) => {
+      if (muts.some((m) => m.attributeName === 'data-theme')) renderMermaid();
+    }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
 
     // Lightbox (shared overlay, works across browsers/screens).
     const overlay = document.createElement('div');
@@ -332,18 +362,9 @@ const jsonLd = [articleLd, breadcrumbLd, faqLd].filter(Boolean) as Record<string
     });
 
     nodes.forEach((n) => {
-      const svg = n.querySelector('svg');
-      if (!svg) return;
-      n.classList.add('mm-zoomable');
-      n.setAttribute('role', 'button');
-      n.setAttribute('tabindex', '0');
-      n.setAttribute('aria-label', 'Enlarge diagram');
-      const hint = document.createElement('span');
-      hint.className = 'mm-hint';
-      hint.innerHTML =
-        '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>';
-      n.appendChild(hint);
       const open = () => {
+        const svg = n.querySelector('svg');
+        if (!svg) return;
         stage.innerHTML = '';
         const clone = svg.cloneNode(true);
         clone.removeAttribute('width');
