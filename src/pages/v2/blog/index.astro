@@ -19,8 +19,15 @@ const companySlugs = new Set([
   'too-early-teen-banking-startup',
 ]);
 
-const companyPosts = posts.filter((p) => companySlugs.has(p.id));
-const engineeringPosts = posts.filter((p) => !companySlugs.has(p.id));
+// The single most recent post leads the page as an editorial feature; it is
+// pulled out of its cluster so it is not listed twice. Its cluster key is
+// tracked so the "All" filter can hide/show the feature in step with the list.
+const featured = posts[0];
+const featuredKey = featured && companySlugs.has(featured.id) ? 'founder' : 'eng';
+const rest = posts.slice(1);
+
+const companyPosts = rest.filter((p) => companySlugs.has(p.id));
+const engineeringPosts = rest.filter((p) => !companySlugs.has(p.id));
 
 const clusters = [
   { title: 'AI-native engineering', key: 'eng', posts: engineeringPosts },
@@ -28,6 +35,10 @@ const clusters = [
 ].filter((c) => c.posts.length > 0);
 
 const total = posts.length;
+const clusterTotals: Record<string, number> = {
+  eng: engineeringPosts.length + (featuredKey === 'eng' ? 1 : 0),
+  founder: companyPosts.length + (featuredKey === 'founder' ? 1 : 0),
+};
 const fmtDate = (d: Date) => d.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
 ---
 <V2Layout
@@ -46,19 +57,40 @@ const fmtDate = (d: Date) => d.toLocaleDateString('en-US', { month: 'short', yea
       <div class="idx-filters" id="filters">
         <button class="chip active" data-filter="all" type="button">All <span class="chip-count">{total}</span></button>
         {clusters.map((c) => (
-          <button class="chip" data-filter={c.key} type="button">{c.title} <span class="chip-count">{c.posts.length}</span></button>
+          <button class="chip" data-filter={c.key} type="button">{c.title} <span class="chip-count">{clusterTotals[c.key]}</span></button>
         ))}
       </div>
+
+      {featured && (
+        <a class="idx-feature" id="feature" data-cluster={featuredKey} href={`/v2/blog/${featured.id}`}>
+          <span class="feat-tag">Latest</span>
+          <div class="feat-grid">
+            <div class="feat-main">
+              <div class="feat-meta"><span class="art-cat">{featured.data.category}</span>{featured.data.readingTime ? ` · ${featured.data.readingTime.replace(/ read$/, '')}` : ''} · {fmtDate(featured.data.pubDate)}</div>
+              <h2 class="feat-title">{featured.data.title}</h2>
+            </div>
+            <div class="feat-side">
+              <p class="feat-desc">{featured.data.description}</p>
+              <span class="feat-read">Read the piece <span class="a">↗</span></span>
+            </div>
+          </div>
+        </a>
+      )}
 
       <div class="art-list" id="art-list">
         {clusters.map((cluster) => (
           <div class="art-cluster" data-cluster={cluster.key}>
-            <h2 class="art-cluster-title">{cluster.title}</h2>
-            {cluster.posts.map((p) => (
+            <div class="art-cluster-head">
+              <h2 class="art-cluster-title">{cluster.title}</h2>
+              <span class="art-cluster-count">{clusterTotals[cluster.key]} {clusterTotals[cluster.key] === 1 ? 'article' : 'articles'}</span>
+            </div>
+            {cluster.posts.map((p, i) => (
               <a class="art-row" data-cat={cluster.key} href={`/v2/blog/${p.id}`}>
-                <div>
+                <span class="art-index">{String(i + 1).padStart(2, '0')}</span>
+                <div class="art-body">
                   <div class="art-meta"><span class="art-cat">{p.data.category}</span>{p.data.readingTime ? ` · ${p.data.readingTime.replace(/ read$/, '')}` : ''}</div>
                   <h3 class="art-title">{p.data.title}</h3>
+                  <p class="art-desc">{p.data.description}</p>
                 </div>
                 <span class="art-date">{fmtDate(p.data.pubDate)}</span>
               </a>
@@ -74,6 +106,7 @@ const fmtDate = (d: Date) => d.toLocaleDateString('en-US', { month: 'short', yea
     (function () {
       const chips = [...document.querySelectorAll('.chip')];
       const clusters = [...document.querySelectorAll('.art-cluster')];
+      const feature = document.getElementById('feature');
       chips.forEach((c) =>
         c.addEventListener('click', () => {
           chips.forEach((x) => x.classList.remove('active'));
@@ -82,6 +115,7 @@ const fmtDate = (d: Date) => d.toLocaleDateString('en-US', { month: 'short', yea
           clusters.forEach((cl) => {
             cl.hidden = !(f === 'all' || cl.dataset.cluster === f);
           });
+          if (feature) feature.hidden = !(f === 'all' || feature.dataset.cluster === f);
         })
       );
     })();
