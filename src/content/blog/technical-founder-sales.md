@@ -57,19 +57,19 @@ Josh Braun calls this "selling without being salesy." The idea is simple. Your j
 
 I think about cold outreach the same way: genuinely helpful and useful without expectation, getting into the customer's shoes, their pains, their workflows, and never treating it as a transaction. Josh Braun and Rob Snyder both teach this. Rob Snyder's framing stuck with me: look at what is on the buyer's Kanban board for the quarter, the half, the year, and work together to hit those outcomes. The sale follows from that. Patience and no expectations matter.
 
-What this looks like in practice: here is a LinkedIn message I sent a marketing leader, exploring an event-ROI problem I understood well from my time as a venture CTO. It is not a pitch. It states who I help, names the specific way their kind of team gets stuck, and offers something concrete.
+What this looks like in practice: here is a LinkedIn message I sent a marketing leader. It is not a pitch. Almost every line is about them: it opens on their spend, names the specific way their kind of team gets stuck, and asks a real question.
 
 <div class="email-example">
 
-Hi \[Name\], I have been helping marketing leaders at two B2B software companies turn conferences into predictable revenue instead of a line item nobody can defend.
+Hi \[Name\], you put real budget into conferences, and if your team is like most B2B teams, events drive 30 to 40% of pipeline. The hard part is proving it. Three things usually break: picking the conferences where your target accounts actually show up, getting meetings booked before you land, and tracking ROI and follow-ups so the spend holds up when finance asks.
 
-Events drive 30 to 40% of pipeline for teams like yours, but the same three things break: picking the conferences where your target accounts actually show up, pre-booking meetings before you land, and tracking ROI and follow-ups afterward so the spend is defensible.
+Which of those three is the messiest for you right now?
 
-I am taking on a few design partners to build this properly. As a venture CTO at Bain I helped PE-backed companies 3 to 5x their event ROI, so I have a strong prior on what works. Is any of this live for your team right now?
+For context, I am taking on a few design partners to fix exactly this. As a venture CTO at Bain I saw PE-backed teams 3 to 5x their event ROI once they got it right.
 
 </div>
 
-What made it land is what is missing from it: no product name, no calendar link, no "quick 15 minutes." It names a real problem in the reader's words and asks whether that problem is actually theirs. She replied, and the reply is the tell that it worked:
+What made it land is what is missing from it: no product name, no calendar link, no "quick 15 minutes," and almost no "I." It opens on her spend, names the problem in her words, and asks which part hurts most. She replied, and the reply is the tell that it worked:
 
 <div class="email-example">
 
