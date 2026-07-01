@@ -90,7 +90,7 @@ Roll it into one number per event: payback. Closed-won revenue attributable to t
 
 Three levers move payback more than anything else, and the cheapest one is the one teams lose.
 
-**Follow-up speed** is the highest-leverage and lowest-cost lever in the entire funnel. Most leads are never contacted and most of the rest are contacted late, and leads contacted within 24 hours convert several times better than those contacted a week later. Draft the follow-up before the event and send it within hours. The mechanism is that intent decays fast: a badge scan is worth the most on the day it happens, when the conversation is fresh in both memories, and a follow-up six days later is competing against six days of the prospect's other priorities.
+**Follow-up speed** is the cheapest and most effective lever in the entire funnel. Most leads are never contacted and most of the rest are contacted late, and leads contacted within 24 hours convert several times better than those contacted a week later. Draft the follow-up before the event and send it within hours. The mechanism is that intent decays fast: a badge scan is worth the most on the day it happens, when the conversation is fresh in both memories, and a follow-up six days later is competing against six days of the prospect's other priorities.
 
 I have watched this lever move a real number. Working on the attribution side of a large security conference, a client's funnel went from tens of thousands of registered attendees to a filtered set of ICP-matched accounts, and its lead-to-opportunity rate moved from around 1.3% to about 8%, roughly a 6x, on effectively the same event spend. The event did not change. The speed and precision of what happened after the badge scan did.
 
@@ -114,5 +114,5 @@ Events deserve the same rigor as the other 80% of the budget. Most teams apply n
 - Report sourced and influenced pipeline separately, labeled. Sourced answers "did the event create new pipeline," influenced answers "did it move existing deals," and conflating them either overclaims or undersells.
 - Match the attribution window to your sales cycle. Judging a 9-month-cycle business at quarter-end counts deals that have not had time to close as zeros.
 - Measure cost per opportunity, not cost per lead. Lead count flatters volume; per-opportunity cost rewards fit and ties directly to the deal math.
-- Follow-up speed is the cheapest, highest-leverage lever. Most leads are never contacted and many are contacted late, while leads worked within 24 hours convert several times better. Draft the follow-up before the event.
+- Follow-up speed is the cheapest and most effective lever. Most leads are never contacted and many are contacted late, while leads worked within 24 hours convert several times better. Draft the follow-up before the event.
 - Instrument before the event, not after: consistent lead tagging at capture, a window and model decided in advance, and a follow-up process that starts within hours.

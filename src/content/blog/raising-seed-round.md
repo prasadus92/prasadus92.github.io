@@ -137,7 +137,7 @@ flowchart TD
 
 **Month 6, term sheets.** The second firm sent a term sheet. That one commitment created urgency with the investors who had been sitting on the fence, and more term sheets followed within a couple of weeks.
 
-That last step is the clustering, and it has a clean explanation. Fundraising is feast or famine because no investor wants to be first into a deal, but few want to miss one that is closing. The first term sheet is a costly signal that someone with money did the work and decided yes. So the first commit converts fence-sitters, and the rest pile on. The practical consequence: do not read a quiet middle as failure. You are working toward the one yes that unlocks the others.
+That last step is the clustering, and it has a clean explanation. Fundraising is feast or famine because no investor wants to be first into a deal, but few want to miss one that is closing. The first term sheet is a costly signal that someone with money did the work and decided yes. So the first commit converts fence-sitters, and the rest pile on. The practical consequence: do not read a quiet middle as failure. You are working toward the one yes that brings the others.
 
 ## The mistakes that cost us weeks
 
