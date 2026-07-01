@@ -175,7 +175,7 @@ Because the decision code is identical, a good backtest is genuine evidence abou
 
 This is the same determinism argument from [event sourcing](/blog/event-sourcing-cqrs-trading-engine): if state is a pure function of the inputs, replaying the inputs reproduces the state. A backtest that reuses live code and replays historical inputs is deterministic and trustworthy. A backtest that reimplements the strategy is a second, unvalidated program.
 
-What you measure at the end is not accuracy. It is portfolio performance, computed from the equity curve. My engine tracks **net asset value** over time, cash plus the market value of open positions, sampled as the backtest runs, and derives the metrics that actually matter:
+What you measure at the end is not accuracy. It is portfolio performance, computed from the equity curve. My engine tracks **net asset value** over time, cash plus the market value of open positions, sampled as the backtest runs, and derives the metrics that matter:
 
 - **Total and annualized return**, the headline growth.
 - **Sharpe ratio**, return per unit of total volatility, the standard risk-adjusted measure.

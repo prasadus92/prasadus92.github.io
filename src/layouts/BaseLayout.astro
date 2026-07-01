@@ -91,6 +91,7 @@ const siteLd = {
     <link rel="canonical" href={canonical} />
     <meta name="author" content={site.name} />
     <link rel="alternate" type="text/plain" title="llms.txt" href="/llms.txt" />
+    {mdPath && <link rel="alternate" type="text/markdown" title="This page as Markdown" href={mdPath} />}
     <link
       rel="alternate"
       type="application/rss+xml"
