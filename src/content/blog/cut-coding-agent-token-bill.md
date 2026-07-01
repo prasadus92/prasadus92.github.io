@@ -250,7 +250,7 @@ If I were starting over on a new team and a new repo, in order:
 4. **Semantic cache once there is repetition.** Turn it on when more than one person is asking overlapping questions about the same codebase, and turn on invalidation and per-repo scoping the same day, not later.
 5. **Graph last, and only if your workload is discovery-heavy.** If your agents mostly do large cross-file investigations, build it. If they mostly do small targeted edits, skip it and save yourself the infrastructure.
 
-The meta-lesson is the one I keep relearning in this kind of work. Independent levers have to be measured independently, behind a quality gate, or you cannot tell help from theater. The originality is never in any single trick. It is in wiring them together and being honest about what each one was worth.
+The lesson I keep relearning in this kind of work: independent levers have to be measured independently, behind a quality gate, or you cannot tell which one helped. The value is not in any single trick. It is in wiring them together and being honest about what each one was worth.
 
 ## Key takeaways
 

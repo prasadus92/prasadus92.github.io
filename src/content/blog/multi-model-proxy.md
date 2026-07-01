@@ -107,11 +107,11 @@ sequenceDiagram
     P-->>C: translated response
 ```
 
-One earned lesson from this half: the right place to hide a stateful concern is the one place that can be stateful. The client cannot run a loop, so the proxy runs it for everyone.
+The right place to put a stateful concern is the one place that can be stateful. The client cannot run a loop, so the proxy runs it for everyone.
 
 ## Half two: where compatible breaks down
 
-This is where the time went. Three things bit me, and each one looked like it could not possibly be a problem until it was.
+This is where the time went. Three things bit me, and none of them showed up in a non-streaming test.
 
 ### `finish_reason` must be emitted exactly once
 
@@ -172,7 +172,7 @@ I had two options. Make the translator stateful and carry a per-stream accumulat
 # non-streaming request when you need tool_calls back.
 ```
 
-A limitation you document is a decision. A limitation you discover in production is a bug. This was the one tradeoff in the project I am most sure I got right, and it is the one that does the least.
+A documented limitation is a decision; one you discover in production is a bug. Streaming tool calls stay text-only, and tool-using clients fall back to non-streaming requests.
 
 ### clients invent URLs you did not design
 

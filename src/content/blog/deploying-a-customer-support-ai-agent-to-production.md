@@ -12,7 +12,7 @@ tldr: "You cannot inspect a vendor-hosted AI support agent, so you test its beha
 ---
 
 
-Every AI agent demo goes well. That is the problem. You ask the obvious question, you get a clean answer, the room nods. Then real customers arrive with the half-finished question, the angry one, the same question in a second language, and the message quietly trying to pull out something it should never share. That gap, between the demo and the inbox, is where the real problems show up.
+An AI agent demos well. You ask the obvious question, you get a clean answer. Then real customers arrive with the half-finished question, the angry one, the same question in a second language, and the message quietly trying to pull out something it should never share. That gap, between the demo and the inbox, is where the real problems show up.
 
 This is a primer on closing that gap, written from the inside. I worked with a team taking a Zendesk AI agent, the platform that absorbed Ultimate AI, into production for a real, customer-facing support workload in a high-risk, regulated, multilingual industry. Wrong answers carry real cost there, and some customers attempt fraud, social engineering, and prompt injection. This walks through how we tested it before switching it on, and the techniques transfer to any LLM-backed support agent.
 
@@ -570,7 +570,7 @@ The vendor owns the AGENT box and changes it. You own the channels you test thro
 
 ## After launch, the resolution rate overstates the win
 
-Testing gets you to launch. Then a second number starts lying to you: the automated resolution rate, the headline the vendor puts on the dashboard.
+Testing gets you to launch. Then a second number starts to mislead: the automated resolution rate, the headline the vendor puts on the dashboard.
 
 The distance between what vendors report and what independent measurement finds is wide. Vendor self-reports cluster at 67 to 80 percent. Independent benchmarks on comparable traffic land near 41 percent, with one Zendesk enterprise dataset putting the median at 41.2 percent and the top quartile at 58.7 ([Lorikeet](https://www.lorikeetcx.ai/articles/resolve-not-deflect), [Notch benchmarks](https://www.notch.cx/post/ai-customer-support-resolution-rate-benchmarks)). That is a measurement gap, not a technology gap.
 
@@ -678,7 +678,7 @@ The measurement plane has to run without me. That is the difference between a sc
 - Auth is one seam, two modes. The dashboard runs open on the internal network in development and enforces SSO when the environment switches it on. A local run is not blocked, a deployed run is not exposed, and there is one code path to reason about.
 - The store is boring on purpose. Per-day results, the verdict records, and configuration snapshots in a database the dashboard reads. Files are enough until you need history queries or a second instance, then it is a database.
 
-None of this is the model. It is the scaffolding that turns a system you do not own into a number you can defend in a billing conversation. That is the AI-native operator's job on bought software: not to build the intelligence, but to own the truth about it.
+None of this is the model. It is the scaffolding that turns a system you do not own into a number you can defend in a billing conversation. On bought software, the operator's job is to own the truth about the intelligence, not to build it.
 
 ## Building on a vendor's platform
 

@@ -25,7 +25,7 @@ faq:
 
 A quick frame before the detail, since the three layers map onto something familiar. Think of each agent like an employee you cannot supervise in real time. The **loop** is their shift schedule and their stop-work rules: when they clock in, how long they work, when they down tools because something is wrong. The **harness** is the building and its access badges: which rooms they can enter, what they can touch, the locked doors no instruction can open. The **memory** is the team's shared, written knowledge: useful only if every entry is sourced and anyone can revert a bad one. Get those three right and you can walk away. Get any one wrong and the other two do not save you.
 
-A coding agent demo is easy to make and hard to trust. You wire a model to a few tools, hand it a clean repo and a tidy task, and it ships a pull request while the room nods. Then you run the same thing on a Tuesday afternoon with nobody watching, against a real backlog, sharing a rate limit with other agents, and you learn how little the demo told you.
+A coding agent demos well. You wire a model to a few tools, hand it a clean repo and a tidy task, and it ships a pull request. Running the same thing on a Tuesday afternoon with nobody watching, against a real backlog, sharing a rate limit with other agents, is the work, and that is where the reliability has to come from.
 
 The lifecycle above shows a single firing start to finish. This piece is about why each layer is shaped the way it is. Reliability lives outside the prompt, in three layers wrapped around the model: the loop that decides when an agent fires and recovers, the harness that contains a model I have chosen to fully trust, and the memory that lets the fleet improve without becoming a second source of truth.
 
@@ -50,7 +50,7 @@ An unbounded agent is a way to spend money and trust you do not have. Every firi
 - **Turn budget plus wall-clock timeout.** A turn is one model step. The budget caps steps before the runner stops the firing. The timeout catches a step that hangs rather than loops.
 - **Fail-streak breaker.** Fail several firings in a row and the agent trips its breaker and stops until I look. An agent failing the same way ten times will not fix itself on the eleventh.
 - **Daily cap.** A ceiling on firings per agent per day. One role sits around 30 firings a day, so a cap well above that catches runaways without throttling normal work.
-- **Fleet-wide rate-limit stop.** The breaker I am most glad I built. The agents share a subscription, so they share a rate limit. When one hits it, it writes a block flag that every other agent checks at the start of its firing, and a blocked agent exits before calling the model. One agent hitting the wall stops the fleet from stampeding into the same closed door.
+- **Fleet-wide rate-limit stop.** The agents share a subscription, so they share a rate limit. When one hits it, it writes a block flag that every other agent checks at the start of its firing, and a blocked agent exits before calling the model. One agent hitting the wall stops the fleet from stampeding into the same closed door.
 
 ### Silence is a clean no-op
 
@@ -168,7 +168,7 @@ None of these three layers is sufficient alone, and the discipline is in composi
 
 Build the loop first. Get scheduled, bounded, idempotent firings that re-derive their state and treat silence as success, because everything else assumes that foundation. Then build the harness, because the moment agents run unattended you need safety that holds whether or not the model behaves. Memory comes last, and it can wait. A fleet that ships safely without learning beats one that learns fast and ships a fabrication.
 
-Almost none of this lived in a prompt. I expected the cleverness to be in what I told the model. I came out having written a few hundred lines of deterministic Python that decide when the model runs, what it can touch, and what the fleet is allowed to remember. The model does the coding. The system is what makes it safe to walk away.
+Almost none of this lived in a prompt. I expected the work to be in what I told the model. I came out having written a few hundred lines of deterministic Python that decide when the model runs, what it can touch, and what the fleet is allowed to remember. The model writes the code; the system around it is what makes running it unattended safe.
 
 ## Key takeaways
 

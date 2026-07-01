@@ -299,10 +299,70 @@ const jsonLd = [articleLd, breadcrumbLd, faqLd].filter(Boolean) as Record<string
     ).default;
     // Keep the original diagram source so we can re-render on theme change.
     const sources = [...nodes].map((n) => n.textContent);
-    const themeFor = () =>
-      document.documentElement.getAttribute('data-theme') === 'light' ? 'neutral' : 'dark';
     const hintHTML =
       '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>';
+    // Build mermaid themeVariables from the site's live design tokens so the
+    // diagrams stay on-brand and legible in BOTH light and dark mode. We read
+    // the tokens off :root at render time, so a theme toggle re-derives them.
+    const themeVarsFor = () => {
+      const css = getComputedStyle(document.documentElement);
+      const v = (name, fallback) => (css.getPropertyValue(name).trim() || fallback);
+      const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+      const ink = v('--ink', isLight ? '#101522' : '#eef2f8');
+      const inkSecondary = v('--text-secondary', isLight ? '#313a49' : '#b6c0d0');
+      const accent = v('--accent', isLight ? '#d81b6e' : '#f63e8c');
+      const accent2 = v('--accent-2', isLight ? '#6a4cff' : '#7c6cff');
+      const accentInk = v('--accent-ink', '#ffffff');
+      const rgb = v('--accent-rgb', isLight ? '216, 27, 110' : '246, 62, 140');
+      const line = v('--glass-border-strong', isLight ? 'rgba(16,21,34,0.14)' : 'rgba(255,255,255,0.16)');
+      // Translucent, glass-like node fills tinted with the brand accent so the
+      // diagram sits on the page instead of a bright white slab.
+      const nodeFill = `rgba(${rgb}, ${isLight ? 0.06 : 0.1})`;
+      const nodeFill2 = `rgba(${rgb}, ${isLight ? 0.11 : 0.18})`;
+      const fontDisplay = v('--font-display', "ui-sans-serif, system-ui, sans-serif");
+      return {
+        // base palette
+        background: 'transparent',
+        fontFamily: fontDisplay,
+        fontSize: '15px',
+        // primary node
+        primaryColor: nodeFill,
+        primaryTextColor: ink,
+        primaryBorderColor: accent,
+        // secondary / tertiary nodes (clusters, alt shapes)
+        secondaryColor: nodeFill2,
+        secondaryTextColor: ink,
+        secondaryBorderColor: accent2,
+        tertiaryColor: 'transparent',
+        tertiaryTextColor: ink,
+        tertiaryBorderColor: line,
+        // edges + labels
+        lineColor: accent,
+        textColor: ink,
+        // notes (sequence diagrams etc.)
+        noteBkgColor: nodeFill2,
+        noteTextColor: ink,
+        noteBorderColor: accent2,
+        // generic labels / edge labels sit on the page background
+        labelBackground: 'transparent',
+        edgeLabelBackground: v('--bg', isLight ? '#f7f8fb' : '#06080d'),
+        nodeTextColor: ink,
+        titleColor: ink,
+        // clusters / subgraphs
+        clusterBkg: `rgba(${rgb}, ${isLight ? 0.03 : 0.05})`,
+        clusterBorder: line,
+        // actors (sequence)
+        actorBkg: nodeFill,
+        actorBorder: accent,
+        actorTextColor: ink,
+        actorLineColor: inkSecondary,
+        signalColor: ink,
+        signalTextColor: ink,
+        activationBkgColor: nodeFill2,
+        activationBorderColor: accent2,
+        sequenceNumberColor: accentInk,
+      };
+    };
     async function renderMermaid() {
       nodes.forEach((n, i) => {
         n.removeAttribute('data-processed');
@@ -310,9 +370,12 @@ const jsonLd = [articleLd, breadcrumbLd, faqLd].filter(Boolean) as Record<string
       });
       mermaid.initialize({
         startOnLoad: false,
-        theme: themeFor(),
+        theme: 'base',
+        themeVariables: themeVarsFor(),
         securityLevel: 'strict',
-        fontFamily: "'Space Grotesk', system-ui, sans-serif",
+        fontFamily: getComputedStyle(document.documentElement)
+          .getPropertyValue('--font-display')
+          .trim() || "ui-sans-serif, system-ui, sans-serif",
       });
       try {
         await mermaid.run({ nodes });

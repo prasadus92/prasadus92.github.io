@@ -61,7 +61,7 @@ The thing I underestimated: idempotency has to hold across the whole path from "
 
 ## The transactional outbox
 
-Here is a failure that looks impossible until it happens. A request comes in, you write a row to Postgres saying "work accepted," then you publish a message to your queue. Two writes, two systems:
+A request comes in, you write a row to Postgres saying "work accepted," then you publish a message to your queue. Two writes, two systems:
 
 - Process dies between them: you have accepted work no one will do.
 - Publish first and the DB write fails: you have a queued task with no backing record.
@@ -140,9 +140,7 @@ The same survival problem shows up in agent work, sharper. A multi-step agent ta
 
 - **Wire roles at deploy time.** The set of agents, what each can touch, and how they hand off is fixed configuration, not improvised at runtime. The same task with the same inputs runs through the same wiring every time.
 - **Isolate each task.** For agents that modify code, a throwaway git worktree per task: a clean checkout that lives for the run and is discarded after. One agent's work cannot stomp another's, and a failed run leaves nothing to clean up. A crashed run is a discarded worktree, and you start over from the input.
-- **Gate with plan, review, execute.** The agent that proposes a change is not the agent that approves it. A separate read-only pass reviews the plan before any write. This catches the confident-but-wrong failure that retries cannot, because retrying a bad plan gives you the bad plan again, faster.
-
-Separating the proposer from the reviewer is the agent-world version of not letting the same process both decide the work and commit it.
+- **Gate with plan, review, execute.** The agent that proposes a change is not the agent that approves it. A separate read-only pass reviews the plan before any write. This catches the confident-but-wrong failure that retries cannot, because retrying a bad plan gives you the bad plan again, faster. Separating the proposer from the reviewer is the same rule as not letting one process both decide the work and commit it.
 
 ## Humans as a durable step
 
@@ -168,7 +166,7 @@ stateDiagram-v2
 - **Time out to a safe default.** If no decision arrives within the window, the step resolves to a defined outcome, usually "do not proceed," rather than waiting forever.
 - **Define transport failure.** When the notification never reaches the human or their response never gets back, that resolves to an explicit verdict too, recorded durably.
 
-A person is the least predictable dependency in the system, which is exactly why human steps need careful timeout logic.
+A person is the least predictable dependency in the system, so human steps need explicit timeout logic.
 
 ## Choosing your strategy
 
@@ -201,7 +199,7 @@ flowchart TD
 
 The questions that decide it: how long one workflow lives and how much irrecoverable state it carries, how expensive it is to recompute a step versus resume past it, how many people operate this at three in the morning, and what your ceiling is on self-run infrastructure. Scale pushes the high-volume paths toward re-derivation. Statefulness and irreversibility push toward resume.
 
-What should not decide it is fashion. A durable-execution engine is a second distributed system you now own. Idempotent re-derivation is a discipline you hold at every boundary. We chose re-derivation for the small, re-runnable paths, and we would choose an engine the day a workflow becomes long-lived, branchy, and full of state we cannot afford to recompute. Durability is not something you install. It is a property you decide to guarantee, and then pay for, either by running an engine or by holding the discipline at every boundary.
+What should not decide it is fashion. A durable-execution engine is a second distributed system you now own. Idempotent re-derivation is a discipline you hold at every boundary. We chose re-derivation for the small, re-runnable paths, and we would choose an engine the day a workflow becomes long-lived, branchy, and full of state we cannot afford to recompute. You pay for durability either way: by running an engine, or by holding the discipline at every boundary.
 
 ## Key takeaways
 

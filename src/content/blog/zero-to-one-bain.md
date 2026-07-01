@@ -42,7 +42,7 @@ That framing is also why I built the data infrastructure myself. The ingestion a
 
 I started the architecture deliberately simple so we could ship: Postgres, Django, and Celery on AWS, with dimensional modeling on top. That was the right call to get moving, and it was the wrong call to keep. As the data and the analytical load grew, Postgres was no longer the right fit for a warehouse workload, so we moved the analytics to Snowflake with [Cube.js](https://cube.dev/) as the semantic layer, and landed the large datasets in S3. The scale is what made it interesting: over a billion rows of profile data, hundreds of millions of job postings, S&P 500 financials, plus a set of API vendors feeding an enrichment waterfall. I built it as a medallion architecture, raw to refined to serving, so a number could always be traced back to its source.
 
-The harder problem was making any of it comparable. We had more than 20 million raw skills and a sprawl of job titles, and you cannot compare two companies' workforces until those mean the same thing. We adopted the [Lightcast](https://lightcast.io/open-skills) skills and job-title taxonomies and the US [Bureau of Labor Statistics](https://www.bls.gov/oes/) occupational data as a common spine, then used LLMs, which we had been working with since GPT first launched, to clean and map the rest. On top of the BLS job-function data I built a way to estimate the AI exposure of a role, meaning how much of its actual work a model can do, which also fed back and improved the skill and role taxonomy. A due diligence number that is confidently wrong is worse than no number, so this layer is where I kept my hands.
+The harder problem was making any of it comparable. We had more than 20 million raw skills and a sprawl of job titles, and you cannot compare two companies' workforces until those mean the same thing. We adopted the [Lightcast](https://lightcast.io/open-skills) skills and job-title taxonomies and the US [Bureau of Labor Statistics](https://www.bls.gov/oes/) occupational data as a common spine, then used LLMs, which we had been working with since GPT first launched, to clean and map the rest. On top of the BLS job-function data I built a way to estimate the AI exposure of a role, meaning how much of its actual work a model can do, which also fed back and improved the skill and role taxonomy.
 
 Easy to say. Making it happen inside a consulting firm is hard for reasons that aren't obvious from the outside.
 
@@ -188,9 +188,7 @@ Building Aura inside Bain was one of the most educational experiences of my care
 
 Would I do it again? It depends on the problem. For something like due diligence software, where distribution and trust are everything, the corporate setting made sense. For something that needs rapid iteration and pivoting, I'd choose the startup path.
 
-There's no universally right answer. The question isn't "startup or corporate?" It's "what does this specific problem require, and which setting gives me the best chance of solving it?"
-
-That's a harder question to answer. It's the right one to ask. Here is the decision the way I'd run it now:
+There's no universally right answer. The question isn't "startup or corporate?" It's "what does this specific problem require, and which setting gives me the best chance of solving it?" Here is the decision the way I'd run it now:
 
 ```mermaid
 flowchart TD

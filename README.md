@@ -37,17 +37,15 @@ Run `npm run build` from the repo root (the content glob base is relative to cwd
 
 ## License
 
-Two licenses, by file type:
+- **Code** (`.astro`, `.ts`, `.css`, config, build scripts) is under the
+  [MIT License](LICENSE). Reuse it freely, keep the copyright notice.
+- **Content** (the writing and imagery: `src/content/`, the prose in
+  `src/data/site.ts`, and `public/` images) is **© Prasad Subrahmanya, all rights
+  reserved**, and separately offered under
+  [Creative Commons BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/):
+  you may share and adapt it for non-commercial use **with attribution** and a
+  link back to [prasad.tech](https://prasad.tech). It is not for republishing as
+  your own or for commercial use without permission (prasadus92@gmail.com).
 
-- **Code** (everything that makes the site run: `.astro`, `.ts`, `.css`, config,
-  build scripts) is under the [MIT License](LICENSE). Reuse it freely, keep the
-  copyright notice.
-- **Content** (the writing, copy, and images: `src/content/`, the prose in
-  `src/data/site.ts`, and `public/` imagery) is under
-  [Creative Commons BY-NC 4.0](LICENSE-CONTENT.md). You may share and adapt it
-  for non-commercial use **with attribution** to Prasad Subrahmanya and a link
-  back to prasad.tech. It is not for republishing as your own or for commercial
-  use without permission.
-
-Please do not pass off the writing or design as your own. If something here is
+Please don't pass off the writing or design as your own. If something here is
 useful, credit it and link back.

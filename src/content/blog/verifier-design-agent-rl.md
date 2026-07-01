@@ -25,7 +25,7 @@ I spent two weeks extending [tau-bench](https://github.com/sierra-research/tau-b
 
 The verifier is the part that reads an agent's trajectory and decides what reward to hand back. I assumed it would be a thin wrapper around the benchmark's existing scorer. It was the hardest design work in the project, and the code came out to about 215 lines. The cost was not in those lines. It was in figuring out, per task, what "correct" even meant.
 
-Here is the claim, up front: a reward function is a specification of correctness. It is not a scalar loss you tune. If you write it like a loss, you teach the policy the wrong thing. If you write it like a spec, you have to know the domain cold, and that knowledge is the actual deliverable.
+A reward function is a specification of correctness. It is not a scalar loss you tune. If you write it like a loss, you teach the policy the wrong thing. If you write it like a spec, you have to know the domain cold, and that knowledge is the actual deliverable.
 
 If you have not done reinforcement learning before, that claim will not mean much yet. So before the verifier argument, here is what RL is, built up from the parts.
 

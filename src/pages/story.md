@@ -7,6 +7,11 @@ description: "How Prasad Subrahmanya went from a small town in Karnataka with no
 lead: "From a small town in Karnataka with no path into engineering, to building companies from zero. The long version."
 ---
 
+<figure class="story-photo story-hero">
+  <img src="/assets/images/story/home-karnataka.jpg" alt="Prasad's family home in rural Karnataka, surrounded by the farm's coconut and areca palms" loading="eager" width="1600" height="1200" />
+  <figcaption>My parents' home in rural Karnataka. They built the farm the way you build a company.</figcaption>
+</figure>
+
 ## Where I come from
 
 My parents are farmers. When I was young, all they had was about four acres of overgrown land, most of it thorny bamboo. They cleared it and built a working farm on it the way you'd build a company: showing up every day, planting, failing, trying the next thing. Today it grows areca nut, pepper, and coffee, alongside banana, coconut, mango, and oranges. Getting there took years of experiments, sericulture, cocoa, vanilla, palm oil, even a small restaurant, most of which didn't work, until enough of them did.
@@ -17,7 +22,7 @@ Nobody handed them anything. They made hard land productive by being patient and
 
 <figure class="story-photo">
   <img src="/assets/images/story/parents.jpg" alt="Prasad with his parents" loading="lazy" width="1280" height="853" />
-  <figcaption>My parents. They built a working farm from four acres of bamboo.</figcaption>
+  <figcaption>My parents. They turned four acres of overgrown land into a working farm.</figcaption>
 </figure>
 
 ## Where I started
@@ -65,18 +70,20 @@ I joined BlueJeans, a video company with an odd name that few people had heard o
 
 ## How I learned to build
 
-I have been a technical founder three times. The way I work came out of that, and it is fairly consistent across all three.
+The first thing I tried to build for myself was Spendzer, a banking app for teenagers, in Germany around 2018. A friend and colleague, Dapeng, and I built the first version ourselves on top of Marqeta and open-banking APIs, and I put more than €10,000 of my own money into it. It did not work, and the reason it did not work taught me more than any of the wins since. We were two engineers who could build the thing but were early, and slower than we should have been to learn how to sell it and raise for it. [I wrote the whole story up separately](/blog/too-early-teen-banking-startup/).
+
+I have been a technical founder three times since. The way I work came out of all of it, and it is fairly consistent.
 
 Sell before you build. I would rather find out a thing is wanted before I spend six months making it than after. Then I look for the real, repetitive workflows people already grind through by hand, because that is where a product has somewhere to stand. The job is to turn those into something that works, ship it, and get it to deliver a commercial outcome, not a demo. Take it from 0 to 1, then past 1.
 
-The record is concrete. Mainteny started at Antler, which wrote the first check: about 50 founders were chosen from more than 5,000 applicants, and my team was one of six funded out of seventeen that pitched the investment committee. The work I did there helped raise a $2.7M seed. Aura, which I built at Bain, went from $0 to $3.6M ARR in 15 months. Luminik, the one I am building now, is bootstrapped, which is its own kind of discipline. No outside money means every decision has to pay for itself in something a customer will actually buy.
+The record is concrete. Mainteny started at Antler, which wrote the first check: about 50 founders were chosen from more than 5,000 applicants, and my team was one of six funded out of seventeen that pitched the investment committee. The work I did there helped raise a $2.7M seed. Aura, which I built at Bain, went from $0 to $3.6M ARR in 15 months. Luminik, the one I am building now, is bootstrapped. No outside money means every decision has to pay for itself in something a customer will actually buy.
 
 <figure class="story-photo">
-  <img src="/assets/images/story/antler-oslo.jpg" alt="Prasad pitching Mainteny at Antler in Oslo" loading="lazy" width="1320" height="1400" />
-  <figcaption>Pitching Mainteny at Antler, Oslo.</figcaption>
+  <img src="/assets/images/story/antler-oslo.jpg" alt="Prasad pitching at Antler in Oslo" loading="lazy" width="1109" height="1400" />
+  <figcaption>Pitching at Antler, Oslo.</figcaption>
 </figure>
 
-I underestimated, for a long time, how much of building is selling and listening rather than coding. The engineering was the part I was sure of. The harder skill was learning to sit with a customer's real problem before reaching for the keyboard.
+I underestimated, for a long time, how much of building is selling and listening rather than coding. The engineering was the part I was sure of. The harder skill was understanding the customer's real problem before building anything.
 
 ## Who I am now
 
@@ -84,9 +91,21 @@ These days I am building Luminik, and Alfred, an open-source framework for runni
 
 Away from the screen, I hike. I know the Alps around Garmisch and the German-Austrian border well enough now to have favorite trails. My wife [Neha](https://neha-prasad.com) and I travel to chase history and food, usually in that order. I read mostly technical writing, which my friends find funny and I find relaxing. I play a long game by temperament and I do not rattle easily.
 
+Luminik is bootstrapped, which really means Neha paid the bills. For the stretch when I was building with no salary and no outside money, she covered our life and never made me feel like it was a favor. She talked through the hard problems with me and sat with me on the worst days. When I doubted the whole thing, she did not give me a speech. She just said, "I already believed in you when I married you." I don't take that for granted.
+
 <figure class="story-photo">
-  <img src="/assets/images/story/neha-maya-bay.jpg" alt="Prasad with his wife Neha in Thailand" loading="lazy" width="1050" height="1400" />
-  <figcaption>With my wife, Neha, in Thailand.</figcaption>
+  <img src="/assets/images/story/neha-maya-bay.jpg" alt="Prasad with his wife Neha" loading="lazy" width="1050" height="1400" />
+  <figcaption>With my wife, Neha.</figcaption>
 </figure>
 
 I came from a place with no path to this. I built the path by doing the work, and that is still the only method I trust.
+
+<figure class="story-collage">
+  <img src="/assets/images/story/collage/alps-lake.jpg" alt="Königssee in the Berchtesgaden Alps" loading="lazy" />
+  <img src="/assets/images/story/collage/fjord.jpg" alt="A fjord in Norway" loading="lazy" />
+  <img src="/assets/images/story/collage/alpine-trail.jpg" alt="A hiking trail in the Alps" loading="lazy" />
+  <img src="/assets/images/story/collage/norway-reflection.jpg" alt="A still lake in Norway" loading="lazy" />
+  <img src="/assets/images/story/collage/bay-sunset.jpg" alt="Sunset over a bay" loading="lazy" />
+  <img src="/assets/images/story/collage/granada-sunset.jpg" alt="Sunset over the Alhambra, Granada" loading="lazy" />
+  <figcaption>A few of the places we have been.</figcaption>
+</figure>

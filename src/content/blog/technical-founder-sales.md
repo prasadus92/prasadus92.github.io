@@ -5,7 +5,7 @@ pubDate: 2025-11-12
 category: "Founder sales"
 tags: ["founder-sales"]
 readingTime: "11 min read"
-tldr: "Engineers are told they cannot sell. The opposite is true in modern B2B, where buyers want to be helped, not pitched, and the person who understands the product deepest is the most credible voice in the room. I learned this selling at Mainteny, and most concretely when I signed a roughly $48K contract with a 200-person identity-verification company in New York before the product was even finished. The move is to stop performing sales and start doing what engineers already do well: understand the problem, map an honest solution to it, and follow through."
+tldr: "Engineers are told they cannot sell. The opposite is true in modern B2B, where buyers want to be helped, not pitched, and the person who understands the product deepest is the most credible voice in the room. I learned this selling at Mainteny, and most concretely when I signed a roughly $48K contract with a 200-employee identity-verification (IDV) company headquartered in NY before the product was even finished. The move is to stop performing sales and start doing what engineers already do well: understand the problem, map an honest solution to it, and follow through."
 ---
 
 There's a persistent myth in startups that engineers can't sell. That we're too introverted, too technical, too focused on features instead of benefits. That we need to hire a "real salesperson" as soon as possible.
@@ -45,7 +45,7 @@ He signed the contract that week. Later he told me the competitors' reps couldn'
 
 This is the advantage technical founders have. You don't need to check with anyone. You ARE the product team. You can go deeper on technical questions than any salesperson memorizing feature lists.
 
-The clearest version of this for me was the first real contract I closed. The customer was a roughly 200-person identity-verification company in New York, the kind of buyer with engineers of their own who ask hard questions and expect real answers. The contract was around \$48K, and I signed it before the product was finished. That sounds reckless until you see why it worked. I was not selling a finished thing, I was selling a credible account of exactly how the thing would work, because I was the one building it. When their technical people pushed on integration details and edge cases, I could answer from inside the design rather than deflect, and I was honest about what existed and what did not yet. Selling the design before the product exists is only possible when the seller is the builder. That is the whole edge.
+The clearest version of this for me was the first real contract I closed. The customer was a roughly 200-employee IDV company headquartered in NY, the kind of buyer with engineers of their own who ask hard questions and expect real answers. The contract was around \$48K, and I signed it before the product was finished. That sounds reckless until you see why it worked. I was not selling a finished thing, I was selling a credible account of exactly how the thing would work, because I was the one building it. When their technical people pushed on integration details and edge cases, I could answer from inside the design rather than deflect, and I was honest about what existed and what did not yet. Selling the design before the product exists is only possible when the seller is the builder. That is the advantage.
 
 You can also have real conversations about architecture, integrations, and implementation. In B2B software, those conversations often decide the deal. Your buyer isn't buying software. They're buying a solution to a technical problem. Having someone who understands that problem on the other side of the table changes the conversation.
 
@@ -57,7 +57,7 @@ Josh Braun calls this "selling without being salesy." The idea is simple. Your j
 
 I think about cold outreach the same way: genuinely helpful and useful without expectation, getting into the customer's shoes, their pains, their workflows, and never treating it as a transaction. Josh Braun and Rob Snyder both teach this. Rob Snyder's framing stuck with me: look at what is on the buyer's Kanban board for the quarter, the half, the year, and work together to hit those outcomes. The sale follows from that. Patience and no expectations matter.
 
-Before one enterprise marketing team started working with us, I had three conversations with their senior marketing director, all about how they invest in events, what they were seeing, their actual workflows, and the specific outcomes they wanted. None of those calls was a pitch. It is someone's career and possibly their promotion. For them it is a specific project they are driving, and you have to be positioned to help them hit it. Match, timing, and budget all have to line up. I would not even call it a sale. It is someone deciding to believe in you and bring you onto their team to reach a goal. **[name Microblink? confirm — it is a customer]**
+Before one enterprise marketing team started working with us, I had three conversations with their senior marketing director, all about how they invest in events, what they were seeing, their actual workflows, and the specific outcomes they wanted. None of those calls was a pitch. It is someone's career and possibly their promotion. For them it is a specific project they are driving, and you have to be positioned to help them hit it. Match, timing, and budget all have to line up. I would not even call it a sale. It is someone deciding to believe in you and bring you onto their team to reach a goal.
 
 Cracking cold messages and cold emails took a real learning curve, and every founder goes through it. The better mindset is the one Rob Snyder points at: find whoever actually has a project running on the problem you solve.
 
@@ -236,7 +236,7 @@ You have to stop trying to be a salesperson and start being yourself: an enginee
 
 - Product depth beats sales technique. The founder who built the system can answer the edge-case question on the spot, and that answer is often what decides the deal.
 - Help, don't pitch. Give people permission to say no and your close rate goes up, because the honesty makes them believe you about the strengths too.
-- You can sell the design before the product exists, but only if you are the builder. That is how I signed a roughly \$48K contract with a 200-person IDV company before the product was finished.
+- You can sell the design before the product exists, but only if you are the builder. That is how I signed a roughly \$48K contract with a 200-employee IDV company in NY before the product was finished.
 - "I don't know, but I'll find out" plus fast follow-through builds more trust than pretending to have every answer.
 - Demo less, talk more. A targeted 10-minute demo of the parts that fit their use case beats a 45-minute feature tour.
 - Don't rush to hire a rep. Keep founder-led sales until you have a repeatable process, a stable ICP and price, and roughly 10 to 15 closed deals of your own.

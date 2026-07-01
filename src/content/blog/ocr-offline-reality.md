@@ -93,7 +93,7 @@ None of these is absolute. Plenty of products are fine going server-only. But if
 
 ## The on-device constraint, stated honestly
 
-Here is the claim I want to get exactly right, because it is easy to overstate in either direction.
+This is easy to overstate in either direction, so take both wrong versions first.
 
 **The strong version, which is wrong:** "you cannot run any modern model on a phone, so on-device OCR is stuck with old tech." Not true. Quantized vision-language models in the 1B to 2B parameter range do run on recent flagship phones, and there are OCR-specific small VLMs aimed precisely at this, `PaddleOCR-VL` ships a sub-1.3B model that tops document benchmarks on vendor-reported scores. A 1B model in 4-bit fits in phone memory.
 

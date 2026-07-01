@@ -123,15 +123,15 @@ So CI runs an independent reconciliation: a second computation of the headline K
 
 ## Where this discipline comes from
 
-None of this is hotel-specific. It is the residue of years spent on data that lies in characteristic ways.
+None of this is hotel-specific. It comes from years on data that fails in characteristic ways.
 
-I spent a long time on price-intelligence systems that scraped competitor pages and matched products across retailers, and the failure modes rhyme. Back in the PhantomJS era, the scrapers were XPath-bound: a retailer changed their page layout, the XPath stopped matching, and the extract silently went empty or, worse, half-empty, which is the snapshot-repeats problem wearing a different mask. You cannot trust that today's pull is shaped like yesterday's.
+I spent a long time on price-intelligence systems that scraped competitor pages and matched products across retailers, and the failure modes rhyme. Back in the PhantomJS era, the scrapers were XPath-bound: a retailer changed their page layout, the XPath stopped matching, and the extract silently went empty or half-empty, which is the snapshot-repeats problem in a different form. You cannot trust that today's pull is shaped like yesterday's.
 
-Matching products across retailers was the SKU-matching problem, and it is exactly the occupancy-vs-revenue asymmetry in another costume: a generalist retailer and a specialist apparel retailer can list the same physical product under different identifiers, and if you match apples to oranges your comparison is confidently wrong. The thing you measure has to be the thing you think you are measuring.
+Matching products across retailers was the SKU-matching problem, and it is the occupancy-vs-revenue asymmetry in another form: a generalist retailer and a specialist apparel retailer can list the same physical product under different identifiers, and if you match apples to oranges your comparison is wrong. The thing you measure has to be the thing you think you are measuring.
 
-And the metric that ran the whole operation was freshness: the refresh rate at which you could restate prices, measured in minutes, because a stale price is a wrong price. A KPI pipeline has the same property. A daily table that is silently a day behind, or that double-counts a snapshot, is not a smaller version of correct. It is wrong with a confident face, which is the only kind of wrong that survives to production.
+And the metric that ran the whole operation was freshness: the refresh rate at which you could restate prices, measured in minutes, because a stale price is a wrong price. A KPI pipeline has the same property. A daily table that is silently a day behind, or that double-counts a snapshot, is not a smaller version of correct. It is wrong, and that is the kind of wrong that survives to production.
 
-The five rules above are how you keep the confident face honest: dedup before you aggregate, split the status logic by what each KPI measures, validate at two grains, build byte-reproducibly, and let an independent check have the last word.
+The five rules above keep it honest: dedup before you aggregate, split the status logic by what each KPI measures, validate at two grains, build byte-reproducibly, and let an independent check have the last word.
 
 ## Key takeaways
 

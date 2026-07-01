@@ -55,7 +55,7 @@ flowchart TD
     later --> q2
 ```
 
-I come from an infrastructure and backend background, so my reflex is also to front-load monitoring and observability. Sometimes that is right. At MVP stage it is the same mistake in a different costume: build the minimal version, then iterate when there is something worth observing.
+I come from an infrastructure and backend background, so my reflex is also to front-load monitoring and observability. Sometimes that is right. At MVP stage it is the same mistake: build the minimal version, then iterate when there is something worth observing.
 
 ## What I built after the routing API, in order
 
@@ -113,7 +113,7 @@ The work behind that honesty was unglamorous. On our v1 launch day I was up unti
 
 Building an MVP solo is not about proving you do not need help. It is about moving fast in the phase where speed matters most, before you know what you are building or why. Once the concept is proven, build the team. I co-founded Mainteny and we grew to about fifteen people across five countries; the second brain mattered most after zero to one, not during it.
 
-Three months, one person, one core workflow, and the first companies running it in the real world. That was enough to prove the idea was worth pursuing. The routing detour was the one stretch where I forgot my own rule, and it cost exactly what ignoring it always costs.
+Three months, one person, one core workflow, and the first companies running it in the real world. That was enough to prove the idea was worth pursuing. The routing detour was the one stretch where I forgot my own rule, and it cost two sprints.
 
 ## Key takeaways: the solo MVP playbook
 
