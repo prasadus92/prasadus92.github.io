@@ -131,12 +131,20 @@ const related = (post.data.related ?? [])
       } catch (e) {
         /* leave source visible if a diagram fails */
       }
+      const hintHTML =
+        '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>';
       nodes.forEach((n) => {
         if (!n.querySelector('svg')) return;
         n.classList.add('mm-zoomable');
         n.setAttribute('role', 'button');
         n.setAttribute('tabindex', '0');
         n.setAttribute('aria-label', 'Enlarge diagram');
+        if (!n.querySelector('.mm-hint')) {
+          const hint = document.createElement('span');
+          hint.className = 'mm-hint';
+          hint.innerHTML = hintHTML;
+          n.appendChild(hint);
+        }
       });
 
       const overlay = document.createElement('div');

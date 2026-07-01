@@ -86,7 +86,7 @@
     @media(max-width:780px){.nav-links a:not(.nav-cta){display:none;}}
 
     /* ============================================================ HERO */
-    .hero{position:relative;min-height:calc(72vh - 80px);min-height:calc(72svh - 80px);display:flex;flex-direction:column;justify-content:center;padding-block:clamp(20px,3vh,40px);}
+    .hero{position:relative;min-height:calc(78vh - 74px);min-height:calc(78svh - 74px);display:flex;flex-direction:column;justify-content:center;padding-top:clamp(48px,7vh,96px);padding-bottom:clamp(40px,6vh,72px);}
     .hero-meta{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--hair);padding-bottom:14px;margin-bottom:clamp(30px,5vw,58px);font-size:.72rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;}
     .hero-meta .r{color:var(--red);}
     .hero-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:clamp(30px,5vw,70px);align-items:start;}
@@ -212,6 +212,12 @@
     .post-lead:hover .post-read,.post-sm:hover .post-read{gap:.7em;color:var(--red);}
     @media(max-width:760px){.post-pair{grid-template-columns:1fr;}.post-sm:first-child{border-right:0;padding-right:0;}.post-sm:last-child{padding-left:0;}}
 
+    /* NOTE: the landing "writing" section uses .post-lead / .post-sm above.
+       A generic .post card block used to live here and collided with the blog
+       article <article class="post">, flipping the whole post to black on hover
+       and shrinking prose. The blog article owns .post now; do not add bare
+       .post rules in this landing block. */
+
     /* ---- process (black strip, red accents) ---- */
     .process{margin-top:0;background:var(--black);color:#fff;}
     .process .container{padding-block:clamp(34px,4vw,56px);}
@@ -243,17 +249,11 @@
     .exp:hover .tag{color:#fff;border-color:rgba(255,255,255,.5);}
     @media(max-width:760px){.exp{grid-template-columns:1fr;gap:10px;}.exp-date{text-align:left;order:-1;color:var(--red);}}
 
-    /* ---- writing ---- */
-    .posts{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:48px;border:1px solid var(--hair);}
-    .post{padding:28px 26px 32px;border-left:1px solid var(--hair);display:flex;flex-direction:column;transition:background .25s var(--ease),color .25s var(--ease);}
-    .post:first-child{border-left:0;}
-    .post .cat{font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--red);}
-    .post h3{font-size:1.16rem;line-height:1.22;margin:14px 0 12px;letter-spacing:-.01em;}
-    .post p{margin:0 0 auto;font-size:.9rem;color:var(--ink);line-height:1.55;}
-    .post .meta{display:flex;gap:14px;margin-top:22px;font-size:.74rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--ink);}
-    .post:hover{background:var(--black);color:#fff;}
-    .post:hover p,.post:hover .meta{color:rgba(255,255,255,.82);}
-    @media(max-width:920px){.posts{grid-template-columns:1fr;}.post{border-left:0;border-top:1px solid var(--hair);}.post:first-child{border-top:0;}}
+    /* (removed) A generic .posts / .post writing-card block used to live here.
+       No v2 page renders it (the landing writing section uses .post-lead /
+       .post-sm), and its bare .post + .post:hover rules collided with the blog
+       article <article class="post">, flipping the whole post to black on hover
+       and shrinking prose paragraphs to .9rem. The blog article owns .post. */
 
     /* ---- contact (black, red accent) ---- */
     .contact{background:var(--black);color:#fff;}
@@ -491,8 +491,11 @@
     .prose figcaption{margin-top:12px;font-size:.84rem;color:rgba(12,12,12,.55);line-height:1.5;}
     .prose sup a{border:0;}
 
-    /* code: inline stays hairline-bordered; Shiki blocks forced to solid black */
-    .prose :not(pre) > code{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:.88em;padding:.12em .4em;border:1px solid var(--hair);background:var(--white);white-space:normal;word-break:break-word;}
+    /* code: inline renders as a subtle dark chip (black bg, off-white text) so it
+       reads as code and never as an opaque white box; Shiki blocks stay solid black */
+    .prose :not(pre) > code{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:.86em;padding:.14em .42em;border:1px solid var(--black);background:var(--black);color:#fff;white-space:normal;word-break:break-word;}
+    .prose a code,.prose :not(pre) > code{white-space:normal;}
+    .prose strong code{color:#fff;}
     .prose pre{background:var(--black)!important;color:#fff;padding:22px 24px;overflow-x:auto;font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:.9rem;line-height:1.6;max-width:100%;}
     .prose pre code{border:0;padding:0;background:transparent!important;color:inherit;white-space:pre;}
     .prose pre.astro-code,.prose pre.astro-code span{background:var(--black)!important;}
@@ -507,11 +510,17 @@
     /* KaTeX display math scrolls rather than overflowing */
     .prose .katex-display{overflow-x:auto;overflow-y:hidden;padding:.4em 0;}
 
-    /* mermaid diagrams */
-    .prose pre.mermaid{background:var(--white)!important;color:var(--black);border:1px solid var(--hair);padding:22px 24px;display:flex;justify-content:center;overflow-x:auto;}
-    .prose pre.mermaid svg{max-width:100%;height:auto;}
+    /* mermaid diagrams: constrained to the reading column, capped in height so a
+       tall flowchart never becomes a 2000px slab. The SVG scales to fit the box
+       and stays crisp; click to enlarge opens the full diagram in the lightbox. */
+    .prose pre.mermaid{background:var(--white)!important;color:var(--black);border:1px solid var(--hair);padding:22px 24px;margin:1.6em 0;display:flex;align-items:center;justify-content:center;max-width:100%;max-height:min(70vh,620px);overflow:hidden;}
+    .prose pre.mermaid svg{max-width:100%;max-height:min(66vh,576px);width:auto;height:auto;}
     .prose pre.mm-zoomable{cursor:zoom-in;position:relative;transition:border-color .2s var(--ease);}
     .prose pre.mm-zoomable:hover{border-color:var(--red);}
+    /* "click to enlarge" hint chip, bottom-right */
+    .prose pre.mermaid .mm-hint{position:absolute;bottom:10px;right:10px;display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;background:var(--white);border:1px solid var(--hair);color:var(--black);pointer-events:none;transition:border-color .2s var(--ease),color .2s var(--ease),background .2s var(--ease);}
+    .prose pre.mermaid .mm-hint svg{width:15px;height:15px;max-height:none;}
+    .prose pre.mm-zoomable:hover .mm-hint{border-color:var(--red);color:var(--red);}
     .mm-overlay{position:fixed;inset:0;z-index:200;display:none;align-items:center;justify-content:center;padding:clamp(16px,4vw,48px);background:rgba(12,12,12,.82);}
     .mm-overlay.open{display:flex;}
     .mm-stage{background:var(--white);padding:clamp(16px,3vw,32px);max-width:min(96vw,1180px);max-height:90vh;overflow:auto;}
