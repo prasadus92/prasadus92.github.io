@@ -34,3 +34,9 @@ EXACT-COPY-CHANGES.md
 design-refs/
 .claude/
 public/assets/images/story/_ungraded_backup/
+
+# terraform (never commit state or secrets)
+infra/**/.terraform/
+infra/**/*.tfstate
+infra/**/*.tfstate.*
+infra/**/terraform.tfvars
