@@ -3,6 +3,13 @@ import SectionHeader from './SectionHeader.astro';
 import Icon from './Icon.astro';
 import { Icon as LIcon } from 'astro-icon/components';
 import { work, earlier } from '../data/site';
+
+/*
+  Work as an alternating left/right timeline on a centre node spine
+  (DESIGN-IDEAS #2). Entries zigzag across the spine to read as a path, not a
+  stacked list. Collapses to a single left-aligned column on mobile (<=820px),
+  which is also what reduced-motion users get (no layout dependency on motion).
+*/
 ---
 
 <section class="section" id="work">
@@ -10,19 +17,18 @@ import { work, earlier } from '../data/site';
     <SectionHeader
       eyebrow="Work"
       title="Where I've <span class='grad-text'>built and shipped</span>."
-      lead="Founder and operator across regulated, high-stakes domains: events, private equity, field service, and algorithmic trading."
+      lead="Founder and operator across GTM tech, private equity, field service, and investment management."
     />
 
     <div class="timeline">
+      <span class="spine" aria-hidden="true"></span>
       {
         work.map((job, i) => (
-          <article class={`job glass card reveal reveal-d${(i % 4) + 1}`}>
-            <div class="job-rail" aria-hidden="true">
-              <span class={`job-node ${job.current ? 'now' : ''}`}>
-                <LIcon name={job.icon} />
-              </span>
-            </div>
-            <div class="job-main">
+          <article class={`job ${i % 2 === 0 ? 'left' : 'right'} reveal reveal-d${(i % 4) + 1}`}>
+            <span class={`job-node ${job.current ? 'now' : ''}`} aria-hidden="true">
+              <LIcon name={job.icon} />
+            </span>
+            <div class="job-card glass card">
               <div class="job-head">
                 <div>
                   <h3 class="job-company">
@@ -68,52 +74,72 @@ import { work, earlier } from '../data/site';
 
 <style>
   .timeline {
+    position: relative;
     display: flex;
     flex-direction: column;
-    gap: clamp(14px, 1.6vw, 20px);
+    gap: clamp(28px, 4vw, 56px);
   }
+  /* centre spine */
+  .spine {
+    position: absolute;
+    top: 6px;
+    bottom: 6px;
+    left: 50%;
+    width: 2px;
+    transform: translateX(-50%);
+    background: linear-gradient(180deg, transparent, var(--glass-border-strong) 8%, var(--glass-border-strong) 92%, transparent);
+    pointer-events: none;
+  }
+
   .job {
+    position: relative;
     display: grid;
-    grid-template-columns: 48px 1fr;
-    gap: 16px;
-    padding: clamp(22px, 2.4vw, 34px);
-    overflow: hidden;
+    /* [left half] [spine gutter] [right half] */
+    grid-template-columns: 1fr clamp(56px, 8vw, 96px) 1fr;
+    align-items: center;
   }
-  .job-rail {
-    display: flex;
-    justify-content: center;
-    padding-top: 2px;
+  .job.left .job-card {
+    grid-column: 1;
+    text-align: left;
   }
+  .job.right .job-card {
+    grid-column: 3;
+  }
+  /* node sits on the spine, centred in the gutter column */
   .job-node {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: center;
+    z-index: 1;
     display: grid;
     place-items: center;
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
-    flex: 0 0 auto;
     color: var(--text-secondary);
-    background: var(--glass-bg);
+    background: var(--bg);
     border: 1px solid var(--glass-border-strong);
-    transition: color var(--dur-2) var(--ease-out), background var(--dur-2) var(--ease-out),
-      border-color var(--dur-2) var(--ease-out);
+    transition: color var(--dur-2) var(--ease-out), border-color var(--dur-2) var(--ease-out);
   }
   .job-node :global(svg) {
     width: 19px;
     height: 19px;
   }
-  /* filled = current/latest, outline = past */
   .job-node.now {
     background: var(--grad-brand);
     color: var(--accent-ink);
     border-color: transparent;
-    /* crisp 1px ring + soft glow; avoids the muddy fringe a wide
-       semi-transparent spread shadow leaves on the circle's edges */
     box-shadow: 0 0 0 1px rgba(var(--accent-rgb), 0.28),
       0 8px 20px -8px rgba(var(--accent-rgb), 0.5);
   }
   .job:hover .job-node:not(.now) {
     color: var(--ink);
     border-color: var(--accent);
+  }
+
+  .job-card {
+    padding: var(--card-pad);
+    overflow: hidden;
   }
   .job-head {
     display: flex;
@@ -149,21 +175,20 @@ import { work, earlier } from '../data/site';
     white-space: nowrap;
   }
   .job-body {
-    margin-top: 14px;
+    margin-top: var(--sp-3);
     color: var(--text-secondary);
-    max-width: 70ch;
     line-height: 1.65;
   }
   .job-tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 18px;
+    gap: var(--sp-2);
+    margin-top: var(--sp-4);
   }
 
   .earlier {
-    margin-top: clamp(36px, 4vw, 56px);
-    padding-top: 28px;
+    margin-top: var(--rail-pad);
+    padding-top: var(--rail-pad);
     border-top: 1px solid var(--glass-border);
   }
   .earlier-label {
@@ -195,29 +220,37 @@ import { work, earlier } from '../data/site';
     line-height: 1.45;
   }
 
-  @media (max-width: 720px) {
+  /* Collapse to a single left-aligned rail: spine moves to the left edge,
+     every card sits to its right. This is also the reduced-motion layout
+     (no dependency on JS or motion). */
+  @media (max-width: 820px) {
+    .timeline {
+      gap: var(--grid-gap);
+    }
+    .spine {
+      left: 21px;
+    }
     .job {
-      grid-template-columns: 38px 1fr;
-      gap: 12px;
+      grid-template-columns: 44px 1fr;
+      gap: var(--sp-4);
+      align-items: start;
+    }
+    .job.left .job-card,
+    .job.right .job-card {
+      grid-column: 2;
+      text-align: left;
     }
     .job-node {
-      width: 36px;
-      height: 36px;
-    }
-    .job-node :global(svg) {
-      width: 17px;
-      height: 17px;
+      grid-column: 1;
+      justify-self: start;
     }
     .earlier-grid {
       grid-template-columns: 1fr 1fr;
     }
   }
   @media (max-width: 420px) {
-    .job {
+    .earlier-grid {
       grid-template-columns: 1fr;
-    }
-    .job-rail {
-      justify-content: flex-start;
     }
   }
 </style>

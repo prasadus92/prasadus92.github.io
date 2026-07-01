@@ -138,6 +138,7 @@ export function llmsIndex(posts: PostMeta[]): string {
   );
   L.push('## Pages', '');
   L.push(`- [Home](${ORIGIN}/): work, impact, background, and how he works. Markdown: ${ORIGIN}/index.md`);
+  L.push(`- [AI enablement](${ORIGIN}/ai-enablement): how he helps teams get AI into production, with evals, reliability, and adoption.`);
   L.push(`- [Story](${ORIGIN}/story): the long version of his background, from rural Karnataka to founding companies. Markdown: ${ORIGIN}/story.md`);
   L.push(`- [Book a call](${ORIGIN}/book): book a short intro call. Markdown: ${ORIGIN}/book.md`);
   L.push(`- [Contact](${ORIGIN}/contact): ways to reach him by email, LinkedIn, or GitHub. Markdown: ${ORIGIN}/contact.md`);

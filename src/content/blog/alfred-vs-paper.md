@@ -19,19 +19,17 @@ faq:
     a: "ComPilot has a perfect verifier and an exactly-defined reward, so it can afford 30 blind iterations per kernel and a best-of-5 outer loop. Alfred cannot, so it spends its budget differently: a plan-review gate before any code is written, hard spend caps, isolated git worktrees, per-agent IAM scoping, and a never-auto-merge rule. The paper has no notion of safety or cost ceilings because an illegal loop transformation is caught for free by the compiler. Alfred carries that machinery because a wrong code change is not caught for free."
 ---
 
-I spend my days building agents that change code. The paper I want to walk through changes loops in C, which sounds unrelated until you notice it is the same machine I build, run in a domain where everything I struggle to measure is measurable for free. That makes it a useful mirror. So this post does two things: it explains ComPilot from first principles, with its numbers cited and attributed, and it lays Alfred's real implementation next to it to show where they agree, where they differ, and what each does that the other does not.
+I spend my days building agents that change code. The paper I want to walk through changes loops in C, which sounds unrelated until you notice it is the same machine I build, run in a domain where everything I struggle to measure is measurable for free. So this post does two things: it explains ComPilot from first principles, with its numbers cited and attributed, and it lays Alfred's real implementation next to it to show where they agree, where they differ, and what each does that the other does not.
 
 The paper is Merouani, Kara Bernou, and Baghdadi, "Agentic Auto-Scheduling: An Experimental Study of LLM-Guided Loop Optimization," PACT 2025, [arXiv:2511.00592](https://arxiv.org/abs/2511.00592). Every number below is from that paper. I redrew their figures as my own diagrams and tables rather than copying theirs; follow the link for the originals.
 
 ## The one idea both systems are built on
 
-Start from scratch, because the shared idea is simple and everything else hangs off it.
+An LLM on its own is a guesser. Ask it to optimize a loop or fix a bug and it produces something plausible. Plausible is not the same as correct, and it is not the same as fast. The model has no way to know whether its guess was any good, because it never ran anything.
 
-An LLM on its own is a guesser. Ask it to optimize a loop or fix a bug and it produces something plausible. Plausible is not the same as correct, and it is definitely not the same as fast. The model has no way to know whether its guess was any good, because it never ran anything.
+The fix is to put the model inside a loop with something that can tell whether the guess was good. The model proposes. An external checker grades. The grade goes back into the model's context. The model proposes again, conditioned on what just happened. You repeat until the grade is good enough or you run out of budget.
 
-The fix is to put the model inside a loop with something that *can* tell whether the guess was good. The model proposes. An external checker grades. The grade goes back into the model's context. The model proposes again, now conditioned on what just happened. You repeat until the grade is good enough or you run out of budget.
-
-That is the whole pattern. I have written about it before as [loops, harnesses, and memory](https://prasad.tech/blog/loops-harnesses-memory); ComPilot is a clean instance of it in a domain where the checker is unusually good. Here is the shape, drawn generically:
+I have written about this before as [loops, harnesses, and memory](https://prasad.tech/blog/loops-harnesses-memory); ComPilot is a clean instance of it in a domain where the checker is unusually good. The shape, drawn generically:
 
 ```mermaid
 flowchart LR
@@ -43,7 +41,7 @@ flowchart LR
     propose -.budget exhausted.-> stop["return best"]
 ```
 
-The reason this works at all is the checker. A model with no checker is a brainstorm. A model with a cheap, trustworthy checker is a search procedure. The quality of the search is capped by the quality of the checker, not by the cleverness of the model. Hold that thought, because it is the thread through the whole comparison.
+The reason this works is the checker. A model with no checker is a brainstorm. A model with a cheap, trustworthy checker is a search procedure. The quality of the search is capped by the quality of the checker, not by the cleverness of the model. That is the thread through the whole comparison.
 
 ## ComPilot from first principles
 
@@ -107,7 +105,7 @@ The honest summary of the paper: an untrained, general-purpose model, grounded b
 
 ## Alfred, in the same terms
 
-[Alfred](https://github.com/luminik-io/alfred-os) is my open-source fleet of coding agents. It runs locally, shells out to the `claude` or `codex` CLI you already pay for, and ends every run in a real pull request rather than a chat transcript. Different domain, but read its loop in the paper's vocabulary and the resemblance is hard to miss.
+[Alfred](https://github.com/luminik-io/alfred-os) is my open-source fleet of coding agents. It runs locally, shells out to the `claude` or `codex` CLI you already pay for, and ends every run in a real pull request rather than a chat transcript. Different domain, same loop in the paper's vocabulary.
 
 ### The loop
 
@@ -140,7 +138,7 @@ This is where Alfred spends its design effort, and where it differs most from th
 - **A second review-only critique of the implemented diff**, same uncorrelated-reviewer idea applied to code instead of plan.
 - **A human merge gate.** Alfred never auto-merges by default.
 
-The catch, which Alfred's own architecture notes call out, is that the review gate only works if the reviewer is uncorrelated with the executor. Same model, same prompt template would defeat it; a different mode, read-only and critique-focused, is enough in practice. This is not a hunch. The LLM-as-judge literature has measured the failure mode: judges show position bias, verbosity bias, and self-preference, and a NeurIPS 2024 result found a model's self-recognition correlates linearly with how much it favors its own generations (survey: [arXiv:2411.15594](https://arxiv.org/html/2411.15594v6); position bias: [arXiv:2406.07791](https://arxiv.org/abs/2406.07791)). A reviewer that is the same model grading its own work is exactly the case those biases describe. That worry has no analog in the paper, because a compiler's dependence analysis is not a second opinion that might agree with the first by accident. It is a proof.
+The catch, which Alfred's own architecture notes call out, is that the review gate only works if the reviewer is uncorrelated with the executor. Same model, same prompt template would defeat it; a different mode, read-only and critique-focused, is enough in practice. The LLM-as-judge literature has measured the failure mode: judges show position bias, verbosity bias, and self-preference, and a NeurIPS 2024 result found a model's self-recognition correlates linearly with how much it favors its own generations (survey: [arXiv:2411.15594](https://arxiv.org/html/2411.15594v6); position bias: [arXiv:2406.07791](https://arxiv.org/abs/2406.07791)). A reviewer that is the same model grading its own work is exactly the case those biases describe. That worry has no analog in the paper, because a compiler's dependence analysis is not a second opinion that might agree with the first by accident. It is a proof.
 
 The benchmark community treats verifier quality as a first-class problem, which backs the whole argument. SWE-bench Verified ([swebench.com/verified](https://www.swebench.com/verified.html)) is a 500-problem subset that OpenAI and the SWE-bench team built by paying humans to confirm each issue is solvable and each test is correct, precisely because the original 2,294-instance benchmark ([arXiv:2310.06770](https://arxiv.org/abs/2310.06770)) contained under-specified issues and over-specific tests that mis-graded correct solutions. The field spent human effort fixing the *grader*, not the models. That is Alfred's thesis restated as a benchmark-design decision: when the checker is wrong, nothing downstream can be trusted.
 
@@ -187,7 +185,7 @@ What Alfred does that the paper does not: everything in that last row. Because a
 
 What the paper does that Alfred cannot: trust its verifier completely. ComPilot can afford 30 blind iterations per kernel precisely because every proposal is graded exactly and cheaply, and a bad one is free. Alfred would love that. It cannot have it, because correctness for a general code change is not decidable by a fast analysis, and a timed run is not a proof of correctness. So Alfred substitutes a portfolio of weaker checks and a human at the end, and spends real effort making sure those checks are uncorrelated enough to catch each other's misses.
 
-That asymmetry is the actual takeaway. The propose-verify-iterate loop is the same machine in both systems. How well it works is set entirely by how good and how cheap your verifier is. ComPilot is what this loop looks like when the verifier is perfect. Alfred is what it has to become when the verifier is not.
+The propose-verify-iterate loop is the same machine in both systems. How well it works is set by how good and how cheap your verifier is. ComPilot is what this loop looks like when the verifier is perfect. Alfred is what it has to become when the verifier is not.
 
 ## Key takeaways
 

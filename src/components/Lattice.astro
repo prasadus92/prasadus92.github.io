@@ -1,0 +1,101 @@
+---
+/*
+  Cultural-geometry line lattice. A hybrid of Japanese asanoha (hemp-leaf:
+  six lines radiating from each node) and Indian jaali (interlocking
+  geometric screen). Thin lines only, no fill, no new colour: it draws with
+  --grid-line / accent at very low alpha so it reads as texture, not theme.
+
+  Used ONLY in section dividers and the footer bleed. To dial the whole motif
+  up or down site-wide, change --lattice-alpha and --lattice-accent-alpha
+  below (single knob). If it ever reads as a "pattern", lower these.
+
+  Props:
+    variant   "divider" (a thin horizontal band) | "bleed" (fills its parent)
+    accent    when true, the radial nodes pick up a faint accent tint
+*/
+interface Props {
+  variant?: 'divider' | 'bleed';
+  accent?: boolean;
+  class?: string;
+}
+const { variant = 'divider', accent = false, class: className = '' } = Astro.props;
+// unique id so multiple instances don't collide on the SVG <pattern> id
+const uid = 'lat-' + Math.random().toString(36).slice(2, 8);
+---
+
+<div
+  class:list={['lattice', `lattice--${variant}`, { 'lattice--accent': accent }, className]}
+  aria-hidden="true"
+>
+  <svg width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
+    <defs>
+      {/* asanoha + jaali hybrid tile: a square cell with a six-line star at
+          centre (asanoha) framed by interlocking diagonals (jaali). 48px tile. */}
+      <pattern id={uid} width="48" height="48" patternUnits="userSpaceOnUse">
+        {/* jaali frame: interlocking diagonals across the cell */}
+        <path
+          d="M0 24 L24 0 L48 24 L24 48 Z"
+          fill="none"
+          stroke="var(--lat-stroke)"
+          stroke-width="1"
+        />
+        {/* asanoha star: six lines from the centre node */}
+        <path
+          d="M24 24 L24 0 M24 24 L48 24 M24 24 L24 48 M24 24 L0 24 M24 24 L0 0 M24 24 L48 48"
+          fill="none"
+          stroke="var(--lat-stroke)"
+          stroke-width="1"
+        />
+        {/* faint node dot for the radial-centre feel */}
+        <circle cx="24" cy="24" r="1.1" fill="var(--lat-node)" />
+        <circle cx="0" cy="0" r="0.9" fill="var(--lat-node)" />
+        <circle cx="48" cy="0" r="0.9" fill="var(--lat-node)" />
+        <circle cx="0" cy="48" r="0.9" fill="var(--lat-node)" />
+        <circle cx="48" cy="48" r="0.9" fill="var(--lat-node)" />
+      </pattern>
+    </defs>
+    <rect width="100%" height="100%" fill={`url(#${uid})`}></rect>
+  </svg>
+</div>
+
+<style>
+  .lattice {
+    /* single knobs: tone the motif from here */
+    --lattice-alpha: 0.05;
+    --lattice-accent-alpha: 0.06;
+    --lat-stroke: rgba(var(--accent-rgb), var(--lattice-alpha));
+    --lat-node: rgba(var(--accent-rgb), var(--lattice-accent-alpha));
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  /* accent variant: nodes a touch warmer, lines stay faint */
+  .lattice--accent {
+    --lat-node: rgba(var(--accent-rgb), calc(var(--lattice-accent-alpha) + 0.04));
+  }
+  /* divider: a slim band, faded at both horizontal edges so it never
+     reads as a hard rectangle */
+  .lattice--divider svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 22%, #000 78%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 22%, #000 78%, transparent);
+  }
+  /* bleed: fills the parent (footer), faded toward the top so it sits under
+     content rather than competing with it */
+  .lattice--bleed svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    -webkit-mask-image: radial-gradient(120% 90% at 50% 100%, #000 10%, transparent 72%);
+    mask-image: radial-gradient(120% 90% at 50% 100%, #000 10%, transparent 72%);
+  }
+  /* light mode reads the lattice a hair stronger since the accent is darker */
+  :global([data-theme='light']) .lattice {
+    --lattice-alpha: 0.06;
+    --lattice-accent-alpha: 0.07;
+  }
+</style>

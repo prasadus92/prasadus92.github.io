@@ -9,6 +9,33 @@
 .prose > * + * {
   margin-top: 1.25em;
 }
+/* When the editorial script groups sections into .story-section wrappers, the
+   direct-child spacing above no longer reaches the paragraphs. Re-apply the
+   same rhythm inside each wrapper, and space the wrappers themselves. */
+.prose .story-section > * + * {
+  margin-top: 1.25em;
+}
+.prose > .story-section + .story-section {
+  margin-top: 2em;
+}
+.prose .story-section > h2 + * {
+  margin-top: 0.7em;
+}
+/* Drop-cap on the first paragraph of an editorial page: one accent-tinted
+   flourish that signals "long read". Written unscoped here (not in the Astro
+   component) so the ::first-letter pseudo isn't mangled by scoped-style
+   rewriting. Covers no-JS (p is a direct child) and post-JS (p in a wrapper). */
+.prose--editorial > h2:first-child + p::first-letter,
+.prose--editorial > p:first-of-type::first-letter,
+.prose--editorial .story-section:first-child > h2 + p::first-letter {
+  float: left;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 3.1em;
+  line-height: 0.82;
+  padding: 0.04em 0.14em 0 0;
+  color: var(--accent);
+}
 .prose h2,
 .prose h3,
 .prose h4 {
@@ -68,6 +95,45 @@
   box-shadow: var(--shadow-md);
   margin: 1.8em auto;
 }
+/* Editorial pull-quote (Story): a centered display line as a palette cleanser
+   between sections. No card, no left border, just type and air, matching the
+   landing's PullQuote treatment. */
+.prose .story-pull {
+  margin: clamp(2.6em, 6vw, 4em) 0;
+}
+.prose .story-pull blockquote {
+  position: relative;
+  margin: 0;
+  padding: clamp(1.6rem, 3.4vw, 2.4rem) clamp(1.5rem, 3vw, 2.2rem);
+  padding-left: clamp(2.4rem, 5vw, 3.4rem);
+  border: 1px solid var(--glass-border);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--r-lg);
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur)) saturate(140%);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(140%);
+  box-shadow: var(--shadow-md);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.35rem, 1.05rem + 1.5vw, 2rem);
+  line-height: 1.22;
+  letter-spacing: var(--tracking-tight);
+  text-wrap: balance;
+  color: var(--ink);
+  font-style: normal;
+}
+/* faint oversized accent quote mark, tucked top-left as a quiet flourish */
+.prose .story-pull blockquote::before {
+  content: '\201C';
+  position: absolute;
+  top: -0.08em;
+  left: clamp(0.5rem, 1.6vw, 0.9rem);
+  font-size: 3em;
+  line-height: 1;
+  color: var(--accent);
+  opacity: 0.22;
+  pointer-events: none;
+}
 .prose figure {
   margin: 2em 0;
 }
@@ -80,6 +146,21 @@
   color: var(--text-tertiary);
   line-height: 1.5;
 }
+/* example email / message, wrapped in <div class="email-example"> */
+.prose .email-example {
+  margin: 1.9em 0;
+  padding: clamp(1.1rem, 2.6vw, 1.6rem) clamp(1.2rem, 2.8vw, 1.7rem);
+  border: 1px solid var(--glass-border);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--r-md);
+  background: var(--glass-bg);
+  font-size: 0.98rem;
+  line-height: 1.6;
+}
+.prose .email-example > * + * {
+  margin-top: 0.75em;
+}
+
 /* side-by-side photo grid: wrap images in <div class="photo-row"> ... </div> */
 .prose .photo-row {
   display: grid;
@@ -106,6 +187,8 @@
   background: var(--glass-bg-strong);
   border: 1px solid var(--glass-border);
   color: var(--ink);
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 .prose pre {
   margin-block: 1.5em;
@@ -169,6 +252,32 @@
 .prose .mermaid svg {
   display: block;
   margin-inline: auto;
+  max-width: 100%;
+  height: auto;
+  /* transparent so the diagram sits on the page (glass), not a white slab */
+  background: transparent;
+}
+/* Theme-awareness safety net: mermaid inlines most colors via themeVariables,
+   but a few elements fall back to CSS. Pin label + edge text to the ink token
+   so diagrams stay legible in both light and dark mode. */
+.prose .mermaid .nodeLabel,
+.prose .mermaid .edgeLabel,
+.prose .mermaid .cluster-label,
+.prose .mermaid .label,
+.prose .mermaid text {
+  color: var(--ink);
+  fill: var(--ink);
+}
+/* edge labels get a chip of the page background so lines don't cross the text */
+.prose .mermaid .edgeLabel,
+.prose .mermaid .edgeLabel p {
+  background: var(--bg);
+  color: var(--ink);
+}
+/* keep the lightbox clone readable too */
+.mm-stage .mermaid text,
+.mm-stage text {
+  fill: var(--ink);
 }
 /* click-to-enlarge mermaid */
 .prose .mermaid.mm-zoomable {

@@ -3,11 +3,13 @@ import { site } from '../data/site';
 import Icon from './Icon.astro';
 import CopyPage from './CopyPage.astro';
 import GameOfLife from './GameOfLife.astro';
+import Lattice from './Lattice.astro';
 const { mdPath } = Astro.props as { mdPath?: string };
 const year = new Date().getFullYear();
 ---
 
 <footer class="footer">
+  <Lattice variant="bleed" accent class="footer-lattice" />
   <div class="container footer-life">
     <GameOfLife />
   </div>
@@ -20,12 +22,16 @@ const year = new Date().getFullYear();
     </div>
     <div class="footer-cols">
       <div>
-        <span class="foot-label">Navigate</span>
+        <span class="foot-label">Explore</span>
         <a href="/#impact">Impact</a>
         <a href="/#work">Work</a>
+        <a href="/ai-enablement">AI enablement</a>
         <a href="/story">Story</a>
         <a href="/blog">Writing</a>
         <a href="/glossary">Glossary</a>
+      </div>
+      <div>
+        <span class="foot-label">More</span>
         <a href="/book">Book a call</a>
         <a href="/#contact">Contact</a>
         <a href="/rss.xml">RSS</a>
@@ -53,7 +59,10 @@ const year = new Date().getFullYear();
     )
   }
   <div class="container footer-base">
-    <p class="muted">© {year} {site.name}. Built in Oslo, Norway.</p>
+    <div class="footer-base-copy">
+      <p class="muted">© {year} {site.name}. Built in Oslo, Norway.</p>
+      <p class="foot-entities">DataRavel Inc. · Brevv Ventures OÜ</p>
+    </div>
     <div class="footer-social">
       <a href={site.links.linkedin} target="_blank" rel="noopener" aria-label="LinkedIn"
         ><Icon name="linkedin" size={18} /></a
@@ -73,15 +82,31 @@ const year = new Date().getFullYear();
     margin-top: clamp(64px, 10vw, 140px);
     padding-top: clamp(48px, 6vw, 80px);
     border-top: 1px solid var(--glass-border);
+    overflow: hidden;
+  }
+  /* cultural-geometry bleed: sits behind the footer content, fades upward */
+  .footer-lattice {
+    z-index: 0;
+  }
+  /* lift all footer content above the lattice bleed */
+  .footer > .container {
+    position: relative;
+    z-index: 1;
   }
   .footer-life {
     margin-bottom: clamp(36px, 5vw, 56px);
+  }
+  .brand-row {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-3);
+    margin-bottom: 16px;
   }
   .footer-inner {
     display: grid;
     grid-template-columns: 1.2fr 2fr;
     gap: clamp(32px, 6vw, 80px);
-    padding-bottom: 48px;
+    padding-bottom: var(--sp-7);
   }
   .footer-brand .brand-mark {
     display: grid;
@@ -93,7 +118,9 @@ const year = new Date().getFullYear();
     font-weight: 600;
     color: var(--accent-ink);
     background: var(--grad-brand);
-    margin-bottom: 16px;
+  }
+  .brand-seal {
+    opacity: 0.85;
   }
   .footer-brand p {
     max-width: 32ch;
@@ -101,7 +128,7 @@ const year = new Date().getFullYear();
   }
   .footer-cols {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
     gap: 24px;
   }
   .footer-cols > div {
@@ -128,18 +155,30 @@ const year = new Date().getFullYear();
   .footer-ai {
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: var(--sp-3);
     flex-wrap: wrap;
-    padding-top: 20px;
+    padding-top: var(--sp-5);
+    padding-bottom: var(--sp-5);
+    border-top: 1px solid var(--glass-border);
   }
   .footer-base {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 16px;
-    padding: 24px 0 40px;
+    gap: var(--sp-4);
+    /* keep the container's horizontal gutter; only set vertical padding
+       (a `padding` shorthand here would zero the inline gutter) */
+    padding-top: var(--sp-5);
+    padding-bottom: var(--sp-7);
     border-top: 1px solid var(--glass-border);
     font-size: 0.88rem;
+  }
+  .foot-entities {
+    margin-top: 4px;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: var(--tracking-wide);
+    color: var(--text-tertiary);
   }
   .footer-social {
     display: flex;

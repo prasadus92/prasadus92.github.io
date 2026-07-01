@@ -1,86 +1,119 @@
 ---
-import SectionHeader from './SectionHeader.astro';
 import { approach } from '../data/site';
+
+/*
+  Approach as a numbered manifesto rail (DESIGN-IDEAS #4), not a card grid.
+  A sticky section title on the left; the three principles step down the right
+  with large 01 / 03 / 06 markers and a hairline between each. Distinct shape
+  from the Skills grid below it, so the two method sections no longer read as
+  the same block twice. No glass cards here on purpose.
+*/
 ---
 
 <section class="section" id="approach">
-  <div class="container">
-    <SectionHeader
-      eyebrow="Approach"
-      title="How I <span class='grad-text'>work</span>."
-      lead="A few principles I keep coming back to, from building products people paid for before they were finished."
-    />
+  <div class="container approach-wrap">
+    <div class="approach-head">
+      <p class="eyebrow reveal">Approach</p>
+      <h2 class="reveal reveal-d1">How I <span class="grad-text">work</span>.</h2>
+      <p class="approach-lead muted reveal reveal-d2">
+        A few principles I keep coming back to.
+      </p>
+    </div>
 
-    <div class="squares">
+    <ol class="manifesto">
       {
         approach.map((a, i) => (
-          <article class={`sq glass card reveal reveal-d${(i % 3) + 1}`}>
-            <span class="sq-n mono">{a.n}</span>
-            <h3 class="sq-title">{a.title}</h3>
-            <p class="sq-body">{a.body}</p>
-            <span class="sq-corner" aria-hidden="true" />
-          </article>
+          <li class={`mf-item reveal reveal-d${(i % 3) + 1}`}>
+            <span class="mf-n mono" aria-hidden="true">{a.n}</span>
+            <div class="mf-body">
+              <h3 class="mf-title">{a.title}</h3>
+              <p class="mf-text">{a.body}</p>
+            </div>
+          </li>
         ))
       }
-    </div>
+    </ol>
   </div>
 </section>
 
 <style>
-  .squares {
+  .approach-wrap {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: clamp(14px, 1.4vw, 18px);
+    grid-template-columns: minmax(220px, 0.8fr) 1.6fr;
+    gap: clamp(32px, 6vw, 88px);
+    align-items: start;
   }
-  .sq {
-    position: relative;
-    padding: clamp(24px, 2.2vw, 34px);
-    min-height: 230px;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
+  .approach-head {
+    /* sticky title rail (Revyl-style); falls back to static when the column
+       collapses on narrow screens */
+    position: sticky;
+    top: clamp(96px, 14vh, 140px);
   }
-  .sq-n {
-    font-size: 0.8rem;
-    color: var(--accent);
-    letter-spacing: 0.05em;
+  .approach-head h2 {
+    margin-top: var(--sp-3);
   }
-  .sq-title {
-    margin-top: 16px;
-    font-size: 1.22rem;
-  }
-  .sq-body {
-    margin-top: 12px;
-    color: var(--text-secondary);
-    font-size: 0.96rem;
+  .approach-lead {
+    margin-top: var(--sp-4);
+    font-size: var(--fs-lead);
     line-height: 1.6;
-  }
-  .sq-corner {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 72px;
-    height: 72px;
-    background: radial-gradient(circle at top right, var(--glow-soft), transparent 70%);
-    opacity: 0;
-    transition: opacity var(--dur-2) var(--ease-out);
-    pointer-events: none;
-  }
-  .sq:hover .sq-corner {
-    opacity: 1;
+    max-width: 28ch;
   }
 
-  @media (max-width: 900px) {
-    .squares {
-      grid-template-columns: 1fr 1fr;
+  .manifesto {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .mf-item {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: clamp(20px, 3vw, 40px);
+    align-items: baseline;
+    padding-block: clamp(24px, 3vw, 40px);
+    border-top: 1px solid var(--glass-border);
+  }
+  .mf-item:first-child {
+    padding-top: 0;
+    border-top: 0;
+  }
+  .mf-item:last-child {
+    padding-bottom: 0;
+  }
+  .mf-n {
+    font-size: clamp(1.6rem, 1rem + 2vw, 2.6rem);
+    font-weight: 500;
+    line-height: 1;
+    color: var(--accent);
+    letter-spacing: var(--tracking-tight);
+    font-feature-settings: 'tnum' 1;
+  }
+  .mf-title {
+    font-size: var(--fs-h3);
+  }
+  .mf-text {
+    margin-top: var(--sp-3);
+    color: var(--text-secondary);
+    font-size: 1rem;
+    line-height: 1.65;
+    max-width: 56ch;
+  }
+
+  @media (max-width: 820px) {
+    .approach-wrap {
+      grid-template-columns: 1fr;
+      gap: var(--head-gap);
+    }
+    .approach-head {
+      position: static;
+    }
+    .approach-lead {
+      max-width: 48ch;
     }
   }
-  @media (max-width: 560px) {
-    .squares {
+  @media (max-width: 480px) {
+    .mf-item {
       grid-template-columns: 1fr;
-    }
-    .sq {
-      min-height: auto;
+      gap: var(--sp-3);
     }
   }
 </style>

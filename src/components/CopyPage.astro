@@ -24,9 +24,18 @@ const prompt = encodeURIComponent(`Read ${mdUrl} and summarize it.`);
     href={`https://chatgpt.com/?q=${prompt}`}
     target="_blank"
     rel="noopener"
-    title="Open in ChatGPT"
+    title="Ask ChatGPT about this page"
   >
-    <Icon name="lucide:sparkles" /><span>Ask AI</span>
+    <Icon name="lucide:sparkles" /><span>ChatGPT</span>
+  </a>
+  <a
+    class="cp-btn"
+    href={`https://claude.ai/new?q=${prompt}`}
+    target="_blank"
+    rel="noopener"
+    title="Ask Claude about this page"
+  >
+    <Icon name="lucide:sparkles" /><span>Claude</span>
   </a>
 </div>
 

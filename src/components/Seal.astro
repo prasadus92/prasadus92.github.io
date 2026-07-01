@@ -1,0 +1,48 @@
+---
+/*
+  A small hand-drawn-style geometric seal / mark: a quiet radial mandala glyph
+  in the accent colour, used as a signature accent (footer brand, optionally one
+  section break). Kept tiny and low-contrast. Stroke only, no fill, so it reads
+  as a mark rather than a logo. Tone with the `size` prop and --seal-alpha.
+*/
+interface Props {
+  size?: number;
+  class?: string;
+}
+const { size = 28, class: className = '' } = Astro.props;
+---
+
+<svg
+  class:list={['seal', className]}
+  width={size}
+  height={size}
+  viewBox="0 0 48 48"
+  fill="none"
+  aria-hidden="true"
+  focusable="false"
+>
+  {/* outer ring */}
+  <circle cx="24" cy="24" r="21" stroke="currentColor" stroke-width="1" opacity="0.55" />
+  {/* inner ring */}
+  <circle cx="24" cy="24" r="13" stroke="currentColor" stroke-width="1" opacity="0.7" />
+  {/* eight radial petals (mandala spokes) */}
+  <g stroke="currentColor" stroke-width="1" opacity="0.85">
+    <path d="M24 3 L24 11" />
+    <path d="M24 37 L24 45" />
+    <path d="M3 24 L11 24" />
+    <path d="M37 24 L45 24" />
+    <path d="M9.5 9.5 L15 15" />
+    <path d="M33 33 L38.5 38.5" />
+    <path d="M38.5 9.5 L33 15" />
+    <path d="M15 33 L9.5 38.5" />
+  </g>
+  {/* centre node */}
+  <circle cx="24" cy="24" r="2.4" fill="currentColor" opacity="0.9" />
+</svg>
+
+<style>
+  .seal {
+    color: var(--accent);
+    display: block;
+  }
+</style>

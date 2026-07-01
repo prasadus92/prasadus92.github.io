@@ -1,0 +1,76 @@
+---
+import V2Layout from '../../layouts/V2Layout.astro';
+import Nav from '../../components/v2/Nav.astro';
+import Footer from '../../components/v2/Footer.astro';
+---
+<V2Layout
+  title="Book a call · Prasad Subrahmanya"
+  description="Book a 15-minute call with Prasad Subrahmanya."
+>
+  <Nav />
+  <section class="page-band">
+    <div class="container">
+      <div class="page-head page-narrow">
+        <span class="kicker red">Booking</span>
+        <h1>Book a <span class="redmark">call.</span></h1>
+        <p class="lead">A short intro call, no deck. If you're building something hard in AI or hiring for it, grab a time that works.</p>
+      </div>
+      <div class="book-embed page-narrow">
+        <div id="cal-inline" aria-label="Cal.com booking calendar"></div>
+      </div>
+    </div>
+  </section>
+  <Footer />
+  <script is:inline>
+    (function () {
+      const el = document.getElementById('cal-inline');
+      let booted = false;
+      function loadCalScript() {
+        (function (C, A, L) {
+          let p = function (a, ar) { a.q.push(ar); };
+          let d = C.document;
+          C.Cal = C.Cal || function () {
+            let cal = C.Cal; let ar = arguments;
+            if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement('script')).src = A; cal.loaded = true; }
+            if (ar[0] === L) {
+              const api = function () { p(api, arguments); };
+              const namespace = ar[1]; api.q = api.q || [];
+              if (typeof namespace === 'string') { cal.ns[namespace] = cal.ns[namespace] || api; p(cal.ns[namespace], ar); p(cal, ['initNamespace', namespace]); }
+              else p(cal, ar);
+              return;
+            }
+            p(cal, ar);
+          };
+        })(window, 'https://app.cal.com/embed/embed.js', 'init');
+        Cal('init', 'intro', { origin: 'https://cal.com' });
+      }
+      function boot() {
+        if (booted) return;
+        booted = true;
+        loadCalScript();
+        Cal.ns.intro('inline', {
+          elementOrSelector: '#cal-inline',
+          config: { layout: 'month_view', theme: 'light', duration: '20' },
+          calLink: 'meet-prasad/intro-chat',
+        });
+        Cal.ns.intro('ui', {
+          hideEventTypeDetails: false,
+          layout: 'month_view',
+          theme: 'light',
+          // Match the v2 Swiss palette: red accent on the calendar and buttons.
+          cssVarsPerTheme: { light: { 'cal-brand': '#e5241c' } },
+        });
+      }
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver((entries) => {
+          if (entries.some((e) => e.isIntersecting)) { io.disconnect(); boot(); }
+        }, { rootMargin: '400px 0px' });
+        io.observe(el);
+      } else { boot(); }
+      ['pointerdown', 'keydown', 'touchstart'].forEach((ev) =>
+        window.addEventListener(ev, boot, { once: true, passive: true })
+      );
+      setTimeout(boot, 2500);
+    })();
+  </script>
+</V2Layout>

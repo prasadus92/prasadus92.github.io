@@ -1,0 +1,143 @@
+---
+import { getCollection } from 'astro:content';
+import V2Layout from '../../../layouts/V2Layout.astro';
+import Nav from '../../../components/v2/Nav.astro';
+import Footer from '../../../components/v2/Footer.astro';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+// Two clusters, by slug membership (mirrors the v1 index). Engineering shows
+// first. Anything not listed under companies falls under engineering.
+const companySlugs = new Set([
+  'zero-to-one-bain',
+  'raising-seed-round',
+  'technical-founder-sales',
+  'mvp-three-months',
+  'event-marketing-roi',
+  'too-early-teen-banking-startup',
+]);
+
+// The single most recent post leads the page as an editorial feature; it is
+// pulled out of its cluster so it is not listed twice. Its cluster key is
+// tracked so the "All" filter can hide/show the feature in step with the list.
+const featured = posts[0];
+const featuredKey = featured && companySlugs.has(featured.id) ? 'founder' : 'eng';
+const rest = posts.slice(1);
+
+const companyPosts = rest.filter((p) => companySlugs.has(p.id));
+const engineeringPosts = rest.filter((p) => !companySlugs.has(p.id));
+
+const clusters = [
+  { title: 'AI-native engineering', key: 'eng', posts: engineeringPosts },
+  { title: 'Building companies', key: 'founder', posts: companyPosts },
+].filter((c) => c.posts.length > 0);
+
+const total = posts.length;
+const clusterTotals: Record<string, number> = {
+  eng: engineeringPosts.length + (featuredKey === 'eng' ? 1 : 0),
+  founder: companyPosts.length + (featuredKey === 'founder' ? 1 : 0),
+};
+const fmtDate = (d: Date) => d.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+---
+<V2Layout
+  title="Writing · Prasad Subrahmanya"
+  description="First-principles primers on AI engineering, distributed systems, and building companies. Written from the work, not from theory."
+>
+  <Nav />
+  <section class="idx">
+    <div class="container">
+      <div class="idx-head">
+        <span class="kicker red">Writing · {total} articles</span>
+        <h1>Primers and <span class="redmark">field notes.</span></h1>
+        <p class="lead">First-principles writeups on AI engineering, distributed systems, and building companies. Written from the work, not from theory.</p>
+      </div>
+
+      <div class="idx-filters" id="filters">
+        <button class="chip active" data-filter="all" type="button">All <span class="chip-count">{total}</span></button>
+        {clusters.map((c) => (
+          <button class="chip" data-filter={c.key} type="button">{c.title} <span class="chip-count">{clusterTotals[c.key]}</span></button>
+        ))}
+      </div>
+
+      {featured && (
+        <a class="idx-feature" id="feature" data-cluster={featuredKey} href={`/v2/blog/${featured.id}`}>
+          <span class="feat-tag">Latest</span>
+          <div class="feat-grid">
+            <div class="feat-main">
+              <div class="feat-meta"><span class="art-cat">{featured.data.category}</span>{featured.data.readingTime ? ` · ${featured.data.readingTime.replace(/ read$/, '')}` : ''} · {fmtDate(featured.data.pubDate)}</div>
+              <h2 class="feat-title">{featured.data.title}</h2>
+            </div>
+            <div class="feat-side">
+              <p class="feat-desc">{featured.data.description}</p>
+              <span class="feat-read">Read the piece <span class="a">↗</span></span>
+            </div>
+          </div>
+        </a>
+      )}
+
+      <div class="art-list" id="art-list">
+        {clusters.map((cluster) => (
+          <div class="art-cluster" data-cluster={cluster.key}>
+            <div class="art-cluster-head">
+              <h2 class="art-cluster-title">{cluster.title}</h2>
+              <span class="art-cluster-count">{clusterTotals[cluster.key]} {clusterTotals[cluster.key] === 1 ? 'article' : 'articles'}</span>
+            </div>
+            {cluster.posts.map((p, i) => (
+              <a class="art-row" data-cat={cluster.key} href={`/v2/blog/${p.id}`}>
+                <span class="art-index">{String(i + 1).padStart(2, '0')}</span>
+                <div class="art-body">
+                  <div class="art-meta"><span class="art-cat">{p.data.category}</span>{p.data.readingTime ? ` · ${p.data.readingTime.replace(/ read$/, '')}` : ''}</div>
+                  <h3 class="art-title">{p.data.title}</h3>
+                  <p class="art-desc">{p.data.description}</p>
+                </div>
+                <span class="art-date">{fmtDate(p.data.pubDate)}</span>
+              </a>
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+  <Footer />
+  <script is:inline>
+    // category filter (by cluster)
+    (function () {
+      const chips = [...document.querySelectorAll('.chip')];
+      const clusters = [...document.querySelectorAll('.art-cluster')];
+      const feature = document.getElementById('feature');
+      chips.forEach((c) =>
+        c.addEventListener('click', () => {
+          chips.forEach((x) => x.classList.remove('active'));
+          c.classList.add('active');
+          const f = c.dataset.filter;
+          clusters.forEach((cl) => {
+            cl.hidden = !(f === 'all' || cl.dataset.cluster === f);
+          });
+          if (feature) feature.hidden = !(f === 'all' || feature.dataset.cluster === f);
+        })
+      );
+    })();
+    // copy the article list for pasting into an LLM
+    (function () {
+      const btn = document.getElementById('copy-page');
+      if (!btn || !navigator.clipboard) return;
+      btn.addEventListener('click', () => {
+        const text = document.querySelector('.idx').innerText.replace(/\n{3,}/g, '\n\n').trim();
+        navigator.clipboard
+          .writeText(text)
+          .then(() => {
+            const l = btn.textContent;
+            btn.textContent = 'Copied';
+            btn.style.borderColor = '#E5241C';
+            setTimeout(() => {
+              btn.textContent = l;
+              btn.style.borderColor = '';
+            }, 1600);
+          })
+          .catch(() => {});
+      });
+    })();
+  </script>
+</V2Layout>

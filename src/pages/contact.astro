@@ -75,10 +75,10 @@ const channels = [
         </div>
       </header>
 
-      <ul class="channels reveal reveal-d4">
+      <ul class="channels">
         {
-          channels.map((c) => (
-            <li>
+          channels.map((c, i) => (
+            <li class={`reveal reveal-d${i + 3}`}>
               <a
                 href={c.href}
                 class="channel card glass"

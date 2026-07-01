@@ -1,0 +1,66 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site } from '../../data/site';
+
+const pageTitle = 'Privacy · Prasad Subrahmanya';
+const pageDescription = 'How this site handles analytics and your data. Short version: very little.';
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <section class="section">
+    <div class="container--prose privacy">
+      <p class="eyebrow">Privacy</p>
+      <h1>What this site collects</h1>
+      <p class="lead muted">Short version: very little, and only with your say-so.</p>
+
+      <h2>Analytics</h2>
+      <p>
+        I use Google Analytics to see which pages people find useful. It only runs if you
+        accept it in the cookie banner. If you decline, no analytics cookies are set, and any
+        that exist are cleared. IP addresses are anonymized.
+      </p>
+
+      <h2>What I do not do</h2>
+      <p>
+        No ads, no ad tracking, no selling data, no third-party trackers beyond the analytics
+        above. The booking page (Cal.com) and any external links run on their own terms when
+        you use them.
+      </p>
+
+      <h2>Your choice</h2>
+      <p>
+        Your consent is stored locally in your browser. Clear your site data to be asked again.
+      </p>
+
+      <h2>Contact</h2>
+      <p>
+        Questions about any of this: <a href={`mailto:${site.email}`}>{site.email}</a>.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .privacy {
+    padding-top: clamp(120px, 14vh, 168px);
+  }
+  .privacy h1 {
+    margin-top: 12px;
+  }
+  .privacy .lead {
+    margin-top: 14px;
+    font-size: var(--fs-lead);
+  }
+  .privacy h2 {
+    margin-top: var(--sp-6);
+    margin-bottom: var(--sp-2);
+    font-size: var(--fs-h3);
+  }
+  .privacy p {
+    line-height: 1.7;
+    max-width: 64ch;
+  }
+  .privacy a {
+    color: var(--accent);
+  }
+</style>

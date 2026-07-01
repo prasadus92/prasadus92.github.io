@@ -1,0 +1,147 @@
+---
+// v2 blog post shell. Renders a post from the `blog` collection in the sharp
+// white/black/red aesthetic: TL;DR callout, prose body, FAQ, related, reading
+// progress, and client-side mermaid rendering themed to match v2. See DESIGN.md.
+export interface Props {
+  title: string;
+  description: string;
+  tldr?: string;
+  pubDate: Date;
+  updatedDate?: Date;
+  category?: string;
+  readingTime?: string;
+  slug?: string;
+  faq?: { q: string; a: string }[];
+  related?: { id: string; title: string; description: string }[];
+}
+const {
+  title,
+  description,
+  tldr,
+  pubDate,
+  category = 'Essay',
+  readingTime,
+  slug,
+  faq = [],
+  related = [],
+} = Astro.props;
+
+const dateStr = pubDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+const kicker = [category, readingTime].filter(Boolean).join(' · ');
+
+// Public canonical URL of this post on prasad.tech (v2 shares v1's blog routes).
+const postUrl = `https://prasad.tech/blog/${slug ?? ''}`;
+const shareEnc = encodeURIComponent(postUrl);
+const shareText = encodeURIComponent(title);
+const linkedInShare = `https://www.linkedin.com/sharing/share-offsite/?url=${shareEnc}`;
+const xShare = `https://twitter.com/intent/tweet?text=${shareText}&url=${shareEnc}`;
+---
+<article class="post">
+  <div class="container">
+    <div class="post-wrap">
+      <div class="post-head">
+        <a class="post-back" href="/v2/blog">← All writing</a>
+        <span class="kicker red">{kicker}</span>
+        <h1 class="post-title">{title}</h1>
+        <p class="post-desc">{description}</p>
+        <div class="post-meta">
+          <span class="post-author"><span class="post-mark">PS</span> Prasad Subrahmanya</span>
+          <span class="post-date">{dateStr}</span>
+        </div>
+      </div>
+
+      {tldr && (
+        <div class="post-tldr">
+          <span class="post-tldr-label">TL;DR</span>
+          <p>{tldr}</p>
+        </div>
+      )}
+
+      <div class="prose">
+        <slot />
+      </div>
+
+      {faq.length > 0 && (
+        <section class="post-faq">
+          <h2>Common questions</h2>
+          <div class="faq-list">
+            {faq.map((f, i) => (
+              <details class="faq-item" open={i === 0}>
+                <summary><span class="faq-q">{f.q}</span><span class="faq-chevron">↓</span></summary>
+                <div class="faq-a"><p>{f.a}</p></div>
+              </details>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {related.length > 0 && (
+        <section class="post-related">
+          <h2>Keep reading</h2>
+          <ul>
+            {related.map((r) => (
+              <li>
+                <a href={`/v2/blog/${r.id}`}>
+                  <strong>{r.title}</strong>
+                  <span class="rel-desc">{r.description}</span>
+                  <span class="rel-arrow">↗</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      <div class="post-share">
+        <span class="post-share-label">Share this</span>
+        <div class="post-share-row">
+          <a class="share-btn" href={xShare} target="_blank" rel="noopener" aria-label="Share on X">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            X
+          </a>
+          <a class="share-btn" href={linkedInShare} target="_blank" rel="noopener" aria-label="Share on LinkedIn">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            LinkedIn
+          </a>
+          <button class="share-btn" type="button" id="copy-link" data-url={postUrl} aria-label="Copy link to this post">
+            <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+            <span class="copy-text">Copy link</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="post-end">
+        <a class="post-back" href="/v2/blog">← More writing</a>
+        <a class="btn red" href="/v2#contact">Get in touch</a>
+      </div>
+    </div>
+  </div>
+</article>
+
+<script is:inline>
+  // Copy-link button on v2 posts, with a transient "copied" state.
+  (function () {
+    const btn = document.getElementById('copy-link');
+    if (!btn) return;
+    const label = btn.querySelector('.copy-text');
+    const original = label ? label.textContent : '';
+    let t;
+    btn.addEventListener('click', async () => {
+      const url = btn.getAttribute('data-url') || location.href;
+      try {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(url);
+        } else {
+          const ta = document.createElement('textarea');
+          ta.value = url; ta.style.position = 'fixed'; ta.style.opacity = '0';
+          document.body.appendChild(ta); ta.select(); document.execCommand('copy');
+          document.body.removeChild(ta);
+        }
+        btn.classList.add('is-copied');
+        if (label) label.textContent = 'Copied';
+        clearTimeout(t);
+        t = setTimeout(() => { btn.classList.remove('is-copied'); if (label) label.textContent = original; }, 2000);
+      } catch (e) { /* clipboard unavailable */ }
+    });
+  })();
+</script>

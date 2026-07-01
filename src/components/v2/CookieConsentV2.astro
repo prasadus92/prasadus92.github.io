@@ -1,0 +1,104 @@
+---
+// Cookie consent banner for the v2 design. Self-contained styles (white/black/red
+// Swiss-poster), no dependency on v1 tokens. Shares the same localStorage key and
+// `prasad:consent-changed` event as the v1 banner, so consent carries across the
+// A/B and both Analytics.astro + PostHog.astro react to it identically.
+const CONSENT_KEY = 'prasad-consent-v1';
+---
+
+<div class="cc2" id="cookie-consent" role="dialog" aria-label="Cookie preferences" hidden>
+  <p class="cc2-copy">
+    I use analytics to see which pages are useful. Nothing else. You can decline.
+    <a href="/privacy/">Privacy</a>
+  </p>
+  <div class="cc2-actions">
+    <button class="cc2-btn cc2-ghost" type="button" data-cookie-reject>Decline</button>
+    <button class="cc2-btn cc2-solid" type="button" data-cookie-accept>Accept</button>
+  </div>
+</div>
+
+<script is:inline define:vars={{ CONSENT_KEY }}>
+  (function () {
+    function readConsent() {
+      try {
+        var raw = localStorage.getItem(CONSENT_KEY);
+        if (!raw) return null;
+        var parsed = JSON.parse(raw);
+        return parsed && parsed.version === 1 ? parsed : null;
+      } catch (e) {
+        return null;
+      }
+    }
+    function writeConsent(analytics) {
+      var payload = { analytics: !!analytics, timestamp: Date.now(), version: 1 };
+      try {
+        localStorage.setItem(CONSENT_KEY, JSON.stringify(payload));
+      } catch (e) {}
+      window.PrasadConsent = payload;
+      try {
+        window.dispatchEvent(new CustomEvent('prasad:consent-changed', { detail: payload }));
+      } catch (e) {}
+    }
+    var banner = document.getElementById('cookie-consent');
+    if (banner && !readConsent()) {
+      banner.hidden = false;
+      requestAnimationFrame(function () { banner.classList.add('in'); });
+    }
+    function decide(analytics) {
+      writeConsent(analytics);
+      if (banner) {
+        banner.classList.remove('in');
+        setTimeout(function () { banner.hidden = true; }, 250);
+      }
+    }
+    var accept = banner && banner.querySelector('[data-cookie-accept]');
+    var reject = banner && banner.querySelector('[data-cookie-reject]');
+    if (accept) accept.addEventListener('click', function () { decide(true); });
+    if (reject) reject.addEventListener('click', function () { decide(false); });
+  })();
+</script>
+
+<style>
+  .cc2 {
+    position: fixed;
+    left: clamp(16px, 4vw, 28px);
+    right: clamp(16px, 4vw, 28px);
+    bottom: clamp(16px, 4vw, 28px);
+    max-width: 430px;
+    margin-left: auto;
+    z-index: 9999;
+    padding: 20px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    background: #ffffff;
+    color: #0c0c0c;
+    border: 1px solid #0c0c0c;
+    box-shadow: 8px 8px 0 #e5241c;
+    font-family: 'General Sans', system-ui, sans-serif;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.25s cubic-bezier(0.16, 0.84, 0.3, 1), transform 0.25s cubic-bezier(0.16, 0.84, 0.3, 1);
+  }
+  .cc2.in { opacity: 1; transform: none; }
+  /* Dismiss sets the `hidden` attribute; needed so `display: flex` above does
+     not keep the banner on screen after Accept/Decline. */
+  .cc2[hidden] { display: none; }
+  .cc2-copy { margin: 0; font-size: 0.9rem; line-height: 1.55; color: #1a1a1a; }
+  .cc2-copy a { color: #e5241c; font-weight: 600; white-space: nowrap; text-decoration: none; border-bottom: 2px solid #e5241c; }
+  .cc2-actions { display: flex; gap: 10px; justify-content: flex-end; }
+  .cc2-btn {
+    padding: 0.6em 1.2em;
+    font-family: 'General Sans', system-ui, sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1px solid #0c0c0c;
+    transition: background 0.15s, color 0.15s;
+  }
+  .cc2-ghost { background: #ffffff; color: #0c0c0c; }
+  .cc2-ghost:hover { background: #0c0c0c; color: #ffffff; }
+  .cc2-solid { background: #e5241c; color: #ffffff; border-color: #e5241c; }
+  .cc2-solid:hover { background: #b0140c; border-color: #b0140c; }
+  @media (prefers-reduced-motion: reduce) { .cc2 { transition: none; } }
+</style>

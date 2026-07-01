@@ -1,7 +1,7 @@
 ---
 title: "Writing the verifier is the real work in agent RL"
 description: "A reward function is a specification of correctness, not a scalar loss. Strict final-state equality is fine for a leaderboard and wrong for RL in real domains. The verifier is about 215 lines; understanding the domain is the cost."
-tldr: "In reinforcement learning, the reward function is where you tell the agent what \"good\" means, and getting that definition right is the hard part, not the training. I spent two weeks extending tau-bench into a new domain and the verifier that scores each run came out to about 215 lines. The code was a weekend. Writing down what \"correct\" means per task, the equivalence classes, the safety lines you can never cross, the money that has to balance, was the project. If you are new to RL, the first half of this post explains the field from scratch so the second half lands."
+tldr: "In reinforcement learning, the reward function is where you tell the agent what \"good\" means, and getting that definition right is the hard part, not the training. I spent two weeks extending tau-bench into a new domain and the verifier that scores each run came out to about 215 lines. The code took a couple of days. Most of the two weeks went into writing down what \"correct\" means per task: the equivalence classes, the safety lines you can never cross, the money that has to balance. If you are new to RL, the first half of this post explains the field from scratch so the second half lands."
 pubDate: 2026-06-28
 category: "AI engineering"
 tags: [agent-rl, reinforcement-learning, reward-design, tau-bench, verifiers, evaluation]
@@ -25,7 +25,7 @@ I spent two weeks extending [tau-bench](https://github.com/sierra-research/tau-b
 
 The verifier is the part that reads an agent's trajectory and decides what reward to hand back. I assumed it would be a thin wrapper around the benchmark's existing scorer. It was the hardest design work in the project, and the code came out to about 215 lines. The cost was not in those lines. It was in figuring out, per task, what "correct" even meant.
 
-Here is the claim, up front: a reward function is a specification of correctness. It is not a scalar loss you tune. If you write it like a loss, you teach the policy the wrong thing. If you write it like a spec, you have to know the domain cold, and that knowledge is the actual deliverable.
+A reward function is a specification of correctness. It is not a scalar loss you tune. If you write it like a loss, you teach the policy the wrong thing. If you write it like a spec, you have to know the domain cold, and that knowledge is the actual deliverable.
 
 If you have not done reinforcement learning before, that claim will not mean much yet. So before the verifier argument, here is what RL is, built up from the parts.
 

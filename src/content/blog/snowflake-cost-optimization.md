@@ -1,6 +1,6 @@
 ---
 title: "Attributing Snowflake cost to the query that caused it"
-description: "Snowflake bills compute by the second but tells you the total, not who spent it. Here is the architecture I built to reconstruct per-query cost from `ACCOUNT_USAGE`, the apportionment math that makes it work, the auto-suspend lever that paid for most of the savings, and how it runs as a Snowflake Native App."
+description: "Snowflake bills compute by the second but tells you the total, not who spent it. Here is the architecture I built to reconstruct per-query cost from ACCOUNT_USAGE, the apportionment math that makes it work, the auto-suspend lever that paid for most of the savings, and how it runs as a Snowflake Native App."
 pubDate: 2026-01-20
 category: "Engineering"
 tags: ["engineering", "snowflake", "data-engineering", "cost-optimization"]
@@ -127,7 +127,7 @@ Three architecture choices fall out of running native rather than external.
 
 **Scheduled tasks do the heavy lifting on a schedule.** The cost-per-query reconstruction is not cheap to compute, so it runs as background tasks that materialize the `STATE` tables (`cost_per_query`, `warehouse_utilization`, `underutilized_warehouses`, and the per-team rollups), and the dashboard reads those tables. The analysis is itself a workload with a Snowflake bill, so it runs on a small dedicated warehouse and the tasks are sized to refresh, not to run continuously.
 
-**The container suspends like everything else.** The backend runs in a container on a compute pool, and the compute pool honors `AUTO_SUSPEND_SECS` exactly the way a warehouse honors `auto_suspend`: a suspended pool incurs no compute cost. So the cost tool is subject to its own advice. Going through the Native App Accelerator forced this architecture to be real rather than a prototype, and the credits covered the compute the analysis itself consumed, which is its own small irony: a cost tool has a Snowflake bill, and the first thing it has to get right is its own.
+**The container suspends like everything else.** The backend runs in a container on a compute pool, and the compute pool honors `AUTO_SUSPEND_SECS` exactly the way a warehouse honors `auto_suspend`: a suspended pool incurs no compute cost. So the cost tool is subject to its own advice. Going through the Native App Accelerator forced this architecture to be real rather than a prototype, and the credits covered the compute the analysis itself consumed. A cost tool has a Snowflake bill, and the first thing it has to get right is its own.
 
 Cortex covers the in-database AI work, turning a ranked list of expensive queries and idle warehouses into plain-language recommendations without sending query text to an external model. The same principle holds: the analysis sits next to the data instead of shipping it out to grade it.
 

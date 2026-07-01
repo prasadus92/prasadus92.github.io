@@ -107,11 +107,11 @@ sequenceDiagram
     P-->>C: translated response
 ```
 
-One earned lesson from this half: the right place to hide a stateful concern is the one place that can be stateful. The client cannot run a loop, so the proxy runs it for everyone.
+The right place to put a stateful concern is the one place that can be stateful. The client cannot run a loop, so the proxy runs it for everyone.
 
 ## Half two: where compatible breaks down
 
-This is where the time went. Three things bit me, and each one looked like it could not possibly be a problem until it was.
+This is where the time went. Three things bit me, and none of them showed up in a non-streaming test.
 
 ### `finish_reason` must be emitted exactly once
 
@@ -172,7 +172,7 @@ I had two options. Make the translator stateful and carry a per-stream accumulat
 # non-streaming request when you need tool_calls back.
 ```
 
-A limitation you document is a decision. A limitation you discover in production is a bug. This was the one tradeoff in the project I am most sure I got right, and it is the one that does the least.
+A documented limitation is a decision; one you discover in production is a bug. Streaming tool calls stay text-only, and tool-using clients fall back to non-streaming requests.
 
 ### clients invent URLs you did not design
 
@@ -253,7 +253,7 @@ Three things, in priority order.
 - Streaming is where compatibility claims go to die. The terminal-event semantics, the once-only `finish_reason`, the stateful tool accumulation: every one of those bit me, and none showed up in a non-streaming test.
 - A translation layer is a maintenance commitment, not a build. The `context_management` field did not exist when I started. Something like it will land again.
 
-The proxy is about 800 lines of Python with a dependency footprint I can read in one sitting. The code is small because the thinking is in the edge cases, and the edge cases are the whole point. If you want the details, it is all in the repo: [github.com/prasadus92/vertex-proxy](https://github.com/prasadus92/vertex-proxy).
+The proxy is about 1,500 lines of Python across the package, and almost all of the hard thinking lives in two files: `main.py`, which routes and does the strip-and-forward, and the 276-line `openai_anthropic_bridge.py`, which is the dialect translator. The dependency footprint fits in one sitting. The code is compact because the difficulty is in the edge cases, and the edge cases are the whole point. If you want the details, it is all in the repo: [github.com/prasadus92/vertex-proxy](https://github.com/prasadus92/vertex-proxy).
 
 Most AI infra work looks like building a feature and turns out to be reconciling two systems that almost agree. The proxy is one small instance of that. The afternoon I spent on auth was the part I expected. The two weeks on the dialects were the part that taught me anything.
 

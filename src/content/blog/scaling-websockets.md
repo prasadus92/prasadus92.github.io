@@ -204,7 +204,7 @@ sequenceDiagram
     Note over C,N: client is whole again, no gap
 ```
 
-SSE standardizes the client half of this for free: the browser's `EventSource` remembers the id of the last event and sends it back as the `Last-Event-ID` header on reconnect, so all you implement server-side is "give me events after this id." With WebSockets there is no such convention, so you build the whole thing: stamp the ids, keep the buffer, and handle the resume handshake yourself. That extra work is one of the better reasons to ask whether you needed WebSockets at all, which is the last section.
+SSE standardizes the client half of this for free: the browser's `EventSource` remembers the id of the last event and sends it back as the `Last-Event-ID` header on reconnect, so all you implement server-side is "give me events after this id." With WebSockets there is no such convention, so you build the whole thing: stamp the ids, keep the buffer, and handle the resume handshake yourself. That extra work is one of the better reasons to ask whether you needed WebSockets at all.
 
 ### Auth on connect, and refresh on a socket that outlives its token
 

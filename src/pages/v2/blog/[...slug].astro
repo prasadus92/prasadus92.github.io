@@ -1,0 +1,172 @@
+---
+import { getCollection, render } from 'astro:content';
+import V2Layout from '../../../layouts/V2Layout.astro';
+import Nav from '../../../components/v2/Nav.astro';
+import Footer from '../../../components/v2/Footer.astro';
+import Post from '../../../components/v2/Post.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post, all: posts },
+  }));
+}
+
+const { post, all } = Astro.props;
+const { Content } = await render(post);
+
+const related = (post.data.related ?? [])
+  .map((id) => all.find((p) => p.id === id))
+  .filter((p): p is (typeof all)[number] => Boolean(p))
+  .map((p) => ({ id: p.id, title: p.data.title, description: p.data.description }));
+---
+<V2Layout
+  title={`${post.data.title} · Prasad Subrahmanya`}
+  description={post.data.description}
+>
+  <div class="read-progress" id="read-progress"></div>
+  <Nav />
+  <Post
+    title={post.data.title}
+    description={post.data.description}
+    tldr={post.data.tldr}
+    pubDate={post.data.pubDate}
+    updatedDate={post.data.updatedDate}
+    category={post.data.category}
+    readingTime={post.data.readingTime}
+    slug={post.id}
+    faq={post.data.faq}
+    related={related}
+  >
+    <Content />
+  </Post>
+  <Footer mdPath={`/blog/${post.id}.md`} />
+  <script is:inline>
+    // reading progress bar
+    (function () {
+      const rp = document.getElementById('read-progress');
+      if (!rp) return;
+      const upd = () => {
+        const h = document.documentElement.scrollHeight - window.innerHeight;
+        rp.style.width = (h > 0 ? Math.min(100, (window.scrollY / h) * 100) : 0) + '%';
+      };
+      window.addEventListener('scroll', upd, { passive: true });
+      window.addEventListener('resize', upd);
+      upd();
+    })();
+  </script>
+  <script is:inline type="module">
+    // Render mermaid diagrams in the v2 white/black/red palette, with a
+    // click-to-enlarge lightbox. Honors prefers-reduced-motion.
+    const nodes = document.querySelectorAll('pre.mermaid');
+    if (nodes.length) {
+      const mermaid = (
+        await import('https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs')
+      ).default;
+      const sources = [...nodes].map((n) => n.textContent);
+      mermaid.initialize({
+        startOnLoad: false,
+        theme: 'base',
+        securityLevel: 'strict',
+        fontFamily: '"General Sans", system-ui, sans-serif',
+        themeVariables: {
+          background: 'transparent',
+          fontFamily: '"General Sans", system-ui, sans-serif',
+          fontSize: '15px',
+          primaryColor: '#FFFFFF',
+          primaryTextColor: '#0C0C0C',
+          primaryBorderColor: '#0C0C0C',
+          secondaryColor: '#FFFFFF',
+          secondaryTextColor: '#0C0C0C',
+          secondaryBorderColor: '#E5241C',
+          tertiaryColor: '#FFFFFF',
+          tertiaryTextColor: '#0C0C0C',
+          tertiaryBorderColor: 'rgba(12,12,12,.4)',
+          lineColor: '#E5241C',
+          textColor: '#0C0C0C',
+          noteBkgColor: '#FFFFFF',
+          noteTextColor: '#0C0C0C',
+          noteBorderColor: '#E5241C',
+          labelBackground: '#FFFFFF',
+          edgeLabelBackground: '#FFFFFF',
+          nodeTextColor: '#0C0C0C',
+          titleColor: '#0C0C0C',
+          clusterBkg: '#FFFFFF',
+          clusterBorder: 'rgba(12,12,12,.4)',
+          actorBkg: '#FFFFFF',
+          actorBorder: '#0C0C0C',
+          actorTextColor: '#0C0C0C',
+          actorLineColor: 'rgba(12,12,12,.5)',
+          signalColor: '#0C0C0C',
+          signalTextColor: '#0C0C0C',
+          activationBkgColor: '#FFFFFF',
+          activationBorderColor: '#E5241C',
+          sequenceNumberColor: '#FFFFFF',
+        },
+      });
+      try {
+        await mermaid.run({ nodes });
+      } catch (e) {
+        /* leave source visible if a diagram fails */
+      }
+      const hintHTML =
+        '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>';
+      nodes.forEach((n) => {
+        if (!n.querySelector('svg')) return;
+        n.classList.add('mm-zoomable');
+        n.setAttribute('role', 'button');
+        n.setAttribute('tabindex', '0');
+        n.setAttribute('aria-label', 'Enlarge diagram');
+        if (!n.querySelector('.mm-hint')) {
+          const hint = document.createElement('span');
+          hint.className = 'mm-hint';
+          hint.innerHTML = hintHTML;
+          n.appendChild(hint);
+        }
+      });
+
+      const overlay = document.createElement('div');
+      overlay.className = 'mm-overlay';
+      overlay.setAttribute('role', 'dialog');
+      overlay.setAttribute('aria-modal', 'true');
+      overlay.innerHTML = '<button class="mm-close" aria-label="Close diagram">✕</button><div class="mm-stage"></div>';
+      document.body.appendChild(overlay);
+      const stage = overlay.querySelector('.mm-stage');
+      const close = () => {
+        overlay.classList.remove('open');
+        stage.innerHTML = '';
+        document.body.style.overflow = '';
+      };
+      overlay.addEventListener('click', (e) => {
+        if (e.target === overlay || e.target.classList.contains('mm-close')) close();
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') close();
+      });
+      nodes.forEach((n) => {
+        const open = () => {
+          const svg = n.querySelector('svg');
+          if (!svg) return;
+          stage.innerHTML = '';
+          const clone = svg.cloneNode(true);
+          clone.removeAttribute('width');
+          clone.removeAttribute('height');
+          clone.style.width = 'min(90vw, 1100px)';
+          clone.style.maxWidth = 'none';
+          clone.style.height = 'auto';
+          stage.appendChild(clone);
+          overlay.classList.add('open');
+          document.body.style.overflow = 'hidden';
+        };
+        n.addEventListener('click', open);
+        n.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            open();
+          }
+        });
+      });
+    }
+  </script>
+</V2Layout>

@@ -2,6 +2,9 @@
 import '../styles/global.css';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+import Analytics from '../components/Analytics.astro';
+import PostHog from '../components/PostHog.astro';
+import CookieConsent from '../components/CookieConsent.astro';
 import { site } from '../data/site';
 
 export interface Props {
@@ -87,6 +90,8 @@ const siteLd = {
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <meta name="author" content={site.name} />
+    <link rel="alternate" type="text/plain" title="llms.txt" href="/llms.txt" />
+    {mdPath && <link rel="alternate" type="text/markdown" title="This page as Markdown" href={mdPath} />}
     <link
       rel="alternate"
       type="application/rss+xml"
@@ -141,16 +146,9 @@ const siteLd = {
       })();
     </script>
 
-    <!-- Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XG5LVE538S"></script>
-    <script is:inline>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag('js', new Date());
-      gtag('config', 'G-XG5LVE538S');
-    </script>
+    <!-- Analytics (consent-gated; see Analytics.astro + CookieConsent.astro) -->
+    <Analytics />
+    <PostHog />
   </head>
   <body>
     <a href="#main" class="skip-link">Skip to content</a>
@@ -172,6 +170,7 @@ const siteLd = {
       <slot />
     </main>
     <Footer mdPath={mdPath} />
+    <CookieConsent />
 
     <style>
       .ambient {

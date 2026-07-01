@@ -15,7 +15,7 @@ export const site = {
   role: 'Founder & CEO, Luminik',
   tagline: 'I turn expensive, repetitive work into products people pay for.',
   description:
-    'Building Luminik - AI co-pilot for event marketing teams. Previously built Aura at Bain ($0 to $3.6M ARR), co-founded Mainteny where the work helped raise a $2.7M seed.',
+    'Building Luminik, a multi-agent platform that ties B2B event spend to revenue. Previously built Aura at Bain ($0 to $3.6M ARR), co-founded Mainteny where the work helped raise a $2.7M seed.',
   metaTitle: 'Prasad Subrahmanya - Founder & Technology Leader',
   links: {
     linkedin: 'https://linkedin.com/in/prasadus',
@@ -36,7 +36,7 @@ export const nav = [
 
 // Hero stat trio (sharpened, role-aligned)
 export const heroStats = [
-  { value: '$6M+', label: 'In customer pipeline' },
+  { value: '$2M+', label: 'In customer pipeline' },
   { value: '0→$3.6M', label: 'ARR in 15 months' },
   { value: '3×', label: 'Technical founder' },
 ] as const;
@@ -54,15 +54,15 @@ export const impact = [
     kicker: 'Aura · Bain & Company',
     metric: '$3.6M',
     unit: 'ARR, from zero in 15 months',
-    body: 'Built a PE due-diligence platform as venture CTO and took it from zero to $3.6M ARR in 15 months. Some of the largest names in growth equity and private equity used it to run their diligence.',
+    body: 'Built a workforce-analytics platform used heavily in PE and growth-equity due diligence, as venture CTO, and took it from zero to $3.6M ARR in 15 months. I owned the data infrastructure it ran on, and moved the warehouse to Snowflake as the analytical load grew.',
     tags: ['0→1', 'Enterprise SaaS', 'PE & growth equity'],
     accent: 'magenta',
   },
   {
     kicker: 'Luminik',
-    metric: '$6M+',
+    metric: '$2M+',
     unit: 'pipeline sourced for customers',
-    body: 'Founded a multi-agent platform that connects B2B event spend to revenue. I closed the first contract at $48K before the product existed, by running the workflow by hand.',
+    body: 'Founded a multi-agent platform that connects B2B event spend to revenue. I closed the first contract at $48K before the product existed, by running the workflow with scripts, spreadsheets and decks.',
     tags: ['Multi-agent', '$48K pre-product', 'Founder & CEO'],
     accent: 'violet',
   },
@@ -70,7 +70,7 @@ export const impact = [
     kicker: 'Luminik · live results',
     metric: '8%',
     unit: 'lead-to-opportunity at RSA 2026',
-    body: 'From 43,200 registered attendees to 1,840 ICP matches and meetings booked on the floor. Lead-to-opportunity reached 8%, up from 1.3% the year before.',
+    body: 'From 43,000 registered attendees to 1,840 ICP matches and meetings booked on the floor. Lead-to-opportunity reached 8%, up from 1.3% the year before, roughly 6x.',
     tags: ['$2.4M RSA pipeline', '$2.0M Money20/20'],
     accent: 'amber',
   },
@@ -109,7 +109,7 @@ export const work = [
     company: 'Luminik',
     role: 'Founder & CEO',
     period: 'Oct 2024 to Present',
-    body: 'Building a multi-agent platform that connects B2B event spend to measurable pipeline: attendee extraction, enrichment, ICP matching, outbound, CRM sync, and revenue attribution. Powering GTM teams at flagship events.',
+    body: 'Building a multi-agent platform that connects B2B event spend to measurable pipeline: attendee extraction, enrichment, ICP matching, outbound, CRM sync, and revenue attribution.',
     tags: ['Next.js', 'React', 'Python', 'Hatchet', 'Vector search', 'AWS'],
     href: 'https://www.luminik.io',
     icon: 'lucide:calendar-check',
@@ -129,8 +129,8 @@ export const work = [
     company: 'Aura · Bain & Company',
     role: 'Venture CTO',
     period: 'Nov 2022 to Dec 2023',
-    body: 'Took a PE due-diligence SaaS platform from concept to $3.6M ARR in 15 months. Owned product, architecture, and the engineering team.',
-    tags: ['Enterprise SaaS', 'AWS', 'PE & growth equity', 'Team leadership'],
+    body: 'Took a workforce-analytics SaaS platform, used heavily in PE and growth-equity due diligence, from concept to $3.6M ARR in 15 months. Owned product, architecture, and the engineering team, and built the data infrastructure: a medallion warehouse on Snowflake with a Cube.js semantic layer, plus Lightcast and BLS taxonomies for comparable workforce data.',
+    tags: ['Enterprise SaaS', 'Snowflake', 'AWS', 'PE & growth equity', 'Team leadership'],
     href: null,
     icon: 'lucide:landmark',
     current: false,
@@ -139,7 +139,7 @@ export const work = [
     company: 'Mainteny',
     role: 'Co-founder & CTO',
     period: 'Aug 2020 to Oct 2022',
-    body: 'Field-service management SaaS for maintenance companies across Europe. Built and launched the MVP solo in 3 months, raised a $2.7M seed, and scaled the team to 15 across four countries.',
+    body: 'Field-service management SaaS for maintenance companies across Europe. Built and launched the MVP solo in 3 months, raised a $2.7M seed, and scaled the team to about 15 across five countries.',
     tags: ['Spring Boot', 'Kubernetes', '$2.7M seed', 'CRM'],
     href: null,
     icon: 'lucide:wrench',
@@ -164,28 +164,13 @@ export const approach = [
   },
   {
     n: '02',
-    title: 'Treat agents as systems',
-    body: 'An agent is more than a prompt. It needs planning, isolation, review, and a way to recover when it goes wrong. Alfred runs a fleet of coding agents on those rules.',
+    title: 'Earn trust before production',
+    body: 'The real work is the cases that break: evals, a judge I have calibrated, and adversarial tests, so I know how a system behaves before customers see it.',
   },
   {
     n: '03',
-    title: 'Earn trust before production',
-    body: 'Demos are easy. I spend the real effort on the cases that break: evals, a judge I have calibrated, and adversarial tests, so I know how a system behaves before customers meet it.',
-  },
-  {
-    n: '04',
-    title: 'Expect failure',
-    body: 'Long-running AI work fails partway through. I build so a run can crash, retry, and pick up again without losing data or repeating work.',
-  },
-  {
-    n: '05',
-    title: 'Measure what matters',
-    body: 'I tie systems to the number the business cares about: pipeline, revenue, and cost. If I cannot see the effect, I am careful about shipping.',
-  },
-  {
-    n: '06',
     title: 'Stay hands-on',
-    body: 'I stay hands-on: I write code, review it, and read what the system produces in the wild. This work is hard to lead from a distance.',
+    body: 'I write the code, review it, and read what the system produces in the wild. This kind of work does not lead well from a distance.',
   },
 ] as const;
 
@@ -194,7 +179,7 @@ export const principles = [
   {
     icon: 'lucide:zap',
     title: 'High agency',
-    body: 'I default to action. If something is broken or missing, I assume it is mine to fix and find a way.',
+    body: 'If something is broken or missing, I treat it as mine to fix rather than wait for someone to own it.',
   },
   {
     icon: 'lucide:trending-up',
@@ -263,36 +248,47 @@ export const journey = [
 export const positioning =
   "I'm open to senior roles where engineering meets outcomes: Head of AI, Head of Engineering, Founding CTO, and Director or VP of Engineering at startups, and senior engineering or architect roles at larger companies. I also take a small number of advisory engagements.";
 
-// AI-native skills (fact-checked against the Luminik + Alfred codebases)
+// AI-native skills. Positioned for the full stack of building AI that ships,
+// not a literal repo inventory.
 export const skills = [
   {
     icon: 'lucide:bot',
-    title: 'AI-native engineering',
-    items: 'Autonomous agent fleets (Alfred), Claude Code + Codex, Anthropic + OpenAI SDKs, LangGraph, MCP, multi-agent orchestration',
+    title: 'Agentic systems',
+    items: 'Multi-agent orchestration, autonomous agent fleets (Alfred), LangGraph, MCP, tool use and planning',
   },
   {
     icon: 'lucide:database',
-    title: 'Retrieval & memory',
-    items: 'Vector databases (pgvector), embeddings, hybrid retrieval, Redis agent memory, context engineering, reviewable promotion gates',
+    title: 'RAG & memory',
+    items: 'Vector DBs, embeddings, hybrid and semantic search, context engineering, agent memory',
   },
   {
     icon: 'lucide:gauge',
-    title: 'Evals & benchmarking',
-    items: 'LLM-as-judge gates, Langfuse, classifiers, structured multi-axis review, adversarial suites',
+    title: 'Evals & guardrails',
+    items: 'LLM-as-judge, eval harnesses, benchmarking, red-teaming, adversarial tests, safety gates',
   },
   {
     icon: 'lucide:activity',
-    title: 'AI observability & reliability',
-    items: 'Langfuse tracing, OpenTelemetry, Sentry, spend and failure telemetry, fleet health loops',
+    title: 'LLMOps & reliability',
+    items: 'Tracing (Langfuse), OpenTelemetry, cost and latency control, failure handling, durable execution',
   },
   {
-    icon: 'lucide:server',
-    title: 'Distributed systems & workflows',
-    items: 'Hatchet, Temporal, FastAPI, Pydantic, Quarkus + Kotlin, Postgres, AWS',
+    icon: 'lucide:cpu',
+    title: 'Applied ML & model work',
+    items: 'RL and reward design, prompt and context engineering, fine-tuning, multi-model routing (Vertex, OpenAI, Anthropic)',
+  },
+  {
+    icon: 'lucide:network',
+    title: 'Distributed systems',
+    items: 'Microservices and SOA, event-driven and async services (asyncio, aiohttp), FastAPI, Django, Spring Boot + Kotlin, Kubernetes, Kafka',
   },
   {
     icon: 'lucide:layout-grid',
-    title: 'Product & platform engineering',
-    items: 'Next.js, React + TypeScript, Expo, Tauri, Nango, Terraform, Playwright',
+    title: 'Full-stack & mobile',
+    items: 'Next.js, React, TypeScript, React Native and Expo, Tauri, end to end from data model to UI',
+  },
+  {
+    icon: 'lucide:cloud',
+    title: 'Cloud & data platform',
+    items: 'AWS, Terraform, Snowflake, data pipelines and warehousing, Postgres, CI/CD',
   },
 ] as const;

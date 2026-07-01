@@ -31,7 +31,7 @@ Neither of those is a model problem. They are plumbing problems, and plumbing is
 
 This post is about three levers I pulled to cut that bill, what each one was worth, and the part that took me longest to accept: they are independent, they do not pay off equally, and the only way to know which one is working is to measure each one on its own. I am not going to give you a vendor "10x" tagline, because when I measured honestly, nothing was 10x, and the lever I expected to win did not.
 
-## The benchmark I actually ran
+## The benchmark I ran
 
 The numbers in this post are not made up. They come from a real internal benchmark I ran against a code-graph-rag stack pointed at 17 of our backend repos, each a medium service of roughly 10,000 to 100,000 lines. The stack has two model calls per question: a small `Cypher` generator that turns a natural-language question into a graph query, running on Haiku 4.5, and an orchestrator that plans and answers, running on Sonnet 4.6. I instrumented the HTTP client to capture the exact request and response bodies against the Anthropic API, so every cost figure below is from a measured `usage` object on the wire, not an estimate. Where a number is illustrative rather than measured, I say so.
 
@@ -124,7 +124,7 @@ Right now, if you have more than one engineer running agents, you probably have 
 - **Prompt caching.** Mark the stable prefix of a request, the system prompt and tool definitions, with `cache_control`, and the provider charges a reduced rate to re-read it on a subsequent call within the cache window instead of full price. This is the lever I measured most precisely, and it has a sharp edge described below.
 - **A shared semantic cache.** When one engineer's agent asks "how does invoice rounding work," the answer gets cached by meaning, and the next engineer who asks a semantically similar question gets a cheap hit instead of a fresh model call. A tool like [GPTCache](https://github.com/zilliztech/GPTCache) does the embedding-and-lookup part.
 
-### What prompt caching actually returned, per engine
+### What prompt caching returned, per engine
 
 This is where the benchmark earns its keep, and where the honest finding diverges from the slide. I turned on Anthropic prompt caching across the two-engine stack and measured the per-call `usage` on the wire. The result split cleanly by engine, and the split is the lesson.
 
@@ -250,7 +250,7 @@ If I were starting over on a new team and a new repo, in order:
 4. **Semantic cache once there is repetition.** Turn it on when more than one person is asking overlapping questions about the same codebase, and turn on invalidation and per-repo scoping the same day, not later.
 5. **Graph last, and only if your workload is discovery-heavy.** If your agents mostly do large cross-file investigations, build it. If they mostly do small targeted edits, skip it and save yourself the infrastructure.
 
-The meta-lesson is the one I keep relearning in this kind of work. Independent levers have to be measured independently, behind a quality gate, or you cannot tell help from theater. The originality is never in any single trick. It is in wiring them together and being honest about what each one was worth.
+The lesson I keep relearning in this kind of work: independent levers have to be measured independently, behind a quality gate, or you cannot tell which one helped. The value is not in any single trick. It is in wiring them together and being honest about what each one was worth.
 
 ## Key takeaways
 

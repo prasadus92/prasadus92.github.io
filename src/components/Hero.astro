@@ -11,13 +11,12 @@ import SignatureMotion from './SignatureMotion.astro';
       <p class="eyebrow reveal">{site.role} · {site.location}</p>
 
       <h1 class="hero-title reveal reveal-d1">
-        I'm Prasad. I turn expensive, repetitive work into
+        I turn expensive, repetitive work into
         <span class="grad-text">products people pay for.</span>
       </h1>
 
       <p class="hero-lead reveal reveal-d2">
-        3x technical founder. I spot the work people already pay to do, prove the demand,
-        then build and ship the product that captures it. Today I'm building
+        3x technical founder. Today I'm building
         <a href={site.links.luminik} target="_blank" rel="noopener">Luminik</a>, and
         <a href={site.links.alfred} target="_blank" rel="noopener">Alfred</a> in the open.
       </p>
@@ -33,7 +32,7 @@ import SignatureMotion from './SignatureMotion.astro';
         {
           heroStats.map((s) => (
             <div class="hstat">
-              <dt>{s.value}</dt>
+              <dt data-count>{s.value}</dt>
               <dd>{s.label}</dd>
             </div>
           ))
@@ -112,6 +111,21 @@ import SignatureMotion from './SignatureMotion.astro';
     transition: color var(--dur-1) var(--ease-out), border-color var(--dur-1) var(--ease-out);
   }
   .hero-lead a:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+  .hero-sub {
+    margin-top: 12px;
+    max-width: 60ch;
+    font-size: 1rem;
+    color: var(--text-tertiary);
+  }
+  .hero-sub a {
+    color: var(--text-secondary);
+    border-bottom: 1px solid var(--glass-border-strong);
+    transition: color var(--dur-1) var(--ease-out), border-color var(--dur-1) var(--ease-out);
+  }
+  .hero-sub a:hover {
     color: var(--accent);
     border-color: var(--accent);
   }
@@ -278,7 +292,8 @@ import SignatureMotion from './SignatureMotion.astro';
     }
   }
   @media (min-width: 941px) and (max-height: 680px) {
-    .hero-lead {
+    .hero-lead,
+    .hero-sub {
       display: none;
     }
     .hero-title {

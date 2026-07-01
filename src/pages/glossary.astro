@@ -108,10 +108,10 @@ const terms = [
     </header>
 
     <div class="container--prose page-body">
-      <dl class="glossary-list reveal reveal-d2">
+      <dl class="glossary-list">
         {
-          terms.map((t) => (
-            <div class="glossary-item">
+          terms.map((t, i) => (
+            <div class={`glossary-item reveal reveal-d${(i % 3) + 1}`}>
               <dt>{t.term}</dt>
               <dd>
                 <p>{t.def}</p>

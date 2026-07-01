@@ -1,0 +1,259 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Icon from '../../components/Icon.astro';
+import { site } from '../../data/site';
+
+const origin = `https://${site.domain}`;
+const pageTitle = 'AI enablement, hands-on · Prasad Subrahmanya';
+const pageDescription =
+  'I help teams get AI into production and prove it works: agents, evals, reliability, and adoption. Founder and engineer who has shipped AI end to end.';
+
+const profileLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfilePage',
+  name: pageTitle,
+  url: `${origin}/ai-enablement`,
+  description: pageDescription,
+  mainEntity: {
+    '@type': 'Person',
+    name: site.name,
+    url: origin,
+    jobTitle: 'Founder & CEO',
+    worksFor: { '@type': 'Organization', name: 'Luminik', url: site.links.luminik },
+    sameAs: [site.links.linkedin, site.links.github, site.links.luminik],
+    knowsAbout: [
+      'AI enablement',
+      'AI in production',
+      'LLM agents',
+      'Multi-agent systems',
+      'Evals',
+      'AI reliability',
+      'Software architecture',
+    ],
+  },
+};
+
+const helps = [
+  {
+    title: 'Find the work worth automating',
+    body: 'Start from a task people already pay to do, not from a tool. Pick the few where AI changes the economics.',
+  },
+  {
+    title: 'Build the first version fast',
+    body: 'A real working slice in weeks, against real data, so the team can feel it instead of debating it.',
+  },
+  {
+    title: 'Make it trustworthy',
+    body: 'Evals, a calibrated judge, and adversarial tests, so you know how it behaves before customers do. This is most of the work and most of the value.',
+  },
+  {
+    title: 'Ship it and keep it honest',
+    body: 'Reliability, cost control, and the failure handling that long-running AI needs, so it survives contact with production.',
+  },
+  {
+    title: 'Help people use it',
+    body: 'Tie it to a number the business already tracks, and bring the team along so it sticks after I leave.',
+  },
+];
+
+const sources = [
+  {
+    body: 'Luminik: a multi-agent platform connecting B2B event spend to revenue, $2M+ in sourced pipeline.',
+  },
+  {
+    body: 'Aura at Bain: built it as venture CTO, $0 to $3.6M ARR in 15 months.',
+  },
+  {
+    body: 'I write about the engineering behind all of this: agents, evals, durable systems, and cost.',
+  },
+];
+---
+
+<BaseLayout title={pageTitle} description={pageDescription} jsonLd={[profileLd]}>
+  <section class="ai-page section">
+    <div class="ai-glow" aria-hidden="true"></div>
+    <div class="container--narrow ai-wrap">
+      <header class="ai-intro">
+        <p class="eyebrow reveal">AI enablement</p>
+        <h1 class="reveal reveal-d1">Getting AI into production</h1>
+        <p class="ai-lead muted reveal reveal-d2">
+          Of course you can show a good demo. The value shows up later: when the system runs on real
+          traffic, holds up on the hard cases, and moves a number the business cares about. That part
+          is engineering and judgment, and it is the part I do, hands-on.
+        </p>
+      </header>
+
+      <section class="ai-block reveal">
+        <h2>What I actually do</h2>
+        <p>
+          I have built AI products end to end and put them in front of real users and paying
+          customers. With <a href={site.links.luminik} target="_blank" rel="noopener">Luminik</a> I
+          run a multi-agent platform in production. With
+          <a href={site.links.alfred} target="_blank" rel="noopener">Alfred</a> I run a fleet of
+          coding agents in the open. The same work helps a team go from "we tried some AI" to "AI does
+          this job reliably, and we can prove it."
+        </p>
+        <p>Concretely, I help with:</p>
+        <ul class="ai-helps">
+          {
+            helps.map((h, i) => (
+              <li class={`ai-help card glass reveal reveal-d${(i % 3) + 1}`} data-tilt="off">
+                <strong>{h.title}.</strong> <span class="muted">{h.body}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+
+      <section class="ai-block reveal">
+        <h2>A worked example</h2>
+        <p>
+          I took a vendor support agent into production for a real, customer-facing workload in a
+          regulated industry, and wrote up exactly how we tested it before turning it on and measured
+          it after. It is the clearest picture of how I work.
+        </p>
+        <p>
+          <a
+            href="/blog/deploying-a-customer-support-ai-agent-to-production/"
+            class="ai-link"
+          >
+            Read the write-up <Icon name="arrowRight" size={15} />
+          </a>
+        </p>
+      </section>
+
+      <section class="ai-block reveal">
+        <h2>Where this comes from</h2>
+        <ul class="ai-sources">
+          {sources.map((s) => <li class="muted">{s.body}</li>)}
+        </ul>
+        <p class="ai-links-row">
+          <a href="/blog" class="ai-link">Read the writing <Icon name="arrowRight" size={15} /></a>
+          <a href="/#work" class="ai-link">See the work <Icon name="arrowRight" size={15} /></a>
+        </p>
+      </section>
+
+      <section class="ai-block ai-cta-block reveal">
+        <h2>Start a conversation</h2>
+        <p>
+          If you are putting AI into production, or hiring someone who has, I am glad to get into the
+          specifics of your problem. The fastest way is a short call; email works too.
+        </p>
+        <div class="ai-cta">
+          <a href="/book" class="btn btn-primary">
+            Book a call <Icon name="arrowRight" size={16} />
+          </a>
+          <a href={`mailto:${site.email}`} class="btn btn-ghost">Email</a>
+        </div>
+      </section>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .ai-page {
+    position: relative;
+    padding-top: clamp(132px, 16vh, 184px);
+    overflow: hidden;
+  }
+  .ai-glow {
+    position: absolute;
+    width: 70%;
+    height: 90%;
+    top: -8%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--grad-halo);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .ai-wrap {
+    position: relative;
+    z-index: 1;
+  }
+  .ai-intro h1 {
+    margin-top: 14px;
+    font-size: clamp(2.2rem, 1.5rem + 3vw, 3.4rem);
+    letter-spacing: var(--tracking-tight);
+  }
+  .ai-lead {
+    margin-top: 18px;
+    max-width: 58ch;
+    font-size: var(--fs-lead);
+    line-height: 1.6;
+  }
+  .ai-block {
+    margin-top: clamp(40px, 6vw, 64px);
+  }
+  .ai-block h2 {
+    font-size: clamp(1.4rem, 1.1rem + 1vw, 1.8rem);
+    letter-spacing: var(--tracking-tight);
+    margin-bottom: 14px;
+  }
+  .ai-block p {
+    max-width: 64ch;
+    line-height: 1.65;
+    margin-bottom: 14px;
+  }
+  .ai-block a:not(.btn):not(.ai-link) {
+    color: var(--ink);
+    border-bottom: 1px solid var(--glass-border-strong);
+    transition: color var(--dur-1) var(--ease-out), border-color var(--dur-1) var(--ease-out);
+  }
+  .ai-block a:not(.btn):not(.ai-link):hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+  .ai-helps {
+    list-style: none;
+    padding: 0;
+    margin: 18px 0 0;
+    display: grid;
+    gap: 12px;
+  }
+  .ai-help {
+    padding: 16px 18px;
+    border-radius: var(--r-lg);
+    line-height: 1.6;
+  }
+  .ai-help strong {
+    color: var(--ink);
+  }
+  .ai-sources {
+    margin: 0 0 18px;
+    padding-left: 1.1em;
+    display: grid;
+    gap: 8px;
+  }
+  .ai-sources li {
+    line-height: 1.6;
+    max-width: 64ch;
+  }
+  .ai-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--accent);
+    font-weight: 500;
+    transition: gap var(--dur-1) var(--ease-out);
+  }
+  .ai-link:hover {
+    gap: 10px;
+  }
+  .ai-links-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  .ai-cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 8px;
+  }
+  @media (max-width: 520px) {
+    .ai-cta .btn {
+      flex: 1 1 auto;
+    }
+  }
+</style>

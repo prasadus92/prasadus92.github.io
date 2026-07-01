@@ -57,6 +57,14 @@
   --container-prose: 760px;
   --gutter: clamp(20px, 5vw, 40px);
 
+  /* --- Shared rhythm (single source of truth so every card/grid/section
+     reads as one family). Components reference these instead of inventing
+     their own ad-hoc clamp values. --- */
+  --card-pad: clamp(24px, 2.4vw, 36px);   /* interior padding for glass cards */
+  --grid-gap: clamp(16px, 1.6vw, 20px);   /* gap between sibling cards in a grid/stack */
+  --rail-pad: clamp(28px, 4vw, 56px);     /* sub-block separation inside a section (brands, earlier) */
+  --head-gap: clamp(40px, 5vw, 64px);     /* section header -> content */
+
   /* --- Motion --- */
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);

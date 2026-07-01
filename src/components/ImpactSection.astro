@@ -9,17 +9,16 @@ import { impact, brands } from '../data/site';
     <SectionHeader
       eyebrow="Impact"
       title="<span class='grad-text'>Outcomes</span>."
-      lead="The numbers behind the work."
     />
 
     <div class="impact-grid">
       {
         impact.map((c, i) => (
-          <article class={`icard glass card reveal reveal-d${i + 1}`} data-accent={c.accent}>
+          <article class={`icard glass card reveal reveal-d${i + 1}`} data-accent={c.accent} data-dominant={i === 0 ? 'true' : undefined}>
             <div class="icard-grid" aria-hidden="true" />
             <span class="icard-kicker mono">{c.kicker}</span>
             <div class="icard-metric">
-              <span class="metric-num">{c.metric}</span>
+              <span class="metric-num" data-count>{c.metric}</span>
               <span class="metric-unit">{c.unit}</span>
             </div>
             <p class="icard-body">{c.body}</p>
@@ -46,12 +45,12 @@ import { impact, brands } from '../data/site';
   .impact-grid {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
-    gap: clamp(16px, 1.6vw, 22px);
+    gap: var(--grid-gap);
   }
   .icard {
     position: relative;
     overflow: hidden;
-    padding: clamp(26px, 2.6vw, 40px);
+    padding: var(--card-pad);
     display: flex;
     flex-direction: column;
     min-height: 280px;
@@ -118,10 +117,18 @@ import { impact, brands } from '../data/site';
   .metric-num {
     font-family: var(--font-display);
     font-weight: 600;
-    font-size: clamp(2.6rem, 1.6rem + 4vw, 4.6rem);
+    font-size: clamp(2.3rem, 1.5rem + 3vw, 3.6rem);
     line-height: 0.95;
     letter-spacing: var(--tracking-tight);
     color: var(--accent);
+  }
+  /* one dominant stat: the first card's figure leads the section. Its
+     7-col panel has the room to carry a noticeably larger number. */
+  .icard[data-dominant] .metric-num {
+    font-size: clamp(3.2rem, 2rem + 5.6vw, 6rem);
+  }
+  .icard[data-dominant] .icard-metric {
+    margin-top: clamp(26px, 4vw, 52px);
   }
   .metric-unit {
     font-size: 0.95rem;
@@ -129,7 +136,7 @@ import { impact, brands } from '../data/site';
   }
   .icard-body {
     position: relative;
-    margin-top: 18px;
+    margin-top: var(--sp-4);
     color: var(--text-secondary);
     font-size: 1rem;
     line-height: 1.65;
@@ -138,10 +145,10 @@ import { impact, brands } from '../data/site';
     position: relative;
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: var(--sp-2);
     /* pin tags to the card bottom so both top cards align */
     margin-top: auto;
-    padding-top: 24px;
+    padding-top: var(--sp-5);
   }
   .icard:nth-child(3) .icard-tags {
     margin-top: 0;
@@ -158,12 +165,12 @@ import { impact, brands } from '../data/site';
 
   /* brand row */
   .brands {
-    margin-top: clamp(40px, 5vw, 64px);
+    margin-top: var(--rail-pad);
     display: flex;
     align-items: center;
     gap: clamp(16px, 3vw, 40px);
     flex-wrap: wrap;
-    padding-top: 28px;
+    padding-top: var(--rail-pad);
     border-top: 1px solid var(--glass-border);
   }
   .brands-label {

@@ -24,3 +24,19 @@ _legacy_site/
 
 # local working doc, do not publish
 CONTENT-AUDIT.md
+POSITIONING-SEO-PLAN.md
+CONTENT-REWRITES.md
+AI-ENABLEMENT-DRAFT.md
+COPY-REVIEW.md
+TRIM-AUDIT.md
+DESIGN-IDEAS.md
+EXACT-COPY-CHANGES.md
+design-refs/
+.claude/
+public/assets/images/story/_ungraded_backup/
+
+# terraform (never commit state or secrets)
+infra/**/.terraform/
+infra/**/*.tfstate
+infra/**/*.tfstate.*
+infra/**/terraform.tfvars

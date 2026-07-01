@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import BlogCard from '../../components/BlogCard.astro';
+import Lattice from '../../components/Lattice.astro';
 import { site } from '../../data/site';
 
 const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
@@ -27,6 +28,7 @@ const companySlugs = new Set([
   'technical-founder-sales',
   'mvp-three-months',
   'event-marketing-roi',
+  'too-early-teen-banking-startup',
 ]);
 
 // posts is already newest-first, so each cluster preserves that order.
@@ -62,7 +64,7 @@ void engineeringSlugs;
       <header class="blog-hero">
         <p class="eyebrow reveal">Writing</p>
         <h1 class="reveal reveal-d1">
-          Notes from the <span class="grad-text">build</span>.
+          Field <span class="grad-text">notes</span>.
         </h1>
         <p class="muted reveal reveal-d2">
           Hands-on writing on AI-native engineering, evals, durable workflows, and the operator side
@@ -90,9 +92,13 @@ void engineeringSlugs;
         )
       }
 
+      <div class="blog-divider reveal" aria-hidden="true">
+        <Lattice variant="divider" accent />
+      </div>
+
       <div data-blog-list>
         {
-          clusters.map((cluster) => (
+          clusters.map((cluster, ci) => (
             <section class="blog-cluster" data-cluster={cluster.key}>
               <h2 class="cluster-title reveal">{cluster.title}</h2>
               <div class="blog-grid">
@@ -104,6 +110,7 @@ void engineeringSlugs;
                     pubDate={p.data.pubDate}
                     category={p.data.category}
                     readingTime={p.data.readingTime}
+                    featured={ci === 0 && i === 0}
                     delay={(i % 3) + 1}
                   />
                 ))}
@@ -196,6 +203,13 @@ void engineeringSlugs;
     font-family: var(--font-mono);
     font-size: var(--fs-xs);
     opacity: 0.75;
+  }
+  /* thin cultural-geometry band separating the hero from the archive; the
+     Lattice already fades at both horizontal edges so it reads as texture */
+  .blog-divider {
+    position: relative;
+    height: 60px;
+    margin-bottom: clamp(28px, 4vw, 48px);
   }
   .blog-empty {
     color: var(--text-tertiary);

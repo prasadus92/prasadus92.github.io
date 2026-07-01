@@ -271,13 +271,23 @@ p {
    always visible if JS is slow, fails, or is disabled. */
 html.js .reveal {
   opacity: 0;
-  transform: translateY(22px);
+  /* a hair of scale under the rise reads as "settling in" rather than a
+     flat slide; kept tiny so it never feels bouncy */
+  transform: translateY(20px) scale(0.992);
   transition: opacity var(--dur-3) var(--ease-out), transform var(--dur-3) var(--ease-out);
+  will-change: opacity, transform;
 }
 html.js .reveal.in {
   opacity: 1;
   transform: none;
+  will-change: auto;
 }
+/* While a stat is counting up, lock to tabular figures so the digits don't
+   jitter the layout as they change width, then release to proportional. */
+[data-count].counting {
+  font-variant-numeric: tabular-nums;
+}
+
 .reveal-d1 {
   transition-delay: 0.08s;
 }
@@ -340,4 +350,68 @@ html.js .reveal.in {
 }
 .skip-link:focus {
   left: 8px;
+}
+
+/* ---------- Story page photos (glass-framed, editorial) ---------- */
+.story-photo {
+  margin: var(--sp-7) 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+.story-photo img {
+  width: 100%;
+  max-height: 440px;
+  object-fit: cover;
+  /* bias the crop toward the top so heads are never cut on portrait photos */
+  object-position: center 22%;
+  border-radius: var(--r-lg);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-lg);
+}
+.prose .story-photo figcaption,
+.story-photo figcaption {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  text-align: left;
+  letter-spacing: var(--tracking-wide);
+  color: var(--text-tertiary);
+}
+/* opening hero photo: sits right under the intro, a touch taller than inline photos */
+.story-hero {
+  margin-top: 0;
+  margin-bottom: var(--sp-8);
+}
+.story-hero img {
+  max-height: 520px;
+}
+/* travel/landmark collage: a compact grid of graded photos */
+.story-collage {
+  margin: var(--sp-7) 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-2);
+}
+.story-collage img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: var(--r-md);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-sm);
+}
+.prose .story-collage figcaption,
+.story-collage figcaption {
+  grid-column: 1 / -1;
+  margin-top: var(--sp-1);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  text-align: left;
+  letter-spacing: var(--tracking-wide);
+  color: var(--text-tertiary);
+}
+@media (max-width: 620px) {
+  .story-collage {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }

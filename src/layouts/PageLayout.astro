@@ -4,23 +4,66 @@ import { site } from '../data/site';
 import '../styles/prose.css';
 
 const fm = (Astro.props as any).frontmatter ?? Astro.props;
-const { title, description, eyebrow, lead } = fm;
+const { title, description, eyebrow, lead, variant } = fm;
+// `variant: editorial` opts a long-form page (e.g. Story) into extra rhythm:
+// a lattice divider under the header and per-section scroll-reveal.
+const isEditorial = variant === 'editorial';
 ---
 
 <BaseLayout title={`${title} - ${site.name}`} description={description}>
-  <article class="page">
+  <article class:list={['page', { 'page--editorial': isEditorial }]}>
     <header class="container--prose page-head">
       {eyebrow && <p class="eyebrow reveal">{eyebrow}</p>}
       <h1 class="reveal reveal-d1">{title}</h1>
       {lead && <p class="page-lead muted reveal reveal-d2">{lead}</p>}
     </header>
     <div class="container--prose page-body">
-      <div class="prose reveal reveal-d2">
+      <div class:list={['prose reveal reveal-d2', { 'prose--editorial': isEditorial }]}>
         <slot />
       </div>
     </div>
   </article>
 </BaseLayout>
+
+{
+  isEditorial && (
+    <script>
+      // Progressive editorial rhythm: reveal each h2-led section as it scrolls
+      // in. Gated on html.js and reduced-motion via the shared .reveal contract,
+      // so no-JS / reduced-motion readers see everything immediately.
+      const root = document.querySelector('.prose--editorial');
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (root && !reduce) {
+        const heads = Array.from(root.querySelectorAll('h2'));
+        heads.forEach((h, i) => {
+          // group each heading with the content up to the next heading
+          const group = [h];
+          let n = h.nextElementSibling;
+          while (n && n.tagName !== 'H2') {
+            group.push(n);
+            n = n.nextElementSibling;
+          }
+          const wrap = document.createElement('div');
+          wrap.className = 'story-section reveal';
+          h.parentNode?.insertBefore(wrap, h);
+          group.forEach((el) => wrap.appendChild(el));
+        });
+        const io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((e) => {
+              if (e.isIntersecting) {
+                e.target.classList.add('in');
+                io.unobserve(e.target);
+              }
+            });
+          },
+          { threshold: 0, rootMargin: '0px 0px -8% 0px' }
+        );
+        root.querySelectorAll('.story-section').forEach((s) => io.observe(s));
+      }
+    </script>
+  )
+}
 
 <style>
   .page {
@@ -37,5 +80,43 @@ const { title, description, eyebrow, lead } = fm;
   }
   .page-body {
     margin-top: clamp(32px, 5vw, 56px);
+  }
+
+  /* ---------- Editorial (Story) rhythm ---------- */
+  /* a subtle geometry beat under the header, echoing the landing's dividers */
+  .page--editorial .page-head {
+    padding-bottom: clamp(28px, 4vw, 44px);
+    position: relative;
+  }
+  .page--editorial .page-head::after {
+    content: '';
+    position: absolute;
+    left: var(--gutter);
+    right: var(--gutter);
+    bottom: 0;
+    height: 1px;
+    background: linear-gradient(90deg, var(--accent) 0%, var(--glass-border) 22%, transparent 60%);
+    opacity: 0.5;
+  }
+
+  /* accent tick before each section heading, in-family with the eyebrow motif */
+  .prose--editorial :global(h2) {
+    position: relative;
+  }
+  .prose--editorial :global(h2)::before {
+    content: '';
+    position: absolute;
+    left: -18px;
+    top: 0.34em;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    opacity: 0.85;
+  }
+  @media (max-width: 640px) {
+    .prose--editorial :global(h2)::before {
+      display: none;
+    }
   }
 </style>

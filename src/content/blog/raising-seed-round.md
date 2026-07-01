@@ -1,126 +1,120 @@
 ---
 title: "The seed fundraising playbook"
-description: "A practical guide to raising your first seed round. Cold outreach, investor meetings, term sheets, and the mistakes to avoid."
+description: "A first-principles guide to raising a first seed round in a tight market: how the raise is a funnel, cold outreach that gets replies, what investors actually underwrite, and the mistakes that cost us weeks. From co-founding Mainteny."
 pubDate: 2025-10-15
 category: "Fundraising"
 tags: ["fundraising"]
-readingTime: "12 min read"
-tldr: "I co-founded Mainteny and ran the technical side of a seed raise that took six months, 87 investor conversations, and a lot of rejection. The work I did there helped raise a $2.7M seed. Cold outreach got us a 15% response rate by researching every investor instead of mail-merging them, the live product demo did more than any deck, and term sheets arrived in a cluster at the end because no one wants to be first. The real lesson: fundraising is a filter on whether you built something worth funding, not an accomplishment in itself."
+readingTime: "13 min read"
+tldr: "I co-founded Mainteny and ran the technical half of a seed raise that took six months and a lot of rejection. The work my co-founder and I did in that period helped raise a $2.7M seed. Three things mattered most. Cold outreach worked because I researched every investor instead of mail-merging them. A live demo of the real product did more than any deck, because a demo is evidence and a deck is a claim. And term sheets arrived in a cluster at the end, because no investor wants to be first. The deeper lesson: fundraising is a filter on whether you built something worth funding, not an accomplishment in itself."
 ---
 
-Most fundraising advice comes from people who raised money in 2021, when VCs handed out [term sheets](https://en.wikipedia.org/wiki/Term_sheet) freely. That advice is useless now.
+Most fundraising advice you will read comes from people who raised in 2021, when [term sheets](https://en.wikipedia.org/wiki/Term_sheet) were handed out freely. Almost none of it transfers to a tight market, where an investor needs a reason to say yes and is looking for reasons to say no.
 
-I co-founded Mainteny and was the CTO through our seed raise. The process took six months, 87 investor conversations, and more rejections than I want to count. The work my co-founder and I did in that period helped raise a \$2.7M seed. I ran the technical half of it: the product demo, the technical due diligence, and the "why this team can build it" story. Here is what I learned.
+I co-founded Mainteny, a CRM for maintenance companies in Europe, and was the CTO through our seed raise. The process took six months and more rejections than I want to count. The work my co-founder and I did in that period helped raise a \$2.7M seed. I ran the technical half of it: the product demo, the technical due diligence, and the "why this team can build it" story. I have since been through the raise again for the company I am building now, so some of the outreach examples here are from that second raise, lightly anonymized. The market changed between them. The mechanics did not.
 
-## The time cost
+This is the playbook from first principles. What a raise actually is, why the parts work the way they do, and the specific mistakes that cost us weeks.
 
-Fundraising consumed 60% of my time for six months. As the person who was supposed to be building the product.
+## First principles: a raise is a funnel, and you control one input
 
-A typical week during our raise:
-
-- **Monday-Tuesday:** 4-6 investor calls per day
-- **Wednesday:** Follow-ups, deck updates, data room prep
-- **Thursday-Friday:** Product work, team meetings, fires
-- **Weekend:** Everything that slipped through the cracks
-
-The hardest part is context-switching. One hour you are explaining unit economics to a skeptical investor. The next you are debugging a production issue. Then back to a pitch. Your brain never commits to anything.
-
-Block entire days for investor work. Block entire days for product work. The context-switching tax is real.
-
-## Cold outreach that works
-
-Unless you went to Stanford, worked at a FAANG, or have a successful exit, you probably do not have warm intros to most investors. We did not.
-
-Our cold email response rate was 15%. Industry average is 2-5%. Here is why.
-
-The raise was a funnel. Researched outreach fed conversations, a fraction of those asked for the data room, fewer still went to a partner meeting, and the term sheets came at the very end.
+Strip fundraising down and it is a conversion funnel with a long cycle. Researched outreach produces replies. A fraction of replies become real conversations. A fraction of those ask for the data room. Fewer reach a partner meeting. And the term sheets arrive at the very end, clustered, because of a dynamic I will come back to.
 
 ```mermaid
 flowchart LR
-    a["Researched outreach<br/>(email + LinkedIn)"] --> b["Replies<br/>15% email, 20% LinkedIn"]
-    b --> c["87 investor<br/>conversations"]
-    c --> d["Data room requests<br/>(a few VCs)"]
-    d --> e["Partner meetings<br/>(2 firms)"]
-    e --> f["3 term sheets<br/>in two weeks"]
+    a["Researched outreach<br/>(email + LinkedIn)"] --> b["Replies"]
+    b --> c["Investor<br/>conversations"]
+    c --> d["Data room<br/>requests"]
+    d --> e["Partner<br/>meetings"]
+    e --> f["Term sheets,<br/>clustered at the end"]
 ```
 
-### Research each investor
+Seeing it as a funnel tells you where your effort has leverage. Most of the funnel is out of your hands in any given week: an investor's thesis, their fund timing, whether they already backed a competitor. The one input you fully control at the top is how well you researched the person you are writing to. So that is where the disproportionate effort goes.
 
-The worst thing you can do is send the same email to 200 investors. They can smell a mail merge.
+## The time cost of a raise
 
-What have they invested in? What do they write about? What is their thesis? Connect those dots.
+Fundraising took 60% of my time for six months, and I was the person supposed to be building the product. A representative week during the raise looked like this.
 
-An email that worked:
+- **Monday to Tuesday:** four to six investor calls a day.
+- **Wednesday:** follow-ups, deck updates, data-room prep.
+- **Thursday to Friday:** product work, team, and whatever caught fire.
+- **Weekend:** everything that slipped.
 
-Subject: Vertical SaaS in Europe's largest underserved market
+The expensive part is not the hours, it is the context-switching. One hour you are explaining unit economics to a skeptical partner, the next you are debugging a production issue, then back to a pitch. Your brain never fully commits to either, so both get a degraded version of you. The fix that worked was blunt: block whole days for investor work and whole days for product work. The context-switching tax between the two is the real hidden cost of a raise.
+
+## Cold outreach that gets a reply
+
+Unless you went to Stanford, came out of a FAANG, or have an exit behind you, you do not have warm intros to most investors. We did not. That makes cold outreach the top of the funnel, and the quality of the research is the whole game.
+
+The worst thing you can do is send the same email to a list. A mail merge is obvious inside the first line, and an investor reads dozens a day. The work is to answer, before you write: what have they actually invested in, what do they write about, what is their thesis? Then give them one specific hook tied to that, a few honest facts, and a small ask.
+
+Here is a cold email that got a same-day reply. This one was barely warm, the partner had replied to me once on LinkedIn, but the structure is the one I use cold.
+
+<div class="email-example">
+
+**Subject:** 5 design partners, ~$8K MRR: data infra without a DevOps hire
 
 Hi \[Name\],
 
-I noticed your investment in \[similar company\] and your recent post about European B2B markets. We are building something adjacent.
+You back a lot of data companies, so you have seen how much DevOps time teams still burn just to keep their stack observable, governed, and under control on cost. That is the gap we close: one AI command center that gives a data team cost control, observability, and governance with ready-made integrations, no DevOps hire needed.
 
-\[Company\] is a CRM for maintenance companies. 500B EUR market in Europe with zero modern software players. Our 47 customers grew 3x in 8 months because the alternative is paper and Excel.
+Where we are:
 
-Would you be open to a 20-minute call next week?
+- Early design partners, with roughly \$8K in likely MRR
+- Prototype live and in their hands
+- My co-founder and I have built this kind of thing before: I founded Mainteny and led ventures at Bain's incubator; he was an early architect on a large SaaS data-lake team he helped grow from 3 to 50 engineers
 
-This shows you did homework, connects to their interests, gives one concrete number that creates curiosity, and asks for a small commitment.
+We are raising \$500K pre-seed to reach more than \$20K MRR in 15 months. Both of us are technical, so the place your read would help most is GTM and founder-led sales.
 
-### LinkedIn works better
+Deck attached. Worth a 20-minute call to see if it fits your thesis?
 
-LinkedIn had a 20% response rate. It feels more personal.
+Prasad
 
-Connect first with a non-pitchy message:
+</div>
 
-"Hi \[Name\], I have been following your work on European B2B. Building something in the space and would like to connect."
+He replied the same day, said one of his portfolio founders had been through his accelerator, and sent his calendar link.
 
-No pitch. No ask. Once they accept, then send the actual message.
+Why it works comes down to who each part is about. The subject leads with two numbers a data investor cannot skim past. The first line is about him and his portfolio, not us, and names a problem his companies actually have. The "where we are" block is three honest facts, not a pitch, including an honest "\$8K in likely MRR" rather than a rounded-up claim. The ask is small, and it hands him a role beyond writing a check: tell us where the GTM is weak. There is no hype, no fake urgency, and no flattery he would see through in a second.
 
-### Timing
+### LinkedIn often beats email
 
-We tracked everything. The data:
+A message on LinkedIn tends to feel more personal than a cold email, and a good one can outperform the same message sent by email. The move is to connect first with something that is not a pitch, "Hi \[Name\], I have been following your work on European B2B, building something in the space and would like to connect", then, once they accept, send the real message built the same way as the email above: one researched hook, a few honest facts, a small ask.
 
-- Tuesday and Wednesday mornings had 2x the response rate
-- Emails sent Friday afternoon never got responses
-- Subject lines under 7 words outperformed longer ones
-- Follow-ups sent 4-5 days after initial email converted best
+### Timing is free upside on a good message
 
-## What investors evaluate
+I tracked when replies came back. Tuesday and Wednesday mornings beat every other slot, Friday afternoons were close to dead, short subject lines beat long ones, and a single follow-up a few days later caught the people who meant to reply and forgot. None of this rescues a generic message. On a good one, it is free upside.
 
-After 87 conversations, patterns emerge.
+## What investors are underwriting
 
-### Market understanding
+After enough conversations, the patterns are clear. At seed stage an investor is mostly underwriting a small set of risks, and each part of the process is aimed at one of them.
 
-Every pitch deck has a TAM slide with a big number. Investors know this number is fiction.
+```mermaid
+flowchart TD
+    seed["Seed-stage investor<br/>underwrites three risks"] --> m["Market risk:<br/>do you understand it<br/>better than they do?"]
+    seed --> t["Team risk:<br/>will this founding team<br/>hold together?"]
+    seed --> b["Build risk:<br/>can you actually<br/>ship the thing?"]
+    m --> insight["Won by a contrarian,<br/>ground-truth insight"]
+    t --> founder["Won by a clean<br/>founder-market-fit story"]
+    b --> demo["Won by a live demo<br/>of the real product"]
+```
 
-What they care about: do you understand the market deeply enough to have a contrarian insight?
+### Market: a contrarian insight, not a TAM slide
 
-The investors who got excited were not impressed by our TAM number. They were impressed that we could explain market dynamics better than they had heard before. We knew the customer because we had spent months talking to them.
+Every deck has a TAM slide with a big number, and investors discount it on sight. What they care about is whether you understand the market deeply enough to have a view they do not already hold. The investors who leaned in were not impressed by our TAM. They were impressed that we could explain how maintenance companies actually work, day to day, better than they had heard it explained before.
 
-### Team
+That came from going to the field, not from a desk. Early on I rode along on real maintenance calls. At a small Oslo elevator-maintenance company a technician named Jonas took me to a training center with real lift cars, and I stood on top of an elevator car in safety gear watching the work. I learned that buildings have a dedicated elevator room with the controller and the electrical circuits, the kind of detail you only get by being there. When an investor asked how technicians really spend their day, I was not guessing.
 
-At seed stage, investors evaluate founder-market fit. Why are you the person to solve this problem? What unfair advantage do you have?
+### Team: they are pattern-matching for cracks
 
-Questions that came up most:
+At seed stage, investors evaluate founder-market fit and, just as much, whether the founding team will survive contact with stress. The questions that came up most were about exactly that: how did you meet your co-founder, what happens when you disagree, why did you leave your last job for this, what is the hardest thing you have built together. These surface dysfunction. Investors have watched founding teams implode and are scanning for the early signs.
 
-- How did you meet your co-founder?
-- What happens when you disagree?
-- Why did you leave your previous job for this?
-- What is the hardest thing you have built together?
+### Build: a demo is evidence, a deck is a claim
 
-These questions surface dysfunction. Investors have seen founding teams implode. They are pattern-matching for red flags.
+The single most effective thing we did was demo the real product. Not a slide about the product, the actual thing. Ten minutes of watching a real workflow said more than any set of slides, because it collapsed two of the three risks at once. It showed we could build, and it showed the problem was real, because the solution was specific enough that we could only have built it by understanding the user.
 
-### Product demo
+One investor put it plainly: "I see 20 decks a week. Maybe two include a product demo. You should always demo." I demoed the production app logged in as a real customer account with real jobs in it, not a sandbox. The few times a feature was rough I said so on the spot, which bought more credibility than a clean scripted demo would have.
 
-The most effective thing we did: demo the product. Not a slide about the product. The actual product.
+## The six-month shape
 
-Ten minutes of watching a real workflow communicated more than any slides. It showed we could build. It showed we understood the user. It showed the problem was real because the solution was specific.
-
-One investor told us: "I see 20 decks a week. Maybe 2 include a product demo. You should always demo."
-
-The reason this works is first-principles simple. A deck is a claim. A working product is evidence. At seed stage an investor is mostly underwriting two risks, whether you can build and whether anyone wants it, and a live demo of a tool real customers already use collapses both risks in ten minutes. I demoed the actual production app, logged in as a real customer account with real jobs in it, not a sandbox. The few times a feature was rough, I said so on the spot, which bought more credibility than a clean script would have.
-
-## The timeline
-
-The six months had a shape. Each month moved the process one stage further, and the work changed at each step.
+The raise had a shape, and knowing it in advance would have saved me some despair. Each month moved the process one stage, and the work changed at each step.
 
 ```mermaid
 flowchart TD
@@ -128,141 +122,51 @@ flowchart TD
     m2 --> m3["Month 3: iteration<br/>shorter deck, lead with demo"]
     m3 --> m4["Month 4: data room requests<br/>models, contracts, cap table"]
     m4 --> m5["Month 5: partner meetings<br/>pitch the whole partnership"]
-    m5 --> m6["Month 6: term sheets<br/>first commit, then 3 in two weeks"]
+    m5 --> m6["Month 6: term sheets<br/>first commit, then the rest cluster"]
 ```
 
-### Month 1: false confidence
+**Month 1, false confidence.** Warm intros through friends and former colleagues. Conversations went well, lots of enthusiasm, lots of "we should stay in touch." We mistook politeness for interest.
 
-Warm intros. Friends of friends, former colleagues who knew investors. Conversations went well. Lots of enthusiasm. Lots of "we should stay in touch."
+**Month 2, reality.** The warm intros dried up, so we went cold. Response rates came in lower than expected, and conversations ended on "you are too early" or "we do not do this vertical." Doubt creeps in here, about whether you are fundable and whether the market is real.
 
-We mistook politeness for interest.
+**Month 3, iteration.** We refined the pitch from the feedback, shortened the deck, and led with the demo. We got better at objections and response rates rose. Still no term sheet, and a lot of "interested but need more traction."
 
-### Month 2: reality
+**Month 4, data-room requests.** A few firms asked for the data room: financial models, customer contracts, team backgrounds, the [cap table](https://en.wikipedia.org/wiki/Capitalization_table). Progress, and more work.
 
-Warm intros dried up. Started cold outreach. Response rates lower than expected. Conversations ended with "you are too early" or "we do not invest in this vertical."
+**Month 5, partner meetings.** Two firms invited us to pitch the full partnership, not one investor. One went badly, we went too deep on technical detail and lost the non-technical partners, and they passed. The other went well, through follow-up questions and a reference call with one of our customers.
 
-Doubt creeps in. Are we fundable? Is the market real?
+**Month 6, term sheets.** The second firm sent a term sheet. That one commitment created urgency with the investors who had been sitting on the fence, and more term sheets followed within a couple of weeks.
 
-### Month 3: iteration
+That last step is the clustering, and it has a clean explanation. Fundraising is feast or famine because no investor wants to be first into a deal, but few want to miss one that is closing. The first term sheet is a costly signal that someone with money did the work and decided yes. So the first commit converts fence-sitters, and the rest pile on. The practical consequence: do not read a quiet middle as failure. You are working toward the one yes that brings the others.
 
-Refined the pitch based on feedback. Shortened the deck. Led with the demo. Got better at handling objections. Response rates improved.
+## The mistakes that cost us weeks
 
-Still no term sheet. Lots of "interested but need more traction."
+**We started too early.** We opened the raise with early traction and closed it with meaningfully more. Had we waited a few months to start, the process itself would have been faster, because better metrics mean higher response rates, shorter diligence, and better terms. The raise is easier the less you need it, which is the uncomfortable paradox at the center of fundraising.
 
-### Month 4: data room requests
+**We chased the wrong investors.** We burned weeks on firms that were never going to invest: US funds with no European presence, generalists who had never done vertical SaaS, late-stage funds doing "seed" that was really an option on a future Series A. The signal is in a fund's actual portfolio, not its website. A fund that has never written a check into your stage, geography, or category is a polite no dressed up as a meeting. Tighter targeting up front would have given us back a large chunk of the six months.
 
-A few VCs asked for our data room. Financial models, customer contracts, team backgrounds, [cap table](https://en.wikipedia.org/wiki/Capitalization_table). This felt like progress. It was also more work.
+**We had no data room ready.** When the first investor asked for diligence materials we scrambled, and assembling models, contracts, cap table, CVs, and references took a week. Have the data room built before you start. Good opportunities move fast, and a week of scrambling in the middle is a week you do not have.
 
-### Month 5: partner meetings
+**We underestimated the emotional cost.** Months of rejection take a toll, and there were days I questioned the market, the product, and whether I was fundable at all. Having a co-founder helped more than any tactic. When one of us was down the other kept momentum, and we split the emotional load without ever agreeing to.
 
-Two firms invited us to partner meetings. You pitch to the entire partnership, not just one investor.
+## The technical co-founder's job in a raise
 
-One meeting went poorly. We went too deep on technical details and lost the non-technical partners. They passed.
+If you are the technical co-founder, your role in the raise is specific. Run the demo, which shows you can communicate and frees the CEO to take the business questions while you take the technical ones. Own the technical due diligence, because some investors bring in advisors, and not being able to answer deep questions about your own architecture raises flags. Tell the "why you" story: why your technical approach is differentiated and why you can build faster than competitors, since investors want a CTO with opinions, not only skills. And keep the product alive. I stopped shipping new features during the intense months and focused on stability and quick wins that improved the metrics investors were watching, because a customer who churns mid-raise shows up directly in those numbers.
 
-The other went well. Follow-up questions. Then more questions. Then a reference call with one of our customers.
+## Should you raise at all?
 
-### Month 6: term sheet
+Raising is not free even when it succeeds. Once you take venture money you are on a trajectory: you have to grow fast enough to raise again or reach profitability at real scale, and the comfortable middle of a small, profitable business is no longer on the table. So the question is worth asking honestly before you start.
 
-The second firm sent a term sheet. This created urgency with two other investors who had been sitting on the fence. Within two weeks, we had three term sheets.
-
-Fundraising is feast or famine. No one wants to be first, but everyone piles on once someone commits.
-
-## Mistakes we made
-
-### Started too early
-
-We started with 12 customers. By close, we had 47. If we had waited three more months, the process would have been faster. Better metrics mean higher response rates, shorter due diligence, better terms.
-
-### Wrong investors
-
-We wasted weeks on investors who would never have invested. US firms with no European presence. Generalists who had never done vertical SaaS. Late-stage funds doing "seed investments" that were options on Series A.
-
-Better targeting would have saved 30% of our time.
-
-### No data room ready
-
-When the first investor asked for due diligence materials, we scrambled. Financial models, contracts, cap table, team CVs, customer references. It took a week.
-
-Have your data room ready before you start. Good opportunities move fast.
-
-### Underestimating the emotional cost
-
-50+ rejections over 6 months takes a toll. There were days when I questioned everything. Having a co-founder helped. When one of us was down, the other kept momentum.
-
-## The CTO's role
-
-What should a technical co-founder do during a raise?
-
-**Run the demo.** Shows the technical co-founder can communicate. Lets the CEO handle business questions while you handle technical ones.
-
-**Handle technical due diligence.** Some investors bring in advisors to evaluate your architecture. If you cannot answer deep technical questions, it raises red flags.
-
-**Articulate the "why you" story.** Why is your technical approach differentiated? Why can you build faster than competitors? Investors want a CTO with opinions about technology, not just skills.
-
-**Keep the product alive.** I stopped building new features during the intense months. Focused on stability and quick wins that improved metrics for investor conversations.
-
-## Balancing building with fundraising
-
-Accept that building slows down during fundraising. Be strategic about what you continue.
-
-What we prioritized:
-
-- **Bug fixes affecting retention:** A churned customer mid-raise shows up directly in the metrics investors are watching.
-- **Features that improved metrics:** These numbers show up in investor conversations.
-- **Nothing speculative:** No exploratory work, new integrations, or experiments. Only high-certainty, high-impact work.
-
-## Raise vs bootstrap
-
-Should you raise at all?
-
-**Raise if:**
-
-- Speed to market is critical (network effects, winner-take-most)
-- You need significant upfront investment before revenue is possible
-- Competitors are well-funded and moving fast
-- The product requires scale to work at all
-
-**Bootstrap if:**
-
-- You can get to profitability with minimal capital
-- The market rewards depth over breadth
-- You want to maintain control
-- Your financial situation allows for the slower path
-
-The hidden cost of venture capital: once you raise, you are on a trajectory. You need to grow fast enough to raise again, or achieve profitability at scale. The comfortable middle ground of a small, profitable business is no longer available.
-
-## What I would tell a first-time founder
-
-**1. It takes longer than you think.** Double your estimate. Then add a month.
-
-**2. Rejection is data.** When an investor passes, ask why. Do not take it personally, but take it seriously.
-
-**3. The best investors add more than money.** Their expertise can be worth more than better terms elsewhere.
-
-**4. Fundraising is a skill.** You will be bad at it initially. The first 20 pitches are warmup.
-
-**5. Your co-founder relationship will be tested.** Fundraising stress reveals cracks in the partnership. Better now than after you have employees.
-
-**6. Do not optimize for valuation alone.** A higher valuation with worse terms or worse investors is not a win.
-
-**7. Market conditions matter.** You cannot control them, but be aware of them.
-
-## The real lesson
-
-Fundraising is a filter, not an accomplishment.
-
-The hard part is not raising money. The hard part is building something worth investing in. If you have built real value, you will find capital. If you have not, no fundraising tactics will save you.
-
-The best thing you can do to make fundraising easier is to spend less time thinking about fundraising and more time building something people want.
+Raise when speed to market is decisive (network effects or winner-take-most), when you need real upfront investment before revenue is even possible, when competitors are well-funded and moving, or when the product only works at scale. Bootstrap when you can reach profitability on little capital, when the market rewards depth over land-grab, when control matters to you, and when your finances allow the slower path. Luminik, the company I am building now, is bootstrapped, for exactly these reasons.
 
 ## Key takeaways
 
-- Treat fundraising as a filter, not a trophy. If you have built real value you will find capital; if you have not, no tactic saves you.
-- Research every investor before you send anything. That discipline is why our cold response rate was 15% against a 2 to 5% industry norm.
-- Demo the live product, not a slide about it. Evidence beats claims, and it collapses the two risks an investor underwrites at seed: can you build, and does anyone want it.
-- Block whole days for investor work and whole days for product work. The context-switching tax between the two is the hidden cost of a raise.
-- Have the data room ready before you start. Good opportunities move fast, and scrambling for contracts and a cap table mid-process loses a week you do not have.
-- Term sheets cluster. No one wants to be first, so the first commit creates urgency and the rest pile on within weeks.
-- As the technical co-founder, your job in the raise is to run the demo, own technical due diligence, and tell the "why this team can build it" story while keeping the product stable.
+- Treat fundraising as a filter, not a trophy. If you have built real value you will find capital. If you have not, no tactic saves you.
+- Research every investor before you send anything. One specific hook tied to what they actually fund, a few honest facts, and a small ask will out-reply any mail merge, warm or cold.
+- Demo the live product, not a slide about it. A demo is evidence and a deck is a claim, and the demo collapses two of the three risks an investor underwrites: can you build, and does anyone want it.
+- Block whole days for investor work and whole days for product work. The context-switching tax between them is the real hidden cost of a raise.
+- Have the data room ready before you start. Good opportunities move fast, and scrambling for contracts and a cap table mid-process costs a week you do not have.
+- Term sheets cluster because no one wants to be first. The first commit is a costly signal that converts fence-sitters, so a quiet middle is not failure.
+- As the technical co-founder, run the demo, own technical due diligence, tell the "why this team can build it" story, and keep the product stable through the raise.
 
-If you are currently fundraising or thinking about it, I am happy to chat. Reach out on LinkedIn.
+If you are raising now or about to, I am happy to compare notes. Reach out on LinkedIn.

@@ -1,0 +1,54 @@
+---
+import "../styles/v2.css";
+import Analytics from "../components/Analytics.astro";
+import PostHog from "../components/PostHog.astro";
+import CookieConsentV2 from "../components/v2/CookieConsentV2.astro";
+import { site } from "../data/site";
+const { title = "Prasad Subrahmanya", description = "" } = Astro.props;
+
+// v2 is served both at /v2/* (direct, noindex) and at the canonical / URL for
+// bucket-b A/B visitors. Point canonical + OG at the non-/v2 canonical URL, and
+// reuse the same per-page OG cards as v1 (they represent the content, not the design).
+const origin = (Astro.site ?? new URL(`https://${site.domain}`)).origin;
+// Strip only the /v2 prefix; keep the trailing slash so the canonical byte-matches v1's.
+const canonPath = Astro.url.pathname.replace(/^\/v2(?=\/|$)/, "") || "/";
+const canonical = origin + canonPath;
+// OG card id from a slash-trimmed path.
+const trimmed = canonPath.replace(/\/$/, "");
+const blogMatch = trimmed.match(/^\/blog\/(.+)$/);
+const ogId = trimmed === "" ? "home" : trimmed === "/blog" ? "blog" : blogMatch ? blogMatch[1] : null;
+const ogImage = origin + (ogId ? `/og/${ogId}.png` : "/assets/images/header/prasad.jpeg");
+const ogType = blogMatch ? "article" : "website";
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonical} />
+  <!-- OpenGraph / Twitter (shared per-page cards; canonical points at the / URL) -->
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:type" content={ogType} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:image" content={ogImage} />
+  <meta property="og:site_name" content={site.name} />
+  <meta property="og:locale" content="en_US" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={ogImage} />
+  <link rel="alternate" type="text/plain" title="llms.txt" href="/llms.txt" />
+  <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+  <link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet" />
+  <!-- Analytics (consent-gated; shares consent + variant with v1) -->
+  <Analytics />
+  <PostHog />
+</head>
+<body>
+  <slot />
+  <CookieConsentV2 />
+</body>
+</html>

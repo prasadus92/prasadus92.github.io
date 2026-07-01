@@ -14,7 +14,7 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
     <div class="writing-head">
       <SectionHeader
         eyebrow="Writing"
-        title="Notes from the <span class='grad-text'>build</span>."
+        title="What I'm <span class='grad-text'>learning</span>."
         lead="Hands-on writing on AI-native engineering, evals, durable workflows, and the operator side of building companies."
       />
       <a href="/blog" class="btn btn-ghost reveal">All writing <Icon name="arrowRight" size={16} /></a>
@@ -50,10 +50,10 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
     margin-bottom: 0;
   }
   .writing-grid {
-    margin-top: clamp(32px, 4vw, 48px);
+    margin-top: var(--head-gap);
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: clamp(14px, 1.6vw, 20px);
+    gap: var(--grid-gap);
   }
   @media (max-width: 860px) {
     .writing-grid {

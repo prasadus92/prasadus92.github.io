@@ -1,6 +1,6 @@
 ---
 title: "OCR and the offline reality: a primer on reading text on a phone with no signal"
-description: "Why OCR is harder than it looks, why the public datasets are skewed Latin, and why production offline OCR still runs on classical and CNN/transformer engines like `Tesseract`, Apple `Vision`, `ML Kit`, and `PaddleOCR` rather than a full VLM on the phone."
+description: "Why OCR is harder than it looks, why the public datasets are skewed Latin, and why production offline OCR still runs on classical and CNN/transformer engines like Tesseract, Apple Vision, ML Kit, and PaddleOCR rather than a full VLM on the phone."
 pubDate: 2026-07-25
 category: "AI engineering"
 tags:
@@ -30,7 +30,7 @@ faq:
 
 I will keep the product out of this. The lessons are generic and the sources are public.
 
-## What OCR actually is
+## What OCR is
 
 Optical character recognition turns pixels of text into characters you can store, search, and compute on. A photo of a receipt is, to a computer, a grid of brightness values. OCR is the function that maps that grid to the string `TOTAL 42.50`.
 
@@ -91,9 +91,9 @@ It would be easy to send every image to a cloud OCR API and be done. For a lot o
 
 None of these is absolute. Plenty of products are fine going server-only. But if any of connectivity, privacy, latency-in-loop, or per-image cost is real for you, on-device stops being a nice-to-have.
 
-## The on-device constraint, stated honestly
+## The on-device constraint
 
-Here is the claim I want to get exactly right, because it is easy to overstate in either direction.
+This is easy to overstate in either direction, so take both wrong versions first.
 
 **The strong version, which is wrong:** "you cannot run any modern model on a phone, so on-device OCR is stuck with old tech." Not true. Quantized vision-language models in the 1B to 2B parameter range do run on recent flagship phones, and there are OCR-specific small VLMs aimed precisely at this, `PaddleOCR-VL` ships a sub-1.3B model that tops document benchmarks on vendor-reported scores. A 1B model in 4-bit fits in phone memory.
 

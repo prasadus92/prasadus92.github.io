@@ -8,8 +8,8 @@ import { skills } from '../data/site';
   <div class="container">
     <SectionHeader
       eyebrow="Skills"
-      title="What I'm <span class='grad-text'>AI-native</span> at."
-      lead="The parts of building with AI I go deep on, drawn from what I'm shipping at Luminik and Alfred."
+      title="What I <span class='grad-text'>build</span> with."
+      lead="AI-native, and the systems under it. Drawn from what I'm shipping at Luminik and Alfred."
     />
 
     <div class="skills-grid">
@@ -23,20 +23,24 @@ import { skills } from '../data/site';
         ))
       }
     </div>
+
+    <p class="skills-cta">
+      <a href="/ai-enablement">How I get AI into production with teams &rarr;</a>
+    </p>
   </div>
 </section>
 
 <style>
   .skills-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: clamp(14px, 1.5vw, 18px);
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: var(--grid-gap);
   }
   .skill {
-    padding: clamp(22px, 2.2vw, 30px);
+    padding: var(--card-pad);
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: var(--sp-3);
   }
   .skill-icon {
     display: grid;
@@ -59,6 +63,17 @@ import { skills } from '../data/site';
     color: var(--text-secondary);
     font-size: 0.94rem;
     line-height: 1.6;
+  }
+  .skills-cta {
+    margin-top: var(--sp-5);
+  }
+  .skills-cta a {
+    color: var(--accent);
+    font-weight: 500;
+    transition: opacity var(--dur-1) var(--ease-out);
+  }
+  .skills-cta a:hover {
+    opacity: 0.8;
   }
   @media (max-width: 900px) {
     .skills-grid {
