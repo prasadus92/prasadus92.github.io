@@ -70,7 +70,7 @@ export const impact = [
     kicker: 'Luminik · live results',
     metric: '8%',
     unit: 'lead-to-opportunity at RSA 2026',
-    body: 'From 43,200 registered attendees to 1,840 ICP matches and meetings booked on the floor. Lead-to-opportunity reached 8%, up from 1.3% the year before.',
+    body: 'From 43,000 registered attendees to 1,840 ICP matches and meetings booked on the floor. Lead-to-opportunity reached 8%, up from 1.3% the year before, roughly six times.',
     tags: ['$2.4M RSA pipeline', '$2.0M Money20/20'],
     accent: 'amber',
   },
