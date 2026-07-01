@@ -101,7 +101,7 @@ flowchart LR
 
 In our suite the adversarial and critical-tier rows were about a quarter of the cases, and they found every issue worth fixing before launch. Write those first.
 
-## Some mistakes cost more than others
+## Which mistakes cost the most
 
 Different mistakes cost different amounts, so grade them differently. A support agent has two failure modes. Over-refusal declines something it should have answered, which wastes a little time. Over-compliance answers something it should have refused, such as revealing account data or making a compliance claim, which is an incident with a regulator and a brand cost attached.
 

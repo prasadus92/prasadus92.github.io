@@ -32,7 +32,7 @@ The old way was artisanal. Consultants gathered data from dozens of sources by h
 
 So the product was an argument: stop paying expensive people to do the mechanical middle, and give them the saved hours back for the thinking. Automate the data collection, standardize the analyses, make the repeatable parts instant. That framing is also why I owned the data layer directly. A due diligence number that is confidently wrong is worse than no number at all, because someone makes an investment decision on it. If the data underneath was wrong or slow, no polish on top would save the product. So I built the part everything else stood on rather than delegating it early.
 
-### What the load-bearing layer actually meant
+### What the load-bearing layer meant
 
 I started the architecture deliberately simple so we could ship: Postgres, Django, and Celery on AWS, with dimensional modeling on top. That was the right call to get moving and the wrong call to keep. As the data and the analytical load grew, Postgres stopped being the right fit for a warehouse workload, so I moved the analytics to Snowflake with [Cube.js](https://cube.dev/) as the semantic layer and landed the large datasets in S3.
 
@@ -90,7 +90,7 @@ Startups move fast partly because failure is cheap when no one knows who you are
 
 Firms are optimized to hire, develop, and retain consultants. They are less set up to hire engineers, designers, and product managers. We needed a team with startup DNA sitting inside an organization with consulting DNA, competing for that talent against actual startups that could offer equity, flexibility, and a culture already tuned to what those candidates wanted. The people we did attract were exceptional. It was consistently harder than it needed to be.
 
-## What actually made it work
+## What made it work
 
 Looking back, a few things were decisive, and they are the things I would insist on before doing this again.
 
@@ -129,7 +129,7 @@ Aura later spun out of Bain as its own company and has kept going. It is now an 
 
 ## How I would decide next time
 
-The honest answer to "startup or firm" is that it depends on the problem, and there is a way to reason about it rather than guess. Aura suited the firm because due diligence software runs on distribution and trust, which is exactly what a firm hands you. A problem that needs rapid weekly pivots would suit a startup, where speed and focus are the whole edge. Here is the decision the way I would run it now.
+The honest answer to "startup or firm" is that it depends on the problem, and there is a way to reason about it rather than guess. Aura suited the firm because due diligence software runs on distribution and trust, which is exactly what a firm hands you. A problem that needs rapid weekly pivots would suit a startup, where speed and focus are the main advantage. Here is the decision the way I would run it now.
 
 ```mermaid
 flowchart TD

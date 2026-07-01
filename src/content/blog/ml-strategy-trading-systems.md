@@ -218,7 +218,7 @@ None of this is machine learning, and that is deliberate. The learned component 
 
 This is also why event sourcing underneath matters. Every order the model proposes, every clamp the risk layer applies, every forced exit becomes an event in an append-only log. When something goes wrong, and it will, you replay the events and see exactly what the model suggested, what the guardrails did, and why. The model is opaque; the log around it is not.
 
-## Where the model actually earns its place
+## Where the model earns its place
 
 So when is the learned function worth the trouble over a hand-tuned rule. The honest answer is: when the relationship you are modeling is genuinely too complex or too high-dimensional to hand-tune, and you have enough clean, non-leaked data to learn it, and the edge survives costs in a backtest that reuses live code. That is a high bar, and plenty of durable systematic trading clears it with rules instead, including the engine this post is built on.
 

@@ -43,7 +43,7 @@ flowchart TD
 - **Money movement.** Marqeta in 2018 processed card transactions. It did not move money in. Funding a card, getting a parent's euros onto it, was a separate problem we had to solve on top, through the bank and payment rails, not something the card platform did for us. (Marqeta only launched its own banking and money-movement products years later, in 2022.)
 - **Account data.** To let a parent fund the card and see the whole picture, we connected to their existing bank through the open-banking APIs that [PSD2](https://en.wikipedia.org/wiki/Payment_Services_Directive) was just beginning to force into existence. PSD2 applied from January 2018, but the bank APIs were raw, and the real compliance deadlines for them did not land until September 2019. We were building on a standard that existed on paper before it existed in practice.
 
-Dapeng and I built the first working version ourselves. Not a mockup, a thing that issued a card and moved real money under real rules. That part felt like the hard part. It was not.
+Dapeng and I built the first working version ourselves. Not a mockup, a thing that issued a card and moved real money under real rules. I thought that was the hard part. It was not.
 
 ## The idea was not the problem
 
@@ -55,7 +55,7 @@ The second thing going for us was direction. In 2018, Germany still ran on cash 
 
 So the idea held up. The problem was never demand. The problem was what it cost us to serve one unit of that demand.
 
-## Where the money actually went
+## Where the money went
 
 Here is the thing about issuing physical cards that you do not feel until you try it: every card has a floor cost, the whole apparatus behind it wants money before you have a single customer, and the revenue per card is capped by law at almost nothing.
 
@@ -86,7 +86,7 @@ Spend €5 to make a card, earn €0.10 a month back on it, and you need that te
 
 This is the first lesson, and the one I now check for before I build anything: the idea can be right and the unit economics can still be fatal. Demand does not save you if it costs more to serve a customer than a bootstrapped team can carry until scale kicks in. Work that math before you fall in love with the product, not after.
 
-## How a payment actually worked
+## How a payment worked
 
 The hard engineering did work. When a teenager tapped the card, the decision to allow it ran through our code in real time, and that is where every parental control lived.
 
@@ -123,7 +123,7 @@ Dapeng and I could build almost anything. Give us a spec and a hard technical pr
 
 When the hardest problem in front of you is engineering, you keep building, because that is where you feel strong. So we built. We polished the card controls, the geofencing, the rules. And we were slow, much too slow, to do the two things that actually decide whether a company like this lives: getting in front of parents and schools to prove people wanted it enough to change their habits, and building a fundraising story sharp enough to clear the capital wall in front of us.
 
-I underestimated, for years, how much of building a company is selling and listening rather than coding. The engineering was the part I was sure of, so I over-invested in it. The harder skill, the one I did not respect yet, was sitting with a parent's real hesitation, or an investor's real objection, before reaching for the thing I already knew how to do.
+I underestimated, for years, how much of building a company is selling and listening rather than coding. The engineering was the part I was sure of, so I over-invested in it. The harder skill, the one I did not respect yet, was sitting with a parent's real hesitation, or an investor's real objection, instead of retreating to the engineering I already knew how to do.
 
 That is why "sell before you build" is the first principle I operate on now. It came from here. I would rather spend two weeks finding out a thing is wanted than six months building it beautifully and finding out after.
 

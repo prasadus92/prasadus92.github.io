@@ -27,7 +27,7 @@ That single requirement is why I built the order book with [event sourcing](http
 
 If those terms are new, that is fine. By the end they will not be.
 
-## The thing most systems get wrong: they store state, not facts
+## Store facts, not state
 
 Start with how a normal application stores data. You have an orders table. An order comes in, you `INSERT` a row. It gets partially filled, you `UPDATE` the filled quantity. It gets cancelled, you `UPDATE` the status to `CANCELLED`. At every step the row holds the current truth, and each change overwrites the last.
 
@@ -47,7 +47,7 @@ This is not an exotic idea. It is how the physical world already works. Your ban
 
 The universe runs the same way. The state of a system at any moment is the accumulation of every event that led to it. You cannot read the present and recover the past, which is roughly what entropy is about. Event sourcing is choosing, in software, to keep the events so that you never lose the past.
 
-## Why trading needs this and a CRUD table will hurt you
+## Why a CRUD table falls short for trading
 
 Event sourcing costs more than a plain table. You would not reach for it on a settings page. Trading is where it pays for itself, for three concrete reasons.
 

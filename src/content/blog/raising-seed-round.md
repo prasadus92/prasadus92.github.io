@@ -29,7 +29,7 @@ flowchart LR
 
 Seeing it as a funnel tells you where your effort has leverage. Most of the funnel is out of your hands in any given week: an investor's thesis, their fund timing, whether they already backed a competitor. The one input you fully control at the top is how well you researched the person you are writing to. So that is where the disproportionate effort goes.
 
-## The time cost nobody prices in
+## The time cost of a raise
 
 Fundraising took 60% of my time for six months, and I was the person supposed to be building the product. A representative week during the raise looked like this.
 
@@ -82,7 +82,7 @@ A message on LinkedIn tends to feel more personal than a cold email, and a good 
 
 I tracked when replies came back. Tuesday and Wednesday mornings beat every other slot, Friday afternoons were close to dead, short subject lines beat long ones, and a single follow-up a few days later caught the people who meant to reply and forgot. None of this rescues a generic message. On a good one, it is free upside.
 
-## What investors are actually underwriting
+## What investors are underwriting
 
 After enough conversations, the patterns are clear. At seed stage an investor is mostly underwriting a small set of risks, and each part of the process is aimed at one of them.
 

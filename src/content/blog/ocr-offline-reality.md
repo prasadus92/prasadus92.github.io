@@ -30,7 +30,7 @@ faq:
 
 I will keep the product out of this. The lessons are generic and the sources are public.
 
-## What OCR actually is
+## What OCR is
 
 Optical character recognition turns pixels of text into characters you can store, search, and compute on. A photo of a receipt is, to a computer, a grid of brightness values. OCR is the function that maps that grid to the string `TOTAL 42.50`.
 
@@ -91,7 +91,7 @@ It would be easy to send every image to a cloud OCR API and be done. For a lot o
 
 None of these is absolute. Plenty of products are fine going server-only. But if any of connectivity, privacy, latency-in-loop, or per-image cost is real for you, on-device stops being a nice-to-have.
 
-## The on-device constraint, stated honestly
+## The on-device constraint
 
 This is easy to overstate in either direction, so take both wrong versions first.
 

@@ -23,7 +23,7 @@ Modern B2B buyers are hard to manipulate. They have search, they have peers in L
 
 When I was at Bain building Aura, the internal sales that worked were never the flashy presentations. They were someone understanding a partner's problem, showing exactly how the tool worked, and being honest about what it could and could not do. The partners who adopted Aura most enthusiastically were the ones who felt helped, not sold to.
 
-## First principles: what a B2B buyer is actually buying
+## First principles: what a B2B buyer is buying
 
 A buyer of B2B software is not buying software. They are buying a solution to a problem they own, usually a problem with real consequences for their quarter or their career. That reframes the whole interaction. The person best positioned to help is the one who understands the problem and the solution most deeply. For your product, that is you.
 
