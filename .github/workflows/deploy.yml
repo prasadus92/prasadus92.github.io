@@ -1,5 +1,10 @@
 name: Deploy
 
+# prasad.tech is served by Cloudflare Pages (project "prasad-tech"), which runs
+# the A/B middleware in functions/_middleware.js. On every push to main we build
+# and upload the site to Cloudflare Pages. (GitHub Pages is no longer used: the
+# domain's DNS points at Cloudflare.)
+
 on:
   push:
     branches: [main]
@@ -7,15 +12,13 @@ on:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
-  group: pages
+  group: cf-pages-deploy
   cancel-in-progress: true
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     env:
       PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'
@@ -25,21 +28,14 @@ jobs:
         with:
           node-version: 22
           cache: npm
-      # npm install (not ci) so the lockfile reconciles under CI's own npm;
-      # avoids npm-version drift between local and runner failing the strict
-      # ci sync check.
+      # npm install (not ci) so the lockfile reconciles under CI's own npm.
       - run: npm install --no-audit --no-fund
       - run: npm run build
-      - uses: actions/upload-pages-artifact@v5
+      # The Cloudflare token is injected ONLY into this deploy step, never the
+      # build above, so untrusted npm dependencies never see it.
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
         with:
-          path: dist
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - id: deployment
-        uses: actions/deploy-pages@v5
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dist --project-name prasad-tech --branch main --commit-dirty=true
