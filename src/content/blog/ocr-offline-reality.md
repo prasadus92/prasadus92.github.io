@@ -1,6 +1,6 @@
 ---
 title: "OCR and the offline reality: a primer on reading text on a phone with no signal"
-description: "Why OCR is harder than it looks, why the public datasets are skewed Latin, and why production offline OCR still runs on classical and CNN/transformer engines like `Tesseract`, Apple `Vision`, `ML Kit`, and `PaddleOCR` rather than a full VLM on the phone."
+description: "Why OCR is harder than it looks, why the public datasets are skewed Latin, and why production offline OCR still runs on classical and CNN/transformer engines like Tesseract, Apple Vision, ML Kit, and PaddleOCR rather than a full VLM on the phone."
 pubDate: 2026-07-25
 category: "AI engineering"
 tags:

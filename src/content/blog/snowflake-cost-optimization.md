@@ -1,6 +1,6 @@
 ---
 title: "Attributing Snowflake cost to the query that caused it"
-description: "Snowflake bills compute by the second but tells you the total, not who spent it. Here is the architecture I built to reconstruct per-query cost from `ACCOUNT_USAGE`, the apportionment math that makes it work, the auto-suspend lever that paid for most of the savings, and how it runs as a Snowflake Native App."
+description: "Snowflake bills compute by the second but tells you the total, not who spent it. Here is the architecture I built to reconstruct per-query cost from ACCOUNT_USAGE, the apportionment math that makes it work, the auto-suspend lever that paid for most of the savings, and how it runs as a Snowflake Native App."
 pubDate: 2026-01-20
 category: "Engineering"
 tags: ["engineering", "snowflake", "data-engineering", "cost-optimization"]
