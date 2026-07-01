@@ -8,7 +8,7 @@ lead: "From a small town in Karnataka with no path into engineering, to building
 ---
 
 <figure class="story-photo story-hero">
-  <img src="/assets/images/story/home-karnataka.jpg" alt="Prasad's family home in rural Karnataka, surrounded by the farm's coconut and areca palms" loading="eager" width="1600" height="1200" />
+  <img src="/assets/images/story/home-karnataka.jpg" alt="Prasad's family home in rural Karnataka, surrounded by the farm's coconut and areca palms" loading="eager" width="1400" height="1050" />
   <figcaption>My parents' home in rural Karnataka. They built the farm the way you build a company.</figcaption>
 </figure>
 
