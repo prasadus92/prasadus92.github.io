@@ -36,7 +36,7 @@ export const nav = [
 
 // Hero stat trio (sharpened, role-aligned)
 export const heroStats = [
-  { value: '$6M+', label: 'In customer pipeline' },
+  { value: '$2M+', label: 'In customer pipeline' },
   { value: '0→$3.6M', label: 'ARR in 15 months' },
   { value: '3×', label: 'Technical founder' },
 ] as const;
@@ -60,7 +60,7 @@ export const impact = [
   },
   {
     kicker: 'Luminik',
-    metric: '$6M+',
+    metric: '$2M+',
     unit: 'pipeline sourced for customers',
     body: 'Founded a multi-agent platform that connects B2B event spend to revenue. I closed the first contract at $48K before the product existed, by running the workflow with scripts, spreadsheets and decks.',
     tags: ['Multi-agent', '$48K pre-product', 'Founder & CEO'],

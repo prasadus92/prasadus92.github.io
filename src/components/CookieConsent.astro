@@ -82,6 +82,11 @@ const CONSENT_KEY = 'prasad-consent-v1';
     opacity: 1;
     transform: none;
   }
+  /* The dismiss sets the `hidden` attribute; without this the `display: flex`
+     above would keep the banner on screen after Accept/Decline. */
+  .cookie[hidden] {
+    display: none;
+  }
   .cookie-copy {
     font-size: var(--fs-sm);
     line-height: 1.55;

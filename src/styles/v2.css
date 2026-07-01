@@ -563,7 +563,7 @@
     .prose a{color:var(--black);border-bottom:2px solid var(--red);font-weight:600;transition:background .18s var(--ease),color .18s var(--ease);}
     .prose a:hover{background:var(--red);color:#fff;border-color:var(--red);}
     /* unordered lists: on-brand red triangle markers, generous rhythm */
-    .prose ul{list-style:none;margin:0;padding:0;}
+    .prose ul{list-style:none;margin:var(--flow) 0 0;padding:0;}
     .prose ul > li{position:relative;padding-left:1.8em;margin-top:.7em;line-height:1.74;}
     .prose ul > li:first-child{margin-top:0;}
     .prose ul > li::before{content:"";position:absolute;left:.1em;top:.66em;width:10px;height:10px;background:var(--red);
@@ -612,7 +612,7 @@
     .prose h4{font-family:var(--display);font-weight:600;font-size:var(--fs-h4);color:var(--black);margin-top:1.9em;margin-bottom:0;letter-spacing:-.01em;}
     .prose h4 + *{margin-top:.6em;}
     /* ordered lists: bold designed red numerals in place of the default marker */
-    .prose ol{list-style:none;margin:0;padding:0;counter-reset:oli;}
+    .prose ol{list-style:none;margin:var(--flow) 0 0;padding:0;counter-reset:oli;}
     .prose ol > li{counter-increment:oli;position:relative;padding-left:3em;margin-top:.9em;line-height:1.74;min-height:1.8em;}
     .prose ol > li:first-child{margin-top:0;}
     .prose ol > li::before{
@@ -698,6 +698,14 @@
        example email can opt into the card look with the same class on a <blockquote>. */
     blockquote.email-example{padding:0;font-family:inherit;font-size:1rem;font-weight:500;letter-spacing:0;border-left:0;color:var(--ink);}
     blockquote.email-example p{margin:0;}
+    /* Lists inside the email card use a monospace dash marker, not the big
+       Swiss red square, so they read like part of the plain-text email. */
+    .email-example ul,.email-example ol{list-style:none;margin:.55em 0 0;padding:0 22px 0 36px;counter-reset:eoli;}
+    .email-example ul > li,.email-example ol > li{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:.9rem;line-height:1.7;color:var(--ink);position:relative;padding-left:1.2em;margin-top:.28em;min-height:0;}
+    .email-example ul > li:first-child,.email-example ol > li:first-child{margin-top:0;}
+    .email-example ul > li::before{content:"-";background:none;clip-path:none;border:0;width:auto;height:auto;left:0;top:0;color:var(--red);font-family:inherit;font-size:1em;}
+    .email-example ol > li{counter-increment:eoli;padding-left:1.6em;}
+    .email-example ol > li::before{content:counter(eoli) ".";background:none;clip-path:none;border:0;width:auto;height:auto;min-width:0;left:0;top:0;color:var(--red);font-family:inherit;font-size:1em;}
 
     /* v2 post share row: on-brand sharp buttons, sits above the "Get in touch" CTA */
     .post-share{max-width:760px;margin:clamp(44px,6vw,68px) auto 0;padding-top:32px;border-top:1px solid var(--hair);

@@ -81,6 +81,9 @@ const CONSENT_KEY = 'prasad-consent-v1';
     transition: opacity 0.25s cubic-bezier(0.16, 0.84, 0.3, 1), transform 0.25s cubic-bezier(0.16, 0.84, 0.3, 1);
   }
   .cc2.in { opacity: 1; transform: none; }
+  /* Dismiss sets the `hidden` attribute; needed so `display: flex` above does
+     not keep the banner on screen after Accept/Decline. */
+  .cc2[hidden] { display: none; }
   .cc2-copy { margin: 0; font-size: 0.9rem; line-height: 1.55; color: #1a1a1a; }
   .cc2-copy a { color: #e5241c; font-weight: 600; white-space: nowrap; text-decoration: none; border-bottom: 2px solid #e5241c; }
   .cc2-actions { display: flex; gap: 10px; justify-content: flex-end; }
