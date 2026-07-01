@@ -5,12 +5,14 @@ pubDate: 2025-10-15
 category: "Fundraising"
 tags: ["fundraising"]
 readingTime: "12 min read"
-tldr: "I co-founded Mainteny and ran the technical side of a seed raise that took six months, 87 investor conversations, and a lot of rejection. The work I did there helped raise a $2.7M seed. Cold outreach got us a 15% response rate by researching every investor instead of mail-merging them, the live product demo did more than any deck, and term sheets arrived in a cluster at the end because no one wants to be first. The real lesson: fundraising is a filter on whether you built something worth funding, not an accomplishment in itself."
+tldr: "I co-founded Mainteny and ran the technical side of a seed raise that took six months and a lot of rejection. The work I did there helped raise a $2.7M seed. Cold outreach worked because I researched every investor instead of mail-merging them, the live product demo did more than any deck, and term sheets arrived in a cluster at the end because no one wants to be first. The real lesson: fundraising is a filter on whether you built something worth funding, not an accomplishment in itself."
 ---
 
 Most fundraising advice comes from people who raised money in 2021, when VCs handed out [term sheets](https://en.wikipedia.org/wiki/Term_sheet) freely. It does not transfer to a tighter market.
 
-I co-founded Mainteny and was the CTO through our seed raise. The process took six months, 87 investor conversations, and more rejections than I want to count. The work my co-founder and I did in that period helped raise a \$2.7M seed. I ran the technical half of it: the product demo, the technical due diligence, and the "why this team can build it" story. Here is what I learned.
+I co-founded Mainteny and was the CTO through our seed raise. The process took six months and more rejections than I want to count. The work my co-founder and I did in that period helped raise a \$2.7M seed. I ran the technical half of it: the product demo, the technical due diligence, and the "why this team can build it" story. Here is what I learned.
+
+I have since gone through the other side of this again, raising for DataRavel, the company my co-founder and I are building now. Some of the outreach in this post is from that raise, anonymized. The mechanics are the same; only the market changed.
 
 ## The time cost
 
@@ -31,61 +33,70 @@ Block entire days for investor work. Block entire days for product work. The con
 
 Unless you went to Stanford, worked at a FAANG, or have a successful exit, you probably do not have warm intros to most investors. We did not.
 
-Our cold email response rate was 15%, several times the low single digits that untargeted cold outreach tends to get. Here is why.
-
-The raise was a funnel. Researched outreach fed conversations, a fraction of those asked for the data room, fewer still went to a partner meeting, and the term sheets came at the very end.
+The raise is a funnel. Researched outreach feeds conversations, a fraction of those ask for the data room, fewer still go to a partner meeting, and the term sheets come at the very end. The only lever you fully control at the top of that funnel is how well you researched the person you are writing to.
 
 ```mermaid
 flowchart LR
-    a["Researched outreach<br/>(email + LinkedIn)"] --> b["Replies<br/>15% email, 20% LinkedIn"]
-    b --> c["87 investor<br/>conversations"]
-    c --> d["Data room requests<br/>(a few VCs)"]
-    d --> e["Partner meetings<br/>(2 firms)"]
-    e --> f["3 term sheets<br/>in two weeks"]
+    a["Researched outreach<br/>(email + LinkedIn)"] --> b["Replies"]
+    b --> c["Investor<br/>conversations"]
+    c --> d["Data room<br/>requests"]
+    d --> e["Partner<br/>meetings"]
+    e --> f["Term sheets,<br/>clustered at the end"]
 ```
 
 ### Research each investor
 
-The worst thing you can do is send the same email to 200 investors. A mail merge is obvious to them.
+The worst thing you can do is send the same email to a list of investors. A mail merge is obvious to them within the first line.
 
-What have they invested in? What do they write about? What is their thesis? Connect those dots.
+What have they invested in? What do they write about? What is their thesis? Connect those dots, and then give them one specific hook and a small ask.
 
-An email that worked:
+Here is a cold email that got a same-day reply, from my DataRavel raise. The partner had written back to me once on LinkedIn, so this is barely warm, but the structure is the same one I use cold.
 
-Subject: Vertical SaaS in Europe's largest underserved market
+<div class="email-example">
+
+**Subject:** DataRavel, the data infra command center (your data portfolio)
 
 Hi \[Name\],
 
-I noticed your investment in \[similar company\] and your recent post about European B2B markets. We are building something adjacent.
+Many thanks for writing back on LinkedIn. I have been following \[fund\] and kept noticing how many of your portfolio companies live in the data space, so you are exactly the kind of investor I wanted to reach.
 
-\[Company\] is a CRM for maintenance companies, a large European market still running on paper and Excel. Early customers are switching because there is no modern alternative built for how they actually work.
+My co-founder and I are building DataRavel, an AI command center that makes managing and building data infrastructure easy: cost control, observability, and governance bundled with ready-made integrations, so a team gets a handle on its data stack without DevOps skills.
 
-Would you be open to a 20-minute call next week?
+Where we are:
 
-This shows you did homework, connects to their interests, gives one concrete number that creates curiosity, and asks for a small commitment.
+- Early design partners, with roughly \$8K in likely MRR
+- Prototype live and in their hands
+- I previously founded Mainteny and led ventures at Bain's incubator; my co-founder was an early architect on a large SaaS data-lake team, which he helped grow from 3 to 50 engineers
 
-### LinkedIn works better
+We are raising \$500K pre-seed to get to more than \$20K MRR in 15 months. We are both technical founders, so the area I most want a sharp investor's eyes on is GTM and founder-led sales.
 
-LinkedIn had a 20% response rate. It feels more personal.
+Deck attached. Worth a 20-minute call to see if it fits your thesis?
+
+Prasad
+
+</div>
+
+He replied the same day: one of his portfolio founders had gone through his accelerator, he wanted to learn more about DataRavel, and he sent his calendar link.
+
+Why it works, line by line. The subject names the company and the one thing about his portfolio that made me write to him, not a generic hook. The first paragraph proves I looked at what he actually funds. The "where we are" block is three honest facts, not a pitch: real design partners, a real prototype, and the specific reason my co-founder and I can build this. The ask is small and it hands him the decision, and I told him exactly what I wanted help with, which gives an investor a role beyond writing a check. No hype words, no fake urgency, no flattery he would see through.
+
+### LinkedIn often works better
+
+LinkedIn tends to feel more personal than email, and a good message there can outperform a cold email to the same person.
 
 Connect first with a non-pitchy message:
 
 "Hi \[Name\], I have been following your work on European B2B. Building something in the space and would like to connect."
 
-No pitch. No ask. Once they accept, then send the actual message.
+No pitch. No ask. Once they accept, send the real message, structured like the email above: one researched hook, a few honest facts, a small ask.
 
 ### Timing
 
-We tracked everything. The data:
-
-- Tuesday and Wednesday mornings had 2x the response rate
-- Emails sent Friday afternoon never got responses
-- Subject lines under 7 words outperformed longer ones
-- Follow-ups sent 4-5 days after initial email converted best
+I tracked when replies came back. Tuesday and Wednesday mornings did clearly better than any other slot, Friday afternoons were close to dead, short subject lines beat long ones, and a single follow-up a few days after the first email caught people who meant to reply and forgot. None of this moves the needle if the message itself is generic, but on a good message it is free upside.
 
 ## What investors evaluate
 
-After 87 conversations, patterns emerge.
+After dozens of conversations, patterns emerge.
 
 ### Market understanding
 
@@ -95,7 +106,7 @@ What they care about: do you understand the market deeply enough to have a contr
 
 The investors who got excited were not impressed by our TAM number. They were impressed that we could explain how maintenance companies actually work, day to day, better than they had heard before.
 
-That came from going to the field. Early on I rode along on real maintenance calls. At a small Oslo elevator-maintenance company, a technician named Jonas took me to a training center with real lift cars, and I stood on top of an elevator car in safety gear watching the work. I learned that buildings have a dedicated elevator room with the controller and the electrical circuits, the kind of detail you only get by being there. Lian Heis, who ran the company, became one of our development partners. When an investor asked how technicians really spend their day, I was not guessing.
+That came from going to the field. Early on I rode along on real maintenance calls. At a small Oslo elevator-maintenance company, a technician took me to a training center with real lift cars, and I stood on top of an elevator car in safety gear watching the work. I learned that buildings have a dedicated elevator room with the controller and the electrical circuits, the kind of detail you only get by being there. The owner became one of our development partners. When an investor asked how technicians really spend their day, I was not guessing.
 
 ### Team
 
@@ -130,7 +141,7 @@ flowchart TD
     m2 --> m3["Month 3: iteration<br/>shorter deck, lead with demo"]
     m3 --> m4["Month 4: data room requests<br/>models, contracts, cap table"]
     m4 --> m5["Month 5: partner meetings<br/>pitch the whole partnership"]
-    m5 --> m6["Month 6: term sheets<br/>first commit, then 3 in two weeks"]
+    m5 --> m6["Month 6: term sheets<br/>first commit, then the rest cluster"]
 ```
 
 ### Month 1: false confidence
@@ -165,7 +176,7 @@ The other went well. Follow-up questions. Then more questions. Then a reference 
 
 ### Month 6: term sheet
 
-The second firm sent a term sheet. This created urgency with two other investors who had been sitting on the fence. Within two weeks, we had three term sheets.
+The second firm sent a term sheet. That single commitment created urgency with the investors who had been sitting on the fence, and more term sheets followed within a couple of weeks.
 
 Fundraising is feast or famine. No one wants to be first, but everyone piles on once someone commits.
 
@@ -173,13 +184,13 @@ Fundraising is feast or famine. No one wants to be first, but everyone piles on 
 
 ### Started too early
 
-We started with 12 customers. By close, we had 47. If we had waited three more months, the process would have been faster. Better metrics mean higher response rates, shorter due diligence, better terms.
+We opened the raise with early traction and closed it with meaningfully more. If we had waited a few more months to start, the process itself would have been faster. Better metrics mean higher response rates, shorter due diligence, and better terms. The raise is easier the less you need it.
 
 ### Wrong investors
 
-We wasted weeks on investors who would never have invested. US firms with no European presence. Generalists who had never done vertical SaaS. Late-stage funds doing "seed investments" that were options on Series A.
+We wasted weeks on investors who would never have invested. US firms with no European presence. Generalists who had never done vertical SaaS. Late-stage funds doing "seed investments" that were really options on a future Series A.
 
-Better targeting would have saved 30% of our time.
+Tighter targeting up front would have saved a large chunk of the time. The signal is in their actual portfolio, not their website: a fund that has never written a check into your stage, geography, or category is a polite no dressed up as a meeting.
 
 ### No data room ready
 
@@ -189,7 +200,7 @@ Have your data room ready before you start. Good opportunities move fast.
 
 ### Underestimating the emotional cost
 
-50+ rejections over 6 months takes a toll. There were days when I questioned everything. Having a co-founder helped. When one of us was down, the other kept momentum.
+Months of rejection take a toll. There were days when I questioned everything: the market, the product, whether I was fundable at all. Having a co-founder helped more than any tactic. When one of us was down, the other kept momentum, and we split the emotional load without ever agreeing to.
 
 ## The CTO's role
 
@@ -260,7 +271,7 @@ The best thing you can do to make fundraising easier is to spend less time think
 ## Key takeaways
 
 - Treat fundraising as a filter, not a trophy. If you have built real value you will find capital; if you have not, no tactic saves you.
-- Research every investor before you send anything. That discipline is why our cold response rate was 15%, several times what untargeted outreach gets.
+- Research every investor before you send anything. One specific hook tied to what they actually fund, a few honest facts, and a small ask will out-reply any mail merge, warm or cold.
 - Demo the live product, not a slide about it. Evidence beats claims, and it collapses the two risks an investor underwrites at seed: can you build, and does anyone want it.
 - Block whole days for investor work and whole days for product work. The context-switching tax between the two is the hidden cost of a raise.
 - Have the data room ready before you start. Good opportunities move fast, and scrambling for contracts and a cap table mid-process loses a week you do not have.

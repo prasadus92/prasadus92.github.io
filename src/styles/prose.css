@@ -146,6 +146,21 @@
   color: var(--text-tertiary);
   line-height: 1.5;
 }
+/* example email / message, wrapped in <div class="email-example"> */
+.prose .email-example {
+  margin: 1.9em 0;
+  padding: clamp(1.1rem, 2.6vw, 1.6rem) clamp(1.2rem, 2.8vw, 1.7rem);
+  border: 1px solid var(--glass-border);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--r-md);
+  background: var(--glass-bg);
+  font-size: 0.98rem;
+  line-height: 1.6;
+}
+.prose .email-example > * + * {
+  margin-top: 0.75em;
+}
+
 /* side-by-side photo grid: wrap images in <div class="photo-row"> ... </div> */
 .prose .photo-row {
   display: grid;

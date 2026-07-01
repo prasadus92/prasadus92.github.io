@@ -57,7 +57,29 @@ Josh Braun calls this "selling without being salesy." The idea is simple. Your j
 
 I think about cold outreach the same way: genuinely helpful and useful without expectation, getting into the customer's shoes, their pains, their workflows, and never treating it as a transaction. Josh Braun and Rob Snyder both teach this. Rob Snyder's framing stuck with me: look at what is on the buyer's Kanban board for the quarter, the half, the year, and work together to hit those outcomes. The sale follows from that. Patience and no expectations matter.
 
-Before one enterprise marketing team started working with us, I had three conversations with their senior marketing director, all about how they invest in events, what they were seeing, their actual workflows, and the specific outcomes they wanted. None of those calls was a pitch. It is someone's career and possibly their promotion. For them it is a specific project they are driving, and you have to be positioned to help them hit it. Match, timing, and budget all have to line up. I would not even call it a sale. It is someone deciding to believe in you and bring you onto their team to reach a goal.
+What this looks like in practice: here is a LinkedIn message I sent a marketing leader, exploring an event-ROI problem I understood well from my time as a venture CTO. It is not a pitch. It states who I help, names the specific way their kind of team gets stuck, and offers something concrete.
+
+<div class="email-example">
+
+Hi \[Name\], I have been helping marketing leaders at two B2B software companies turn conferences into predictable revenue instead of a line item nobody can defend.
+
+Events drive 30 to 40% of pipeline for teams like yours, but the same three things break: picking the conferences where your target accounts actually show up, pre-booking meetings before you land, and tracking ROI and follow-ups afterward so the spend is defensible.
+
+I am taking on a few design partners to build this properly. As a venture CTO at Bain I helped PE-backed companies 3 to 5x their event ROI, so I have a strong prior on what works. Is any of this live for your team right now?
+
+</div>
+
+What made it land is what is missing from it: no product name, no calendar link, no "quick 15 minutes." It names a real problem in the reader's words and asks whether that problem is actually theirs. She replied, and the reply is the tell that it worked:
+
+<div class="email-example">
+
+We are a small team, around 100 people, with a focused 2025 marketing budget. We have already picked our 6 conferences and are planning private networking dinners around them. Would we even be a fit for what you do? And which of these activities would you actually take off our plate?
+
+</div>
+
+That is not a polite brush-off. She told me her team size, her budget posture, her exact plan, and then asked two real questions. She was doing discovery on me. From there it is not a pitch, it is a working session: we walk her real plan, I am honest about which parts I can help with and which I cannot, and if the match, timing, and budget line up, we keep going. That whole exchange happened because the first message tried to be useful, not to sell.
+
+Before one enterprise marketing team started working with us, I had several conversations with their senior marketing director, all about how they invest in events, what they were seeing, their actual workflows, and the specific outcomes they wanted. None of those calls was a pitch. It is someone's career and possibly their promotion. For them it is a specific project they are driving, and you have to be positioned to help them hit it. Match, timing, and budget all have to line up. I would not even call it a sale. It is someone deciding to believe in you and bring you onto their team to reach a goal.
 
 Cracking cold messages and cold emails took a real learning curve, and every founder goes through it. The better mindset is the one Rob Snyder points at: find whoever actually has a project running on the problem you solve.
 
