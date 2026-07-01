@@ -215,14 +215,20 @@ function initCounters() {
       return hadComma ? Number(s).toLocaleString('en-US') : s;
     };
 
-    const dur = 1100;
+    const dur = 1200;
     const start = performance.now();
+    el.classList.add('counting');
     const step = (now: number) => {
       const p = Math.min((now - start) / dur, 1);
-      const eased = 1 - Math.pow(1 - p, 3);
+      // easeOutQuint: fast to settle, matching --ease-out's character, so the
+      // number decelerates into its final value instead of stopping abruptly.
+      const eased = 1 - Math.pow(1 - p, 5);
       el.textContent = prefix + fmt(target * eased) + suffix;
       if (p < 1) requestAnimationFrame(step);
-      else el.textContent = prefix + fmt(target) + suffix;
+      else {
+        el.textContent = prefix + fmt(target) + suffix;
+        el.classList.remove('counting');
+      }
     };
     requestAnimationFrame(step);
   };

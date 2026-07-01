@@ -83,7 +83,7 @@ const sources = [
         </p>
       </header>
 
-      <section class="ai-block">
+      <section class="ai-block reveal">
         <h2>What I actually do</h2>
         <p>
           I have built AI products end to end and put them in front of real users and paying
@@ -96,8 +96,8 @@ const sources = [
         <p>Concretely, I help with:</p>
         <ul class="ai-helps">
           {
-            helps.map((h) => (
-              <li class="ai-help card glass" data-tilt="off">
+            helps.map((h, i) => (
+              <li class={`ai-help card glass reveal reveal-d${(i % 3) + 1}`} data-tilt="off">
                 <strong>{h.title}.</strong> <span class="muted">{h.body}</span>
               </li>
             ))
@@ -105,7 +105,7 @@ const sources = [
         </ul>
       </section>
 
-      <section class="ai-block">
+      <section class="ai-block reveal">
         <h2>A worked example</h2>
         <p>
           I took a vendor support agent into production for a real, customer-facing workload in a
@@ -122,7 +122,7 @@ const sources = [
         </p>
       </section>
 
-      <section class="ai-block">
+      <section class="ai-block reveal">
         <h2>Where this comes from</h2>
         <ul class="ai-sources">
           {sources.map((s) => <li class="muted">{s.body}</li>)}
@@ -133,7 +133,7 @@ const sources = [
         </p>
       </section>
 
-      <section class="ai-block ai-cta-block">
+      <section class="ai-block ai-cta-block reveal">
         <h2>Start a conversation</h2>
         <p>
           If you are putting AI into production, or hiring someone who has, I am glad to get into the

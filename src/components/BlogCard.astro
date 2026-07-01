@@ -18,9 +18,10 @@ const dateStr = pubDate.toLocaleDateString('en-US', { month: 'short', year: 'num
 
 <a href={`/blog/${slug}`} class={`bcard glass card reveal reveal-d${delay} ${featured ? 'feat' : ''}`}>
   <div class="bcard-art">
-    <PostArt seed={slug} height="100%" compact={true} />
+    <PostArt seed={slug} height="100%" compact={!featured} />
   </div>
   <div class="bcard-body">
+    {featured && <span class="bcard-lead-tag">Latest</span>}
     <div class="bcard-top">
       {category && <span class="chip">{category}</span>}
       <span class="bcard-read mono">{readingTime}</span>
@@ -55,6 +56,69 @@ const dateStr = pubDate.toLocaleDateString('en-US', { month: 'short', year: 'num
     height: 100% !important;
     border: none;
     border-radius: 0;
+  }
+
+  /* ---------- Featured (lead) card: wide, art beside a larger title ----------
+     Promotes the newest post to a two-panel hero card that breaks the even
+     grid rhythm. Collapses back to the stacked card layout on narrow screens. */
+  .bcard.feat {
+    grid-column: 1 / -1;
+    flex-direction: row;
+    align-items: stretch;
+  }
+  .bcard.feat .bcard-art {
+    height: auto;
+    flex: 0 0 44%;
+    border-bottom: none;
+    border-right: 1px solid var(--glass-border);
+    min-height: 260px;
+  }
+  .bcard.feat .bcard-body {
+    justify-content: center;
+    padding: clamp(28px, 3.4vw, 48px);
+  }
+  .bcard.feat .bcard-title {
+    font-size: clamp(1.5rem, 1.2rem + 1.4vw, 2.1rem);
+    line-height: 1.15;
+    letter-spacing: var(--tracking-tight);
+  }
+  .bcard.feat .bcard-desc {
+    font-size: 1rem;
+    max-width: 52ch;
+    flex: 0 1 auto;
+  }
+  .bcard.feat .bcard-lead-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    letter-spacing: var(--tracking-wide);
+    color: var(--accent);
+  }
+  .bcard.feat .bcard-lead-tag::before {
+    content: '';
+    width: 18px;
+    height: 1px;
+    background: linear-gradient(90deg, var(--accent), transparent);
+  }
+  .bcard.feat .bcard-lead-tag + .bcard-top {
+    margin-top: var(--sp-4);
+  }
+  @media (max-width: 760px) {
+    .bcard.feat {
+      flex-direction: column;
+    }
+    .bcard.feat .bcard-art {
+      flex: 0 0 auto;
+      height: 150px;
+      border-right: none;
+      border-bottom: 1px solid var(--glass-border);
+      min-height: 0;
+    }
+    .bcard.feat .bcard-body {
+      padding: var(--card-pad);
+    }
   }
   .bcard-body {
     display: flex;

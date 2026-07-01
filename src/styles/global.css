@@ -271,13 +271,23 @@ p {
    always visible if JS is slow, fails, or is disabled. */
 html.js .reveal {
   opacity: 0;
-  transform: translateY(22px);
+  /* a hair of scale under the rise reads as "settling in" rather than a
+     flat slide; kept tiny so it never feels bouncy */
+  transform: translateY(20px) scale(0.992);
   transition: opacity var(--dur-3) var(--ease-out), transform var(--dur-3) var(--ease-out);
+  will-change: opacity, transform;
 }
 html.js .reveal.in {
   opacity: 1;
   transform: none;
+  will-change: auto;
 }
+/* While a stat is counting up, lock to tabular figures so the digits don't
+   jitter the layout as they change width, then release to proportional. */
+[data-count].counting {
+  font-variant-numeric: tabular-nums;
+}
+
 .reveal-d1 {
   transition-delay: 0.08s;
 }

@@ -2,6 +2,7 @@
 layout: ../layouts/PageLayout.astro
 title: "My story"
 eyebrow: "About"
+variant: "editorial"
 description: "How Prasad Subrahmanya went from a small town in Karnataka with no path into engineering to a 3x technical founder building AI products in Oslo."
 lead: "From a small town in Karnataka with no path into engineering, to building companies from zero. The long version."
 ---
@@ -57,6 +58,10 @@ Moving countries strips you down to what you can actually do. Nobody in Munich k
 ## My first startup
 
 I joined BlueJeans, a video company with an odd name that few people had heard of. It turned out to be the best career decision I made. It was where I first understood what a startup is: venture funding, a flat hierarchy, a room full of low-ego, genuinely talented people. I met Krish, the CEO, while I was being onboarded, and I'd been invited to the company party before my first day. When I left, Pradeep, the site head who later became a global VP of innovation, said he thought of me like his own. I've worked in a lot of places since. BlueJeans is still the one whose culture I measure the others against.
+
+<figure class="story-pull">
+  <blockquote>Reputation does not cross borders. Output does.</blockquote>
+</figure>
 
 ## How I learned to build
 

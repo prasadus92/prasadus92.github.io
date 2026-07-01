@@ -9,6 +9,33 @@
 .prose > * + * {
   margin-top: 1.25em;
 }
+/* When the editorial script groups sections into .story-section wrappers, the
+   direct-child spacing above no longer reaches the paragraphs. Re-apply the
+   same rhythm inside each wrapper, and space the wrappers themselves. */
+.prose .story-section > * + * {
+  margin-top: 1.25em;
+}
+.prose > .story-section + .story-section {
+  margin-top: 2em;
+}
+.prose .story-section > h2 + * {
+  margin-top: 0.7em;
+}
+/* Drop-cap on the first paragraph of an editorial page: one accent-tinted
+   flourish that signals "long read". Written unscoped here (not in the Astro
+   component) so the ::first-letter pseudo isn't mangled by scoped-style
+   rewriting. Covers no-JS (p is a direct child) and post-JS (p in a wrapper). */
+.prose--editorial > h2:first-child + p::first-letter,
+.prose--editorial > p:first-of-type::first-letter,
+.prose--editorial .story-section:first-child > h2 + p::first-letter {
+  float: left;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 3.1em;
+  line-height: 0.82;
+  padding: 0.04em 0.14em 0 0;
+  color: var(--accent);
+}
 .prose h2,
 .prose h3,
 .prose h4 {
@@ -67,6 +94,28 @@
   border: 1px solid var(--glass-border);
   box-shadow: var(--shadow-md);
   margin: 1.8em auto;
+}
+/* Editorial pull-quote (Story): a centered display line as a palette cleanser
+   between sections. No card, no left border, just type and air, matching the
+   landing's PullQuote treatment. */
+.prose .story-pull {
+  margin: clamp(2.4em, 5vw, 3.6em) 0;
+  text-align: center;
+}
+.prose .story-pull blockquote {
+  margin: 0;
+  padding: 0;
+  border: none;
+  max-width: 24ch;
+  margin-inline: auto;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.5rem, 1.1rem + 1.8vw, 2.4rem);
+  line-height: 1.15;
+  letter-spacing: var(--tracking-tight);
+  text-wrap: balance;
+  color: var(--ink);
+  font-style: normal;
 }
 .prose figure {
   margin: 2em 0;
