@@ -1,0 +1,92 @@
+---
+// v2 blog post shell. Renders a post from the `blog` collection in the sharp
+// white/black/red aesthetic: TL;DR callout, prose body, FAQ, related, reading
+// progress, and client-side mermaid rendering themed to match v2. See DESIGN.md.
+export interface Props {
+  title: string;
+  description: string;
+  tldr?: string;
+  pubDate: Date;
+  updatedDate?: Date;
+  category?: string;
+  readingTime?: string;
+  faq?: { q: string; a: string }[];
+  related?: { id: string; title: string; description: string }[];
+}
+const {
+  title,
+  description,
+  tldr,
+  pubDate,
+  category = 'Essay',
+  readingTime,
+  faq = [],
+  related = [],
+} = Astro.props;
+
+const dateStr = pubDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+const kicker = [category, readingTime].filter(Boolean).join(' · ');
+---
+<article class="post">
+  <div class="container">
+    <div class="post-wrap">
+      <div class="post-head">
+        <a class="post-back" href="/v2/blog">← All writing</a>
+        <span class="kicker red">{kicker}</span>
+        <h1 class="post-title">{title}</h1>
+        <p class="post-desc">{description}</p>
+        <div class="post-meta">
+          <span class="post-author"><span class="post-mark">PS</span> Prasad Subrahmanya</span>
+          <span class="post-date">{dateStr}</span>
+        </div>
+      </div>
+
+      {tldr && (
+        <div class="post-tldr">
+          <span class="post-tldr-label">TL;DR</span>
+          <p>{tldr}</p>
+        </div>
+      )}
+
+      <div class="prose">
+        <slot />
+      </div>
+
+      {faq.length > 0 && (
+        <section class="post-faq">
+          <h2>Common questions</h2>
+          <div class="faq-list">
+            {faq.map((f, i) => (
+              <details class="faq-item" open={i === 0}>
+                <summary><span class="faq-q">{f.q}</span><span class="faq-chevron">↓</span></summary>
+                <div class="faq-a"><p>{f.a}</p></div>
+              </details>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {related.length > 0 && (
+        <section class="post-related">
+          <h2>Keep reading</h2>
+          <ul>
+            {related.map((r) => (
+              <li>
+                <a href={`/v2/blog/${r.id}`}>
+                  <strong>{r.title}</strong>
+                  <span class="rel-desc">{r.description}</span>
+                  <span class="rel-arrow">↗</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      <div class="post-end">
+        <a class="post-back" href="/v2/blog">← More writing</a>
+        <a class="btn red" href="/v2#contact">Get in touch</a>
+      </div>
+    </div>
+  </div>
+</article>

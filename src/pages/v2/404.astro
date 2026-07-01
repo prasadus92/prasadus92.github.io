@@ -1,0 +1,20 @@
+---
+import V2Layout from '../../layouts/V2Layout.astro';
+import Nav from '../../components/v2/Nav.astro';
+import Footer from '../../components/v2/Footer.astro';
+---
+<V2Layout title="Page not found · Prasad Subrahmanya" description="That page does not exist.">
+  <Nav />
+  <section class="page-band nf">
+    <div class="container nf-inner">
+      <p class="nf-code">404</p>
+      <h1>This page took a different path.</h1>
+      <p>The link is broken or the page moved. Here is the way back.</p>
+      <div class="nf-cta">
+        <a class="btn red" href="/v2">← Home</a>
+        <a class="btn" href="/v2/blog">Read the writing</a>
+      </div>
+    </div>
+  </section>
+  <Footer />
+</V2Layout>

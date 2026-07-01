@@ -1,0 +1,74 @@
+---
+import V2Layout from '../../layouts/V2Layout.astro';
+import Nav from '../../components/v2/Nav.astro';
+import Footer from '../../components/v2/Footer.astro';
+
+const helps = [
+  { title: 'Find the work worth automating', body: 'Start from a task people already pay to do, not from a tool. Pick the few where AI changes the economics.' },
+  { title: 'Build the first version fast', body: 'A real working slice in weeks, against real data, so the team can feel it instead of debating it.' },
+  { title: 'Make it trustworthy', body: 'Evals, a calibrated judge, and adversarial tests, so you know how it behaves before customers do. This is most of the work and most of the value.' },
+  { title: 'Ship it and keep it honest', body: 'Reliability, cost control, and the failure handling that long-running AI needs, so it survives contact with production.' },
+  { title: 'Help people use it', body: 'Tie it to a number the business already tracks, and bring the team along so it sticks after I leave.' },
+];
+
+const sources = [
+  'Luminik: a multi-agent platform connecting B2B event spend to revenue, $6M+ in sourced pipeline.',
+  'Aura at Bain: built it as venture CTO, $0 to $3.6M ARR in 15 months.',
+  'I write about the engineering behind all of this: agents, evals, durable systems, and cost.',
+];
+---
+<V2Layout
+  title="AI enablement, hands-on · Prasad Subrahmanya"
+  description="I help teams get AI into production and prove it works: agents, evals, reliability, and adoption. Founder and engineer who has shipped AI end to end."
+>
+  <Nav />
+  <section class="page-band">
+    <div class="container">
+      <div class="page-head page-narrow">
+        <span class="kicker red">AI enablement</span>
+        <h1>Getting AI <span class="redmark">into production.</span></h1>
+        <p class="lead">Of course you can show a good demo. The value shows up later: when the system runs on real traffic, holds up on the hard cases, and moves a number the business cares about. That part is engineering and judgment, and it is the part I do, hands-on.</p>
+      </div>
+
+      <div class="content-prose">
+        <section class="content-block">
+          <h2>What I actually do</h2>
+          <p>I have built AI products end to end and put them in front of real users and paying customers. With <a href="https://www.luminik.io" target="_blank" rel="noopener">Luminik</a> I run a multi-agent platform in production. With <a href="https://alfred.luminik.io" target="_blank" rel="noopener">Alfred</a> I run a fleet of coding agents in the open. The same work helps a team go from "we tried some AI" to "AI does this job reliably, and we can prove it."</p>
+          <p>Concretely, I help with:</p>
+          <ul class="content-cards">
+            {helps.map((h) => (
+              <li><strong>{h.title}.</strong> {h.body}</li>
+            ))}
+          </ul>
+        </section>
+
+        <section class="content-block">
+          <h2>A worked example</h2>
+          <p>I took a vendor support agent into production for a real, customer-facing workload in a regulated industry, and wrote up exactly how we tested it before turning it on and measured it after. It is the clearest picture of how I work.</p>
+          <p><a class="txt-link" href="/v2/blog/deploying-a-customer-support-ai-agent-to-production">Read the write-up <span class="a">→</span></a></p>
+        </section>
+
+        <section class="content-block">
+          <h2>Where this comes from</h2>
+          <ul class="content-cards">
+            {sources.map((s) => (<li>{s}</li>))}
+          </ul>
+          <p class="content-links">
+            <a class="txt-link" href="/v2/blog">Read the writing <span class="a">→</span></a>
+            <a class="txt-link" href="/v2#experience">See the work <span class="a">→</span></a>
+          </p>
+        </section>
+
+        <section class="content-block">
+          <h2>Start a conversation</h2>
+          <p>If you are putting AI into production, or hiring someone who has, I am glad to get into the specifics of your problem. The fastest way is a short call; email works too.</p>
+          <div class="content-links">
+            <a class="btn red" href="/v2/book">Book a call →</a>
+            <a class="btn" href="mailto:prasadus92@gmail.com">Email</a>
+          </div>
+        </section>
+      </div>
+    </div>
+  </section>
+  <Footer />
+</V2Layout>

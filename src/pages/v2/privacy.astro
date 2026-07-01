@@ -1,0 +1,40 @@
+---
+import V2Layout from '../../layouts/V2Layout.astro';
+import Nav from '../../components/v2/Nav.astro';
+import Footer from '../../components/v2/Footer.astro';
+---
+<V2Layout
+  title="Privacy · Prasad Subrahmanya"
+  description="How this site handles analytics and your data. Short version: very little."
+>
+  <Nav />
+  <section class="page-band">
+    <div class="container">
+      <div class="page-head page-narrow">
+        <span class="kicker red">Privacy</span>
+        <h1>What this site <span class="redmark">collects.</span></h1>
+        <p class="lead">Short version: very little, and only with your say-so.</p>
+      </div>
+
+      <div class="content-prose">
+        <section class="content-block">
+          <h2>Analytics</h2>
+          <p>I use Google Analytics to see which pages people find useful. It only runs if you accept it in the cookie banner. If you decline, no analytics cookies are set, and any that exist are cleared. IP addresses are anonymized.</p>
+        </section>
+        <section class="content-block">
+          <h2>What I do not do</h2>
+          <p>No ads, no ad tracking, no selling data, no third-party trackers beyond the analytics above. The booking page (Cal.com) and any external links run on their own terms when you use them.</p>
+        </section>
+        <section class="content-block">
+          <h2>Your choice</h2>
+          <p>Your consent is stored locally in your browser. Clear your site data to be asked again.</p>
+        </section>
+        <section class="content-block">
+          <h2>Contact</h2>
+          <p>Questions about any of this: <a href="mailto:prasadus92@gmail.com">prasadus92@gmail.com</a>.</p>
+        </section>
+      </div>
+    </div>
+  </section>
+  <Footer />
+</V2Layout>

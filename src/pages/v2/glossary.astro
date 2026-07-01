@@ -1,0 +1,52 @@
+---
+import V2Layout from '../../layouts/V2Layout.astro';
+import Nav from '../../components/v2/Nav.astro';
+import Footer from '../../components/v2/Footer.astro';
+
+const terms = [
+  { term: "McNemar's test", def: 'A statistical test for paired nominal data. Used here to check whether a before/after change in pass or fail outcomes on the same test cases is real, not noise.', href: 'https://en.wikipedia.org/wiki/McNemar%27s_test', source: 'Wikipedia' },
+  { term: 'Wilson score interval', def: 'A confidence interval for a proportion that stays sensible with small samples and rates near 0 or 1, where the naive interval breaks down.', href: 'https://en.wikipedia.org/wiki/Binomial_proportion_confidence_interval#Wilson_score_interval', source: 'Wikipedia' },
+  { term: "Cohen's kappa", def: 'A measure of agreement between two raters that corrects for the agreement you would expect by chance. Used to check how well an AI judge tracks a human grader.', href: 'https://en.wikipedia.org/wiki/Cohen%27s_kappa', source: 'Wikipedia' },
+  { term: 'pass^k / best-of-N', def: 'pass^k is the chance a stochastic agent passes the same case on all k runs, a stricter bar than passing once. best-of-N takes the best of N sampled attempts.', href: 'https://arxiv.org/abs/2107.03374', source: 'Codex paper (arXiv)' },
+  { term: 'Idempotency', def: 'A property where running an operation many times has the same effect as running it once. Essential for safely retrying work after a partial failure.', href: 'https://en.wikipedia.org/wiki/Idempotence', source: 'Wikipedia' },
+  { term: 'Transactional outbox', def: 'A pattern that writes an event to an outbox table in the same database transaction as the state change, then relays it, so the state and the event cannot diverge.', href: 'https://microservices.io/patterns/data/transactional-outbox.html', source: 'microservices.io' },
+  { term: 'Watermark', def: 'In stream processing, a marker that tracks event-time progress so a system knows when it has seen enough late data to safely finalize a window.', href: 'https://nightlies.apache.org/flink/flink-docs-stable/docs/concepts/time/#event-time-and-watermarks', source: 'Apache Flink docs' },
+  { term: 'Equivalence-class hashing', def: 'Canonicalizing a value to a representative form before hashing, so all members of an equivalence class (any valid answer) hash to the same key and reward equally.', href: 'https://en.wikipedia.org/wiki/Equivalence_class', source: 'Wikipedia' },
+  { term: 'VRPTW', def: 'The vehicle routing problem with time windows: route a fleet to serve stops within their allowed time windows at minimum cost. A canonical hard optimization problem.', href: 'https://en.wikipedia.org/wiki/Vehicle_routing_problem', source: 'Wikipedia' },
+  { term: 'SSE', def: 'Server-sent events: a one-way stream from server to browser over a single long-lived HTTP connection. Simpler than WebSocket when you only push updates downstream.', href: 'https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events', source: 'MDN' },
+  { term: 'WebSocket', def: 'A protocol for full-duplex communication between browser and server over a single persistent connection, for two-way real-time messaging.', href: 'https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API', source: 'MDN' },
+  { term: 'QUIC / HTTP/3', def: 'QUIC is a UDP-based transport with built-in encryption and multiplexing without head-of-line blocking. HTTP/3 is HTTP running over QUIC.', href: 'https://developer.mozilla.org/en-US/docs/Glossary/QUIC', source: 'MDN' },
+  { term: 'OCR / CER', def: 'OCR (optical character recognition) extracts text from images. CER (character error rate) measures how wrong the extraction is, as a fraction of characters.', href: 'https://en.wikipedia.org/wiki/Optical_character_recognition', source: 'Wikipedia' },
+  { term: 'ACCOUNT_USAGE', def: "Snowflake's schema of views exposing account-level metadata: query history, storage, and credit consumption. The basis for most cost-optimization analysis.", href: 'https://docs.snowflake.com/en/sql-reference/account-usage', source: 'Snowflake docs' },
+];
+---
+<V2Layout
+  title="Glossary · Prasad Subrahmanya"
+  description="Plain-language definitions of the key terms used across the writing: evals, durable workflows, real-time transport, and data systems."
+>
+  <Nav />
+  <section class="page-band">
+    <div class="container">
+      <div class="page-head page-narrow">
+        <span class="kicker red">Glossary</span>
+        <h1>Terms, defined <span class="redmark">plainly.</span></h1>
+        <p class="lead">The concepts that come up across the writing, each in a line or two, with a link to an authoritative source if you want to go deeper.</p>
+      </div>
+
+      <div class="page-narrow">
+        <dl class="glossary-list">
+          {terms.map((t) => (
+            <div class="glossary-item">
+              <dt>{t.term}</dt>
+              <dd>
+                <p>{t.def}</p>
+                <a href={t.href} target="_blank" rel="noopener">{t.source} ↗</a>
+              </dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+    </div>
+  </section>
+  <Footer />
+</V2Layout>

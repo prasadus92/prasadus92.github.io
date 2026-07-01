@@ -1,127 +1,109 @@
 ---
-import V2Layout from "../../../layouts/V2Layout.astro";
-import Nav from "../../../components/v2/Nav.astro";
-import Footer from "../../../components/v2/Footer.astro";
+import { getCollection } from 'astro:content';
+import V2Layout from '../../../layouts/V2Layout.astro';
+import Nav from '../../../components/v2/Nav.astro';
+import Footer from '../../../components/v2/Footer.astro';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+// Two clusters, by slug membership (mirrors the v1 index). Engineering shows
+// first. Anything not listed under companies falls under engineering.
+const companySlugs = new Set([
+  'zero-to-one-bain',
+  'raising-seed-round',
+  'technical-founder-sales',
+  'mvp-three-months',
+  'event-marketing-roi',
+  'too-early-teen-banking-startup',
+]);
+
+const companyPosts = posts.filter((p) => companySlugs.has(p.id));
+const engineeringPosts = posts.filter((p) => !companySlugs.has(p.id));
+
+const clusters = [
+  { title: 'AI-native engineering', key: 'eng', posts: engineeringPosts },
+  { title: 'Building companies', key: 'founder', posts: companyPosts },
+].filter((c) => c.posts.length > 0);
+
+const total = posts.length;
+const fmtDate = (d: Date) => d.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
 ---
-<V2Layout title="Writing · Prasad Subrahmanya" description="First-principles writeups on AI engineering, systems, and building companies.">
+<V2Layout
+  title="Writing · Prasad Subrahmanya"
+  description="First-principles primers on AI engineering, distributed systems, and building companies. Written from the work, not from theory."
+>
   <Nav />
-<section class="idx">
+  <section class="idx">
     <div class="container">
       <div class="idx-head">
-        <span class="kicker red">Writing · 19 articles</span>
+        <span class="kicker red">Writing · {total} articles</span>
         <h1>Primers and <span class="redmark">field notes.</span></h1>
         <p class="lead">First-principles writeups on AI engineering, distributed systems, and building companies. Written from the work, not from theory.</p>
       </div>
 
       <div class="idx-filters" id="filters">
-        <button class="chip active" data-filter="all" type="button">All</button>
-        <button class="chip" data-filter="ai" type="button">AI engineering</button>
-        <button class="chip" data-filter="eng" type="button">Engineering</button>
-        <button class="chip" data-filter="founder" type="button">Founder &amp; GTM</button>
+        <button class="chip active" data-filter="all" type="button">All <span class="chip-count">{total}</span></button>
+        {clusters.map((c) => (
+          <button class="chip" data-filter={c.key} type="button">{c.title} <span class="chip-count">{c.posts.length}</span></button>
+        ))}
       </div>
 
       <div class="art-list" id="art-list">
-        <a class="art-row" data-cat="ai" href="/v2/blog/ocr-offline-reality">
-          <div><div class="art-meta"><span class="art-cat">AI engineering</span> · 16 min</div><h2 class="art-title">OCR and the offline reality: a primer on reading text on a phone with no signal</h2></div>
-          <span class="art-date">Jul 2026</span>
-        </a>
-        <a class="art-row" data-cat="eng" href="https://prasad.tech/blog/scaling-websockets" target="_blank" rel="noopener">
-          <div><div class="art-meta"><span class="art-cat">Engineering</span> · 14 min</div><h2 class="art-title">Scaling WebSockets: what changes when the connection never closes</h2></div>
-          <span class="art-date">Jul 2026</span>
-        </a>
-        <a class="art-row" data-cat="eng" href="https://prasad.tech/blog/realtime-web-protocols" target="_blank" rel="noopener">
-          <div><div class="art-meta"><span class="art-cat">Engineering</span> · 13 min</div><h2 class="art-title">WebSockets, SSE, and HTTP/3 from first principles</h2></div>
-          <span class="art-date">Jul 2026</span>
-        </a>
-        <a class="art-row" data-cat="ai" href="https://prasad.tech/blog/streaming-chat-from-scratch" target="_blank" rel="noopener">
-          <div><div class="art-meta"><span class="art-cat">AI engineering</span> · 13 min</div><h2 class="art-title">Building a ChatGPT-style streaming chat from scratch</h2></div>
-          <span class="art-date">Jul 2026</span>
-        </a>
-        <a class="art-row" data-cat="ai" href="https://prasad.tech/blog/alfred-vs-paper" target="_blank" rel="noopener">
-          <div><div class="art-meta"><span class="art-cat">AI engineering</span> · 16 min</div><h2 class="art-title">Propose, verify, iterate: what a compiler paper and my coding-agent fleet have in common</h2></div>
-          <span class="art-date">Jul 2026</span>
-        </a>
-        <a class="art-row" data-cat="ai" href="https://prasad.tech/blog/verifier-design-agent-rl" target="_blank" rel="noopener">
-          <div><div class="art-meta"><span class="art-cat">AI engineering</span> · 12 min</div><h2 class="art-title">Writing the verifier is the real work in agent RL</h2></div>
-          <span class="art-date">Jun 2026</span>
-        </a>
-        <a class="art-row" data-cat="eng" href="https://prasad.tech/blog/durable-by-design" target="_blank" rel="noopener">
-          <div><div class="art-meta"><span class="art-cat">Engineering</span> · 12 min</div><h2 class="art-title">Durable by design: two ways to survive failure in AI-native workflows</h2></div>
-          <span class="art-date">Jun 2026</span>
-        </a>
-        <a class="art-row" data-cat="ai" href="https://prasad.tech/blog/deploying-a-customer-support-ai-agent-to-production" target="_blank" rel="noopener">
-          <div><div class="art-meta"><span class="art-cat">AI engineering</span> · 50 min</div><h2 class="art-title">Deploying a customer-support AI agent to production: testing it, then trusting the numbers</h2></div>
-          <span class="art-date">Jun 2026</span>
-        </a>
-        <a class="art-row" data-cat="ai" href="https://prasad.tech/blog/cut-coding-agent-token-bill" target="_blank" rel="noopener">
-          <div><div class="art-meta"><span class="art-cat">AI engineering</span> · 13 min</div><h2 class="art-title">Three levers for cutting your coding agent's token bill, and how to tell which one works</h2></div>
-          <span class="art-date">May 2026</span>
-        </a>
-        <a class="art-row" data-cat="ai" href="https://prasad.tech/blog/loops-harnesses-memory" target="_blank" rel="noopener">
-          <div><div class="art-meta"><span class="art-cat">AI engineering</span> · 14 min</div><h2 class="art-title">Loops, harnesses, and memory: what it takes to run an autonomous coding fleet</h2></div>
-          <span class="art-date">May 2026</span>
-        </a>
-        <a class="art-row" data-cat="eng" href="https://prasad.tech/blog/multi-model-proxy" target="_blank" rel="noopener">
-          <div><div class="art-meta"><span class="art-cat">Engineering</span> · 11 min</div><h2 class="art-title">The translation layer: bridging static-auth clients to short-lived-token backends</h2></div>
-          <span class="art-date">Apr 2026</span>
-        </a>
-        <a class="art-row" data-cat="eng" href="https://prasad.tech/blog/idempotent-ingestion" target="_blank" rel="noopener">
-          <div><div class="art-meta"><span class="art-cat">Engineering</span> · 12 min</div><h2 class="art-title">Idempotency is the load-bearing primitive for ingesting other people's data</h2></div>
-          <span class="art-date">Apr 2026</span>
-        </a>
-        <a class="art-row" data-cat="eng" href="https://prasad.tech/blog/hotel-kpi-elt-pipeline" target="_blank" rel="noopener">
-          <div><div class="art-meta"><span class="art-cat">Engineering</span> · 12 min</div><h2 class="art-title">A daily hotel KPI pipeline that survives repeated snapshots</h2></div>
-          <span class="art-date">Mar 2026</span>
-        </a>
-        <a class="art-row" data-cat="eng" href="https://prasad.tech/blog/snowflake-cost-optimization" target="_blank" rel="noopener">
-          <div><div class="art-meta"><span class="art-cat">Engineering</span> · 14 min</div><h2 class="art-title">Attributing Snowflake cost to the query that caused it</h2></div>
-          <span class="art-date">Jan 2026</span>
-        </a>
-        <a class="art-row" data-cat="founder" href="https://prasad.tech/blog/event-marketing-roi" target="_blank" rel="noopener">
-          <div><div class="art-meta"><span class="art-cat">Event marketing</span> · 12 min</div><h2 class="art-title">How to measure B2B event ROI</h2></div>
-          <span class="art-date">Feb 2026</span>
-        </a>
-        <a class="art-row" data-cat="founder" href="https://prasad.tech/blog/mvp-three-months" target="_blank" rel="noopener">
-          <div><div class="art-meta"><span class="art-cat">Startup</span> · 13 min</div><h2 class="art-title">From idea to MVP in 3 months: a solo founder's playbook</h2></div>
-          <span class="art-date">Dec 2025</span>
-        </a>
-        <a class="art-row" data-cat="founder" href="https://prasad.tech/blog/technical-founder-sales" target="_blank" rel="noopener">
-          <div><div class="art-meta"><span class="art-cat">Founder sales</span> · 11 min</div><h2 class="art-title">Technical founders can sell: here's how</h2></div>
-          <span class="art-date">Nov 2025</span>
-        </a>
-        <a class="art-row" data-cat="founder" href="https://prasad.tech/blog/raising-seed-round" target="_blank" rel="noopener">
-          <div><div class="art-meta"><span class="art-cat">Fundraising</span> · 12 min</div><h2 class="art-title">The seed fundraising playbook</h2></div>
-          <span class="art-date">Oct 2025</span>
-        </a>
-        <a class="art-row" data-cat="founder" href="https://prasad.tech/blog/zero-to-one-bain" target="_blank" rel="noopener">
-          <div><div class="art-meta"><span class="art-cat">Startup journey</span> · 15 min</div><h2 class="art-title">Building a $3.6M ARR product inside a consulting firm</h2></div>
-          <span class="art-date">Sep 2025</span>
-        </a>
+        {clusters.map((cluster) => (
+          <div class="art-cluster" data-cluster={cluster.key}>
+            <h2 class="art-cluster-title">{cluster.title}</h2>
+            {cluster.posts.map((p) => (
+              <a class="art-row" data-cat={cluster.key} href={`/v2/blog/${p.id}`}>
+                <div>
+                  <div class="art-meta"><span class="art-cat">{p.data.category}</span>{p.data.readingTime ? ` · ${p.data.readingTime.replace(/ read$/, '')}` : ''}</div>
+                  <h3 class="art-title">{p.data.title}</h3>
+                </div>
+                <span class="art-date">{fmtDate(p.data.pubDate)}</span>
+              </a>
+            ))}
+          </div>
+        ))}
       </div>
     </div>
   </section>
   <Footer />
   <script is:inline>
-
-    // category filter
-    (function(){
-      const chips=[...document.querySelectorAll('.chip')];
-      const rows=[...document.querySelectorAll('.art-row')];
-      chips.forEach(c=>c.addEventListener('click',()=>{
-        chips.forEach(x=>x.classList.remove('active')); c.classList.add('active');
-        const f=c.dataset.filter;
-        rows.forEach(r=>{ r.hidden = !(f==='all' || r.dataset.cat===f); });
-      }));
+    // category filter (by cluster)
+    (function () {
+      const chips = [...document.querySelectorAll('.chip')];
+      const clusters = [...document.querySelectorAll('.art-cluster')];
+      chips.forEach((c) =>
+        c.addEventListener('click', () => {
+          chips.forEach((x) => x.classList.remove('active'));
+          c.classList.add('active');
+          const f = c.dataset.filter;
+          clusters.forEach((cl) => {
+            cl.hidden = !(f === 'all' || cl.dataset.cluster === f);
+          });
+        })
+      );
     })();
     // copy the article list for pasting into an LLM
-    (function(){
-      const btn=document.getElementById('copy-page');
-      if(!btn||!navigator.clipboard) return;
-      btn.addEventListener('click',()=>{
-        const text=document.querySelector('.idx').innerText.replace(/\n{3,}/g,'\n\n').trim();
-        navigator.clipboard.writeText(text).then(()=>{const l=btn.textContent;btn.textContent='Copied';btn.style.borderColor='#E5241C';setTimeout(()=>{btn.textContent=l;btn.style.borderColor='';},1600);}).catch(()=>{});
+    (function () {
+      const btn = document.getElementById('copy-page');
+      if (!btn || !navigator.clipboard) return;
+      btn.addEventListener('click', () => {
+        const text = document.querySelector('.idx').innerText.replace(/\n{3,}/g, '\n\n').trim();
+        navigator.clipboard
+          .writeText(text)
+          .then(() => {
+            const l = btn.textContent;
+            btn.textContent = 'Copied';
+            btn.style.borderColor = '#E5241C';
+            setTimeout(() => {
+              btn.textContent = l;
+              btn.style.borderColor = '';
+            }, 1600);
+          })
+          .catch(() => {});
       });
     })();
-  
   </script>
 </V2Layout>

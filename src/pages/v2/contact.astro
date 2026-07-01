@@ -1,0 +1,49 @@
+---
+import V2Layout from '../../layouts/V2Layout.astro';
+import Nav from '../../components/v2/Nav.astro';
+import Footer from '../../components/v2/Footer.astro';
+
+const channels = [
+  { mark: 'EM', label: 'Email', value: 'prasadus92@gmail.com', href: 'mailto:prasadus92@gmail.com', external: false },
+  { mark: 'IN', label: 'LinkedIn', value: 'linkedin.com/in/prasadus', href: 'https://linkedin.com/in/prasadus', external: true },
+  { mark: 'GH', label: 'GitHub', value: 'github.com/prasadus92', href: 'https://github.com/prasadus92', external: true },
+];
+---
+<V2Layout
+  title="Contact · Prasad Subrahmanya"
+  description="Reach Prasad Subrahmanya by email, LinkedIn, or GitHub, or book a short call."
+>
+  <Nav />
+  <section class="page-band">
+    <div class="container">
+      <div class="page-head page-narrow">
+        <span class="kicker red">Contact</span>
+        <h1>Let's <span class="redmark">talk.</span></h1>
+        <p class="lead">If you're building something hard in AI, or hiring someone who has, I'd like to hear about it. The fastest way to reach me is to grab a time below. Email and the rest work too.</p>
+        <div class="content-links" style="margin-top:28px;">
+          <a class="btn red" href="/v2/book">Book a call →</a>
+          <a class="btn" href="mailto:prasadus92@gmail.com">Send an email</a>
+        </div>
+      </div>
+
+      <div class="page-narrow">
+        <ul class="channels">
+          {channels.map((c) => (
+            <li>
+              <a class="channel" href={c.href} {...(c.external ? { target: '_blank', rel: 'noopener' } : {})}>
+                <span class="channel-mark">{c.mark}</span>
+                <span class="channel-text">
+                  <span class="channel-label">{c.label}</span>
+                  <span class="channel-value">{c.value}</span>
+                </span>
+                <span class="channel-arrow">↗</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+        <p class="content-links" style="margin-top:clamp(28px,4vw,40px);color:rgba(12,12,12,.55);font-size:.92rem;">Based in Oslo, Norway. I read everything that comes in and reply to what I can.</p>
+      </div>
+    </div>
+  </section>
+  <Footer />
+</V2Layout>
