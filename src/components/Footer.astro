@@ -4,7 +4,6 @@ import Icon from './Icon.astro';
 import CopyPage from './CopyPage.astro';
 import GameOfLife from './GameOfLife.astro';
 import Lattice from './Lattice.astro';
-import Seal from './Seal.astro';
 const { mdPath } = Astro.props as { mdPath?: string };
 const year = new Date().getFullYear();
 ---
@@ -16,10 +15,7 @@ const year = new Date().getFullYear();
   </div>
   <div class="container footer-inner">
     <div class="footer-brand">
-      <div class="brand-row">
-        <a href="/" class="brand-mark">PS</a>
-        <Seal size={30} class="brand-seal" />
-      </div>
+      <a href="/" class="brand-mark">PS</a>
       <p class="muted">
         3x technical founder building AI-native products from Oslo, Norway.
       </p>

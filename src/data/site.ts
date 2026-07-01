@@ -62,7 +62,7 @@ export const impact = [
     kicker: 'Luminik',
     metric: '$6M+',
     unit: 'pipeline sourced for customers',
-    body: 'Founded a multi-agent platform that connects B2B event spend to revenue. I closed the first contract at $48K before the product existed, by running the workflow by hand.',
+    body: 'Founded a multi-agent platform that connects B2B event spend to revenue. I closed the first contract at $48K before the product existed, by running the workflow with scripts, spreadsheets and decks.',
     tags: ['Multi-agent', '$48K pre-product', 'Founder & CEO'],
     accent: 'violet',
   },
@@ -163,12 +163,12 @@ export const approach = [
     body: 'I work next to the people who have the problem, so the product comes from what they do day to day.',
   },
   {
-    n: '03',
+    n: '02',
     title: 'Earn trust before production',
     body: 'The real work is the cases that break: evals, a judge I have calibrated, and adversarial tests, so I know how a system behaves before customers see it.',
   },
   {
-    n: '06',
+    n: '03',
     title: 'Stay hands-on',
     body: 'I write the code, review it, and read what the system produces in the wild. This kind of work does not lead well from a distance.',
   },
