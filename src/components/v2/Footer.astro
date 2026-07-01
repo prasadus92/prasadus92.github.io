@@ -1,3 +1,10 @@
+---
+// v2 footer. Grouped into Explore / More / Building / Elsewhere (mirrors v1),
+// with a working "For AI" utility row (copy page as markdown, view .md, ask AI).
+// mdPath is optional: when omitted, the client resolves the markdown URL from the
+// current path so the row works on every v2 page without threading a prop through.
+const { mdPath } = Astro.props as { mdPath?: string };
+---
 <footer class="foot">
     <div class="container">
       <div class="foot-top">
@@ -7,14 +14,20 @@
         </div>
         <div class="foot-cols">
           <nav class="foot-col">
-            <h4>Navigate</h4>
+            <h4>Explore</h4>
             <a href="/v2#track">Impact</a>
             <a href="/v2#experience">Work</a>
+            <a href="/v2/ai-enablement">AI enablement</a>
             <a href="/v2/story">Story</a>
             <a href="/v2/blog">Writing</a>
-            <a href="/v2/ai-enablement">AI enablement</a>
             <a href="/v2/glossary">Glossary</a>
-            <a href="/v2/contact">Contact</a>
+          </nav>
+          <nav class="foot-col">
+            <h4>More</h4>
+            <a href="/v2/book">Book a call</a>
+            <a href="/v2#contact">Contact</a>
+            <a href="/rss.xml">RSS</a>
+            <a href="/sitemap-index.xml">Sitemap</a>
           </nav>
           <nav class="foot-col">
             <h4>Building</h4>
@@ -30,11 +43,11 @@
           </nav>
         </div>
       </div>
-      <div class="foot-ai">
+      <div class="foot-ai" data-md={mdPath}>
         <span class="foot-ai-label">For AI</span>
         <button class="foot-ai-btn" id="copy-page" type="button">Copy page</button>
-        <button class="foot-ai-btn" type="button">Markdown</button>
-        <button class="foot-ai-btn" type="button">Ask AI</button>
+        <a class="foot-ai-btn" id="md-link" href={mdPath ?? '#'} target="_blank" rel="noopener">Markdown</a>
+        <a class="foot-ai-btn" id="ask-ai" href="#" target="_blank" rel="noopener">Ask AI</a>
       </div>
       <div class="foot-bottom">
         <span class="foot-meta">© 2026 Prasad Subrahmanya. Built in Oslo, Norway. · DataRavel Inc. · Brevv Ventures OÜ</span>
@@ -46,3 +59,77 @@
       </div>
     </div>
   </footer>
+
+  <script is:inline>
+    // Wire the footer "For AI" row on every v2 page. The markdown URL is either
+    // passed in (data-md) or resolved from the current v2 path; the v2 pages share
+    // v1's .md routes (e.g. /v2/blog/foo -> /blog/foo.md, /v2 -> /index.md).
+    (function () {
+      const row = document.querySelector('.foot-ai');
+      if (!row) return;
+      const copyBtn = document.getElementById('copy-page');
+      const mdLink = document.getElementById('md-link');
+      const askLink = document.getElementById('ask-ai');
+
+      const resolveMd = () => {
+        const explicit = row.getAttribute('data-md');
+        if (explicit) return explicit;
+        const p = location.pathname.replace(/\/+$/, '');
+        if (p === '/v2' || p === '') return '/index.md';
+        const m = p.match(/^\/v2\/blog\/(.+)$/);
+        if (m) return '/blog/' + m[1] + '.md';
+        // static v2 pages that have a matching v1 .md route
+        const known = ['story', 'contact', 'book'];
+        const seg = p.replace(/^\/v2\//, '');
+        if (known.includes(seg)) return '/' + seg + '.md';
+        return null; // no dedicated markdown (e.g. blog index, glossary, privacy)
+      };
+
+      const md = resolveMd();
+      const origin = location.origin;
+
+      if (md) {
+        if (mdLink) mdLink.setAttribute('href', md);
+        if (askLink) {
+          const prompt = encodeURIComponent('Read ' + origin + md + ' and summarize it.');
+          askLink.setAttribute('href', 'https://chatgpt.com/?q=' + prompt);
+        }
+      } else {
+        // No markdown for this page: fall back to summarizing the live URL.
+        if (mdLink) mdLink.style.display = 'none';
+        if (askLink) {
+          const prompt = encodeURIComponent('Read ' + location.href + ' and summarize it.');
+          askLink.setAttribute('href', 'https://chatgpt.com/?q=' + prompt);
+        }
+      }
+
+      if (copyBtn) {
+        copyBtn.addEventListener('click', async () => {
+          const done = () => {
+            const l = copyBtn.textContent;
+            copyBtn.textContent = 'Copied';
+            copyBtn.style.borderColor = '#E5241C';
+            setTimeout(() => {
+              copyBtn.textContent = l;
+              copyBtn.style.borderColor = '';
+            }, 1600);
+          };
+          try {
+            let text;
+            if (md) {
+              const res = await fetch(md);
+              text = await res.text();
+            } else {
+              const main = document.querySelector('main') || document.querySelector('.post') || document.body;
+              text = main.innerText.replace(/\n{3,}/g, '\n\n').trim();
+            }
+            await navigator.clipboard.writeText(text);
+            done();
+          } catch (e) {
+            copyBtn.textContent = 'Copy failed';
+            setTimeout(() => { copyBtn.textContent = 'Copy page'; }, 1600);
+          }
+        });
+      }
+    })();
+  </script>

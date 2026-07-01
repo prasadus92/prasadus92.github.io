@@ -35,12 +35,13 @@ const related = (post.data.related ?? [])
     updatedDate={post.data.updatedDate}
     category={post.data.category}
     readingTime={post.data.readingTime}
+    slug={post.id}
     faq={post.data.faq}
     related={related}
   >
     <Content />
   </Post>
-  <Footer />
+  <Footer mdPath={`/blog/${post.id}.md`} />
   <script is:inline>
     // reading progress bar
     (function () {
@@ -53,28 +54,6 @@ const related = (post.data.related ?? [])
       window.addEventListener('scroll', upd, { passive: true });
       window.addEventListener('resize', upd);
       upd();
-    })();
-
-    // copy the article text for pasting into an LLM
-    (function () {
-      const btn = document.getElementById('copy-page');
-      if (!btn || !navigator.clipboard) return;
-      btn.addEventListener('click', () => {
-        const art = document.querySelector('.post');
-        const text = (art ? art.innerText : document.body.innerText).replace(/\n{3,}/g, '\n\n').trim();
-        navigator.clipboard
-          .writeText(text)
-          .then(() => {
-            const l = btn.textContent;
-            btn.textContent = 'Copied';
-            btn.style.borderColor = '#E5241C';
-            setTimeout(() => {
-              btn.textContent = l;
-              btn.style.borderColor = '';
-            }, 1600);
-          })
-          .catch(() => {});
-      });
     })();
   </script>
   <script is:inline type="module">

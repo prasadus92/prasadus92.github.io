@@ -60,9 +60,10 @@ import Footer from "../../components/v2/Footer.astro";
           <p class="ship-note" id="ship-note">This is just the public footprint. Most product and client work ships in private repos.</p>
         </div>
 
-        <div class="stats reveal">
+        <div class="stats stats-4 reveal">
           <div class="stat"><div class="lbl">Customer pipeline</div><div class="big" data-count="6" data-prefix="$" data-suffix="M+" data-dec="0">$6M+</div><p>Pipeline sourced for customers at Luminik, connecting B2B event spend to real revenue.</p></div>
           <div class="stat"><div class="lbl">Aura · Bain</div><div class="big" data-count="3.6" data-prefix="$" data-suffix="M" data-dec="1">$3.6M</div><p>ARR built from zero in 15 months as venture CTO, used by top private equity and growth firms.</p></div>
+          <div class="stat"><div class="lbl">RSA 2026 · live</div><div class="big" data-count="8" data-suffix="%" data-dec="0">8%</div><p>Lead-to-opportunity from 43,000 registered attendees to 1,840 ICP matches, up from 1.3% the year before, roughly 6x.</p></div>
           <div class="stat"><div class="lbl">Technical founder</div><div class="big" data-count="3" data-suffix="×" data-dec="0">3×</div><p>Founded Luminik, SnowOptix, and Mainteny. Hands-on from first commit to scaled team.</p></div>
         </div>
       </div>
@@ -100,12 +101,14 @@ import Footer from "../../components/v2/Footer.astro";
           <p class="lead">Where I build, by area. Real tools, running in production.</p>
         </div>
         <div class="skills-bento reveal">
-          <div class="skill-cell wide"><span class="n">01</span><h3>AI-native engineering</h3><p>Autonomous agent fleets (Alfred), Claude Code + Codex, Anthropic + OpenAI SDKs, LangGraph, MCP, multi-agent orchestration.</p></div>
-          <div class="skill-cell"><span class="n">02</span><h3>Retrieval &amp; memory</h3><p>Vector databases (pgvector), embeddings, hybrid retrieval, Redis agent memory, context engineering, reviewable promotion gates.</p></div>
-          <div class="skill-cell"><span class="n">03</span><h3>Evals &amp; benchmarking</h3><p>LLM-as-judge gates, Langfuse, classifiers, structured multi-axis review, adversarial suites.</p></div>
-          <div class="skill-cell"><span class="n">04</span><h3>Observability &amp; reliability</h3><p>Langfuse tracing, OpenTelemetry, Sentry, spend and failure telemetry, fleet health loops.</p></div>
-          <div class="skill-cell"><span class="n">05</span><h3>Distributed systems</h3><p>Hatchet, Temporal, FastAPI, Pydantic, Quarkus + Kotlin, Postgres, AWS.</p></div>
-          <div class="skill-cell wide"><span class="n">06</span><h3>Product &amp; platform</h3><p>Next.js, React + TypeScript, Expo, Tauri, Nango, Terraform, Playwright.</p></div>
+          <div class="skill-cell wide"><span class="n">01</span><h3>Agentic systems</h3><p>Multi-agent orchestration, autonomous agent fleets (Alfred), LangGraph, MCP, tool use and planning.</p></div>
+          <div class="skill-cell"><span class="n">02</span><h3>RAG &amp; memory</h3><p>Vector DBs, embeddings, hybrid and semantic search, context engineering, agent memory.</p></div>
+          <div class="skill-cell"><span class="n">03</span><h3>Evals &amp; guardrails</h3><p>LLM-as-judge, eval harnesses, benchmarking, red-teaming, adversarial tests, safety gates.</p></div>
+          <div class="skill-cell"><span class="n">04</span><h3>LLMOps &amp; reliability</h3><p>Tracing (Langfuse), OpenTelemetry, cost and latency control, failure handling, durable execution.</p></div>
+          <div class="skill-cell"><span class="n">05</span><h3>Applied ML &amp; model work</h3><p>RL and reward design, prompt and context engineering, fine-tuning, multi-model routing (Vertex, OpenAI, Anthropic).</p></div>
+          <div class="skill-cell wide"><span class="n">06</span><h3>Distributed systems</h3><p>Microservices and SOA, event-driven and async services (asyncio, aiohttp), FastAPI, Django, Spring Boot + Kotlin, Kubernetes, Kafka.</p></div>
+          <div class="skill-cell"><span class="n">07</span><h3>Full-stack &amp; mobile</h3><p>Next.js, React, TypeScript, React Native and Expo, Tauri, end to end from data model to UI.</p></div>
+          <div class="skill-cell"><span class="n">08</span><h3>Cloud &amp; data platform</h3><p>AWS, Terraform, Snowflake, data pipelines and warehousing, Postgres, CI/CD.</p></div>
         </div>
       </div>
     </section>
@@ -149,13 +152,13 @@ import Footer from "../../components/v2/Footer.astro";
           </div>
           <div class="exp reveal">
             <div><div class="exp-co">Aura · Bain &amp; Company</div><div class="exp-role">Venture CTO</div></div>
-            <div class="exp-body"><p>Took a PE due-diligence SaaS platform from concept to $3.6M ARR in 15 months. Owned product, architecture, and the engineering team. Some of the largest names in growth equity and private equity ran their diligence on it.</p>
-              <div class="tags"><span class="tag">Enterprise SaaS</span><span class="tag">AWS</span><span class="tag">PE &amp; growth equity</span><span class="tag">Team leadership</span></div></div>
+            <div class="exp-body"><p>Took a workforce-analytics SaaS platform, used heavily in PE and growth-equity due diligence, from concept to $3.6M ARR in 15 months. Owned product, architecture, and the engineering team, and built the data infrastructure: a medallion warehouse on Snowflake with a Cube.js semantic layer, plus Lightcast and BLS taxonomies for comparable workforce data.</p>
+              <div class="tags"><span class="tag">Enterprise SaaS</span><span class="tag">Snowflake</span><span class="tag">AWS</span><span class="tag">PE &amp; growth equity</span><span class="tag">Team leadership</span></div></div>
             <div class="exp-date">Nov 2022 – Dec 2023</div>
           </div>
           <div class="exp reveal">
             <div><div class="exp-co">Mainteny</div><div class="exp-role">Co-founder &amp; CTO</div></div>
-            <div class="exp-body"><p>Field-service management SaaS for maintenance companies across Europe. Built and launched the MVP solo in 3 months, raised a $2.7M seed, and scaled the team to 15 across four countries.</p>
+            <div class="exp-body"><p>Field-service management SaaS for maintenance companies across Europe. Built and launched the MVP solo in 3 months, the work helped raise a $2.7M seed, and the team scaled to about 15 across five countries.</p>
               <div class="tags"><span class="tag">Spring Boot</span><span class="tag">Kubernetes</span><span class="tag">$2.7M seed</span><span class="tag">CRM</span></div></div>
             <div class="exp-date">Aug 2020 – Oct 2022</div>
           </div>
@@ -223,7 +226,7 @@ import Footer from "../../components/v2/Footer.astro";
       </div>
     </section>
   </main>
-  <Footer />
+  <Footer mdPath="/index.md" />
   <script is:inline>
 
     const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.12,rootMargin:'0px 0px -7% 0px'});
@@ -322,20 +325,5 @@ import Footer from "../../components/v2/Footer.astro";
         })
         .catch(()=>{ const ship=document.querySelector('.ship'); if(ship) ship.remove(); });
     })();
-
-    // footer: copy the page's text content for pasting into an LLM
-    (function(){
-      const btn=document.getElementById('copy-page');
-      if(!btn||!navigator.clipboard) return;
-      btn.addEventListener('click',()=>{
-        const main=document.querySelector('main');
-        const text=(main?main.innerText:document.body.innerText).replace(/\n{3,}/g,'\n\n').trim();
-        navigator.clipboard.writeText(text).then(()=>{
-          const label=btn.textContent; btn.textContent='Copied'; btn.style.borderColor='#E5241C';
-          setTimeout(()=>{ btn.textContent=label; btn.style.borderColor=''; },1600);
-        }).catch(()=>{});
-      });
-    })();
-  
   </script>
 </V2Layout>
