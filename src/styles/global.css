@@ -369,9 +369,11 @@ html.js .reveal.in {
   border: 1px solid var(--glass-border);
   box-shadow: var(--shadow-lg);
 }
+.prose .story-photo figcaption,
 .story-photo figcaption {
   font-family: var(--font-mono);
   font-size: 0.7rem;
+  text-align: left;
   letter-spacing: var(--tracking-wide);
   color: var(--text-tertiary);
 }
@@ -398,11 +400,13 @@ html.js .reveal.in {
   border: 1px solid var(--glass-border);
   box-shadow: var(--shadow-sm);
 }
+.prose .story-collage figcaption,
 .story-collage figcaption {
   grid-column: 1 / -1;
   margin-top: var(--sp-1);
   font-family: var(--font-mono);
   font-size: 0.7rem;
+  text-align: left;
   letter-spacing: var(--tracking-wide);
   color: var(--text-tertiary);
 }
