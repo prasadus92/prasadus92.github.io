@@ -187,6 +187,8 @@
   background: var(--glass-bg-strong);
   border: 1px solid var(--glass-border);
   color: var(--ink);
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 .prose pre {
   margin-block: 1.5em;

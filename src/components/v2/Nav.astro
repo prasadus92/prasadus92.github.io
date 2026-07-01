@@ -1,12 +1,32 @@
-<header class="nav">
+<header class="nav" id="v2nav">
     <div class="nav-in">
       <a class="brand" href="/v2"><span class="sq"></span><b>PRASAD&nbsp;SUBRAHMANYA</b></a>
-      <nav class="nav-links">
+      <nav class="nav-links" id="v2navlinks">
         <a href="/v2#track">Track record</a>
         <a href="/v2#experience">Work</a>
         <a href="/v2/story">Story</a>
         <a href="/v2/blog">Writing</a>
         <a class="btn red nav-cta" href="/v2/contact">Get in touch</a>
       </nav>
+      <button class="nav-burger" aria-label="Open menu" aria-expanded="false" aria-controls="v2navlinks">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </header>
+  <script>
+    (() => {
+      const nav = document.getElementById('v2nav');
+      if (!nav) return;
+      const burger = nav.querySelector('.nav-burger');
+      const links = nav.querySelectorAll('.nav-links a');
+      if (!burger) return;
+      const setOpen = (open) => {
+        nav.classList.toggle('open', open);
+        burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+        burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      };
+      burger.addEventListener('click', () => setOpen(!nav.classList.contains('open')));
+      links.forEach((a) => a.addEventListener('click', () => setOpen(false)));
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setOpen(false); });
+    })();
+  </script>
