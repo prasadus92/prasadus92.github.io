@@ -106,7 +106,7 @@ What they care about: do you understand the market deeply enough to have a contr
 
 The investors who got excited were not impressed by our TAM number. They were impressed that we could explain how maintenance companies actually work, day to day, better than they had heard before.
 
-That came from going to the field. Early on I rode along on real maintenance calls. At a small Oslo elevator-maintenance company, a technician took me to a training center with real lift cars, and I stood on top of an elevator car in safety gear watching the work. I learned that buildings have a dedicated elevator room with the controller and the electrical circuits, the kind of detail you only get by being there. The owner became one of our development partners. When an investor asked how technicians really spend their day, I was not guessing.
+That came from going to the field. Early on I rode along on real maintenance calls. At a small Oslo elevator-maintenance company, a technician named Jonas took me to a training center with real lift cars, and I stood on top of an elevator car in safety gear watching the work. I learned that buildings have a dedicated elevator room with the controller and the electrical circuits, the kind of detail you only get by being there. Lian Heis, who ran the company, became one of our development partners. When an investor asked how technicians really spend their day, I was not guessing.
 
 ### Team
 
