@@ -277,8 +277,18 @@ export const skills = [
     items: 'RL and reward design, prompt and context engineering, fine-tuning, multi-model routing (Vertex, OpenAI, Anthropic)',
   },
   {
+    icon: 'lucide:network',
+    title: 'Distributed systems',
+    items: 'Microservices and SOA, event-driven and async services (asyncio, aiohttp), FastAPI, Django, Spring Boot + Kotlin, Kubernetes, Kafka',
+  },
+  {
     icon: 'lucide:layout-grid',
-    title: 'AI product & data platform',
-    items: 'Full-stack (Next.js, React, TypeScript), data pipelines and warehouses (Snowflake), FastAPI, AWS, Terraform',
+    title: 'Full-stack & mobile',
+    items: 'Next.js, React, TypeScript, React Native and Expo, Tauri, end to end from data model to UI',
+  },
+  {
+    icon: 'lucide:cloud',
+    title: 'Cloud & data platform',
+    items: 'AWS, Terraform, Snowflake, data pipelines and warehousing, Postgres, CI/CD',
   },
 ] as const;

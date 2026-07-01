@@ -8,8 +8,8 @@ import { skills } from '../data/site';
   <div class="container">
     <SectionHeader
       eyebrow="Skills"
-      title="What I'm <span class='grad-text'>AI-native</span> at."
-      lead="Drawn from what I'm shipping at Luminik and Alfred."
+      title="What I <span class='grad-text'>build</span> with."
+      lead="AI-native, and the systems under it. Drawn from what I'm shipping at Luminik and Alfred."
     />
 
     <div class="skills-grid">
@@ -33,7 +33,7 @@ import { skills } from '../data/site';
 <style>
   .skills-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
     gap: var(--grid-gap);
   }
   .skill {
