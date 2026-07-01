@@ -3,6 +3,7 @@ import '../styles/global.css';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import Analytics from '../components/Analytics.astro';
+import PostHog from '../components/PostHog.astro';
 import CookieConsent from '../components/CookieConsent.astro';
 import { site } from '../data/site';
 
@@ -145,6 +146,7 @@ const siteLd = {
 
     <!-- Analytics (consent-gated; see Analytics.astro + CookieConsent.astro) -->
     <Analytics />
+    <PostHog />
   </head>
   <body>
     <a href="#main" class="skip-link">Skip to content</a>
