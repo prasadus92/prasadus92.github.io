@@ -30,7 +30,7 @@ faq:
 
 Two terms first, since the whole thing rests on them.
 
-- A **token** is the unit a language model generates. Not a word and not a character, but a chunk of text the model emits one at a time, like `" stream"` or `"ing"`. A model does not write a sentence and hand it over. It produces token, then next token, then next, each conditioned on everything before it.
+- A **token** is the unit a language model generates: a chunk of text the model emits one at a time, like `" stream"` or `"ing"`. It sits between a character and a word. A model does not write a sentence and hand it over. It produces token, then next token, then next, each conditioned on everything before it.
 - **Streaming** means forwarding each token to the reader the instant it is produced, instead of buffering the whole answer and sending it at the end.
 
 That is the entire idea. Everything below is the engineering around it.

@@ -23,7 +23,7 @@ faq:
 
 If ["idempotent"](/glossary) is a new word, here is the whole idea in one image. A light switch is idempotent in the "on" position: flip it to on once or flip it to on five times, the light is on either way. A doorbell is not: press it five times and five chimes ring. When you cannot control how many times an event reaches you, you want every operation to behave like setting the switch to on, not like ringing the bell. The rest of this post is that idea applied to data you do not own. The math word for it is a function where `f(f(x)) = f(x)`: applying it again changes nothing.
 
-I built a wearables data platform last year. The whole job, stripped down, was to take heart rate, HRV, breathing rate and blood oxygen out of WHOOP, Oura, Garmin and Apple Watch and put clean time series in front of a user. I did not talk to those devices directly. I went through Junction, an aggregator that normalizes the vendor APIs and pushes data to me over webhooks. Open-source options like OpenWearables.io do the same job now.
+I built a wearables data platform last year. The whole job, stripped down, was to take heart rate, HRV, breathing rate and blood oxygen out of WHOOP, Oura, Garmin and Apple Watch and put clean time series in front of a user. I did not talk to those devices directly. I went through an aggregator that normalizes the vendor APIs and pushes data to me over webhooks. Open-source equivalents do the same job now.
 
 I spent the first week trying to make the incoming data clean. That was the wrong week. You do not get to make other people's data clean. You get to decide whether your system is correct regardless of how dirty the delivery is. The primitive that buys you that is idempotency, and once I put it at the center instead of the edge, most of the problems I had been treating as separate turned out to be the same problem.
 
@@ -31,13 +31,13 @@ I spent the first week trying to make the incoming data clean. That was the wron
 
 Here is what I do not control when I depend on a vendor's webhooks and APIs.
 
-- Delivery count. Junction delivers [at least once](https://en.wikipedia.org/wiki/Reliability_(computer_networking)). The same event arrives twice when an ack is slow.
+- Delivery count. The aggregator delivers [at least once](https://en.wikipedia.org/wiki/Reliability_(computer_networking)). The same event arrives twice when an ack is slow.
 - Ordering. An `updated` event can land before the `created` it updates.
 - Completeness. A `historical.data` event is a notification with no data in it. I have to go pull the data myself over REST.
 - Timing. Late events show up hours after the reading they describe.
 - Replay. There is no button on the vendor side that says "send me last Tuesday again." If I lose an event, it is gone.
 
-The receiver has a hard constraint on top of all that. Junction retries 8 times with a 15 second timeout and disables an endpoint that keeps failing. So I cannot do real work in the request. If I try to parse a multi-megabyte heart-rate batch inline, I miss the window, the retry doubles my load, and eventually the endpoint goes dark and I stop receiving anything.
+The receiver has a hard constraint on top of all that. The aggregator retries 8 times with a 15 second timeout and disables an endpoint that keeps failing. So I cannot do real work in the request. If I try to parse a multi-megabyte heart-rate batch inline, I miss the window, the retry doubles my load, and eventually the endpoint goes dark and I stop receiving anything.
 
 The instinct is to fight each of these. Order the events. Detect duplicates. Wait for completeness. I tried. Every guard I wrote assumed something about delivery that the next provider broke. WHOOP reports sleep differently from Oura. A real ring delivers heart rate inside a nightly sleep summary; the demo data delivers it as a standalone resource. The delivery shape is not a thing you can pin down, because there is no single sender.
 
@@ -49,7 +49,7 @@ The architecture is three moves.
 
 ```mermaid
 flowchart LR
-    JW[Junction webhook] -->|signed event| RCV[Webhook receiver]
+    JW[Aggregator webhook] -->|signed event| RCV[Webhook receiver]
     RCV -->|1. verify + persist raw| DB[("webhook_events
     raw payload")]
     RCV -->|2. enqueue| Q[(Redis queue)]
@@ -58,7 +58,7 @@ flowchart LR
     WK -->|normalize| WK
     WK -->|idempotent upsert
     on natural key| S[("samples")]
-    WK -->|backfill pull| JAPI[Junction REST]
+    WK -->|backfill pull| JAPI[Aggregator REST]
     JAPI --> WK
 ```
 
