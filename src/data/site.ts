@@ -54,7 +54,7 @@ export const impact = [
     kicker: 'Aura · Bain & Company',
     metric: '$3.6M',
     unit: 'ARR, from zero in 15 months',
-    body: 'A workforce-analytics platform used in PE and growth-equity due diligence. I built it as venture CTO and owned the data infrastructure it ran on.',
+    body: 'Built a workforce-analytics platform used heavily in PE and growth-equity due diligence, as venture CTO, and took it from zero to $3.6M ARR in 15 months. I owned the data infrastructure it ran on, and moved the warehouse to Snowflake as the analytical load grew.',
     tags: ['0→1', 'Enterprise SaaS', 'PE & growth equity'],
     accent: 'magenta',
   },
@@ -70,7 +70,7 @@ export const impact = [
     kicker: 'Luminik · live results',
     metric: '8%',
     unit: 'lead-to-opportunity at RSA 2026',
-    body: 'From 43,200 registered attendees to 1,840 ICP matches and meetings booked on the floor, up from 1.3% lead-to-opportunity the year before.',
+    body: 'From 43,200 registered attendees to 1,840 ICP matches and meetings booked on the floor. Lead-to-opportunity reached 8%, up from 1.3% the year before.',
     tags: ['$2.4M RSA pipeline', '$2.0M Money20/20'],
     accent: 'amber',
   },
@@ -129,7 +129,7 @@ export const work = [
     company: 'Aura · Bain & Company',
     role: 'Venture CTO',
     period: 'Nov 2022 to Dec 2023',
-    body: 'Took a workforce-analytics SaaS platform, used heavily in PE and growth-equity due diligence, from concept to $3.6M ARR in 15 months. Owned product, architecture, and the engineering team, and built the data infrastructure: a medallion warehouse on Snowflake with a Cube.js semantic layer.',
+    body: 'Took a workforce-analytics SaaS platform, used heavily in PE and growth-equity due diligence, from concept to $3.6M ARR in 15 months. Owned product, architecture, and the engineering team, and built the data infrastructure: a medallion warehouse on Snowflake with a Cube.js semantic layer, plus Lightcast and BLS taxonomies for comparable workforce data.',
     tags: ['Enterprise SaaS', 'Snowflake', 'AWS', 'PE & growth equity', 'Team leadership'],
     href: null,
     icon: 'lucide:landmark',
@@ -248,36 +248,37 @@ export const journey = [
 export const positioning =
   "I'm open to senior roles where engineering meets outcomes: Head of AI, Head of Engineering, Founding CTO, and Director or VP of Engineering at startups, and senior engineering or architect roles at larger companies. I also take a small number of advisory engagements.";
 
-// AI-native skills (fact-checked against the Luminik + Alfred codebases)
+// AI-native skills. Positioned for the full stack of building AI that ships,
+// not a literal repo inventory.
 export const skills = [
   {
     icon: 'lucide:bot',
-    title: 'AI-native engineering',
-    items: 'Autonomous agent fleets (Alfred), Claude Code + Codex, Anthropic + OpenAI SDKs, MCP',
+    title: 'Agentic systems',
+    items: 'Multi-agent orchestration, autonomous agent fleets (Alfred), LangGraph, MCP, tool use and planning',
   },
   {
     icon: 'lucide:database',
-    title: 'Retrieval & memory',
-    items: 'pgvector, embeddings, hybrid retrieval, Redis agent memory',
+    title: 'RAG & memory',
+    items: 'Vector DBs, embeddings, hybrid and semantic search, context engineering, agent memory',
   },
   {
     icon: 'lucide:gauge',
-    title: 'Evals & benchmarking',
-    items: 'LLM-as-judge gates, Langfuse, classifiers, adversarial suites',
+    title: 'Evals & guardrails',
+    items: 'LLM-as-judge, eval harnesses, benchmarking, red-teaming, adversarial tests, safety gates',
   },
   {
     icon: 'lucide:activity',
-    title: 'AI observability & reliability',
-    items: 'Langfuse tracing, OpenTelemetry, Sentry, spend and failure telemetry',
+    title: 'LLMOps & reliability',
+    items: 'Tracing (Langfuse), OpenTelemetry, cost and latency control, failure handling, durable execution',
   },
   {
-    icon: 'lucide:server',
-    title: 'Distributed systems & workflows',
-    items: 'Hatchet, Temporal, FastAPI, Pydantic, Quarkus + Kotlin, Postgres, AWS',
+    icon: 'lucide:cpu',
+    title: 'Applied ML & model work',
+    items: 'RL and reward design, prompt and context engineering, fine-tuning, multi-model routing (Vertex, OpenAI, Anthropic)',
   },
   {
     icon: 'lucide:layout-grid',
-    title: 'Product & platform engineering',
-    items: 'Next.js, React + TypeScript, Expo, Tauri, Nango, Terraform, Playwright',
+    title: 'AI product & data platform',
+    items: 'Full-stack (Next.js, React, TypeScript), data pipelines and warehouses (Snowflake), FastAPI, AWS, Terraform',
   },
 ] as const;
