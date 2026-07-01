@@ -59,7 +59,10 @@ const year = new Date().getFullYear();
     )
   }
   <div class="container footer-base">
-    <p class="muted">© {year} {site.name}. Built in Oslo, Norway.</p>
+    <div class="footer-base-copy">
+      <p class="muted">© {year} {site.name}. Built in Oslo, Norway.</p>
+      <p class="foot-entities">DataRavel Inc. · Brevv Ventures OÜ</p>
+    </div>
     <div class="footer-social">
       <a href={site.links.linkedin} target="_blank" rel="noopener" aria-label="LinkedIn"
         ><Icon name="linkedin" size={18} /></a
@@ -169,6 +172,13 @@ const year = new Date().getFullYear();
     padding-bottom: var(--sp-7);
     border-top: 1px solid var(--glass-border);
     font-size: 0.88rem;
+  }
+  .foot-entities {
+    margin-top: 4px;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: var(--tracking-wide);
+    color: var(--text-tertiary);
   }
   .footer-social {
     display: flex;
