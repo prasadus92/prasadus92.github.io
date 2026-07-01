@@ -12,7 +12,7 @@ Most fundraising advice comes from people who raised money in 2021, when VCs han
 
 I co-founded Mainteny and was the CTO through our seed raise. The process took six months and more rejections than I want to count. The work my co-founder and I did in that period helped raise a \$2.7M seed. I ran the technical half of it: the product demo, the technical due diligence, and the "why this team can build it" story. Here is what I learned.
 
-I have since gone through the other side of this again, raising for DataRavel, the company my co-founder and I are building now. Some of the outreach in this post is from that raise, anonymized. The mechanics are the same; only the market changed.
+I have since gone through the other side of this again, raising for the company my co-founder and I are building now. Some of the outreach in this post is from that raise, lightly anonymized. The mechanics are the same; only the market changed.
 
 ## The time cost
 
@@ -50,17 +50,17 @@ The worst thing you can do is send the same email to a list of investors. A mail
 
 What have they invested in? What do they write about? What is their thesis? Connect those dots, and then give them one specific hook and a small ask.
 
-Here is a cold email that got a same-day reply, from my DataRavel raise. The partner had written back to me once on LinkedIn, so this is barely warm, but the structure is the same one I use cold.
+Here is a cold email that got a same-day reply. The partner had written back to me once on LinkedIn, so this is barely warm, but the structure is the same one I use cold.
 
 <div class="email-example">
 
-**Subject:** DataRavel, the data infra command center (your data portfolio)
+**Subject:** 5 design partners, ~$8K MRR: data infra without a DevOps hire
 
 Hi \[Name\],
 
 Many thanks for writing back on LinkedIn. I have been following \[fund\] and kept noticing how many of your portfolio companies live in the data space, so you are exactly the kind of investor I wanted to reach.
 
-My co-founder and I are building DataRavel, an AI command center that makes managing and building data infrastructure easy: cost control, observability, and governance bundled with ready-made integrations, so a team gets a handle on its data stack without DevOps skills.
+My co-founder and I are building an AI command center that makes managing and building data infrastructure easy: cost control, observability, and governance bundled with ready-made integrations, so a team gets a handle on its data stack without DevOps skills.
 
 Where we are:
 
@@ -76,9 +76,9 @@ Prasad
 
 </div>
 
-He replied the same day: one of his portfolio founders had gone through his accelerator, he wanted to learn more about DataRavel, and he sent his calendar link.
+He replied the same day: one of his portfolio founders had gone through his accelerator, he wanted to learn more, and he sent his calendar link.
 
-Why it works, line by line. The subject names the company and the one thing about his portfolio that made me write to him, not a generic hook. The first paragraph proves I looked at what he actually funds. The "where we are" block is three honest facts, not a pitch: real design partners, a real prototype, and the specific reason my co-founder and I can build this. The ask is small and it hands him the decision, and I told him exactly what I wanted help with, which gives an investor a role beyond writing a check. No hype words, no fake urgency, no flattery he would see through.
+Why it works, line by line. The subject leads with two numbers a data investor cannot skim past, not a generic hook. The first paragraph proves I looked at what he actually funds. The "where we are" block is three honest facts, not a pitch: real design partners, a real prototype, and the specific reason my co-founder and I can build this. The ask is small and it hands him the decision, and I told him exactly what I wanted help with, which gives an investor a role beyond writing a check. No hype words, no fake urgency, no flattery he would see through.
 
 ### LinkedIn often works better
 
