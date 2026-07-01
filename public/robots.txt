@@ -2,3 +2,6 @@ User-agent: *
 Allow: /
 
 Sitemap: https://prasad.tech/sitemap-index.xml
+
+# LLM-friendly index of this site (llms.txt convention):
+# https://prasad.tech/llms.txt  (full text: https://prasad.tech/llms-full.txt)

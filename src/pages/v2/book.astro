@@ -53,7 +53,13 @@ import Footer from '../../components/v2/Footer.astro';
           config: { layout: 'month_view', theme: 'light', duration: '20' },
           calLink: 'meet-prasad/intro-chat',
         });
-        Cal.ns.intro('ui', { hideEventTypeDetails: false, layout: 'month_view', theme: 'light' });
+        Cal.ns.intro('ui', {
+          hideEventTypeDetails: false,
+          layout: 'month_view',
+          theme: 'light',
+          // Match the v2 Swiss palette: red accent on the calendar and buttons.
+          cssVarsPerTheme: { light: { 'cal-brand': '#e5241c' } },
+        });
       }
       if ('IntersectionObserver' in window) {
         const io = new IntersectionObserver((entries) => {

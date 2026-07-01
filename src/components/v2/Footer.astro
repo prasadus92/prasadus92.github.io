@@ -47,7 +47,8 @@ const { mdPath } = Astro.props as { mdPath?: string };
         <span class="foot-ai-label">For AI</span>
         <button class="foot-ai-btn" id="copy-page" type="button">Copy page</button>
         <a class="foot-ai-btn" id="md-link" href={mdPath ?? '#'} target="_blank" rel="noopener">Markdown</a>
-        <a class="foot-ai-btn" id="ask-ai" href="#" target="_blank" rel="noopener">Ask AI</a>
+        <a class="foot-ai-btn" id="ask-ai" href="#" target="_blank" rel="noopener">ChatGPT</a>
+        <a class="foot-ai-btn" id="ask-claude" href="#" target="_blank" rel="noopener">Claude</a>
       </div>
       <div class="foot-bottom">
         <span class="foot-meta">© 2026 Prasad Subrahmanya. Built in Oslo, Norway. · DataRavel Inc. · Brevv Ventures OÜ</span>
@@ -70,6 +71,7 @@ const { mdPath } = Astro.props as { mdPath?: string };
       const copyBtn = document.getElementById('copy-page');
       const mdLink = document.getElementById('md-link');
       const askLink = document.getElementById('ask-ai');
+      const askClaude = document.getElementById('ask-claude');
 
       const resolveMd = () => {
         const explicit = row.getAttribute('data-md');
@@ -88,19 +90,18 @@ const { mdPath } = Astro.props as { mdPath?: string };
       const md = resolveMd();
       const origin = location.origin;
 
+      const wireAsk = (prompt) => {
+        const q = encodeURIComponent(prompt);
+        if (askLink) askLink.setAttribute('href', 'https://chatgpt.com/?q=' + q);
+        if (askClaude) askClaude.setAttribute('href', 'https://claude.ai/new?q=' + q);
+      };
       if (md) {
         if (mdLink) mdLink.setAttribute('href', md);
-        if (askLink) {
-          const prompt = encodeURIComponent('Read ' + origin + md + ' and summarize it.');
-          askLink.setAttribute('href', 'https://chatgpt.com/?q=' + prompt);
-        }
+        wireAsk('Read ' + origin + md + ' and summarize it.');
       } else {
         // No markdown for this page: fall back to summarizing the live URL.
         if (mdLink) mdLink.style.display = 'none';
-        if (askLink) {
-          const prompt = encodeURIComponent('Read ' + location.href + ' and summarize it.');
-          askLink.setAttribute('href', 'https://chatgpt.com/?q=' + prompt);
-        }
+        wireAsk('Read ' + location.href + ' and summarize it.');
       }
 
       if (copyBtn) {

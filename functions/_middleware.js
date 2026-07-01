@@ -18,6 +18,12 @@ export const onRequest = async (context) => {
     return out;
   }
 
+  // Markdown, text and data files (/book.md, /llms.txt, /agents.md, /rss.xml,
+  // assets) are canonical and shared across both designs. Never bucket them, even
+  // though a browser sends Accept: text/html when you open one directly. Without
+  // this, a v2 visitor's /book.md resolves to the non-existent /v2/book.md and 404s.
+  if (/\.[a-z0-9]+$/i.test(path)) return next();
+
   // Only bucket real page navigations. Assets, data files, and non-GET pass through.
   const accept = request.headers.get('Accept') || '';
   const isPage = request.method === 'GET' && accept.includes('text/html');
@@ -49,6 +55,13 @@ export const onRequest = async (context) => {
     const twin = new URL(request.url);
     twin.pathname = p;
     res = await env.ASSETS.fetch(new Request(twin.toString(), { method: 'GET', headers: request.headers }));
+    // A missing v2 page must fall back to the v2-styled 404, not v1's.
+    if (res.status === 404) {
+      const nf = new URL(request.url);
+      nf.pathname = '/v2/404/index.html';
+      const nfRes = await env.ASSETS.fetch(new Request(nf.toString(), { method: 'GET', headers: request.headers }));
+      res = new Response(nfRes.body, { status: 404, headers: nfRes.headers });
+    }
   } else {
     res = await next();
   }
