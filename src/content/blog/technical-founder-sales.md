@@ -124,6 +124,14 @@ The specifics that have worked for me.
 - **Get comfortable with silence.** After you ask a question, wait. Do not fill the gap. Silence often prompts a prospect to share more than they planned.
 - **Record your calls, with permission, and review them.** You will notice the patterns: questions you ask poorly, moments you talked too much, objections you could have handled better. That is how the skill improves.
 
+## Build a small advisory board
+
+Early on you have no logos and no referrals, and that is the hardest part of founder-led sales. One lever that worked for me: a small advisory board of senior operators from the exact world we were selling into. We signed a handful on standard terms, 0.2% equity over a one-year cliff, and chose people who had personally run the function our product served.
+
+Three things came out of it. They advised on product and GTM from inside the problem, so we stopped guessing at what the buyer actually cared about. They opened their networks, which turned cold outreach into warm intros, and a warm intro from someone the buyer respects gets a reply that a cold note never will. And they lent us credibility we had not earned yet, which at the earliest stage is most of the game. Keep advisor discovery separate from customer discovery in your own head, though: an advisor is helping you build the thing, a customer is deciding whether to buy it, and blurring the two makes you hear what you want to hear.
+
+Be honest about the limits. Advisors open doors, but you still have to walk through them and run the call. Some are generous and active, others go quiet the week after they sign. It works best when your buyers are senior and network-driven, and it is never the whole engine. Treat it as one lever alongside your own outreach, not a substitute for it.
+
 ## When to keep selling, and when to hire
 
 The question every technical founder eventually hits: when do I stop doing sales myself and hire someone? The conventional answer is "as soon as possible," and I think that is wrong. The reason is first-principles: you cannot hire someone to execute a sales playbook that does not exist yet, and until you have sold enough yourself, the playbook does not exist.
@@ -161,5 +169,6 @@ The engineer who understands the product, asks thoughtful questions, gives hones
 - "I don't know, but I'll find out," plus fast follow-through, builds more trust than pretending to have every answer.
 - Demo less, talk more. A targeted 10-minute demo of the parts that fit their use case beats a 45-minute feature tour.
 - Do not rush to hire a rep. You cannot hand off a playbook that does not exist yet, so keep founder-led sales until you have a repeatable process, a stable ICP and price, and roughly 10 to 15 closed deals of your own.
+- A small advisory board of senior operators from your buyers' world can advise on product and GTM and turn cold outreach into warm intros. It is one lever, not the whole engine, and advisor discovery is not the same as customer discovery.
 
 These lessons come from Mainteny, Bain, and now Luminik. If you are a technical founder figuring out sales for the first time, I am happy to share what I have learned. Not a pitch, just a conversation between founders.
