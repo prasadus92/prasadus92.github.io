@@ -49,15 +49,15 @@ Here is what it looks like in practice. This is a LinkedIn message I sent a mark
 
 <div class="email-example">
 
-Hi \[Name\], you put real budget into conferences, and if your team is like most B2B teams, events drive 30 to 40% of pipeline. The hard part is proving it. Three things usually break: picking the conferences where your target accounts actually show up, getting meetings booked before you land, and tracking ROI and follow-ups so the spend holds up when finance asks.
+\[Name\], you put real budget into conferences, and for most B2B teams events drive 30 to 40% of pipeline. The hard part is proving it, so when finance asks what the spend returned, the honest answer is usually a shrug. Three things tend to break: picking the conferences where your target accounts actually show up, getting meetings booked before you land, and tracking ROI and follow-ups so the number holds up under that question.
 
 Which of those three is the messiest for you right now?
 
-For context, I am taking on a few design partners to fix exactly this. As a venture CTO at Bain I saw PE-backed teams 3 to 5x their event ROI once they got it right.
+For context, I take on a few design partners to fix exactly this. As a venture CTO at Bain I watched PE-backed teams 3 to 5x their event ROI once they got it right.
 
 </div>
 
-What made it land is what is missing from it: no product name, no calendar link, no "quick 15 minutes," and almost no "I." It opens on her spend, names the problem in her words, and asks which part hurts most. She replied, and the reply is the tell that it worked.
+What made it land is what is missing from it: no greeting, no product name, no calendar link, no "quick 15 minutes," and almost no "I." It opens on her spend, names the problem in her words, pokes at the cost she has learned to live with (a big spend she cannot defend to finance), and asks which part hurts most. She replied, and the reply is the tell that it worked.
 
 <div class="email-example">
 
