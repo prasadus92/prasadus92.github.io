@@ -2,6 +2,34 @@
 import V2Layout from '../../layouts/V2Layout.astro';
 import Nav from '../../components/v2/Nav.astro';
 import Footer from '../../components/v2/Footer.astro';
+import { site } from '../../data/site';
+
+const origin = `https://${site.domain}`;
+const profileLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfilePage',
+  name: 'AI enablement, hands-on · Prasad Subrahmanya',
+  url: `${origin}/ai-enablement`,
+  description:
+    'I help teams get AI into production and prove it works: agents, evals, reliability, and adoption. Founder and engineer who has shipped AI end to end.',
+  mainEntity: {
+    '@type': 'Person',
+    name: site.name,
+    url: origin,
+    jobTitle: 'Founder & CEO',
+    worksFor: { '@type': 'Organization', name: 'Luminik', url: site.links.luminik },
+    sameAs: [site.links.linkedin, site.links.github, site.links.luminik],
+    knowsAbout: [
+      'AI enablement',
+      'AI in production',
+      'LLM agents',
+      'Multi-agent systems',
+      'Evals',
+      'AI reliability',
+      'Software architecture',
+    ],
+  },
+};
 
 const helps = [
   { title: 'Find the work worth automating', body: 'Start from a task people already pay to do, not from a tool. Pick the few where AI changes the economics.' },
@@ -20,6 +48,7 @@ const sources = [
 <V2Layout
   title="AI enablement, hands-on · Prasad Subrahmanya"
   description="I help teams get AI into production and prove it works: agents, evals, reliability, and adoption. Founder and engineer who has shipped AI end to end."
+  jsonLd={[profileLd]}
 >
   <Nav />
   <section class="page-band">
