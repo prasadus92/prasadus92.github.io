@@ -73,7 +73,9 @@ import SignatureMotion from './SignatureMotion.astro';
 <style>
   .hero {
     position: relative;
-    /* one full viewport; svh keeps it honest on mobile browser chrome */
+    /* one full viewport; svh keeps it honest on mobile browser chrome.
+       100vh first as a fallback for browsers without svh support. */
+    min-height: 100vh;
     min-height: 100svh;
     display: flex;
     flex-direction: column;
