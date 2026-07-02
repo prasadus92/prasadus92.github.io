@@ -101,4 +101,11 @@ const CONSENT_KEY = 'prasad-consent-v1';
   .cc2-solid { background: #e5241c; color: #ffffff; border-color: #e5241c; }
   .cc2-solid:hover { background: #b0140c; border-color: #b0140c; }
   @media (prefers-reduced-motion: reduce) { .cc2 { transition: none; } }
+  /* Compact on small phones so it doesn't eat a third of the screen. */
+  @media (max-width: 560px) {
+    .cc2 { left: 10px; right: 10px; bottom: 10px; padding: 12px 14px; gap: 8px; box-shadow: 5px 5px 0 #e5241c; }
+    .cc2-copy { font-size: 0.78rem; line-height: 1.4; }
+    .cc2-actions { gap: 8px; }
+    .cc2-btn { padding: 0.5em 0.9em; font-size: 0.72rem; }
+  }
 </style>
