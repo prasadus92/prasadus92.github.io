@@ -9,7 +9,7 @@ export const site = {
   shortName: 'Prasad',
   domain: 'prasad.tech',
   location: 'Oslo, Norway',
-  email: 'prasadus92@gmail.com',
+  email: 'hi@prasad.tech',
   phone: '+47 919 24 282',
   phoneHref: '+4791924282',
   role: 'Founder & CEO, Luminik',
