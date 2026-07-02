@@ -244,11 +244,15 @@ import Footer from "../../components/v2/Footer.astro";
         else ops.push({t:'span',cls:n.getAttribute('class')||'',s:n.textContent});
       });
       const run=()=>{
+        // Reserve the headline's final rendered height BEFORE clearing it, so typing
+        // the lines back in never pushes the rest of the page down (the jump on mobile,
+        // where the 3 taglines wrap to 5-6 lines). Release it once typing finishes.
+        h1.style.minHeight=Math.ceil(h1.getBoundingClientRect().height)+'px';
         h1.textContent='';
         const caret=document.createElement('span'); caret.className='caret'; h1.appendChild(caret);
         let oi=0,ci=0,cur=null; const SPEED=42, LINE_PAUSE=200;
         const tick=()=>{
-          if(oi>=ops.length){ setTimeout(()=>caret.remove(),1400); return; }
+          if(oi>=ops.length){ setTimeout(()=>{caret.remove(); h1.style.minHeight='';},1400); return; }
           const op=ops[oi];
           if(op.t==='br'){ h1.insertBefore(document.createElement('br'),caret); oi++; ci=0; cur=null; return setTimeout(tick,LINE_PAUSE); }
           if(ci===0){ cur=document.createElement('span'); if(op.t==='span'&&op.cls) cur.className=op.cls; h1.insertBefore(cur,caret); }

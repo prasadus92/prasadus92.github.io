@@ -110,4 +110,22 @@ const CONSENT_KEY = 'prasad-consent-v1';
       transition: none;
     }
   }
+  /* Compact on small phones so it doesn't take a third of the screen. */
+  @media (max-width: 560px) {
+    .cookie {
+      left: 10px;
+      right: 10px;
+      bottom: 10px;
+      padding: var(--sp-3) var(--sp-4);
+      gap: var(--sp-2);
+    }
+    .cookie-copy {
+      font-size: var(--fs-xs);
+      line-height: 1.45;
+    }
+    .cookie-btn {
+      padding: 0.5em 0.9em;
+      font-size: var(--fs-xs);
+    }
+  }
 </style>

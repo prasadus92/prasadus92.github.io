@@ -152,7 +152,7 @@
     .nav-cta{padding:.6em 1.15em;font-size:.72rem;}
 
     /* ============================================================ HERO */
-    .hero{position:relative;min-height:calc(78vh - 74px);min-height:calc(78svh - 74px);display:flex;flex-direction:column;justify-content:center;padding-top:clamp(48px,7vh,96px);padding-bottom:clamp(40px,6vh,72px);}
+    .hero{position:relative;min-height:calc(100vh - 74px);min-height:calc(100svh - 74px);display:flex;flex-direction:column;justify-content:center;padding-top:clamp(32px,5vh,64px);padding-bottom:clamp(32px,5vh,64px);}
     .hero-meta{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--hair);padding-bottom:14px;margin-bottom:clamp(30px,5vw,58px);font-size:.72rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;}
     .hero-meta .r{color:var(--red);}
     .hero-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:clamp(30px,5vw,70px);align-items:start;}
@@ -169,8 +169,12 @@
     .portrait .vlabel{position:absolute;z-index:2;right:-30px;bottom:-30px;width:30px;height:calc(100% + 0px);display:flex;align-items:center;justify-content:center;}
     .portrait .vlabel span{writing-mode:vertical-rl;text-orientation:mixed;color:#fff;font-size:.66rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;}
     @media(max-width:880px){
-      .hero-grid{grid-template-columns:1fr;gap:54px;}
-      .portrait{margin-left:0;width:min(380px,84%);}
+      /* Stack + flow naturally on phones/tablets: copy sits right under the nav,
+         portrait follows. No forced full-height (avoids centering-overflow clipping
+         the headline under the sticky nav). */
+      .hero{min-height:auto;justify-content:flex-start;padding-top:clamp(18px,4vh,36px);padding-bottom:clamp(30px,6vh,52px);}
+      .hero-grid{grid-template-columns:1fr;gap:36px;}
+      .portrait{margin-left:0;width:min(300px,70%);}
     }
 
     /* ============================================================ section scaffold */
