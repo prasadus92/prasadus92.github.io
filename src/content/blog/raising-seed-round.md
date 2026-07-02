@@ -50,21 +50,19 @@ Here is a cold email that got a same-day reply. This one was barely warm, the pa
 
 <div class="email-example">
 
-**Subject:** 5 design partners, ~$8K MRR: data infra without a DevOps hire
+**Subject:** data infra, no DevOps hire: 5 design partners, \$8K MRR
 
-Hi \[Name\],
+\[Name\], you back data infra, so you have watched teams burn a full DevOps hire just to keep their stack observable, governed, and under control on cost. When finance asks what that headcount returned, there is rarely a clean answer. That is the spend we remove: one AI command center for cost, observability, and governance, with the integrations ready out of the box.
 
-You back a lot of data companies, so you have seen how much DevOps time teams still burn just to keep their stack observable, governed, and under control on cost. That is the gap we close: one AI command center that gives a data team cost control, observability, and governance with ready-made integrations, no DevOps hire needed.
+Where we are, six weeks in:
 
-Where we are:
-
-- Early design partners, with roughly \$8K in likely MRR
+- 5 design partners, roughly \$8K MRR committed, growing week over week
 - Prototype live and in their hands
-- My co-founder and I have built this kind of thing before: I founded Mainteny and led ventures at Bain's incubator; he was an early architect on a large SaaS data-lake team he helped grow from 3 to 50 engineers
+- My co-founder and I have built this before: I founded Mainteny, a CRM for European maintenance firms, and led ventures at Bain's incubator; he architected a SaaS data lake and grew the team from 3 to 50 engineers
 
-We are raising \$500K pre-seed to reach more than \$20K MRR in 15 months. Both of us are technical, so the place your read would help most is GTM and founder-led sales.
+We are raising \$500K pre-seed to reach \$20K+ MRR in 15 months. Both of us are technical, so the read that would help most is on GTM and founder-led sales.
 
-Deck attached. Worth a 20-minute call to see if it fits your thesis?
+Deck attached. Open to a 20-minute call to see if it fits your thesis?
 
 Prasad
 
@@ -72,11 +70,11 @@ Prasad
 
 He replied the same day, said one of his portfolio founders had been through his accelerator, and sent his calendar link.
 
-Why it works comes down to who each part is about. The subject leads with two numbers a data investor cannot skim past. The first line is about him and his portfolio, not us, and names a problem his companies actually have. The "where we are" block is three honest facts, not a pitch, including an honest "\$8K in likely MRR" rather than a rounded-up claim. The ask is small, and it hands him a role beyond writing a check: tell us where the GTM is weak. There is no hype, no fake urgency, and no flattery he would see through in a second.
+Why it works comes down to who each part is about. The subject leads with two numbers a data investor cannot skim past. The first line is about him and his portfolio, not us, names a problem his companies actually have, and pokes at the cost he has stopped noticing: a DevOps hire nobody can tie to a return. The "where we are" block is three honest facts framed the way an investor reads them, not just \$8K MRR but \$8K from five partners in six weeks, growing, because at seed the rate matters more than the number. The ask is small, and it hands him a role beyond writing a check: tell us where the GTM is weak. There is no hype, no fake urgency, and no flattery he would see through in a second.
 
 ### LinkedIn often beats email
 
-A message on LinkedIn tends to feel more personal than a cold email, and a good one can outperform the same message sent by email. The move is to connect first with something that is not a pitch, "Hi \[Name\], I have been following your work on European B2B, building something in the space and would like to connect", then, once they accept, send the real message built the same way as the email above: one researched hook, a few honest facts, a small ask.
+A message on LinkedIn tends to feel more personal than a cold email, and a good one can outperform the same message sent by email. The move is to connect first with something that is not a pitch, "\[Name\], I have followed your writing on European B2B for a while, building in the space now and would like to connect", then, once they accept, send the real message built the same way as the email above: one researched hook, a few honest facts, a small ask.
 
 ### Timing is free upside on a good message
 
