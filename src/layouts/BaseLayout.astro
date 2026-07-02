@@ -6,6 +6,7 @@ import Analytics from '../components/Analytics.astro';
 import PostHog from '../components/PostHog.astro';
 import CookieConsent from '../components/CookieConsent.astro';
 import { site } from '../data/site';
+import { baseJsonLd } from '../data/structuredData';
 
 export interface Props {
   title?: string;
@@ -39,46 +40,7 @@ const mdPath =
 const ogImage = new URL(image, Astro.site ?? `https://${site.domain}`).href;
 const origin = (Astro.site ?? new URL(`https://${site.domain}`)).origin;
 
-const personLd = {
-  '@context': 'https://schema.org',
-  '@type': 'Person',
-  name: site.name,
-  url: origin,
-  image: ogImage,
-  jobTitle: 'Founder & CEO',
-  worksFor: { '@type': 'Organization', name: 'Luminik', url: site.links.luminik },
-  address: { '@type': 'PostalAddress', addressLocality: 'Oslo', addressCountry: 'NO' },
-  sameAs: [site.links.linkedin, site.links.github, site.links.luminik],
-  knowsAbout: [
-    'AI-native engineering',
-    'LLM agents',
-    'Multi-agent systems',
-    'AI in production',
-    'Durable workflows',
-    'Software architecture',
-    'Startup engineering leadership',
-  ],
-};
-const organizationLd = {
-  '@context': 'https://schema.org',
-  '@type': 'Organization',
-  name: 'Luminik',
-  url: 'https://luminik.io',
-  logo: 'https://luminik.io/luminik-logo.png',
-  description: 'AI co-pilot for event marketers that turns attendee lists into pipeline',
-  sameAs: ['https://www.linkedin.com/company/luminik/', 'https://github.com/luminik-io'],
-  founder: {
-    '@type': 'Person',
-    name: site.name,
-    url: origin,
-  },
-};
-const siteLd = {
-  '@context': 'https://schema.org',
-  '@type': 'WebSite',
-  name: site.name,
-  url: origin,
-};
+const baseLd = baseJsonLd(origin, ogImage);
 ---
 
 <!doctype html>
@@ -118,12 +80,9 @@ const siteLd = {
     <meta name="theme-color" content="#06080d" media="(prefers-color-scheme: dark)" />
     <meta name="theme-color" content="#f7f8fb" media="(prefers-color-scheme: light)" />
 
-    <!-- Structured data -->
-    <script type="application/ld+json" set:html={JSON.stringify(personLd)} />
-    <script type="application/ld+json" set:html={JSON.stringify(organizationLd)} />
-    <script type="application/ld+json" set:html={JSON.stringify(siteLd)} />
+    <!-- Structured data (shared base + any page-specific schema) -->
     {
-      jsonLd.map((ld) => (
+      [...baseLd, ...jsonLd].map((ld) => (
         <script type="application/ld+json" set:html={JSON.stringify(ld)} />
       ))
     }

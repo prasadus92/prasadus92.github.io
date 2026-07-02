@@ -4,7 +4,8 @@ import Analytics from "../components/Analytics.astro";
 import PostHog from "../components/PostHog.astro";
 import CookieConsentV2 from "../components/v2/CookieConsentV2.astro";
 import { site } from "../data/site";
-const { title = "Prasad Subrahmanya", description = "" } = Astro.props;
+import { baseJsonLd } from "../data/structuredData";
+const { title = "Prasad Subrahmanya", description = "", jsonLd = [] } = Astro.props;
 
 // v2 is served both at /v2/* (direct, noindex) and at the canonical / URL for
 // bucket-b A/B visitors. Point canonical + OG at the non-/v2 canonical URL, and
@@ -19,6 +20,10 @@ const blogMatch = trimmed.match(/^\/blog\/(.+)$/);
 const ogId = trimmed === "" ? "home" : trimmed === "/blog" ? "blog" : blogMatch ? blogMatch[1] : null;
 const ogImage = origin + (ogId ? `/og/${ogId}.png` : "/assets/images/header/prasad.jpeg");
 const ogType = blogMatch ? "article" : "website";
+
+// Structured data: shared base (Person/Org/WebSite) + any page-specific schema
+// passed in, so v2 emits the same Rich Results markup as v1 for A/B parity.
+const structured = [...baseJsonLd(origin, ogImage), ...jsonLd];
 ---
 <!doctype html>
 <html lang="en">
@@ -40,6 +45,11 @@ const ogType = blogMatch ? "article" : "website";
   <meta name="twitter:title" content={title} />
   <meta name="twitter:description" content={description} />
   <meta name="twitter:image" content={ogImage} />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <!-- Structured data (shared base + any page-specific schema) -->
+  {structured.map((ld) => (
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+  ))}
   <link rel="alternate" type="text/plain" title="llms.txt" href="/llms.txt" />
   <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
   <link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet" />

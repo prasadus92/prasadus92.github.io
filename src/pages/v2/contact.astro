@@ -2,6 +2,30 @@
 import V2Layout from '../../layouts/V2Layout.astro';
 import Nav from '../../components/v2/Nav.astro';
 import Footer from '../../components/v2/Footer.astro';
+import { site } from '../../data/site';
+
+const origin = `https://${site.domain}`;
+const contactPageLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ContactPage',
+  name: `Contact ${site.name}`,
+  url: `${origin}/contact`,
+  description: `Ways to reach ${site.name}: email, LinkedIn, GitHub, or book a call.`,
+  mainEntity: {
+    '@type': 'Person',
+    name: site.name,
+    email: `mailto:${site.email}`,
+    url: origin,
+    sameAs: [site.links.linkedin, site.links.github],
+    contactPoint: {
+      '@type': 'ContactPoint',
+      contactType: 'business',
+      email: site.email,
+      url: `${origin}/book`,
+      availableLanguage: ['English'],
+    },
+  },
+};
 
 const channels = [
   { mark: 'EM', label: 'Email', value: 'prasadus92@gmail.com', href: 'mailto:prasadus92@gmail.com', external: false },
@@ -12,6 +36,7 @@ const channels = [
 <V2Layout
   title="Contact · Prasad Subrahmanya"
   description="Reach Prasad Subrahmanya by email, LinkedIn, or GitHub, or book a short call."
+  jsonLd={[contactPageLd]}
 >
   <Nav />
   <section class="page-band">
